@@ -1,12 +1,16 @@
 package com.example.roome;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 /**
  * this activity is presenting the app logo for a few seconds and then disappears.
@@ -15,6 +19,16 @@ import android.os.Handler;
 public class MainActivity extends AppCompatActivity {
     public static final String FROM = "called from";
     public static final String MAIN_SRC = "MAIN";
+
+    private String mUsername;
+    private String mPhotoUrl;
+
+    // Firebase instance variables
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    private DatabaseReference mFirebaseDatabaseReference;
+//    private FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>
+//            mFirebaseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +43,20 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                // Initialize Firebase Auth
+                mFirebaseAuth = FirebaseAuth.getInstance();
+                mFirebaseUser = mFirebaseAuth.getCurrentUser();
+                if (mFirebaseUser == null) {
+                    // Not signed in, launch the Sign In activity
+                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                    finish();
+                    return;
+                } else {
+                    mUsername = mFirebaseUser.getDisplayName();
+                    if (mFirebaseUser.getPhotoUrl() != null) {
+                        mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
+                    }
+                }
                 Intent i;
                 boolean isFirstRun = MyPreferences.isFirst(MainActivity.this);
                 if (isFirstRun) {
