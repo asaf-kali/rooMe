@@ -2,7 +2,7 @@ package com.example.roome.user_classes; //todo rename?
 
 public class User {
 
-    private int id;
+    private String id;
     private String firstName;
     private String lastName;
     private int age;
@@ -11,7 +11,7 @@ public class User {
     private Boolean isRoome;
     private Boolean lovesAnimals; //todo rename
 
-    public User(String firstName, String lastName, int id, int age){
+    public User(String firstName, String lastName, String id, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.id = id;
@@ -19,28 +19,28 @@ public class User {
     }
 
     //------------------------------------------Geters---------------------------------------------
-    public int getId(){
+    public String getId() {
         return id;
     }
 
-    public String getFirstName(){
+    public String getFirstName() {
         return firstName;
     }
 
-    public String getLastName(){
+    public String getLastName() {
         return lastName;
     }
 
-    public int getAge(){
+    public int getAge() {
         return age;
     }
 
     //------------------------------------------Seters---------------------------------------------
-    private void setUserName(String firstName){
+    private void setUserName(String firstName) {
         this.firstName = firstName;
     }
 
-    private void setUserAge(int age){
+    private void setUserAge(int age) {
         this.age = age;
     }
 }

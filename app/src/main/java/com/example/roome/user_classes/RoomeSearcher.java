@@ -9,7 +9,7 @@ public class RoomeSearcher extends User {
     private ArrayList<Image> apartmentImages;
     private int numberOfRoomes;
 
-    public RoomeSearcher(String firstName, String lastName, int id, int age) {
+    public RoomeSearcher(String firstName, String lastName, String id, int age) {
         super(firstName, lastName, id, age);
     }
 }
