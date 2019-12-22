@@ -26,7 +26,9 @@
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
-        android:text="Choosing Activity"
+        android:text="What would you like \n to find?"
+        android:textSize="36sp"
+        android:gravity="center_horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:onClick="apartmentSearcherOnclick"
-        android:text="apartment searcher"
+        android:text="An \napartment"
+        android:textSize="36sp"
+        android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -49,7 +53,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="roome searcher"
+        android:text="A roommate for\n my apartment"
+        android:textSize="36sp"
+        android:gravity="center_horizontal"
+        android:onClick="roommateSearcherOnclick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />

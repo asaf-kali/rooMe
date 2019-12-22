@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".MainActivityRoommateSearcher"></activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivityApartmentSearcher"></activity>
         <activity android:name=".SignInActivity" />
         <activity android:name=".ChoosingActivity" />
-        <activity android:name=".MainActivityApartmentSearcher">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

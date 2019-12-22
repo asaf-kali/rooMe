@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class ApartmentSearcherUser extends User {
     private ArrayList<String> optionalNeighborhoods;
 
-    public ApartmentSearcherUser(String firstName, String lastName, String id, int age) {
-        super(firstName, lastName, id, age);
+    public ApartmentSearcherUser(String firstName, String lastName, int age) {
+        super(firstName, lastName, age);
     }
 
 

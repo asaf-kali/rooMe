@@ -8,12 +8,12 @@ import android.content.SharedPreferences;
  */
 public class MyPreferences {
     static final String MY_PREFERENCES = "myPreferences";
-    static final String IS_FIRST_LOGIN = "isFirst";
+    static final String IS_FIRST_TIME = "isFirstTime";
     static final String IS_ROMMATE_SEARCHER = "isRoommateSearcher";
 
-    static boolean isFirst(Context context) {
+    static boolean isFirstTime(Context context) {
         final SharedPreferences reader = context.getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
-        return reader.getBoolean(IS_FIRST_LOGIN, true);
+        return reader.getBoolean(IS_FIRST_TIME, true);
     }
 
     static boolean isRoommateSearcher(Context context) {

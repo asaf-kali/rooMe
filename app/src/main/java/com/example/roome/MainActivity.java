@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = reader.edit();
-        editor.putBoolean(MyPreferences.IS_FIRST_LOGIN, true);
+        editor.putBoolean(MyPreferences.IS_FIRST_TIME, true);
         editor.apply();
-        //Time to launch the next activity
+        //Time passed till next activity is launched
         int TIME_OUT = 3000;
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 Intent i;
-                boolean isFirstRun = MyPreferences.isFirst(MainActivity.this);
-                if (isFirstRun) {
+                boolean isFirstTime = MyPreferences.isFirstTime(MainActivity.this);
+                if (isFirstTime) {
                     //show start activity
                     i = new Intent(MainActivity.this, ChoosingActivity.class);
                 } else {
