@@ -10,15 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 
 /**
  * this activity is presenting the app logo for a few seconds and then disappears.
  * this activity will be shown on every app visit.
  */
 public class MainActivity extends AppCompatActivity {
-    public static final String FROM = "called from";
-    public static final String MAIN_SRC = "MAIN";
+    private static final String FROM = "called from";
+    private static final String MAIN_SRC = "MAIN";
 
     private String mUsername;
     private String mPhotoUrl;
@@ -26,9 +25,7 @@ public class MainActivity extends AppCompatActivity {
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
-    private DatabaseReference mFirebaseDatabaseReference;
-//    private FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>
-//            mFirebaseAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
