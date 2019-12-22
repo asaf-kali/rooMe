@@ -11,7 +11,7 @@ public class RoommateSearcherUser extends User {
     private String neighborhood;
     private String entryDate;
     private double rent;
-    private String additionalInfo
+    private String additionalInfo;
     private int numberOfRoommates;
 
     public RoommateSearcherUser(String firstName, String lastName, int age) {
