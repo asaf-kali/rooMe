@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">rooMe</string>
     <string name="sign_in">sign in</string>
+    <string name="matches_button_action_bar">matches button action bar</string>
+    <string name="settings_button_action_bar">settings button action bar</string>
+    <string name="edit_profile_button_ab">edit profile</string>
+    <string name="edit_filters_button_ab">edit filters</string>
 </resources>
