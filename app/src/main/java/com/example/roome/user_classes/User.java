@@ -1,29 +1,29 @@
 package com.example.roome.user_classes; //todo rename?
 
+import android.media.Image;
+
 public class User {
 
-    private String id;
     private String firstName;
     private String lastName;
     private int age;
-
-    private Boolean isApartmentSearcher;
-    private Boolean isRoome;
+    private Image profilePic;
     private Boolean lovesAnimals; //todo rename
 
-    public User(String firstName, String lastName, String id, int age) {
+    public User(String firstName, String lastName, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.id = id;
         this.age = age;
     }
 
-    //------------------------------------------Geters---------------------------------------------
-    public String getId() {
-        return id;
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = 0;
     }
 
-    public String getFirstName() {
+    //------------------------------------------Geters---------------------------------------------
+     public String getFirstName() {
         return firstName;
     }
 

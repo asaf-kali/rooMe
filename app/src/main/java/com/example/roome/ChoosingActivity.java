@@ -1,5 +1,6 @@
 package com.example.roome;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -7,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.roome.user_classes.ApartmentSearcherUser;
+import com.example.roome.user_classes.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +33,7 @@ public class ChoosingActivity extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
     }
 
     /**
@@ -48,22 +50,6 @@ public class ChoosingActivity extends AppCompatActivity {
         textView.setText(String.format("Hi %s!", userName));
     }
 
-    public void apartmentSearcherOnclick(View view) {//todo rename
-        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
-        ApartmentSearcherUser userObj = createApartmentSearcherUser();
-        mFirebaseDatabaseReference.child("users").child(mFirebaseUser.getUid()).setValue(userObj);
-        toastMessage("Adding " + mFirebaseUser.getDisplayName() + " to database...");
-
-
-    }
-
-    private ApartmentSearcherUser createApartmentSearcherUser() { //todo factory?
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(ChoosingActivity.this);
-        String firstName = acct.getGivenName();
-        String lastName = acct.getFamilyName();
-        String id = acct.getId(); //todo real id??
-        return new ApartmentSearcherUser(firstName, lastName, id, 0); //todo age??
-    }
     //add a toast to show when successfully signed in
 
     /**
@@ -73,5 +59,30 @@ public class ChoosingActivity extends AppCompatActivity {
      */
     private void toastMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void roommateSearcherOnclick(View view) {
+        User userObj = createNewUser();
+        mFirebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
+        toastMessage("Adding " + mFirebaseUser.getDisplayName() + " to database..."); //todo remove
+        Intent i = new Intent(ChoosingActivity.this, MainActivityRoommateSearcher.class);
+        startActivity(i);
+        finish();
+    }
+
+    public void apartmentSearcherOnclick(View view) {
+        User userObj = createNewUser();
+        mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
+        toastMessage("Adding " + mFirebaseUser.getDisplayName() + " to database..."); //todo remove
+        Intent i = new Intent(ChoosingActivity.this, MainActivityApartmentSearcher.class);
+        startActivity(i);
+        finish();
+    }
+
+    private User createNewUser() {
+        GoogleSignInAccount userAccount = GoogleSignIn.getLastSignedInAccount(ChoosingActivity.this);
+        String firstName = userAccount.getGivenName();
+        String lastName = userAccount.getFamilyName();
+        return new User(firstName, lastName);
     }
 }
