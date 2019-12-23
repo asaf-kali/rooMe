@@ -4,11 +4,18 @@ import android.media.Image;
 
 public class User {
 
+    //--------------------profile info---------------------
     private String firstName;
     private String lastName;
     private int age;
+    private String gender;
     private Image profilePic;
-    private Boolean lovesAnimals; //todo rename
+
+    //--------------------filters---------------------
+    private boolean kosherImportance;
+    private int minAgeRequired;
+    private int maxAgeRequired;
+    private Boolean lovesAnimals; //todo rename and delete!!!
 
     public User(String firstName, String lastName, int age) {
         this.firstName = firstName;
@@ -22,8 +29,8 @@ public class User {
         this.age = 0;
     }
 
-    //------------------------------------------Geters---------------------------------------------
-     public String getFirstName() {
+    //------------------------------------------Getters---------------------------------------------
+    public String getFirstName() {
         return firstName;
     }
 
@@ -35,12 +42,55 @@ public class User {
         return age;
     }
 
-    //------------------------------------------Seters---------------------------------------------
+    public String getGender() {
+        return gender;
+    }
+
+    public Image getProfilePic() {
+        return profilePic;
+    }
+
+    public boolean getKosherImportance() {
+        return kosherImportance;
+    }
+
+    public int getMinAgeRequired() {
+        return minAgeRequired;
+    }
+
+    public int getMaxAgeRequired() {
+        return maxAgeRequired;
+    }
+
+
+    //------------------------------------------Setters---------------------------------------------
     private void setUserName(String firstName) {
         this.firstName = firstName;
     }
 
     private void setUserAge(int age) {
         this.age = age;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setProfilePic(Image profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    public void setKosherImportance(boolean kosherImportance) {
+        this.kosherImportance = kosherImportance;
+    }
+
+
+    public void setMinAgeRequired(int minAgeRequired) {
+        this.minAgeRequired = minAgeRequired;
+    }
+
+
+    public void setMaxAgeRequired(int maxAgeRequired) {
+        this.maxAgeRequired = maxAgeRequired;
     }
 }
