@@ -15,7 +15,6 @@ public class User {
     private boolean kosherImportance;
     private int minAgeRequired;
     private int maxAgeRequired;
-    private Boolean lovesAnimals; //todo rename and delete!!!
 
     public User(String firstName, String lastName, int age) {
         this.firstName = firstName;
@@ -83,7 +82,6 @@ public class User {
     public void setKosherImportance(boolean kosherImportance) {
         this.kosherImportance = kosherImportance;
     }
-
 
     public void setMinAgeRequired(int minAgeRequired) {
         this.minAgeRequired = minAgeRequired;
