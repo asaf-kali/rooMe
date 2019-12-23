@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".MainActivityRoommateSearcher"></activity>
-        <activity android:name=".MainActivityApartmentSearcher"></activity>
+        <activity android:name=".EditProfileApartmentSearcher"></activity>
+        <activity android:name=".MainActivityRoommateSearcher" />
+        <activity android:name=".MainActivityApartmentSearcher" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".ChoosingActivity" />
         <activity android:name=".MainActivity">

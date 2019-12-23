@@ -10,6 +10,7 @@ public class User {
     private int age;
     private String gender;
     private Image profilePic;
+    private String phoneNumber;
 
     //--------------------filters---------------------
     private boolean kosherImportance;
@@ -17,10 +18,11 @@ public class User {
     private int maxAgeRequired;
     private Boolean lovesAnimals; //todo rename and delete!!!
 
-    public User(String firstName, String lastName, int age) {
+    public User(String firstName, String lastName,String phone, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
+        this.phoneNumber = phone;
     }
 
     public User(String firstName, String lastName) {
