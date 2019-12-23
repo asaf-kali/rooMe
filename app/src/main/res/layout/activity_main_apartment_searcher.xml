@@ -14,5 +14,5 @@
         android:background="@android:color/darker_gray"
         android:theme = "@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
