@@ -20,6 +20,6 @@ public class RoommateSearcherUser extends User {
     private double rent;
 
     public RoommateSearcherUser(String firstName, String lastName, int age) {
-        super(firstName, lastName, age);
+        super(firstName, lastName);
     }
 }
