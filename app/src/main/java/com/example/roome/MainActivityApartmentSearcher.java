@@ -27,12 +27,12 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private int[] selectedtabIcons = {
-            R.drawable.ic_action_heart2,
-            R.drawable.ic_action_chosenprofile};
+            R.drawable.ic_action_filled_heart,
+            R.drawable.ic_action_filled_person};
 
     private int[] unselectedtabIcons = {
-            R.drawable.ic_action_heart,
-            R.drawable.ic_action_name};
+            R.drawable.ic_action_empty_heart,
+            R.drawable.ic_action_empty_person};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +55,14 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         super.onTabSelected(tab);
-                        if( tabLayout.getTabAt(0) == tab){
-//                        int tabIconColor = ContextCompat.getColor(context, R.color.tabSelectedIconColor);
-                            tab.setIcon(selectedtabIcons[0]);
-                    }
-                    else {tab.setIcon(selectedtabIcons[1]);}}
+                     tab.setIcon(selectedtabIcons[tab.getPosition()]);}
 
                     @Override
                     public void onTabUnselected(TabLayout.Tab tab) {
                         super.onTabUnselected(tab);
-                        if( tabLayout.getTabAt(0) == tab){
-//                        int tabIconColor = ContextCompat.getColor(context, R.color.tabSelectedIconColor);
-                            tab.setIcon(unselectedtabIcons[0]);
+
+                            tab.setIcon(unselectedtabIcons[tab.getPosition()]);
                         }
-                        else {tab.setIcon(unselectedtabIcons[1]);}}
 
                     @Override
                     public void onTabReselected(TabLayout.Tab tab) {
@@ -81,7 +75,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
 //        setSupportActionBar(apartment_toolbar);
     }
     private void setupTabIcons() {
-        tabLayout.getTabAt(0).setIcon(unselectedtabIcons[0]);
+        tabLayout.getTabAt(0).setIcon(selectedtabIcons[0]);
         tabLayout.getTabAt(1).setIcon(unselectedtabIcons[1]);
     }
 
@@ -120,29 +114,4 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
             return null;
         }
     }
-
-
-
-
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.action_bar_items, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {  // todo edit
-//        switch(item.getItemId()) {
-//            case R.id.ab_action_matches:
-//                Toast.makeText(this, "matches", Toast.LENGTH_SHORT).show();
-//                return true;
-////            case R.id.ab_action_s:
-////                Toast.makeText(this, "settings", Toast.LENGTH_SHORT).show();
-////                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
 }
