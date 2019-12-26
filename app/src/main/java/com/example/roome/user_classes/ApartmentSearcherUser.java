@@ -21,9 +21,49 @@ public class ApartmentSearcherUser extends User {
         super(firstName, lastName, age);
     }
 
+    //------------------------------------------Getters---------------------------------------------
+
+    public String getBio() {return bio;}
+
+    public ArrayList<String> getOptionalNeighborhoods() {return optionalNeighborhoods;}
+
+    public int getMinRent() {return minRent;}
+
+    public int getMaxRent() {return maxRent;}
+
+    public String getEarliestEntryDate() {return earliestEntryDate;}
+
+    public String getLatestEntryDate() {return latestEntryDate;}
+
+    public int getMinNumDesiredRoommates() {return minNumDesiredRoommates;}
+
+    public int getMaxNumDesiredRoommates() {return maxNumDesiredRoommates;}
+
 
     //------------------------------------------Seters---------------------------------------------
     private void setOptionalNeighborhoods(ArrayList<String> optionalNeighborhoods) {
         this.optionalNeighborhoods = optionalNeighborhoods;
+    }
+
+    public void setBio(String bio) {this.bio = bio;}
+
+    public void setMinRent(int minRent) {this.minRent = minRent;}
+
+    public void setMaxRent(int maxRent) {this.maxRent = maxRent;}
+
+    public void setEarliestEntryDate(String earliestEntryDate) {
+        this.earliestEntryDate = earliestEntryDate;
+    }
+
+    public void setLatestEntryDate(String latestEntryDate) {
+        this.latestEntryDate = latestEntryDate;
+    }
+
+    public void setMinNumDesiredRoommates(int minNumDesiredRoommates) {
+        this.minNumDesiredRoommates = minNumDesiredRoommates;
+    }
+
+    public void setMaxNumDesiredRoommates(int maxNumDesiredRoommates) {
+        this.maxNumDesiredRoommates = maxNumDesiredRoommates;
     }
 }
