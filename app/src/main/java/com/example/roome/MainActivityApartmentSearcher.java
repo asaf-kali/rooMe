@@ -8,10 +8,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
-import com.example.roome.Apartment_searcher_tabs_classes.FourFragment;
-import com.example.roome.Apartment_searcher_tabs_classes.OneFragment;
-import com.example.roome.Apartment_searcher_tabs_classes.ThreeFragment;
-import com.example.roome.Apartment_searcher_tabs_classes.TwoFragment;
+import com.example.roome.Apartment_searcher_tabs_activities.FourFragmentA;
+import com.example.roome.Apartment_searcher_tabs_activities.OneFragmentA;
+import com.example.roome.Apartment_searcher_tabs_activities.ThreeFragmentA;
+import com.example.roome.Apartment_searcher_tabs_activities.TwoFragmentA;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -26,8 +26,8 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
             R.drawable.ic_action_filled_heart, R.drawable.ic_action_filled_hourglass,
             R.drawable.ic_action_filled_person};
 
-    private int[] unselectedtabIcons = { R.drawable.ic_action_empty_home,
-            R.drawable.ic_action_empty_heart,R.drawable.ic_action_empty_hourglass,
+    private int[] unselectedtabIcons = {R.drawable.ic_action_empty_home,
+            R.drawable.ic_action_empty_heart, R.drawable.ic_action_empty_hourglass,
             R.drawable.ic_action_empty_person};
 
     @Override
@@ -82,10 +82,10 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new OneFragment(), "HOME");
-        adapter.addFragment(new TwoFragment(), "MATCHES");
-        adapter.addFragment(new ThreeFragment(), "FILTERS");
-        adapter.addFragment(new FourFragment(), "PROFILE");
+        adapter.addFragment(new OneFragmentA(), "HOME");
+        adapter.addFragment(new TwoFragmentA(), "MATCHES");
+        adapter.addFragment(new ThreeFragmentA(), "FILTERS");
+        adapter.addFragment(new FourFragmentA(), "PROFILE");
         viewPager.setAdapter(adapter);
     }
 
