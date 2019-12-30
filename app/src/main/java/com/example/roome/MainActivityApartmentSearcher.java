@@ -1,21 +1,17 @@
 package com.example.roome;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
+import com.example.roome.Apartment_searcher_tabs_classes.FourFragment;
+import com.example.roome.Apartment_searcher_tabs_classes.OneFragment;
+import com.example.roome.Apartment_searcher_tabs_classes.ThreeFragment;
+import com.example.roome.Apartment_searcher_tabs_classes.TwoFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
