@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditProfileApartmentSearcher"
+    tools:context=".Apartment_searcher_tabs_classes.EditProfileApartmentSearcher"
     android:orientation="vertical">
 
     <TextView
@@ -21,15 +21,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
+            android:id="@+id/iv_missingPhoto"
             android:layout_width="wrap_content"
             android:layout_height="170dp"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:src="@drawable/common_full_open_on_phone"
+            android:src="@drawable/missingprofilepic"
             >
-<!--            todo change to missingprofilepic-->
         </ImageView>
 
         <ImageButton
@@ -37,9 +37,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/addphotobutton"
-            android:onClick="uploadPhotoOnClick"
-            >
-
+            android:onClick="uploadPhotoOnClick">
         </ImageButton>
 
     </LinearLayout>
@@ -54,6 +52,7 @@
     </TextView>
 
     <EditText
+        android:id="@+id/et_enterFirstName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -95,6 +94,7 @@
     </TextView>
 
     <EditText
+        android:id="@+id/et_enterAge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -159,6 +159,7 @@
     </TextView>
 
     <EditText
+        android:id="@+id/et_phoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
+import com.example.roome.Apartment_searcher_tabs_classes.EditProfileApartmentSearcher;
 import com.example.roome.Apartment_searcher_tabs_classes.FourFragment;
 import com.example.roome.Apartment_searcher_tabs_classes.OneFragment;
 import com.example.roome.Apartment_searcher_tabs_classes.ThreeFragment;
@@ -85,7 +86,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         adapter.addFragment(new OneFragment(), "HOME");
         adapter.addFragment(new TwoFragment(), "MATCHES");
         adapter.addFragment(new ThreeFragment(), "FILTERS");
-        adapter.addFragment(new FourFragment(), "PROFILE");
+        adapter.addFragment(new EditProfileApartmentSearcher(), "PROFILE");
         viewPager.setAdapter(adapter);
     }
 
