@@ -18,7 +18,7 @@ public class ApartmentSearcherUser extends User {
 
 
     public ApartmentSearcherUser(String firstName, String lastName, int age) {
-        super(firstName, lastName, age);
+        super(firstName, lastName);
     }
 
     //------------------------------------------Getters---------------------------------------------

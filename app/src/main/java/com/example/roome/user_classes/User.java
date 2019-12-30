@@ -17,13 +17,6 @@ public class User {
     private int minAgeRequired;
     private int maxAgeRequired;
 
-    public User(String firstName, String lastName,String phone, int age) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.phoneNumber = phone;
-    }
-
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
