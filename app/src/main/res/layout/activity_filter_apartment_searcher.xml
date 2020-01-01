@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDark">
 
     <TextView
         android:layout_width="match_parent"
@@ -13,7 +14,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="Edit Filters">
+        android:text="Edit Filters"
+        >
     </TextView>
 
     <TextView
@@ -22,19 +24,52 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="25dp"
-        android:text="Select your preferred cost range ">
+        android:text="Select your preferred cost range "
+        android:textSize="24sp"
+        >
     </TextView>
 
     <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
-        android:id="@+id/rsb_costBar"
+        android:id="@+id/rsb_cost_bar"
         android:layout_width="370dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="8dp"
         />
+
+    <Button
+        android:id="@+id/btn_choose_locations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="20dp"
+        android:text="Select your preferred location/s"
+        android:textSize="24sp"
+        >
+    </Button>
+
+    <TextView
+        android:id="@+id/tv_chosen_locations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        >
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="When do you want to enter?"
+        android:textSize="24sp">
+    </TextView>
 
 
 
