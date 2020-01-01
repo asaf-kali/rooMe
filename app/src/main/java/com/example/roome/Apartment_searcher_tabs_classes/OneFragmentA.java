@@ -1,4 +1,4 @@
-package com.example.roome.Apartment_searcher_tabs_activities;
+package com.example.roome.Apartment_searcher_tabs_classes;
 
 
 import android.os.Bundle;

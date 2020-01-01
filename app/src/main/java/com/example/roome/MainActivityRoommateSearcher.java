@@ -8,14 +8,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
-import com.example.roome.Apartment_searcher_tabs_activities.FourFragmentA;
-import com.example.roome.Apartment_searcher_tabs_activities.OneFragmentA;
-import com.example.roome.Apartment_searcher_tabs_activities.ThreeFragmentA;
-import com.example.roome.Roomate_searcher_tabs_activities.OneFragmentR;
-import com.example.roome.Roomate_searcher_tabs_activities.TwoFragmentR;
-import com.example.roome.Roomate_searcher_tabs_activities.ThreeFragmentR;
-import com.example.roome.Roomate_searcher_tabs_activities.FourFragmentR;
-import com.example.roome.Apartment_searcher_tabs_activities.TwoFragmentA;
+import com.example.roome.Roomate_searcher_tabs_classes.OneFragmentR;
+import com.example.roome.Roomate_searcher_tabs_classes.TwoFragmentR;
+import com.example.roome.Roomate_searcher_tabs_classes.ThreeFragmentR;
+import com.example.roome.Roomate_searcher_tabs_classes.FourFragmentR;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
