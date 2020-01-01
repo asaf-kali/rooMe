@@ -34,8 +34,6 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_apartment_searcher);
-
-
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);

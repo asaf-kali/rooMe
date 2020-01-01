@@ -1,7 +1,6 @@
 package com.example.roome.Roomate_searcher_tabs_classes;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +19,8 @@ public class TwoFragmentR extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent i = new Intent(getActivity(), EditProfileApartmentSearcher.class);
-        startActivity(i);
+//        Intent i = new Intent(getActivity(), EditProfileApartmentSearcher.class);
+//        startActivity(i);
     }
 
     @Override
