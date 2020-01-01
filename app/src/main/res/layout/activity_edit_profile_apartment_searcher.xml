@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Apartment_searcher_tabs_classes.EditProfileApartmentSearcher"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Apartment_searcher_tabs_classes.EditProfileApartmentSearcher">
 
     <TextView
         android:layout_width="match_parent"
@@ -13,13 +13,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="Edit Profile">
-    </TextView>
+        android:text="Edit Profile"></TextView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             android:id="@+id/iv_missingPhoto"
             android:layout_width="wrap_content"
@@ -28,17 +28,14 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:src="@drawable/missingprofilepic"
-            >
-        </ImageView>
+            android:src="@drawable/missingprofilepic"></ImageView>
 
         <ImageButton
             android:id="@+id/ib_noProfilePic"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/addphotobutton"
-            android:onClick="uploadPhotoOnClick">
-        </ImageButton>
+            android:onClick="uploadPhotoOnClick"
+            android:src="@drawable/addphotobutton"></ImageButton>
 
     </LinearLayout>
 
@@ -48,8 +45,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="First Name:">
-    </TextView>
+        android:text="First Name:"></TextView>
 
     <EditText
         android:id="@+id/et_enterFirstName"
@@ -59,9 +55,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="textLongMessage|textPersonName"
-        android:hint="Amit">
-    </EditText>
+        android:hint="Amit"
+        android:inputType="textLongMessage|textPersonName"></EditText>
 
     <TextView
         android:layout_width="match_parent"
@@ -70,8 +65,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:text="Last Name:">
-    </TextView>
+        android:text="Last Name:"></TextView>
 
     <EditText
         android:layout_width="wrap_content"
@@ -80,9 +74,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="textLongMessage|textPersonName"
-        android:hint="Cohen">
-    </EditText>
+        android:hint="Cohen"
+        android:inputType="textLongMessage|textPersonName"></EditText>
 
     <TextView
         android:layout_width="match_parent"
@@ -90,8 +83,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="Age:">
-    </TextView>
+        android:text="Age:"></TextView>
 
     <EditText
         android:id="@+id/et_enterAge"
@@ -100,10 +92,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:inputType="numberSigned"
         android:ems="2"
-        android:hint="23">
-    </EditText>
+        android:hint="23"
+        android:inputType="numberSigned"></EditText>
 
     <TextView
         android:id="@+id/tv_gender_label"
@@ -112,8 +103,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="Gender:">
-    </TextView>
+        android:text="Gender:"></TextView>
 
     <RadioGroup
         android:id="@+id/radioGroup_choose_gender"
@@ -154,9 +144,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="Phone Number:"
-        >
-    </TextView>
+        android:text="Phone Number:"></TextView>
 
     <EditText
         android:id="@+id/et_phoneNumber"
@@ -166,9 +154,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="numberSigned"
-        android:hint="0526593721">
-    </EditText>
+        android:hint="0526593721"
+        android:inputType="numberSigned"></EditText>
 
     <TextView
         android:layout_width="match_parent"
@@ -176,8 +163,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="Bio">
-    </TextView>
+        android:text="Bio"></TextView>
 
     <EditText
         android:layout_width="wrap_content"
@@ -185,14 +171,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:inputType="textLongMessage"
-        android:hint="Describe yourself for roommate searchers.">
-    </EditText>
-
-
-
-
-
+        android:hint="Describe yourself for roommate searchers."
+        android:inputType="textLongMessage"></EditText>
 
 
 </LinearLayout>
