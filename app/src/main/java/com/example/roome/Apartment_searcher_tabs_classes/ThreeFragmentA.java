@@ -1,4 +1,4 @@
-package com.example.roome.Apartment_searcher_tabs_activities;
+package com.example.roome.Apartment_searcher_tabs_classes;
 
 
 import android.os.Bundle;
@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.roome.R;
 
-public class TwoFragmentA extends Fragment {
+public class ThreeFragmentA extends Fragment {
 
-    public TwoFragmentA() {
+    public ThreeFragmentA() {
         // Required empty public constructor
     }
 
@@ -25,7 +25,7 @@ public class TwoFragmentA extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_two_a, container, false);
+        return inflater.inflate(R.layout.fragment_three_a, container, false);
     }
 
 }
