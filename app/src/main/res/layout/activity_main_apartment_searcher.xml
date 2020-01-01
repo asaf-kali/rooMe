@@ -7,10 +7,10 @@
     tools:context=".MainActivityApartmentSearcher">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
+        android:id="@+id/tabs_apartment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/viewpager"
+        android:layout_alignBottom="@+id/viewpager_apartment"
         android:layout_marginBottom="0dp"
         app:tabGravity="fill"
         app:tabIndicatorAnimationDuration="300"
@@ -19,7 +19,7 @@
         app:tabTextColor="#00D10303" />
 
     <com.example.roome.CustomViewPager
-        android:id="@+id/viewpager"
+        android:id="@+id/viewpager_apartment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
