@@ -38,10 +38,10 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        viewPager = (CustomViewPager) findViewById(R.id.viewpager);
+        viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs_apartment);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
         tabLayout.addOnTabSelectedListener(
