@@ -1,6 +1,14 @@
 package com.example.roome.user_classes;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 public class ApartmentSearcherUser extends User {
 
@@ -21,23 +29,42 @@ public class ApartmentSearcherUser extends User {
         super(firstName, lastName);
     }
 
+    public ApartmentSearcherUser() {
+    }
+
     //------------------------------------------Getters---------------------------------------------
 
-    public String getBio() {return bio;}
+    public String getBio() {
+        return bio;
+    }
 
-    public ArrayList<String> getOptionalNeighborhoods() {return optionalNeighborhoods;}
+    public ArrayList<String> getOptionalNeighborhoods() {
+        return optionalNeighborhoods;
+    }
 
-    public int getMinRent() {return minRent;}
+    public int getMinRent() {
+        return minRent;
+    }
 
-    public int getMaxRent() {return maxRent;}
+    public int getMaxRent() {
+        return maxRent;
+    }
 
-    public String getEarliestEntryDate() {return earliestEntryDate;}
+    public String getEarliestEntryDate() {
+        return earliestEntryDate;
+    }
 
-    public String getLatestEntryDate() {return latestEntryDate;}
+    public String getLatestEntryDate() {
+        return latestEntryDate;
+    }
 
-    public int getMinNumDesiredRoommates() {return minNumDesiredRoommates;}
+    public int getMinNumDesiredRoommates() {
+        return minNumDesiredRoommates;
+    }
 
-    public int getMaxNumDesiredRoommates() {return maxNumDesiredRoommates;}
+    public int getMaxNumDesiredRoommates() {
+        return maxNumDesiredRoommates;
+    }
 
 
     //------------------------------------------Seters---------------------------------------------
@@ -45,11 +72,17 @@ public class ApartmentSearcherUser extends User {
         this.optionalNeighborhoods = optionalNeighborhoods;
     }
 
-    public void setBio(String bio) {this.bio = bio;}
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 
-    public void setMinRent(int minRent) {this.minRent = minRent;}
+    public void setMinRent(int minRent) {
+        this.minRent = minRent;
+    }
 
-    public void setMaxRent(int maxRent) {this.maxRent = maxRent;}
+    public void setMaxRent(int maxRent) {
+        this.maxRent = maxRent;
+    }
 
     public void setEarliestEntryDate(String earliestEntryDate) {
         this.earliestEntryDate = earliestEntryDate;
@@ -66,4 +99,22 @@ public class ApartmentSearcherUser extends User {
     public void setMaxNumDesiredRoommates(int maxNumDesiredRoommates) {
         this.maxNumDesiredRoommates = maxNumDesiredRoommates;
     }
+
+    public static ApartmentSearcherUser getApartmentSearcherUserFromFirebase(DatabaseReference mFirebaseDatabaseReference, String userFirebaseId) {
+        CountDownLatch done = new CountDownLatch(1);
+        final ApartmentSearcherUser[] user = {null};
+        mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(userFirebaseId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                user[0] = dataSnapshot.getValue(ApartmentSearcherUser.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return user[0];
+    }
+
 }

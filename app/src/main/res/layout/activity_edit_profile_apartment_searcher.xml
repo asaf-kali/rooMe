@@ -68,6 +68,7 @@
         android:text="Last Name:"></TextView>
 
     <EditText
+        android:id="@+id/et_enterLastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
