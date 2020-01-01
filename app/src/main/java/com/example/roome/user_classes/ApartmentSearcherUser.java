@@ -8,7 +8,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
 
 public class ApartmentSearcherUser extends User {
 
@@ -101,20 +100,35 @@ public class ApartmentSearcherUser extends User {
     }
 
     public static ApartmentSearcherUser getApartmentSearcherUserFromFirebase(DatabaseReference mFirebaseDatabaseReference, String userFirebaseId) {
-        CountDownLatch done = new CountDownLatch(1);
         final ApartmentSearcherUser[] user = {null};
-        mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(userFirebaseId).addListenerForSingleValueEvent(new ValueEventListener() {
+        readData(new FirbaseCallback() {
+            @Override
+            public void onCallback(ApartmentSearcherUser aUser) {
+                user[0] = aUser;
+            }
+        },mFirebaseDatabaseReference, userFirebaseId);
+
+        return user[0];
+    }
+
+    private static void readData(final FirbaseCallback firbaseCallBack, DatabaseReference mFirebaseDatabaseReference, String userFirebaseId) {
+        final ApartmentSearcherUser[] user = {null};
+        ValueEventListener vL = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 user[0] = dataSnapshot.getValue(ApartmentSearcherUser.class);
+                firbaseCallBack.onCallback(user[0]);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
-        return user[0];
+        };
+        mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(userFirebaseId).addValueEventListener(vL);
     }
 
+    private interface FirbaseCallback{
+        void onCallback(ApartmentSearcherUser aUser);
+    }
 }
