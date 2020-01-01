@@ -4,6 +4,13 @@ import android.media.Image;
 
 public class User {
 
+    public static final int NAME_MAXIMUM_LENGTH = 18;
+    public static final int MAXIMUM_LENGTH = 4;
+    public static final int MAXIMUM_AGE = 120;
+    public static final int MINIMUM_AGE = 6;
+    public static final int PHONE_NUMBER_LENGTH = 10 ;
+
+
     //--------------------profile info---------------------
     private String firstName;
     private String lastName;
