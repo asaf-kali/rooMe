@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class EditProfileApartmentSearcher extends Fragment {
-    private Boolean isUserFirstNameValid;
+    private Boolean isUserFirstNameValid;//todo use
     private Boolean isUserLastNameValid;
     private Boolean isUserAgeValid;
     private Boolean isUserPhoneValid;
@@ -52,7 +52,7 @@ public class EditProfileApartmentSearcher extends Fragment {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
-//        aUser = getApartmentSearcherUserFromFirebase(mFirebaseUser.getUid());
+//        aUser = getApartmentSearcherUserFromFirebase(mFirebaseUser.getUid());//todo
         mFirebaseDatabaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -79,7 +79,7 @@ public class EditProfileApartmentSearcher extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-//    public ApartmentSearcherUser getApartmentSearcherUserFromFirebase(String userFirebaseId){
+//    public ApartmentSearcherUser getApartmentSearcherUserFromFirebase(String userFirebaseId){ //todo
 //        CountDownLatch done = new CountDownLatch(1);
 //        final ApartmentSearcherUser[] user = {null};
 //
@@ -131,7 +131,7 @@ public class EditProfileApartmentSearcher extends Fragment {
 
     public void uploadPhotoOnClick(View view) {
 //        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);//todo
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -153,7 +153,7 @@ public class EditProfileApartmentSearcher extends Fragment {
         mEnterFirstNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                mEnterFirstNameEditText.setText(aUser.getFirstName() + "***");
+//                mEnterFirstNameEditText.setText(aUser.getFirstName() + "***"); //todo
             }
 
             @Override
@@ -168,7 +168,7 @@ public class EditProfileApartmentSearcher extends Fragment {
                 } else {
                     isUserFirstNameValid = true;
                 }
-                mEnterFirstNameEditText.setText(aUser.getFirstName() + "***");
+//                mEnterFirstNameEditText.setText(aUser.getFirstName() + "***"); //todo
             }
 
             @Override
