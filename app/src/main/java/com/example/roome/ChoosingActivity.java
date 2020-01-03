@@ -75,6 +75,7 @@ public class ChoosingActivity extends AppCompatActivity {
 //        mFirebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
 //        toastMessage("Adding " + mFirebaseUser.getDisplayName() + " to database..."); //todo remove
         DatabaseReference newRef = mFirebaseDatabaseReference.child("users").child("RoommateSearcherUser").push();
+        String key = newRef.getKey();
         newRef.setValue(userObj);
         Intent i = new Intent(ChoosingActivity.this, MainActivityRoommateSearcher.class);
         startActivity(i);
@@ -86,6 +87,7 @@ public class ChoosingActivity extends AppCompatActivity {
 //        mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
 //        toastMessage("Adding " + mFirebaseUser.getDisplayName() + " to database..."); //todo remove
         DatabaseReference newRef = mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").push();
+        String key = newRef.getKey();
         newRef.setValue(userObj);
         Intent i = new Intent(ChoosingActivity.this, MainActivityApartmentSearcher.class);
         startActivity(i);
