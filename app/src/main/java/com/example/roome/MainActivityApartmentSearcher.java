@@ -41,6 +41,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);
+        viewPager.setOffscreenPageLimit(3);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs_apartment);
@@ -68,10 +69,8 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
                     }
                 }
         );
-//        Toolbar apartment_toolbar = (Toolbar) findViewById(R.id.apartment_tool_bar);
-//        androidx.appcompat.widget.Toolbar apartment_toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.apartment_tool_bar);
-//        setSupportActionBar(apartment_toolbar);
     }
+
 
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(selectedtabIcons[0]);
@@ -79,7 +78,6 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         tabLayout.getTabAt(2).setIcon(unselectedtabIcons[2]);
         tabLayout.getTabAt(3).setIcon(unselectedtabIcons[3]);
     }
-
 
     private void setupViewPager(ViewPager viewPager) {
 

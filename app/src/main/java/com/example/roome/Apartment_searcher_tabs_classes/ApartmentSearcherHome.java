@@ -41,7 +41,7 @@ public class ApartmentSearcherHome extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        currentPlaceInList=-1;
+        currentPlaceInList = -1;
         retrieveRelevantRoommateSearchers();
         mainImage = getView().findViewById(R.id.iv_home_display);
         yesButton = getView().findViewById(R.id.btn_yes_house);
@@ -113,6 +113,7 @@ public class ApartmentSearcherHome extends Fragment {
         //todo user maybe to apt of the relevantRoommateSearchers[currentPlaceInList] - update?
         moveToNextOption();
     }
+
     private void moveToNextOption() { //todo delete , undelete the function below
         currentPlaceInList++;
         if (currentPlaceInList < temp_img.size()) {
@@ -137,8 +138,15 @@ public class ApartmentSearcherHome extends Fragment {
         yesButton.setVisibility(View.INVISIBLE);
         noButton.setVisibility(View.INVISIBLE);
         maybeButton.setVisibility(View.INVISIBLE);
-        mainImage.setImageResource(R.drawable.no_more_houses);
+        mainImage.setImageResource(R.drawable.no_more_houses_2);
         noMoreHousesText.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (isVisibleToUser) {
+            // todo if we want to refresh when page is uploaded - do it here
+        }
+        super.setUserVisibleHint(isVisibleToUser);
+    }
 }
