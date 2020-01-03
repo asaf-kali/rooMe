@@ -53,17 +53,17 @@ public class EditProfileApartmentSearcher extends Fragment {
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
 //        aUser = getApartmentSearcherUserFromFirebase(mFirebaseUser.getUid());//todo
-        mFirebaseDatabaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                aUser = c(dataSnapshot);//.getValue(ApartmentSearcherUser.class);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//        mFirebaseDatabaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                aUser = c(dataSnapshot);//.getValue(ApartmentSearcherUser.class);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        }); //todo add this
 
         mFirebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override

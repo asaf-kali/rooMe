@@ -18,8 +18,7 @@ public class FourFragmentR extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Intent i = new Intent(getActivity(), EditProfileApartmentSearcher.class);
-//        startActivity(i);
+
     }
 
     @Override

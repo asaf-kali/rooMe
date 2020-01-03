@@ -7,6 +7,9 @@ import java.util.ArrayList;
 public class Apartment {
 
 
+    private static final int MAIN_IMAGE_INDEX = 0;
+
+
     //--------------------apartment info---------------------
 
     private ArrayList<Image> apartmentImages;
@@ -22,6 +25,8 @@ public class Apartment {
     public ArrayList<Image> getApartmentImages() {
         return apartmentImages;
     }
+
+    public Image getMainImage() {return apartmentImages.get(MAIN_IMAGE_INDEX);}
 
 
     public String getNeighborhood() {
