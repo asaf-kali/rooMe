@@ -52,7 +52,19 @@ public class EditProfileApartmentSearcher extends Fragment {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
-        aUser = ApartmentSearcherUser.getApartmentSearcherUserFromFirebase(mFirebaseDatabaseReference, mFirebaseUser.getUid());
+//        aUser = getApartmentSearcherUserFromFirebase(mFirebaseUser.getUid());
+        mFirebaseDatabaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                aUser = c(dataSnapshot);//.getValue(ApartmentSearcherUser.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         mFirebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -65,6 +77,18 @@ public class EditProfileApartmentSearcher extends Fragment {
             }
         });
         super.onCreate(savedInstanceState);
+    }
+
+//    public ApartmentSearcherUser getApartmentSearcherUserFromFirebase(String userFirebaseId){
+//        CountDownLatch done = new CountDownLatch(1);
+//        final ApartmentSearcherUser[] user = {null};
+//
+//        return user[0];
+//    }
+
+    private ApartmentSearcherUser c(DataSnapshot dataSnapshot){
+        String s = mFirebaseUser.getUid();
+        return dataSnapshot.child("users").child("ApartmentSearcherUser").child(s).getValue(ApartmentSearcherUser.class);
     }
 
     private ArrayList<ApartmentSearcherUser> createArrayOfUsers(DataSnapshot dataSnapshot) {
