@@ -27,6 +27,32 @@
         android:layout_marginRight="25dp"
         android:visibility="visible" />
 
+    <EditText
+        android:id="@+id/et_first_name_without_google"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="500sp"
+        android:ems="10"
+        android:hint="first name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/et_last_name_without_google"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="550sp"
+        android:ems="10"
+        android:hint="last name"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btn_sign_without_google"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="600sp"
+        android:onClick="signWithoutGoogleFunc"
+        android:text="sign without google" />
+
 </FrameLayout>
 
 
