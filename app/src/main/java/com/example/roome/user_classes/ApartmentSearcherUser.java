@@ -21,23 +21,42 @@ public class ApartmentSearcherUser extends User {
         super(firstName, lastName);
     }
 
+    public ApartmentSearcherUser() {
+    }
+
     //------------------------------------------Getters---------------------------------------------
 
-    public String getBio() {return bio;}
+    public String getBio() {
+        return bio;
+    }
 
-    public ArrayList<String> getOptionalNeighborhoods() {return optionalNeighborhoods;}
+    public ArrayList<String> getOptionalNeighborhoods() {
+        return optionalNeighborhoods;
+    }
 
-    public int getMinRent() {return minRent;}
+    public int getMinRent() {
+        return minRent;
+    }
 
-    public int getMaxRent() {return maxRent;}
+    public int getMaxRent() {
+        return maxRent;
+    }
 
-    public String getEarliestEntryDate() {return earliestEntryDate;}
+    public String getEarliestEntryDate() {
+        return earliestEntryDate;
+    }
 
-    public String getLatestEntryDate() {return latestEntryDate;}
+    public String getLatestEntryDate() {
+        return latestEntryDate;
+    }
 
-    public int getMinNumDesiredRoommates() {return minNumDesiredRoommates;}
+    public int getMinNumDesiredRoommates() {
+        return minNumDesiredRoommates;
+    }
 
-    public int getMaxNumDesiredRoommates() {return maxNumDesiredRoommates;}
+    public int getMaxNumDesiredRoommates() {
+        return maxNumDesiredRoommates;
+    }
 
 
     //------------------------------------------Seters---------------------------------------------
@@ -45,11 +64,17 @@ public class ApartmentSearcherUser extends User {
         this.optionalNeighborhoods = optionalNeighborhoods;
     }
 
-    public void setBio(String bio) {this.bio = bio;}
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 
-    public void setMinRent(int minRent) {this.minRent = minRent;}
+    public void setMinRent(int minRent) {
+        this.minRent = minRent;
+    }
 
-    public void setMaxRent(int maxRent) {this.maxRent = maxRent;}
+    public void setMaxRent(int maxRent) {
+        this.maxRent = maxRent;
+    }
 
     public void setEarliestEntryDate(String earliestEntryDate) {
         this.earliestEntryDate = earliestEntryDate;
@@ -66,4 +91,37 @@ public class ApartmentSearcherUser extends User {
     public void setMaxNumDesiredRoommates(int maxNumDesiredRoommates) {
         this.maxNumDesiredRoommates = maxNumDesiredRoommates;
     }
+
+//    public static ApartmentSearcherUser getApartmentSearcherUserFromFirebase(DatabaseReference mFirebaseDatabaseReference, String userFirebaseId) {
+//        final ApartmentSearcherUser[] user = {null};
+//        readData(new FirbaseCallback() {
+//            @Override
+//            public void onCallback(ApartmentSearcherUser aUser) {
+//                user[0] = aUser;
+//            }
+//        },mFirebaseDatabaseReference, userFirebaseId);
+//
+//        return user[0];
+//    }
+
+//    private static void readData(final FirbaseCallback firbaseCallBack, DatabaseReference mFirebaseDatabaseReference, String userFirebaseId) {
+//        final ApartmentSearcherUser[] user = {null};
+//        ValueEventListener vL = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                user[0] = dataSnapshot.getValue(ApartmentSearcherUser.class);
+//                firbaseCallBack.onCallback(user[0]);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        };
+//        mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(userFirebaseId).addValueEventListener(vL);
+//    }
+//
+//    private interface FirbaseCallback{
+//        void onCallback(ApartmentSearcherUser aUser);
+//    }
 }

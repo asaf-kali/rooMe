@@ -8,7 +8,7 @@ public class User {
     public static final int MAXIMUM_LENGTH = 4;
     public static final int MAXIMUM_AGE = 120;
     public static final int MINIMUM_AGE = 6;
-    public static final int PHONE_NUMBER_LENGTH = 10 ;
+    public static final int PHONE_NUMBER_LENGTH = 10;
 
 
     //--------------------profile info---------------------
@@ -28,6 +28,9 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = 0;
+    }
+
+    public User() {
     }
 
     //------------------------------------------Getters---------------------------------------------
