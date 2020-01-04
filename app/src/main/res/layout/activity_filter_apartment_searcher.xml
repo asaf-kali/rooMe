@@ -63,14 +63,95 @@
     </TextView>
 
     <TextView
+        android:id="@+id/tv_entry_date_as"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:text="When do you want to enter?"
+        android:hint="Press me to select entry date"
         android:textSize="24sp">
     </TextView>
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose range of total number of roommates"
+        android:layout_gravity="center"
+        android:textSize="24sp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp">
+    </TextView>
+
+    <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
+        android:id="@+id/rsb_num_roommates_bar"
+        android:layout_width="250dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select roommates' age range preference"
+        android:layout_gravity="center"
+        android:textSize="24sp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp">
+    </TextView>
+
+    <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
+        android:id="@+id/rsb_age_roommates_bar"
+        android:layout_width="370dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Is a Kosher apartment important to you?"
+        android:layout_gravity="center"
+        android:textSize="24sp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp">
+    </TextView>
+
+    <RadioGroup
+        android:id="@+id/radioGroup_kosher_as"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_btn_as_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Yes"
+            android:textColor="@android:color/secondary_text_light"
+            android:textColorLink="#4CAF50"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/radio_btn_as_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"
+            android:textColor="@android:color/secondary_text_light"
+            android:textColorLink="#4CAF50"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+    </RadioGroup>
 
 </LinearLayout>

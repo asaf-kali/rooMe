@@ -3,18 +3,23 @@ package com.example.roome.Apartment_searcher_tabs_classes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.example.roome.R;
 import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 //todo: send all data if save pressed
 public class EditFiltersApartmentSearcher extends Fragment {
@@ -27,6 +32,13 @@ public class EditFiltersApartmentSearcher extends Fragment {
     String[] locations;
     boolean[] checkedLocations;
     ArrayList<Integer> mUserLocations = new ArrayList<>(); //todo:send the locations chosen to db when save pressed
+
+    private TextView mDisplayDate;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+
+    private  RangeSeekBar numRoommatesBar;
+
+    private  RangeSeekBar ageRoommatesBar;
 
 
     @Override
@@ -122,7 +134,75 @@ public class EditFiltersApartmentSearcher extends Fragment {
                 mDialog.show();
             }
         });
+        //---------------------------------------------------------------------------
+        //----------------------------entry date selection----------------------------
+        mDisplayDate = (TextView) getView().findViewById(R.id.tv_entry_date_as);
 
+        mDisplayDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        getActivity(),
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateSetListener,
+                        year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String date = day + "/" + month + "/" + year;
+                mDisplayDate.setText(date);
+            }
+        };
+
+        //---------------------------------------------------------------------------
+        //----------------------------num roommates selection----------------------------
+        numRoommatesBar = getView().findViewById(R.id.rsb_num_roommates_bar);
+        numRoommatesBar.setRangeValues(1,5);
+
+        numRoommatesBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
+            @Override
+            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
+                Number minVal = bar.getSelectedMinValue();
+                Number maxVal = bar.getSelectedMaxValue();
+                int min = (int)minVal;
+                int max = (int)maxVal;
+
+                //todo:send these vals as the new ones chosen
+            }
+
+        });
+        //---------------------------------------------------------------------------
+        //----------------------------roommates' age selection----------------------------
+        ageRoommatesBar = getView().findViewById(R.id.rsb_age_roommates_bar);
+        ageRoommatesBar.setRangeValues(16,35);
+
+        ageRoommatesBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
+            @Override
+            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
+                Number minVal = bar.getSelectedMinValue();
+                Number maxVal = bar.getSelectedMaxValue();
+                int min = (int)minVal;
+                int max = (int)maxVal;
+
+                //todo:send these vals as the new ones chosen
+            }
+
+        });
+
+        //---------------------------------------------------------------------------
+        //----------------------------kosher selection----------------------------
+//todo:extract the kosher preference
         super.onActivityCreated(savedInstanceState);
     }
 
