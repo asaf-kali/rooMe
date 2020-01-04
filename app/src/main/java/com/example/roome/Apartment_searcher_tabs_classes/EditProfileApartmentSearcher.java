@@ -86,10 +86,6 @@ public class EditProfileApartmentSearcher extends Fragment {
 //        return user[0];
 //    }
 
-    private ApartmentSearcherUser c(DataSnapshot dataSnapshot){
-        String s = mFirebaseUser.getUid();
-        return dataSnapshot.child("users").child("ApartmentSearcherUser").child(s).getValue(ApartmentSearcherUser.class);
-    }
 
     private ArrayList<ApartmentSearcherUser> createArrayOfUsers(DataSnapshot dataSnapshot) {
         ArrayList<ApartmentSearcherUser> allAptSearcherUsers = new ArrayList<>();
@@ -127,15 +123,6 @@ public class EditProfileApartmentSearcher extends Fragment {
         validateUserLastName();
         validateAge();
         validatePhoneNumber();
-    }
-
-    public void uploadPhotoOnClick(View view) {
-//        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);//todo
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
     }
 
     @Override
