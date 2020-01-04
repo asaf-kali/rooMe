@@ -1,5 +1,7 @@
 package com.example.roome;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -7,8 +9,9 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
-import com.example.roome.Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher;
+import com.example.roome.Apartment_searcher_tabs_classes.ApartmentSearcherHome;
 import com.example.roome.Apartment_searcher_tabs_classes.EditProfileApartmentSearcher;
 import com.example.roome.Apartment_searcher_tabs_classes.OneFragmentA;
 import com.example.roome.Apartment_searcher_tabs_classes.ThreeFragmentA;
@@ -35,11 +38,10 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_apartment_searcher);
-
-
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);
+        viewPager.setOffscreenPageLimit(3);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs_apartment);
@@ -67,10 +69,8 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
                     }
                 }
         );
-//        Toolbar apartment_toolbar = (Toolbar) findViewById(R.id.apartment_tool_bar);
-//        androidx.appcompat.widget.Toolbar apartment_toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.apartment_tool_bar);
-//        setSupportActionBar(apartment_toolbar);
     }
+
 
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(selectedtabIcons[0]);
@@ -79,11 +79,10 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         tabLayout.getTabAt(3).setIcon(unselectedtabIcons[3]);
     }
 
-
     private void setupViewPager(ViewPager viewPager) {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new OneFragmentA(), "HOME");
+        adapter.addFragment(new ApartmentSearcherHome(), "HOME");
         adapter.addFragment(new TwoFragmentA(), "MATCHES");
         adapter.addFragment(new EditFiltersApartmentSearcher(), "FILTERS");
         adapter.addFragment(new EditProfileApartmentSearcher(), "PROFILE");
