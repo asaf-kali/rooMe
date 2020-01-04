@@ -1,8 +1,5 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -14,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
 import com.example.roome.R;
 import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
@@ -36,9 +36,9 @@ public class EditFiltersApartmentSearcher extends Fragment {
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
-    private  RangeSeekBar numRoommatesBar;
+    private RangeSeekBar numRoommatesBar;
 
-    private  RangeSeekBar ageRoommatesBar;
+    private RangeSeekBar ageRoommatesBar;
 
 
     @Override
@@ -59,15 +59,15 @@ public class EditFiltersApartmentSearcher extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         //-----------------------------cost range-------------------------------------
         costBar = getView().findViewById(R.id.rsb_cost_bar);
-        costBar.setRangeValues(1000,4000);
+        costBar.setRangeValues(1000, 4000);
 
         costBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
                 Number minVal = bar.getSelectedMinValue();
                 Number maxVal = bar.getSelectedMaxValue();
-                int min = (int)minVal;
-                int max = (int)maxVal;
+                int min = (int) minVal;
+                int max = (int) maxVal;
 
                 //todo:send these vals as the new ones chosen
             }
@@ -89,9 +89,9 @@ public class EditFiltersApartmentSearcher extends Fragment {
                 mBuilder.setMultiChoiceItems(locations, checkedLocations, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
-                        if(isChecked){
+                        if (isChecked) {
                             mUserLocations.add(position);
-                        }else{
+                        } else {
                             mUserLocations.remove((Integer.valueOf(position)));
                         }
                     }
@@ -150,7 +150,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
                         getActivity(),
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         mDateSetListener,
-                        year,month,day);
+                        year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -168,15 +168,15 @@ public class EditFiltersApartmentSearcher extends Fragment {
         //---------------------------------------------------------------------------
         //----------------------------num roommates selection----------------------------
         numRoommatesBar = getView().findViewById(R.id.rsb_num_roommates_bar);
-        numRoommatesBar.setRangeValues(1,5);
+        numRoommatesBar.setRangeValues(1, 5);
 
         numRoommatesBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
                 Number minVal = bar.getSelectedMinValue();
                 Number maxVal = bar.getSelectedMaxValue();
-                int min = (int)minVal;
-                int max = (int)maxVal;
+                int min = (int) minVal;
+                int max = (int) maxVal;
 
                 //todo:send these vals as the new ones chosen
             }
@@ -185,15 +185,15 @@ public class EditFiltersApartmentSearcher extends Fragment {
         //---------------------------------------------------------------------------
         //----------------------------roommates' age selection----------------------------
         ageRoommatesBar = getView().findViewById(R.id.rsb_age_roommates_bar);
-        ageRoommatesBar.setRangeValues(16,35);
+        ageRoommatesBar.setRangeValues(16, 35);
 
         ageRoommatesBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
                 Number minVal = bar.getSelectedMinValue();
                 Number maxVal = bar.getSelectedMaxValue();
-                int min = (int)minVal;
-                int max = (int)maxVal;
+                int min = (int) minVal;
+                int max = (int) maxVal;
 
                 //todo:send these vals as the new ones chosen
             }

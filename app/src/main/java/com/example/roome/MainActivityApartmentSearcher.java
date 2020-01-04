@@ -8,13 +8,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.Bundle;
-import android.widget.Toast;
-
 import com.example.roome.Apartment_searcher_tabs_classes.ApartmentSearcherHome;
+import com.example.roome.Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher;
 import com.example.roome.Apartment_searcher_tabs_classes.EditProfileApartmentSearcher;
-import com.example.roome.Apartment_searcher_tabs_classes.OneFragmentA;
-import com.example.roome.Apartment_searcher_tabs_classes.ThreeFragmentA;
 import com.example.roome.Apartment_searcher_tabs_classes.TwoFragmentA;
 import com.google.android.material.tabs.TabLayout;
 
