@@ -1,179 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".Apartment_searcher_tabs_classes.EditProfileApartmentSearcher">
 
     <TextView
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="Edit Profile"></TextView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/iv_missingPhoto"
-            android:layout_width="wrap_content"
-            android:layout_height="170dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/missingprofilepic"></ImageView>
-
-        <ImageButton
-            android:id="@+id/ib_noProfilePic"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:onClick="uploadPhotoOnClick"
-            android:src="@drawable/addphotobutton"></ImageButton>
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:text="First Name:"></TextView>
-
-    <EditText
-        android:id="@+id/et_enterFirstName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Amit"
-        android:inputType="textLongMessage|textPersonName"></EditText>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:text="Last Name:"></TextView>
-
-    <EditText
-        android:id="@+id/et_enterLastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Cohen"
-        android:inputType="textLongMessage|textPersonName"></EditText>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Age:"></TextView>
-
-    <EditText
-        android:id="@+id/et_enterAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="2"
-        android:hint="23"
-        android:inputType="numberSigned"></EditText>
-
-    <TextView
-        android:id="@+id/tv_gender_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Gender:"></TextView>
-
-    <RadioGroup
-        android:id="@+id/radioGroup_choose_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
+        android:text="Edit Profile"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_gender_label">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <RadioButton
-            android:id="@+id/radio_btn_female"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="Female"
-            android:textColor="@android:color/secondary_text_light"
-            android:textColorLink="#4CAF50"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <RadioButton
-            android:id="@+id/radio_btn_male"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Male"
-            android:textColor="@android:color/secondary_text_light"
-            android:textColorLink="#4CAF50"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-    </RadioGroup>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Phone Number:"></TextView>
-
-    <EditText
-        android:id="@+id/et_phoneNumber"
+    <ImageView
+        android:id="@+id/iv_missingPhoto"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="170dp"
+        android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="0526593721"
-        android:inputType="numberSigned"></EditText>
+        android:src="@drawable/missingprofilepic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Bio"></TextView>
+    <ImageButton
+        android:id="@+id/ib_noProfilePic"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="292dp"
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:hint="Describe yourself for roommate searchers."
-        android:inputType="textLongMessage"></EditText>
+        android:src="@drawable/addphotobutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_missingPhoto" />
+
+    <ScrollView
+        android:id="@+id/sv_details"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ib_noProfilePic"
+        app:layout_constraintVertical_bias="0.0">
 
 
-</LinearLayout>
+        <LinearLayout
+            android:id="@+id/details_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_enterFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="First Name:"
+                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
+                app:layout_constraintTop_toBottomOf="@+id/details_linear_layout" />
+
+            <EditText
+                android:id="@+id/et_enterFirstName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Amit"
+                android:inputType="textLongMessage|textPersonName"
+                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
+                app:layout_constraintTop_toBottomOf="@id/tv_enterFirstName" />
+
+            <TextView
+                android:id="@+id/tv_enterLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:text="Last Name:"
+                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
+                app:layout_constraintTop_toBottomOf="@id/et_enterFirstName" />
+
+            <EditText
+                android:id="@+id/et_enterLastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Cohen"
+                android:inputType="textLongMessage|textPersonName"
+                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
+                app:layout_constraintTop_toBottomOf="@id/tv_enterLastName" />
+
+            <TextView
+                android:id="@+id/tv_enterAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Age:"
+                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
+                app:layout_constraintTop_toBottomOf="@id/et_enterLastName" />
+
+            <EditText
+                android:id="@+id/et_enterAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="2"
+                android:hint="23"
+                android:inputType="numberSigned"
+                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
+                app:layout_constraintTop_toBottomOf="@id/tv_enterAge" />
+
+            <TextView
+                android:id="@+id/tv_gender_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Gender:"
+                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
+                app:layout_constraintTop_toBottomOf="@id/et_enterAge" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup_choose_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
+                app:layout_constraintTop_toBottomOf="@id/tv_gender_label">
+
+                <RadioButton
+                    android:id="@+id/radio_btn_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Female"
+                    android:textColor="@android:color/secondary_text_light"
+                    android:textColorLink="#4CAF50"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/radio_btn_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Male"
+                    android:textColor="@android:color/secondary_text_light"
+                    android:textColorLink="#4CAF50"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_phoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Phone Number:"
+                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup_choose_gender" />
+
+            <EditText
+                android:id="@+id/et_phoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="0526593721"
+                android:inputType="numberSigned"
+                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
+                app:layout_constraintTop_toBottomOf="@+id/tv_phoneNumber" />
+
+            <TextView
+                android:id="@+id/tv_bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Bio"
+                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
+                app:layout_constraintTop_toBottomOf="@+id/et_phoneNumber" />
+
+            <EditText
+                android:id="@+id/et_bio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:hint="Describe yourself for roommate searchers."
+                android:inputType="textLongMessage"
+                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
+                app:layout_constraintTop_toBottomOf="@+id/et_phoneNumber" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
