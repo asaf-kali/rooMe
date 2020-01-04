@@ -110,14 +110,14 @@ public class EditProfileApartmentSearcher extends Fragment {
         isUserLastNameValid = false;
         isUserAgeValid = false;
         isUserPhoneValid = false;
-        validateUserInput();
+//        validateUserInput();
         super.onActivityCreated(savedInstanceState);
-
     }
 
     /**
      * validating all fields filled by the user
      */
+
     private void validateUserInput() {
         validateUserFirstName();
         validateUserLastName();
@@ -252,7 +252,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     }
 
     /**
-     * validating the weight entered. Weight has to be between 6 and 200.
+     * validating the PhoneNumber entered.
      */
     private void validatePhoneNumber() {
         phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);

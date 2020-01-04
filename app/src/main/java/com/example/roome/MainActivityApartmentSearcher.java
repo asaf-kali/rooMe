@@ -84,7 +84,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ApartmentSearcherHome(), "HOME");
         adapter.addFragment(new TwoFragmentA(), "MATCHES");
-        adapter.addFragment(new ThreeFragmentA(), "FILTERS");
+        adapter.addFragment(new EditFiltersApartmentSearcher(), "FILTERS");
         adapter.addFragment(new EditProfileApartmentSearcher(), "PROFILE");
         viewPager.setAdapter(adapter);
     }
