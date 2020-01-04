@@ -2,6 +2,7 @@
   <component name="FileTypeManager" version="17">
     <extensionMap>
       <mapping pattern="help" type="PLAIN_TEXT" />
+      <mapping pattern="todelete" type="XML" />
       <mapping pattern="keep" type="XML" />
     </extensionMap>
   </component>
