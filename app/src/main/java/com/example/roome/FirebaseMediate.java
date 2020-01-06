@@ -92,6 +92,7 @@ public class FirebaseMediate {
         return allRoomateSearcherUsers;
     }
 
+
     /**
      * @param uid - uid of apartment searcher user
      * @return the apartment searcher user object
@@ -115,14 +116,17 @@ public class FirebaseMediate {
         return allRoommateSearcherUsersIds;
     }
 
+
     public static ArrayList<String> getNoUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser) {
         GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
         };
+
         ArrayList<String> allRoommateSearcherUsersIds;
         DataSnapshot refDSS = dataSnapshotRootSpecificAptUser.child("No");
         allRoommateSearcherUsersIds = refDSS.getValue(t);
         return allRoommateSearcherUsersIds;
     }
+
 
     public static ArrayList<String> getMaybeUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser) {
         GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
