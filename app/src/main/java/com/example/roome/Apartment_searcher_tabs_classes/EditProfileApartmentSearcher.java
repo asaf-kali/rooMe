@@ -27,7 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class EditProfileApartmentSearcher extends Fragment {
     private static final int GALLERY_REQUEST_CODE = 1;
-    private Boolean isUserFirstNameValid;//todo use
+    private Boolean isUserFirstNameValid;
     private Boolean isUserLastNameValid;
     private Boolean isUserAgeValid;
     private Boolean isUserPhoneValid;
@@ -37,7 +37,6 @@ public class EditProfileApartmentSearcher extends Fragment {
     private EditText ageEditText;
     private EditText phoneNumberEditText;
 
-    //todo: add save button in the edit profile
     private Button saveProfileAS;
 
 
@@ -49,7 +48,7 @@ public class EditProfileApartmentSearcher extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-//        aUser = FirebaseMediate.get //todo:get user from db
+//        aUser = FirebaseMediate.getApartmentSearcherUserByUid() //todo: get user from DB
         super.onCreate(savedInstanceState);
     }
 
@@ -74,7 +73,17 @@ public class EditProfileApartmentSearcher extends Fragment {
                 uploadPhotoOnClickAS();
             }
         });
-
+        saveProfileAS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isUserInputValid()){
+                    //todo: upload obj to DB
+                }
+                else {
+                    //todo: toast error that data isn't saved cuz user's input is shit
+                }
+            }
+        });
         validateUserInput();
         super.onActivityCreated(savedInstanceState);
     }
@@ -263,13 +272,6 @@ public class EditProfileApartmentSearcher extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-//                isUserPhoneValid = false;
-//                int inputLength = phoneNumberEditText.getText().toString().length();
-//                if (inputLength != User.PHONE_NUMBER_LENGTH) {
-//                    phoneNumberEditText.setError("Invalid Phone Number");
-//                    return;
-//                }
-//                isUserPhoneValid = true;
             }
         });
         phoneNumberEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {

@@ -43,7 +43,7 @@ public class FirebaseMediate {
         });
     }
 
-    static ArrayList<String> getAllApartmentSearcherIds() {
+    public static ArrayList<String> getAllApartmentSearcherIds() {
         DataSnapshot dataSnapshotRootUsers = dataSs.child("users");
         ArrayList<String> allAptSearcherUsersIds = new ArrayList<>();
         DataSnapshot refDSS = dataSnapshotRootUsers.child("ApartmentSearcherUser");
@@ -96,7 +96,7 @@ public class FirebaseMediate {
      * @param uid - uid of apartment searcher user
      * @return the apartment searcher user object
      */
-    static ApartmentSearcherUser getApartmentSearcherUserByUid(String uid) {
+    public static ApartmentSearcherUser getApartmentSearcherUserByUid(String uid) {
         DataSnapshot temp = dataSs.child("users").child("ApartmentSearcherUser").child(uid);
         return temp.getValue(ApartmentSearcherUser.class);
     }
