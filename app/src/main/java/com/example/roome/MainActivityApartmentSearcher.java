@@ -12,7 +12,12 @@ import com.example.roome.Apartment_searcher_tabs_classes.ApartmentSearcherHome;
 import com.example.roome.Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher;
 import com.example.roome.Apartment_searcher_tabs_classes.EditProfileApartmentSearcher;
 import com.example.roome.Apartment_searcher_tabs_classes.TwoFragmentA;
+import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +34,25 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
             R.drawable.ic_action_empty_heart, R.drawable.ic_action_empty_hourglass,
             R.drawable.ic_action_empty_person};
 
+    private ApartmentSearcherUser aUser;
+
+    // Firebase instance variables
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mFirebaseDatabaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_apartment_searcher);
-
         FirebaseMediate.setDataSnapshot();
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        // Initialize Firebase
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
+//        aUser = FirebaseMediate.get
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);
         viewPager.setOffscreenPageLimit(3);
         setupViewPager(viewPager);
