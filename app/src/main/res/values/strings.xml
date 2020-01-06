@@ -5,4 +5,13 @@
     <string name="settings_button_action_bar">settings button action bar</string>
     <string name="edit_profile_button_ab">edit profile</string>
     <string name="edit_filters_button_ab">edit filters</string>
+    <string name="what_would_you_like_to_find">What would you like to find?</string>
+
+    <string-array name="locations">
+        <item>Rehavia</item>
+        <item>Beit-Hacerem</item>
+        <item>Nahlaot</item>
+        <item>Mercaz</item>
+        <item>Mount Scopus</item>
+    </string-array>
 </resources>

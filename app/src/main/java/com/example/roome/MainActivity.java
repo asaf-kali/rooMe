@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean(MyPreferences.IS_FIRST_TIME, true);
         editor.apply();
         //Time passed till next activity is launched
-        int TIME_OUT = 3000;
+        int TIME_OUT = 6000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

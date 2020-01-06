@@ -1,6 +1,8 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class EditProfileApartmentSearcher extends Fragment {
+    private static final int GALLERY_REQUEST_CODE = 1;
     private Boolean isUserFirstNameValid;//todo use
     private Boolean isUserLastNameValid;
     private Boolean isUserAgeValid;
@@ -45,6 +50,10 @@ public class EditProfileApartmentSearcher extends Fragment {
 
     private ApartmentSearcherUser aUser;
 
+    //profile pic
+    ImageView profilePic;
+    ImageButton addProfilePic;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // Initialize Firebase
@@ -52,53 +61,8 @@ public class EditProfileApartmentSearcher extends Fragment {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
-//        aUser = getApartmentSearcherUserFromFirebase(mFirebaseUser.getUid());//todo
-        mFirebaseDatabaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                aUser = c(dataSnapshot);//.getValue(ApartmentSearcherUser.class);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        mFirebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<ApartmentSearcherUser> allUsers = createArrayOfUsers(dataSnapshot);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         super.onCreate(savedInstanceState);
-    }
-
-//    public ApartmentSearcherUser getApartmentSearcherUserFromFirebase(String userFirebaseId){ //todo
-//        CountDownLatch done = new CountDownLatch(1);
-//        final ApartmentSearcherUser[] user = {null};
-//
-//        return user[0];
-//    }
-
-    private ApartmentSearcherUser c(DataSnapshot dataSnapshot){
-        String s = mFirebaseUser.getUid();
-        return dataSnapshot.child("users").child("ApartmentSearcherUser").child(s).getValue(ApartmentSearcherUser.class);
-    }
-
-    private ArrayList<ApartmentSearcherUser> createArrayOfUsers(DataSnapshot dataSnapshot) {
-        ArrayList<ApartmentSearcherUser> allAptSearcherUsers = new ArrayList<>();
-        DataSnapshot dsApartmentSearchers = dataSnapshot.child("users").child("ApartmentSearcherUser");
-        for (DataSnapshot aptS : dsApartmentSearchers.getChildren()) {
-            ApartmentSearcherUser userA = aptS.getValue(ApartmentSearcherUser.class);
-            allAptSearcherUsers.add(userA);
-        }
-        return allAptSearcherUsers;
     }
 
     @Override
@@ -114,14 +78,22 @@ public class EditProfileApartmentSearcher extends Fragment {
         isUserLastNameValid = false;
         isUserAgeValid = false;
         isUserPhoneValid = false;
+        addProfilePic = getView().findViewById(R.id.ib_addPhoto);
+        profilePic = getView().findViewById(R.id.iv_missingPhoto);
+        addProfilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadPhotoOnClickAS();
+            }
+        });
         validateUserInput();
         super.onActivityCreated(savedInstanceState);
-
     }
 
     /**
      * validating all fields filled by the user
      */
+
     private void validateUserInput() {
         validateUserFirstName();
         validateUserLastName();
@@ -129,21 +101,33 @@ public class EditProfileApartmentSearcher extends Fragment {
         validatePhoneNumber();
     }
 
-    public void uploadPhotoOnClick(View view) {
-//        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);//todo
-        Intent intent = new Intent();
+
+
+    public void uploadPhotoOnClickAS(){
+        //Create an Intent with action as ACTION_PICK
+        Intent intent=new Intent(Intent.ACTION_PICK);
+        // Sets the type as image/*. This ensures only components of type image are selected
         intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
+        String[] mimeTypes = {"image/jpeg", "image/png"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+        // Launching the Intent
+        startActivityForResult(intent,GALLERY_REQUEST_CODE);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            //TODO: action
-        }
+    public void onActivityResult(int requestCode,int resultCode,Intent data){
+        // Result code is RESULT_OK only if the user selects an Image
+        if (resultCode == Activity.RESULT_OK)
+            switch (requestCode){
+                case GALLERY_REQUEST_CODE:
+                    //data.getData returns the content URI for the selected Image
+                    Uri selectedImage = data.getData();
+                    profilePic.setImageURI(selectedImage);
+                    break;
+            }
     }
+
 
     /**
      * validate the entered name.
@@ -265,7 +249,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     }
 
     /**
-     * validating the weight entered. Weight has to be between 6 and 200.
+     * validating the PhoneNumber entered.
      */
     private void validatePhoneNumber() {
         phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);

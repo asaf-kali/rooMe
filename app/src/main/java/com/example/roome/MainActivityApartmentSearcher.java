@@ -8,17 +8,21 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.roome.Apartment_searcher_tabs_classes.ApartmentSearcherHome;
+import com.example.roome.Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher;
 import com.example.roome.Apartment_searcher_tabs_classes.EditProfileApartmentSearcher;
-import com.example.roome.Apartment_searcher_tabs_classes.OneFragmentA;
-import com.example.roome.Apartment_searcher_tabs_classes.ThreeFragmentA;
 import com.example.roome.Apartment_searcher_tabs_classes.TwoFragmentA;
+import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivityApartmentSearcher extends AppCompatActivity {
-
 
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
@@ -30,13 +34,27 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
             R.drawable.ic_action_empty_heart, R.drawable.ic_action_empty_hourglass,
             R.drawable.ic_action_empty_person};
 
+    private ApartmentSearcherUser aUser;
+
+    // Firebase instance variables
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mFirebaseDatabaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_apartment_searcher);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        FirebaseMediate.setDataSnapshot();
+        // Initialize Firebase
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
+//        aUser = FirebaseMediate.get
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);
+        viewPager.setOffscreenPageLimit(3);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs_apartment);
@@ -64,10 +82,8 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
                     }
                 }
         );
-//        Toolbar apartment_toolbar = (Toolbar) findViewById(R.id.apartment_tool_bar);
-//        androidx.appcompat.widget.Toolbar apartment_toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.apartment_tool_bar);
-//        setSupportActionBar(apartment_toolbar);
     }
+
 
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(selectedtabIcons[0]);
@@ -76,13 +92,12 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         tabLayout.getTabAt(3).setIcon(unselectedtabIcons[3]);
     }
 
-
     private void setupViewPager(ViewPager viewPager) {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new OneFragmentA(), "HOME");
+        adapter.addFragment(new ApartmentSearcherHome(), "HOME");
         adapter.addFragment(new TwoFragmentA(), "MATCHES");
-        adapter.addFragment(new ThreeFragmentA(), "FILTERS");
+        adapter.addFragment(new EditFiltersApartmentSearcher(), "FILTERS");
         adapter.addFragment(new EditProfileApartmentSearcher(), "PROFILE");
         viewPager.setAdapter(adapter);
     }

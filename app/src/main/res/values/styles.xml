@@ -8,4 +8,32 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="roome_logo" parent="TextAppearance.AppCompat">
+
+        <item name="android:textSize">
+            74sp
+        </item>
+
+        <item name="android:textColor">
+            #FFFFFF
+        </item>
+
+        <item name="android:shadowColor">
+            #40000000
+        </item>
+
+        <item name="android:shadowDx">
+            0
+        </item>
+
+        <item name="android:shadowDy">
+            6
+        </item>
+
+        <item name="android:shadowRadius">
+            6
+        </item>
+
+    </style>
+
 </resources>

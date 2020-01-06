@@ -1,17 +1,19 @@
 package com.example.roome;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.Bundle;
-
-import com.example.roome.Roomate_searcher_tabs_classes.OneFragmentR;
-import com.example.roome.Roomate_searcher_tabs_classes.TwoFragmentR;
-import com.example.roome.Roomate_searcher_tabs_classes.ThreeFragmentR;
 import com.example.roome.Roomate_searcher_tabs_classes.FourFragmentR;
+import com.example.roome.Roomate_searcher_tabs_classes.OneFragmentR;
+import com.example.roome.Roomate_searcher_tabs_classes.ThreeFragmentR;
+import com.example.roome.Roomate_searcher_tabs_classes.TwoFragmentR;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -88,6 +90,16 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
         adapter.addFragment(new FourFragmentR(), "PROFILE");
         viewPager.setAdapter(adapter);
     }
+
+    public void uploadPhotoOnClick(View view) {//todo
+        //        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);//todo
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+    }
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
