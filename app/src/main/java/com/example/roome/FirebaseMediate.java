@@ -3,6 +3,7 @@ package com.example.roome;
 import androidx.annotation.NonNull;
 
 import com.example.roome.user_classes.ApartmentSearcherUser;
+import com.example.roome.user_classes.RoommateSearcherUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -91,24 +92,41 @@ public class FirebaseMediate {
         return allRoomateSearcherUsers;
     }
 
-    static ArrayList<String> getYesUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser){
-        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
+    /**
+     * @param uid - uid of apartment searcher user
+     * @return the apartment searcher user object
+     */
+    static ApartmentSearcherUser getApartmentSearcherUserByUid(String uid) {
+        DataSnapshot temp = dataSs.child("users").child("ApartmentSearcherUser").child(uid);
+        return temp.getValue(ApartmentSearcherUser.class);
+    }
+
+    static RoommateSearcherUser getRoommateSearcherUserByUid(String uid) {
+        DataSnapshot temp = dataSs.child("users").child("RoommateSearcherUser").child(uid);
+        return temp.getValue(RoommateSearcherUser.class);
+    }
+
+    static ArrayList<String> getYesUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser) {
+        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
+        };
         ArrayList<String> allRoommateSearcherUsersIds;
         DataSnapshot refDSS = dataSnapshotRootSpecificAptUser.child("Yes");
         allRoommateSearcherUsersIds = refDSS.getValue(t);
         return allRoommateSearcherUsersIds;
     }
 
-    static ArrayList<String> getNoUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser){
-        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
+    static ArrayList<String> getNoUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser) {
+        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
+        };
         ArrayList<String> allRoommateSearcherUsersIds;
         DataSnapshot refDSS = dataSnapshotRootSpecificAptUser.child("No");
         allRoommateSearcherUsersIds = refDSS.getValue(t);
         return allRoommateSearcherUsersIds;
     }
 
-    static ArrayList<String> getMaybeUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser){
-        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
+    static ArrayList<String> getMaybeUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser) {
+        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
+        };
         ArrayList<String> allRoommateSearcherUsersIds;
         DataSnapshot refDSS = dataSnapshotRootSpecificAptUser.child("Maybe");
         allRoommateSearcherUsersIds = refDSS.getValue(t);
