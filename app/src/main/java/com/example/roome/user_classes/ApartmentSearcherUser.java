@@ -91,37 +91,4 @@ public class ApartmentSearcherUser extends User {
     public void setMaxNumDesiredRoommates(int maxNumDesiredRoommates) {
         this.maxNumDesiredRoommates = maxNumDesiredRoommates;
     }
-
-//    public static ApartmentSearcherUser getApartmentSearcherUserFromFirebase(DatabaseReference mFirebaseDatabaseReference, String userFirebaseId) {
-//        final ApartmentSearcherUser[] user = {null};
-//        readData(new FirbaseCallback() {
-//            @Override
-//            public void onCallback(ApartmentSearcherUser aUser) {
-//                user[0] = aUser;
-//            }
-//        },mFirebaseDatabaseReference, userFirebaseId);
-//
-//        return user[0];
-//    }
-
-//    private static void readData(final FirbaseCallback firbaseCallBack, DatabaseReference mFirebaseDatabaseReference, String userFirebaseId) {
-//        final ApartmentSearcherUser[] user = {null};
-//        ValueEventListener vL = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                user[0] = dataSnapshot.getValue(ApartmentSearcherUser.class);
-//                firbaseCallBack.onCallback(user[0]);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        };
-//        mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(userFirebaseId).addValueEventListener(vL);
-//    }
-//
-//    private interface FirbaseCallback{
-//        void onCallback(ApartmentSearcherUser aUser);
-//    }
 }
