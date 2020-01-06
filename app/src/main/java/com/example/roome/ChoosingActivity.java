@@ -50,8 +50,9 @@ public class ChoosingActivity extends AppCompatActivity {
         mFirebaseDatabaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                allApartmentSearcherIds[0] = FirebaseMediate.getAllApartmentSearcherIds(dataSnapshot);
-                allRoommateSearcherIds[0] = FirebaseMediate.getAllRoommateSearcherIds(dataSnapshot);
+                FirebaseMediate.setDataSnapshot(dataSnapshot);
+                allApartmentSearcherIds[0] = FirebaseMediate.getAllApartmentSearcherIds();
+                allRoommateSearcherIds[0] = FirebaseMediate.getAllRoommateSearcherIds();
                 done.set(true);
             }
 
@@ -80,6 +81,7 @@ public class ChoosingActivity extends AppCompatActivity {
 
     /**
      * on click for roommateSearcher button
+     *
      * @param view
      */
     public void roommateSearcherOnclick(View view) {
@@ -95,20 +97,20 @@ public class ChoosingActivity extends AppCompatActivity {
 
     /**
      * on click for apartmentSearcher button
+     *
      * @param view
      */
     public void apartmentSearcherOnclick(View view) {
         User userObj = createNewUser();
         mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
         while (!done.get()) ;
-        mFirebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).child("0").setValue(allRoommateSearcherIds);
+        mFirebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).child("0").setValue(allRoommateSearcherIds[0]);
         Intent i = new Intent(ChoosingActivity.this, MainActivityApartmentSearcher.class);
         startActivity(i);
         finish();
     }
 
     /**
-     *
      * @return
      */
     private User createNewUser() {

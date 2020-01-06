@@ -11,7 +11,6 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class FirebaseMediate {
@@ -19,9 +18,11 @@ public class FirebaseMediate {
     private static FirebaseDatabase mFirebaseDatabase;
     private static DatabaseReference mFirebaseDatabaseReference;
     private static DataSnapshot dataSs;
-    final static AtomicBoolean done = new AtomicBoolean(false);
+    public final static AtomicBoolean done = new AtomicBoolean(false);
 
-
+    static void setDataSnapshot(@NonNull DataSnapshot dataSnapshot) {
+        dataSs = dataSnapshot;
+    }
 
     static void setDataSnapshot() {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -39,7 +40,6 @@ public class FirebaseMediate {
 
             }
         });
-        while (!done.get());
     }
 
     static ArrayList<String> getAllApartmentSearcherIds() {
