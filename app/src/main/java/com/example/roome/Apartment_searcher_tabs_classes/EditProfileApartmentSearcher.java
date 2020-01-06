@@ -61,49 +61,8 @@ public class EditProfileApartmentSearcher extends Fragment {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
-//        aUser = getApartmentSearcherUserFromFirebase(mFirebaseUser.getUid());//todo
-//        mFirebaseDatabaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                aUser = c(dataSnapshot);//.getValue(ApartmentSearcherUser.class);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        }); //todo add this
 
-        mFirebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<ApartmentSearcherUser> allUsers = createArrayOfUsers(dataSnapshot);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         super.onCreate(savedInstanceState);
-    }
-
-//    public ApartmentSearcherUser getApartmentSearcherUserFromFirebase(String userFirebaseId){ //todo
-//        CountDownLatch done = new CountDownLatch(1);
-//        final ApartmentSearcherUser[] user = {null};
-//
-//        return user[0];
-//    }
-
-
-    private ArrayList<ApartmentSearcherUser> createArrayOfUsers(DataSnapshot dataSnapshot) {
-        ArrayList<ApartmentSearcherUser> allAptSearcherUsers = new ArrayList<>();
-        DataSnapshot dsApartmentSearchers = dataSnapshot.child("users").child("ApartmentSearcherUser");
-        for (DataSnapshot aptS : dsApartmentSearchers.getChildren()) {
-            ApartmentSearcherUser userA = aptS.getValue(ApartmentSearcherUser.class);
-            allAptSearcherUsers.add(userA);
-        }
-        return allAptSearcherUsers;
     }
 
     @Override
@@ -127,7 +86,7 @@ public class EditProfileApartmentSearcher extends Fragment {
                 uploadPhotoOnClickAS();
             }
         });
-//        validateUserInput();
+        validateUserInput();
         super.onActivityCreated(savedInstanceState);
     }
 
