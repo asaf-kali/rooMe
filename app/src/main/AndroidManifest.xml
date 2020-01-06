@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
+
+    <uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,8 +17,8 @@
         <activity android:name=".MainActivityRoommateSearcher" />
         <activity android:name=".MainActivityApartmentSearcher" />
         <activity android:name=".SignInActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ChoosingActivity">
+        <activity android:name=".ChoosingActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

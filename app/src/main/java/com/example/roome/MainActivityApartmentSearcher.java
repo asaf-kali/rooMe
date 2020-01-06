@@ -19,7 +19,6 @@ import java.util.List;
 
 public class MainActivityApartmentSearcher extends AppCompatActivity {
 
-
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private int[] selectedtabIcons = {R.drawable.ic_action_filled_home,
@@ -34,6 +33,8 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_apartment_searcher);
+
+        FirebaseMediate.setDataSnapshot();
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);

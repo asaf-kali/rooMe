@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher"
-    android:orientation="vertical"
-    android:background="@color/colorPrimaryDark">
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -14,144 +13,181 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="Edit Filters"
-        >
+        android:text="Edit Filters">
     </TextView>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="25dp"
-        android:text="Select your preferred cost range "
-        android:textSize="24sp"
-        >
+        android:textSize="20sp"
+        android:text="Edit your filters so we can find the best apartments for you">
     </TextView>
 
-    <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
-        android:id="@+id/rsb_cost_bar"
-        android:layout_width="370dp"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        />
-
-    <Button
-        android:id="@+id/btn_choose_locations"
+    <ScrollView
+        android:id="@+id/sv_filters_as"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="20dp"
-        android:text="Select your preferred location/s"
-        android:textSize="24sp"
-        >
-    </Button>
+        android:layout_marginBottom="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:background="@color/colorPrimaryDark">
 
-    <TextView
-        android:id="@+id/tv_chosen_locations"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="24sp"
-        android:textStyle="italic"
-        >
-    </TextView>
-
-    <TextView
-        android:id="@+id/tv_entry_date_as"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:hint="Press me to select entry date"
-        android:textSize="24sp">
-    </TextView>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose range of total number of roommates"
-        android:layout_gravity="center"
-        android:textSize="24sp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="20dp">
-    </TextView>
-
-    <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
-        android:id="@+id/rsb_num_roommates_bar"
-        android:layout_width="250dp"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select roommates' age range preference"
-        android:layout_gravity="center"
-        android:textSize="24sp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="20dp">
-    </TextView>
-
-    <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
-        android:id="@+id/rsb_age_roommates_bar"
-        android:layout_width="370dp"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Is a Kosher apartment important to you?"
-        android:layout_gravity="center"
-        android:textSize="24sp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="20dp">
-    </TextView>
-
-    <RadioGroup
-        android:id="@+id/radioGroup_kosher_as"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/radio_btn_as_yes"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linear_as_filters"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="Yes"
-            android:textColor="@android:color/secondary_text_light"
-            android:textColorLink="#4CAF50"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/radio_btn_as_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No"
-            android:textColor="@android:color/secondary_text_light"
-            android:textColorLink="#4CAF50"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-    </RadioGroup>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="25dp"
+                android:text="Select your preferred cost range "
+                android:textSize="24sp"
+                >
+            </TextView>
 
+            <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
+                android:id="@+id/rsb_cost_bar"
+                android:layout_width="370dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                />
+
+            <Button
+                android:id="@+id/btn_choose_locations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="20dp"
+                android:text="Select your preferred location/s"
+                android:textSize="24sp"
+                >
+            </Button>
+
+            <TextView
+                android:id="@+id/tv_chosen_locations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="24sp"
+                android:layout_marginLeft="8dp"
+                android:textStyle="italic"
+                >
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_entry_date_as"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:hint="Press me to select entry date"
+                android:textSize="24sp">
+            </TextView>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose range of total number of roommates"
+                android:layout_gravity="center"
+                android:textSize="24sp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp">
+            </TextView>
+
+            <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
+                android:id="@+id/rsb_num_roommates_bar"
+                android:layout_width="250dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select roommates' age range preference"
+                android:layout_gravity="center"
+                android:textSize="24sp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp">
+            </TextView>
+
+            <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
+                android:id="@+id/rsb_age_roommates_bar"
+                android:layout_width="370dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Is a Kosher apartment important to you?"
+                android:layout_gravity="center"
+                android:textSize="24sp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp">
+            </TextView>
+
+            <RadioGroup
+                android:id="@+id/radioGroup_kosher_as"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_btn_as_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Yes"
+                    android:textColor="@android:color/secondary_text_light"
+                    android:textColorLink="#4CAF50"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/radio_btn_as_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No"
+                    android:textColor="@android:color/secondary_text_light"
+                    android:textColorLink="#4CAF50"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btn_save_filters_as"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:layout_gravity="end"
+                android:layout_marginEnd="8dp">
+            </Button>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
