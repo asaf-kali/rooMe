@@ -79,14 +79,11 @@ public class ChoosingActivity extends AppCompatActivity {
 //        } else if (acct != null) {
 //            userName = acct.getDisplayName();
 //        }
-
-
-
         final SharedPreferences reader = getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
         String first =  reader.getString("FIRSTNAME", "NULL");
         String last =  reader.getString("LASTNAME", "NULL");
         TextView textView = findViewById(R.id.tv_hello_name);
-        textView.setText(String.format("Hi %s!", first.concat(last)));
+        textView.setText(String.format("Hi %s!", first.concat(" ").concat(last)));
     }
 
     /**
@@ -101,9 +98,9 @@ public class ChoosingActivity extends AppCompatActivity {
         DatabaseReference newRef = mFirebaseDatabaseReference.child("users").child("RoommateSearcherUser").push();
         String key = newRef.getKey();
         newRef.setValue(userObj);
-        mFirebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
+//        mFirebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
         while (!done.get()) ;
-        mFirebaseDatabaseReference.child("preferences").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).child("0").setValue(allApartmentSearcherIds[0]);
+        mFirebaseDatabaseReference.child("preferences").child("RoommateSearcherUser").child(key).child("0").setValue(allApartmentSearcherIds[0]);
         Intent i = new Intent(ChoosingActivity.this, MainActivityRoommateSearcher.class);
         startActivity(i);
         finish();
@@ -117,14 +114,14 @@ public class ChoosingActivity extends AppCompatActivity {
      */
     public void apartmentSearcherOnclick(View view) {
         User userObj = createNewUser();
-        mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
-        while (!done.get()) ;
-        mFirebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).child("0").setValue(allRoommateSearcherIds[0]);
-//        mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
-//        toastMessage("Adding " + mFirebaseUser.getDisplayName() + " to database..."); //todo remove
         DatabaseReference newRef = mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").push();
         String key = newRef.getKey();
         newRef.setValue(userObj);
+        while (!done.get()) ;
+        mFirebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(key).child("0").setValue(allRoommateSearcherIds[0]);
+//        mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
+//        toastMessage("Adding " + mFirebaseUser.getDisplayName() + " to database..."); //todo remove
+
         Intent i = new Intent(ChoosingActivity.this, MainActivityApartmentSearcher.class);
         startActivity(i);
         finish();

@@ -98,7 +98,7 @@ public class FirebaseMediate {
      * @return the apartment searcher user object
      */
     public static ApartmentSearcherUser getApartmentSearcherUserByUid(String uid) {
-        DataSnapshot temp = dataSs.child("users").child("ApartmentSearcherUser").child(uid);
+        DataSnapshot temp = dataSs.child("ApartmentSearcherUser").child(uid);
         return temp.getValue(ApartmentSearcherUser.class);
     }
 

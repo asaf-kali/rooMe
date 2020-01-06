@@ -34,7 +34,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
             R.drawable.ic_action_empty_heart, R.drawable.ic_action_empty_hourglass,
             R.drawable.ic_action_empty_person};
 
-    private ApartmentSearcherUser aUser;
+    private static ApartmentSearcherUser aUser;
 
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
@@ -52,7 +52,8 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
-//        aUser = FirebaseMediate.get
+        FirebaseMediate.getAllApartmentSearcher();
+        aUser = FirebaseMediate.getApartmentSearcherUserByUid("cdCOS5JmVwVlulnxw9fRNcqsYTm2");
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);
         viewPager.setOffscreenPageLimit(3);
         setupViewPager(viewPager);
