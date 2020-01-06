@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,12 +39,13 @@ public class ChoosingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choosing);
 
-        updateUserName();
         // Initialize Firebase
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
+
+        updateUserName();
 
         mFirebaseDatabaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -78,22 +78,14 @@ public class ChoosingActivity extends AppCompatActivity {
         textView.setText(String.format("Hi %s!", userName));
     }
 
-    //add a toast to show when successfully signed in
-
     /**
-     * customizable toast
-     *
-     * @param message
+     * on click for roommateSearcher button
+     * @param view
      */
-    private void toastMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    public void roommateSearcherOnclick(View view) throws InterruptedException {
+    public void roommateSearcherOnclick(View view) {
         User userObj = createNewUser();
         mFirebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
-        toastMessage("Adding " + mFirebaseUser.getDisplayName() + " to database..."); //todo remove
-        while (!done.get());
+        while (!done.get()) ;
         mFirebaseDatabaseReference.child("preferences").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).child("0").setValue(allApartmentSearcherIds[0]);
         Intent i = new Intent(ChoosingActivity.this, MainActivityRoommateSearcher.class);
         startActivity(i);
@@ -101,17 +93,24 @@ public class ChoosingActivity extends AppCompatActivity {
 
     }
 
-    public void apartmentSearcherOnclick(View view) throws InterruptedException {
+    /**
+     * on click for apartmentSearcher button
+     * @param view
+     */
+    public void apartmentSearcherOnclick(View view) {
         User userObj = createNewUser();
         mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
-        while (!done.get());
+        while (!done.get()) ;
         mFirebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).child("0").setValue(allRoommateSearcherIds);
-        toastMessage("Adding " + mFirebaseUser.getDisplayName() + " to database..."); //todo remove
         Intent i = new Intent(ChoosingActivity.this, MainActivityApartmentSearcher.class);
         startActivity(i);
         finish();
     }
 
+    /**
+     *
+     * @return
+     */
     private User createNewUser() {
         GoogleSignInAccount userAccount = GoogleSignIn.getLastSignedInAccount(ChoosingActivity.this);
         String firstName = userAccount.getGivenName();
