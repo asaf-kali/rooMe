@@ -1,6 +1,8 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class EditProfileApartmentSearcher extends Fragment {
+    private static final int GALLERY_REQUEST_CODE = 1;
     private Boolean isUserFirstNameValid;//todo use
     private Boolean isUserLastNameValid;
     private Boolean isUserAgeValid;
@@ -44,6 +49,10 @@ public class EditProfileApartmentSearcher extends Fragment {
     private DatabaseReference mFirebaseDatabaseReference;
 
     private ApartmentSearcherUser aUser;
+
+    //profile pic
+    ImageView profilePic;
+    ImageButton addProfilePic;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -110,6 +119,14 @@ public class EditProfileApartmentSearcher extends Fragment {
         isUserLastNameValid = false;
         isUserAgeValid = false;
         isUserPhoneValid = false;
+        addProfilePic = getView().findViewById(R.id.ib_addPhoto);
+        profilePic = getView().findViewById(R.id.iv_missingPhoto);
+        addProfilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadPhotoOnClickAS();
+            }
+        });
 //        validateUserInput();
         super.onActivityCreated(savedInstanceState);
     }
@@ -125,12 +142,33 @@ public class EditProfileApartmentSearcher extends Fragment {
         validatePhoneNumber();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            //TODO: action
-        }
+
+
+    public void uploadPhotoOnClickAS(){
+        //Create an Intent with action as ACTION_PICK
+        Intent intent=new Intent(Intent.ACTION_PICK);
+        // Sets the type as image/*. This ensures only components of type image are selected
+        intent.setType("image/*");
+        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
+        String[] mimeTypes = {"image/jpeg", "image/png"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+        // Launching the Intent
+        startActivityForResult(intent,GALLERY_REQUEST_CODE);
     }
+
+    @Override
+    public void onActivityResult(int requestCode,int resultCode,Intent data){
+        // Result code is RESULT_OK only if the user selects an Image
+        if (resultCode == Activity.RESULT_OK)
+            switch (requestCode){
+                case GALLERY_REQUEST_CODE:
+                    //data.getData returns the content URI for the selected Image
+                    Uri selectedImage = data.getData();
+                    profilePic.setImageURI(selectedImage);
+                    break;
+            }
+    }
+
 
     /**
      * validate the entered name.
