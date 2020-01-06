@@ -39,8 +39,8 @@ public class EditProfileApartmentSearcher extends Fragment {
 
     private Button saveProfileAS;
 
+    //todo: make bio a bigger edit text so u could see more sentences
 
-    private ApartmentSearcherUser aUser;
 
     //profile pic
     ImageView profilePic;
@@ -48,7 +48,6 @@ public class EditProfileApartmentSearcher extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-//        aUser = FirebaseMediate.getApartmentSearcherUserByUid() //todo: get user from DB
         super.onCreate(savedInstanceState);
     }
 
@@ -73,17 +72,17 @@ public class EditProfileApartmentSearcher extends Fragment {
                 uploadPhotoOnClickAS();
             }
         });
-        saveProfileAS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isUserInputValid()){
-                    //todo: upload obj to DB
-                }
-                else {
-                    //todo: toast error that data isn't saved cuz user's input is shit
-                }
-            }
-        });
+//        saveProfileAS.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (isUserInputValid()){
+//                    //todo: upload obj to DB
+//                }
+//                else {
+//                    //todo: toast error that data isn't saved cuz user's input is shit
+//                }
+//            }
+//        });
         validateUserInput();
         super.onActivityCreated(savedInstanceState);
     }
@@ -141,7 +140,7 @@ public class EditProfileApartmentSearcher extends Fragment {
         mEnterFirstNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                mEnterFirstNameEditText.setText(aUser.getFirstName() + "***"); //todo erase *
+//                mEnterFirstNameEditText.setText(aUser.getFirstName() + "***"); //todo erase *
             }
 
             @Override
