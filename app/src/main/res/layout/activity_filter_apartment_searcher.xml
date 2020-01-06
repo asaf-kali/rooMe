@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher"
-    android:orientation="vertical"
-    android:background="@color/colorPrimaryDark">
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -34,7 +33,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        android:background="@color/colorPrimaryDark">
 
         <LinearLayout
             android:id="@+id/linear_as_filters"
