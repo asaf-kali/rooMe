@@ -9,12 +9,14 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.roome.FirebaseMediate;
 import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.example.roome.user_classes.User;
@@ -34,13 +36,10 @@ public class EditProfileApartmentSearcher extends Fragment {
     private EditText mEnterLastNameEditText;
     private EditText ageEditText;
     private EditText phoneNumberEditText;
-    //todo: add save button in the edit profile
 
-    // Firebase instance variables
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mFirebaseDatabaseReference;
+    //todo: add save button in the edit profile
+    private Button saveProfileAS;
+
 
     private ApartmentSearcherUser aUser;
 
@@ -50,12 +49,7 @@ public class EditProfileApartmentSearcher extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // Initialize Firebase
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
-
+//        aUser = FirebaseMediate.get //todo:get user from db
         super.onCreate(savedInstanceState);
     }
 
@@ -80,6 +74,7 @@ public class EditProfileApartmentSearcher extends Fragment {
                 uploadPhotoOnClickAS();
             }
         });
+
         validateUserInput();
         super.onActivityCreated(savedInstanceState);
     }
@@ -93,6 +88,13 @@ public class EditProfileApartmentSearcher extends Fragment {
         validateUserLastName();
         validateAge();
         validatePhoneNumber();
+    }
+
+    /**
+     * Returns a boolean if all of the user's input is valid
+     */
+    private boolean isUserInputValid(){
+        return isUserFirstNameValid && isUserLastNameValid && isUserAgeValid && isUserPhoneValid;
     }
 
 
@@ -130,7 +132,7 @@ public class EditProfileApartmentSearcher extends Fragment {
         mEnterFirstNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                mEnterFirstNameEditText.setText(aUser.getFirstName() + "***"); //todo
+                mEnterFirstNameEditText.setText(aUser.getFirstName() + "***"); //todo erase *
             }
 
             @Override
@@ -145,7 +147,6 @@ public class EditProfileApartmentSearcher extends Fragment {
                 } else {
                     isUserFirstNameValid = true;
                 }
-//                mEnterFirstNameEditText.setText(aUser.getFirstName() + "***"); //todo
             }
 
             @Override
