@@ -1,7 +1,5 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
 
-import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
+import com.example.roome.FirebaseMediate;
 import com.example.roome.R;
 import com.example.roome.user_classes.RoommateSearcherUser;
 
@@ -64,8 +65,7 @@ public class ApartmentSearcherHome extends Fragment {
     }
 
     private void retrieveRelevantRoommateSearchers() {
-        relevantRoommateSearchers = new ArrayList<>(); // todo delete
-        //todo create arraylist of all relevant roommate searchers users
+        relevantRoommateSearchers = FirebaseMediate.getAllRoommateSearcher();
     }
 
     private void setClickListeners() {
