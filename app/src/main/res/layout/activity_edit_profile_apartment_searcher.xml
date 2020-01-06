@@ -44,7 +44,7 @@
         android:id="@+id/sv_details"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -222,6 +222,15 @@
                 android:inputType="textLongMessage"
                 app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
                 app:layout_constraintTop_toBottomOf="@+id/et_phoneNumber" />
+
+            <Button
+                android:id="@+id/btn_save_profile_as"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:layout_gravity="end"
+                android:layout_marginEnd="8dp">
+            </Button>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

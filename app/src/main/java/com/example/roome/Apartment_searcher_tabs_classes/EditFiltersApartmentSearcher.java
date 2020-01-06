@@ -40,7 +40,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
 
     private RangeSeekBar ageRoommatesBar;
 
-
+//todo:create onclick for the save button
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
