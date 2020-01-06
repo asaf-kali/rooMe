@@ -19,46 +19,82 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/choosing_head_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
-        android:text="What would you like \n to find?"
-        android:textSize="36sp"
-        android:gravity="center_horizontal"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/walkway_bold"
+        android:shadowColor="#40000000"
+        android:shadowDy="4"
+        android:shadowRadius="4"
+        android:text="@string/what_would_you_like_to_find"
+        android:textColor="#D7626FA5"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/choosing_button_apt"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/tv_hello_name" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="What would you like to find?" />
 
-    <Button
-        android:id="@+id/button"
+    <ImageView
+        android:id="@+id/main_back_img2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="80dp"
+        android:alpha="0.3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/house_back_img" />
+
+    <ImageView
+        android:id="@+id/choosing_button_apt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:onClick="apartmentSearcherOnclick"
-        android:text="An \napartment"
-        android:textSize="36sp"
-        android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="@+id/main_back_img2"
+        app:srcCompat="@drawable/ic_choosing_button" />
 
-    <Button
-        android:id="@+id/button2"
+    <ImageView
+        android:id="@+id/choosing_button_roomate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="A roommate for\n my apartment"
-        android:textSize="36sp"
-        android:gravity="center_horizontal"
+        android:layout_marginBottom="32dp"
         android:onClick="roommateSearcherOnclick"
+        app:layout_constraintBottom_toBottomOf="@+id/main_back_img2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/choosing_button_apt"
+        app:srcCompat="@drawable/ic_choosing_button" />
+
+    <ImageView
+        android:id="@+id/apt_to_join_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/choosing_button_apt"
+        app:layout_constraintEnd_toEndOf="@+id/choosing_button_apt"
+        app:layout_constraintStart_toStartOf="@+id/choosing_button_apt"
+        app:layout_constraintTop_toTopOf="@+id/choosing_button_apt"
+        app:srcCompat="@drawable/ic_apartment_to_join_to_txt" />
+
+    <ImageView
+        android:id="@+id/roomate_for_my_apt_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/choosing_button_roomate"
+        app:layout_constraintEnd_toEndOf="@+id/choosing_button_roomate"
+        app:layout_constraintStart_toStartOf="@+id/choosing_button_roomate"
+        app:layout_constraintTop_toTopOf="@+id/choosing_button_roomate"
+        app:srcCompat="@drawable/ic_roommate_for_my_apt_txt" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
