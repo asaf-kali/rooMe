@@ -106,20 +106,20 @@ public class FirebaseMediate {
         return temp.getValue(RoommateSearcherUser.class);
     }
 
-    public static ArrayList<String> getYesUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser) {
+    public static ArrayList<String> getLikeUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser) {
         GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
         };
         ArrayList<String> allRoommateSearcherUsersIds;
-        DataSnapshot refDSS = dataSnapshotRootSpecificAptUser.child("Yes");
+        DataSnapshot refDSS = dataSnapshotRootSpecificAptUser.child("Like");
         allRoommateSearcherUsersIds = refDSS.getValue(t);
         return allRoommateSearcherUsersIds;
     }
 
-    public static ArrayList<String> getNoUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser) {
+    public static ArrayList<String> getUnlikeUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser) {
         GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
         };
         ArrayList<String> allRoommateSearcherUsersIds;
-        DataSnapshot refDSS = dataSnapshotRootSpecificAptUser.child("No");
+        DataSnapshot refDSS = dataSnapshotRootSpecificAptUser.child("Unlike");
         allRoommateSearcherUsersIds = refDSS.getValue(t);
         return allRoommateSearcherUsersIds;
     }
