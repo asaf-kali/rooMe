@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ChoosingActivity extends AppCompatActivity {
 
@@ -31,12 +32,14 @@ public class ChoosingActivity extends AppCompatActivity {
     private DatabaseReference mFirebaseDatabaseReference;
     final ArrayList<String>[] allApartmentSearcherIds = new ArrayList[1];
     final ArrayList<String>[] allRoommateSearcherIds = new ArrayList[1];
+    final AtomicBoolean done = new AtomicBoolean(false);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choosing);
+
         updateUserName();
         // Initialize Firebase
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -49,6 +52,7 @@ public class ChoosingActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 allApartmentSearcherIds[0] = FirebaseMediate.getAllApartmentSearcherIds(dataSnapshot);
                 allRoommateSearcherIds[0] = FirebaseMediate.getAllRoommateSearcherIds(dataSnapshot);
+                done.set(true);
             }
 
             @Override
@@ -85,28 +89,23 @@ public class ChoosingActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    public void roommateSearcherOnclick(View view) {
+    public void roommateSearcherOnclick(View view) throws InterruptedException {
         User userObj = createNewUser();
         mFirebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
-
-        mFirebaseDatabaseReference.child("preferences").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).child("0").setValue(allApartmentSearcherIds[0]);
-        mFirebaseDatabaseReference.child("preferences").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).child("1").setValue(null);
-        mFirebaseDatabaseReference.child("preferences").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).child("2").setValue(null);
-        mFirebaseDatabaseReference.child("preferences").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).child("3").setValue(null);
         toastMessage("Adding " + mFirebaseUser.getDisplayName() + " to database..."); //todo remove
+        while (!done.get());
+        mFirebaseDatabaseReference.child("preferences").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).child("0").setValue(allApartmentSearcherIds[0]);
         Intent i = new Intent(ChoosingActivity.this, MainActivityRoommateSearcher.class);
         startActivity(i);
         finish();
+
     }
 
-    public void apartmentSearcherOnclick(View view) {
+    public void apartmentSearcherOnclick(View view) throws InterruptedException {
         User userObj = createNewUser();
         mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
-
+        while (!done.get());
         mFirebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).child("0").setValue(allRoommateSearcherIds);
-        mFirebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).child("1").setValue(null);
-        mFirebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).child("2").setValue(null);
-        mFirebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).child("3").setValue(null);
         toastMessage("Adding " + mFirebaseUser.getDisplayName() + " to database..."); //todo remove
         Intent i = new Intent(ChoosingActivity.this, MainActivityApartmentSearcher.class);
         startActivity(i);
