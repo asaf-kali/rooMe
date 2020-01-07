@@ -99,7 +99,6 @@ public class ChoosingActivity extends AppCompatActivity {
         String key = newRef.getKey();
         newRef.setValue(userObj);
 //        mFirebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
-        while (!done.get()) ;
         mFirebaseDatabaseReference.child("preferences").child("RoommateSearcherUser").child(key).child("0").setValue(allApartmentSearcherIds[0]);
         Intent i = new Intent(ChoosingActivity.this, MainActivityRoommateSearcher.class);
         startActivity(i);

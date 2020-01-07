@@ -52,8 +52,8 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
+//        FirebaseMediate.checkTillEnd();
         FirebaseMediate.getAllApartmentSearcher();
-        aUser = FirebaseMediate.getApartmentSearcherUserByUid("cdCOS5JmVwVlulnxw9fRNcqsYTm2");
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);
         viewPager.setOffscreenPageLimit(3);
         setupViewPager(viewPager);

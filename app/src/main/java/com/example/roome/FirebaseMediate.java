@@ -136,4 +136,9 @@ public class FirebaseMediate {
         allRoommateSearcherUsersIds = refDSS.getValue(t);
         return allRoommateSearcherUsersIds;
     }
+
+    public static void checkTillEnd() {
+        while (!done.get()) ;
+
+    }
 }
