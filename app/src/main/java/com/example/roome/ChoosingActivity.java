@@ -85,6 +85,7 @@ public class ChoosingActivity extends AppCompatActivity {
      * @param view
      */
     public void roommateSearcherOnclick(View view) {
+        MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
         User userObj = createNewUser();
         mFirebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
         while (!done.get()) ;
@@ -101,6 +102,8 @@ public class ChoosingActivity extends AppCompatActivity {
      * @param view
      */
     public void apartmentSearcherOnclick(View view) {
+        MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
+        MyPreferences.setIsRoommateSearcherToFalse(getApplicationContext());
         User userObj = createNewUser();
         mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
         while (!done.get()) ;

@@ -30,6 +30,7 @@ public class ApartmentSearcherHome extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        FirebaseMediate.setDataSnapshot(); //todo
 //        setContentView(R.layout.activity_apartment_searcher_home);
     }
 
@@ -43,7 +44,8 @@ public class ApartmentSearcherHome extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         currentPlaceInList = -1;
-        retrieveRelevantRoommateSearchers();
+
+//        retrieveRelevantRoommateSearchers();
         mainImage = getView().findViewById(R.id.iv_home_display);
         yesButton = getView().findViewById(R.id.btn_yes_house);
         maybeButton = getView().findViewById(R.id.btn_maybe_house);
