@@ -124,7 +124,7 @@ public class EditProfileApartmentSearcher extends Fragment {
      * validating relevant fields filled by the user
      */
 
-    public void validateUserInput() {
+    private void validateUserInput() {
         validateUserFirstName();
         validateUserLastName();
         validateAge();

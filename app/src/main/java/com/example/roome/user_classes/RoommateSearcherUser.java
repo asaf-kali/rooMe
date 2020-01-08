@@ -3,7 +3,6 @@ package com.example.roome.user_classes;
 import android.media.Image;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class RoommateSearcherUser extends User {
 
@@ -18,6 +17,10 @@ public class RoommateSearcherUser extends User {
 
     public RoommateSearcherUser(String firstName, String lastName, int age) {
         super(firstName, lastName);
+    }
+
+    public RoommateSearcherUser() {
+        super();
     }
 
     //------------------------------------------Getters---------------------------------------------
