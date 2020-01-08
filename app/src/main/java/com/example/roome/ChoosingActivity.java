@@ -1,8 +1,12 @@
 package com.example.roome;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,6 +41,7 @@ public class ChoosingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setAnimation();
         setContentView(R.layout.activity_choosing);
 
         // Initialize Firebase
@@ -61,6 +66,17 @@ public class ChoosingActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void setAnimation() {
+        if (Build.VERSION.SDK_INT > 20) {
+            Slide slide = new Slide();
+            slide.setSlideEdge(Gravity.LEFT);
+            slide.setDuration(400);
+            slide.setInterpolator(new DecelerateInterpolator());
+            getWindow().setExitTransition(slide);
+            getWindow().setEnterTransition(slide);
+        }
     }
 
     /**
