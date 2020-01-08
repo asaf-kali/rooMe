@@ -1,8 +1,6 @@
 package com.example.roome;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -31,12 +29,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = reader.edit();
-        editor.putBoolean(MyPreferences.IS_FIRST_TIME, true);
-        editor.apply();
+        //todo delete 4 rows
+//        final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
+//        final SharedPreferences.Editor editor = reader.edit();
+//        editor.putBoolean(MyPreferences.IS_FIRST_TIME, true);
+//        editor.apply();
         //Time passed till next activity is launched
-        int TIME_OUT = 6000;
+        int TIME_OUT = 3000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -60,11 +59,11 @@ public class MainActivity extends AppCompatActivity {
                     //show start activity
                     i = new Intent(MainActivity.this, ChoosingActivity.class);
                 } else {
-                    boolean isRoommateSearcher = MyPreferences.isRoommateSearcher(MainActivity.this); //todo change activity
+                    boolean isRoommateSearcher = MyPreferences.isRoommateSearcher(MainActivity.this);
                     if (isRoommateSearcher) {
-                        i = new Intent(MainActivity.this, ChoosingActivity.class);//todo change activity
+                        i = new Intent(MainActivity.this, MainActivityRoommateSearcher.class);
                     } else {
-                        i = new Intent(MainActivity.this, ChoosingActivity.class);
+                        i = new Intent(MainActivity.this, MainActivityApartmentSearcher.class);
 
                     }
                     i.putExtra(MainActivity.FROM, MAIN_SRC);

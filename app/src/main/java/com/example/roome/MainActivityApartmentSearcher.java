@@ -34,7 +34,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
             R.drawable.ic_action_empty_heart, R.drawable.ic_action_empty_hourglass,
             R.drawable.ic_action_empty_person};
 
-    private ApartmentSearcherUser aUser;
+    private static ApartmentSearcherUser aUser;
 
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
@@ -46,13 +46,13 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_apartment_searcher);
-        FirebaseMediate.setDataSnapshot();
+//        FirebaseMediate.setDataSnapshot(); //todo
         // Initialize Firebase
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
-//        aUser = FirebaseMediate.get
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+//        aUser = FirebaseMediate.getCurrentApartmentSearcherUser();
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);
         viewPager.setOffscreenPageLimit(3);
         setupViewPager(viewPager);
@@ -100,6 +100,14 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         adapter.addFragment(new EditFiltersApartmentSearcher(), "FILTERS");
         adapter.addFragment(new EditProfileApartmentSearcher(), "PROFILE");
         viewPager.setAdapter(adapter);
+    }
+
+    public ApartmentSearcherUser getaUser() {
+        return aUser;
+    }
+
+    public void setaUser(ApartmentSearcherUser aUser) {
+        this.aUser = aUser;
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

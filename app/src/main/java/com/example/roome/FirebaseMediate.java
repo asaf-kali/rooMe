@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.example.roome.user_classes.RoommateSearcherUser;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -16,24 +18,30 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class FirebaseMediate {
 
-    private static FirebaseDatabase mFirebaseDatabase;
-    private static DatabaseReference mFirebaseDatabaseReference;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mFirebaseDatabaseReference;
+    private FirebaseAuth mFirebaseAuth;
+    private  FirebaseUser mFirebaseUser;
     private static DataSnapshot dataSs;
-    public final static AtomicBoolean done = new AtomicBoolean(false);
+    private ApartmentSearcherUser cur;
+
+    public final static AtomicBoolean fmDone = new AtomicBoolean(false);
 
     public static void setDataSnapshot(@NonNull DataSnapshot dataSnapshot) {
         dataSs = dataSnapshot;
     }
 
-    public static void setDataSnapshot() {
+    public void setDataSnapshot() {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
+        mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dataSs = dataSnapshot;
-                done.set(true);
-
+                mFirebaseUser = mFirebaseAuth.getCurrentUser();
+                cur = dataSs.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).getValue(ApartmentSearcherUser.class);
+                fmDone.set(true);
             }
 
             @Override
@@ -55,7 +63,7 @@ public class FirebaseMediate {
         return allAptSearcherUsersIds;
     }
 
-    public static ArrayList<ApartmentSearcherUser> getAllApartmentSearcher() {
+    public ArrayList<ApartmentSearcherUser> getAllApartmentSearcher() {
         DataSnapshot dataSnapshotRootUsers = dataSs.child("users");
         ArrayList<ApartmentSearcherUser> allAptSearcherUsers = new ArrayList<>();
         DataSnapshot refDSS = dataSnapshotRootUsers.child("ApartmentSearcherUser");
@@ -97,17 +105,24 @@ public class FirebaseMediate {
      * @param uid - uid of apartment searcher user
      * @return the apartment searcher user object
      */
-    public static ApartmentSearcherUser getApartmentSearcherUserByUid(String uid) {
+    public ApartmentSearcherUser getApartmentSearcherUserByUid(String uid) {
         DataSnapshot temp = dataSs.child("users").child("ApartmentSearcherUser").child(uid);
         return temp.getValue(ApartmentSearcherUser.class);
     }
 
-    public static RoommateSearcherUser getRoommateSearcherUserByUid(String uid) {
+    public ApartmentSearcherUser getCurrentApartmentSearcherUser() {
+        if (mFirebaseUser == null) {
+            return null;
+        }
+        return dataSs.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).getValue(ApartmentSearcherUser.class);
+    }
+
+    public RoommateSearcherUser getRoommateSearcherUserByUid(String uid) {
         DataSnapshot temp = dataSs.child("users").child("RoommateSearcherUser").child(uid);
         return temp.getValue(RoommateSearcherUser.class);
     }
 
-    public static ArrayList<String> getLikeUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser) {
+    public ArrayList<String> getLikeUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser) {
         GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
         };
         ArrayList<String> allRoommateSearcherUsersIds;
@@ -117,7 +132,7 @@ public class FirebaseMediate {
     }
 
 
-    public static ArrayList<String> getUnlikeUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser) {
+    public ArrayList<String> getUnlikeUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser) {
         GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
         };
 
@@ -128,7 +143,7 @@ public class FirebaseMediate {
     }
 
 
-    public static ArrayList<String> getMaybeUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser) {
+    public ArrayList<String> getMaybeUsersIdR(DataSnapshot dataSnapshotRootSpecificAptUser) {
         GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
         };
         ArrayList<String> allRoommateSearcherUsersIds;

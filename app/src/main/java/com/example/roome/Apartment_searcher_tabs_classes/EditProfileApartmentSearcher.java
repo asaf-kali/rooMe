@@ -9,21 +9,23 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.roome.FirebaseMediate;
 import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.example.roome.user_classes.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class EditProfileApartmentSearcher extends Fragment {
     private static final int GALLERY_REQUEST_CODE = 1;
@@ -37,10 +39,22 @@ public class EditProfileApartmentSearcher extends Fragment {
     private EditText ageEditText;
     private EditText phoneNumberEditText;
 
-    private Button saveProfileAS;
+    // Firebase instance variables
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mFirebaseDatabaseReference;
 
-    //todo: make bio a bigger edit text so u could see more sentences
+    public ApartmentSearcherUser getAsUser() {
+        return asUser;
+    }
 
+    public void setAsUser(ApartmentSearcherUser aUser) {
+        asUser = aUser;
+        validateUserInput();
+    }
+
+    private ApartmentSearcherUser asUser;
 
     //profile pic
     ImageView profilePic;
@@ -48,6 +62,25 @@ public class EditProfileApartmentSearcher extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        // Initialize Firebase
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
+        mFirebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mFirebaseUser = mFirebaseAuth.getCurrentUser();
+                asUser = dataSnapshot.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).getValue(ApartmentSearcherUser.class);
+                validateUserInput();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        asUser = new ApartmentSearcherUser();
         super.onCreate(savedInstanceState);
     }
 
@@ -91,7 +124,7 @@ public class EditProfileApartmentSearcher extends Fragment {
      * validating relevant fields filled by the user
      */
 
-    private void validateUserInput() {
+    public void validateUserInput() {
         validateUserFirstName();
         validateUserLastName();
         validateAge();
@@ -101,28 +134,28 @@ public class EditProfileApartmentSearcher extends Fragment {
     /**
      * Returns a boolean if all of the user's input is valid
      */
-    private boolean isUserInputValid(){
+    private boolean isUserInputValid() {
         return isUserFirstNameValid && isUserLastNameValid && isUserAgeValid && isUserPhoneValid;
     }
 
 
-    public void uploadPhotoOnClickAS(){
+    public void uploadPhotoOnClickAS() {
         //Create an Intent with action as ACTION_PICK
-        Intent intent=new Intent(Intent.ACTION_PICK);
+        Intent intent = new Intent(Intent.ACTION_PICK);
         // Sets the type as image/*. This ensures only components of type image are selected
         intent.setType("image/*");
         //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
         String[] mimeTypes = {"image/jpeg", "image/png"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
         // Launching the Intent
-        startActivityForResult(intent,GALLERY_REQUEST_CODE);
+        startActivityForResult(intent, GALLERY_REQUEST_CODE);
     }
 
     @Override
-    public void onActivityResult(int requestCode,int resultCode,Intent data){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Result code is RESULT_OK only if the user selects an Image
         if (resultCode == Activity.RESULT_OK)
-            switch (requestCode){
+            switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
                     //data.getData returns the content URI for the selected Image
                     Uri selectedImage = data.getData(); //todo:save profile pic to db
@@ -137,6 +170,8 @@ public class EditProfileApartmentSearcher extends Fragment {
      */
     private void validateUserFirstName() {
         mEnterFirstNameEditText = getView().findViewById(R.id.et_enterFirstName);
+        mEnterFirstNameEditText.setText(asUser.getFirstName() + "***"); //todo
+
         mEnterFirstNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -282,7 +317,7 @@ public class EditProfileApartmentSearcher extends Fragment {
                         phoneNumberEditText.setError("Phone number is required!");
                         return;
                     }
-                    if (inputLength != User.PHONE_NUMBER_LENGTH){
+                    if (inputLength != User.PHONE_NUMBER_LENGTH) {
                         phoneNumberEditText.setError("Invalid phone number");
                         return;
                     }
