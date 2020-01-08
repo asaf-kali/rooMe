@@ -103,6 +103,7 @@ public class ChoosingActivity extends AppCompatActivity {
      */
     public void apartmentSearcherOnclick(View view) {
         MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
+        MyPreferences.setIsRoommateSearcherToFalse(getApplicationContext());
         User userObj = createNewUser();
         mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
         while (!done.get()) ;
