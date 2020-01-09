@@ -20,7 +20,7 @@ public class TwoFragmentR extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        Intent i = new Intent(getActivity(), EditProfileApartmentSearcher.class);
-//        startActivityWithAnimation(i);
+//        startActivity(i);
     }
 
     @Override
