@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -39,20 +40,13 @@ public class EditProfileApartmentSearcher extends Fragment {
     private EditText ageEditText;
     private EditText phoneNumberEditText;
 
+    private Button saveProfileButton;
+
     // Firebase instance variables
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
-
-    public ApartmentSearcherUser getAsUser() {
-        return asUser;
-    }
-
-    public void setAsUser(ApartmentSearcherUser aUser) {
-        asUser = aUser;
-        validateUserInput();
-    }
 
     private ApartmentSearcherUser asUser;
 
@@ -67,7 +61,7 @@ public class EditProfileApartmentSearcher extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabaseReference = firebaseDatabase.getReference();
-        firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
+        firebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 firebaseUser = firebaseAuth.getCurrentUser();
@@ -105,17 +99,19 @@ public class EditProfileApartmentSearcher extends Fragment {
                 uploadPhotoOnClickAS();
             }
         });
-//        saveProfileAS.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (isUserInputValid()){
-//                    //todo: upload obj to DB
-//                }
-//                else {
-//                    //todo: toast error that data isn't saved cuz user's input is shit
-//                }
-//            }
-//        });
+
+        saveProfileButton = getView().findViewById(R.id.btn_save_profile_as);
+        saveProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isUserInputValid()) {
+                    //todo: upload obj to DB
+                    firebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(firebaseUser.getUid()).setValue(asUser);
+                } else {
+                    //todo: toast error that data isn't saved cuz user's input is shit
+                }
+            }
+        });
         validateUserInput();
         super.onActivityCreated(savedInstanceState);
     }
@@ -137,7 +133,6 @@ public class EditProfileApartmentSearcher extends Fragment {
     private boolean isUserInputValid() {
         return isUserFirstNameValid && isUserLastNameValid && isUserAgeValid && isUserPhoneValid;
     }
-
 
     public void uploadPhotoOnClickAS() {
         //Create an Intent with action as ACTION_PICK
