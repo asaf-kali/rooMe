@@ -34,16 +34,16 @@ public class EditProfileApartmentSearcher extends Fragment {
     private Boolean isUserAgeValid;
     private Boolean isUserPhoneValid;
 
-    private EditText mEnterFirstNameEditText;
-    private EditText mEnterLastNameEditText;
+    private EditText firstNameEditText;
+    private EditText lastNameEditText;
     private EditText ageEditText;
     private EditText phoneNumberEditText;
 
     // Firebase instance variables
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mFirebaseDatabaseReference;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference firebaseDatabaseReference;
 
     public ApartmentSearcherUser getAsUser() {
         return asUser;
@@ -63,15 +63,15 @@ public class EditProfileApartmentSearcher extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // Initialize Firebase
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
-        mFirebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseDatabaseReference = firebaseDatabase.getReference();
+        firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mFirebaseUser = mFirebaseAuth.getCurrentUser();
-                asUser = dataSnapshot.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).getValue(ApartmentSearcherUser.class);
+                firebaseUser = firebaseAuth.getCurrentUser();
+                asUser = dataSnapshot.child("users").child("ApartmentSearcherUser").child(firebaseUser.getUid()).getValue(ApartmentSearcherUser.class);
                 validateUserInput();
             }
 
@@ -169,24 +169,24 @@ public class EditProfileApartmentSearcher extends Fragment {
      * validate the entered name.
      */
     private void validateUserFirstName() {
-        mEnterFirstNameEditText = getView().findViewById(R.id.et_enterFirstName);
-        mEnterFirstNameEditText.setText(asUser.getFirstName() + "***"); //todo
+        firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
+        firstNameEditText.setText(asUser.getFirstName() + "***"); //todo
 
-        mEnterFirstNameEditText.addTextChangedListener(new TextWatcher() {
+        firstNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                mEnterFirstNameEditText.setText(aUser.getFirstName() + "***"); //todo erase *
+//                firstNameEditText.setText(aUser.getFirstName() + "***"); //todo erase *
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 isUserFirstNameValid = false;
-                int inputLength = mEnterFirstNameEditText.getText().toString().length();
+                int inputLength = firstNameEditText.getText().toString().length();
                 if (inputLength >= User.NAME_MAXIMUM_LENGTH) {
-                    mEnterFirstNameEditText.setError("Maximum Limit Reached!");
+                    firstNameEditText.setError("Maximum Limit Reached!");
                     return;
                 } else if (inputLength == 0) {
-                    mEnterFirstNameEditText.setError("First name is required!");
+                    firstNameEditText.setError("First name is required!");
                 } else {
                     isUserFirstNameValid = true;
                 }
@@ -202,8 +202,8 @@ public class EditProfileApartmentSearcher extends Fragment {
      * validate the entered name.
      */
     private void validateUserLastName() {
-        mEnterLastNameEditText = getView().findViewById(R.id.et_enterLastName);
-        mEnterLastNameEditText.addTextChangedListener(new TextWatcher() {
+        lastNameEditText = getView().findViewById(R.id.et_enterLastName);
+        lastNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //todo: get last name from db
@@ -212,12 +212,12 @@ public class EditProfileApartmentSearcher extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 isUserLastNameValid = false;
-                int inputLength = mEnterLastNameEditText.getText().toString().length();
+                int inputLength = lastNameEditText.getText().toString().length();
                 if (inputLength >= User.NAME_MAXIMUM_LENGTH) {
-                    mEnterLastNameEditText.setError("Maximum Limit Reached!");
+                    lastNameEditText.setError("Maximum Limit Reached!");
                     return;
                 } else if (inputLength == 0) {
-                    mEnterLastNameEditText.setError("Last name is required!");
+                    lastNameEditText.setError("Last name is required!");
                 } else {
                     isUserLastNameValid = true;
                 }

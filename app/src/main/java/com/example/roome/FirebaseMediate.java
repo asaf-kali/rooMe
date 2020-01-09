@@ -18,10 +18,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class FirebaseMediate {
 
-    private static FirebaseDatabase mFirebaseDatabase;
-    private static DatabaseReference mFirebaseDatabaseReference;
-    private static FirebaseAuth mFirebaseAuth;
-    private static FirebaseUser mFirebaseUser;
+    private static FirebaseDatabase firebaseDatabase;
+    private static DatabaseReference firebaseDatabaseReference;
+    private static FirebaseAuth firebaseAuth;
+    private static FirebaseUser firebaseUser;
     private static DataSnapshot dataSs;
 
     public final static AtomicBoolean fmDone = new AtomicBoolean(false);
@@ -31,14 +31,14 @@ public class FirebaseMediate {
     }
 
     public static void setDataSnapshot() {
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseDatabaseReference = firebaseDatabase.getReference();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dataSs = dataSnapshot;
-                mFirebaseUser = mFirebaseAuth.getCurrentUser();
+                firebaseUser = firebaseAuth.getCurrentUser();
                 fmDone.set(true);
             }
 
@@ -109,10 +109,10 @@ public class FirebaseMediate {
     }
 
     public static ApartmentSearcherUser getCurrentApartmentSearcherUser() {
-        if (mFirebaseUser == null) {
+        if (firebaseUser == null) {
             return null;
         }
-        return dataSs.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).getValue(ApartmentSearcherUser.class);
+        return dataSs.child("users").child("ApartmentSearcherUser").child(firebaseUser.getUid()).getValue(ApartmentSearcherUser.class);
     }
 
     public static RoommateSearcherUser getRoommateSearcherUserByUid(String uid) {

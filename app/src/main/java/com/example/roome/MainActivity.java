@@ -1,13 +1,13 @@
 package com.example.roome;
 
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -24,14 +24,14 @@ public class MainActivity extends AppCompatActivity {
     //Time passed till next activity is launched
     private static final int TIME_OUT = 3000;
 
-    private String mUsername;
+    private String userName;
     private String mPhotoUrl;
 
     // Firebase instance variables
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mFirebaseDatabaseReference;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference firebaseDatabaseReference;
 
 
     @Override
@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Initialize Firebase
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseDatabaseReference = firebaseDatabase.getReference();
         //todo delete 4 rows
 //        final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
 //        final SharedPreferences.Editor editor = reader.edit();
@@ -51,15 +51,15 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (mFirebaseUser == null) {
+                if (firebaseUser == null) {
                     // Not signed in, launch the Sign In activity
                     startActivity(new Intent(MainActivity.this, SignInActivity.class));
                     finish();
                     return;
                 } else {
-                    mUsername = mFirebaseUser.getDisplayName();
-                    if (mFirebaseUser.getPhotoUrl() != null) {
-                        mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
+                    userName = firebaseUser.getDisplayName();
+                    if (firebaseUser.getPhotoUrl() != null) {
+                        mPhotoUrl = firebaseUser.getPhotoUrl().toString();
                     }
                 }
                 startActivityWithAnimation();
@@ -79,11 +79,11 @@ public class MainActivity extends AppCompatActivity {
             //show home activity
             i = new Intent(MainActivity.this, ChoosingActivity.class);
         } else {
-            boolean isRoommateSearcher = MyPreferences.isRoommateSearcher(MainActivity.this); //todo change activity
+            boolean isRoommateSearcher = MyPreferences.isRoommateSearcher(MainActivity.this);
             if (isRoommateSearcher) {
-                i = new Intent(MainActivity.this, ChoosingActivity.class);//todo change activity
+                i = new Intent(MainActivity.this, MainActivityRoommateSearcher.class);
             } else {
-                i = new Intent(MainActivity.this, ChoosingActivity.class);
+                i = new Intent(MainActivity.this, MainActivityApartmentSearcher.class);
 
             }
             i.putExtra(MainActivity.FROM, MAIN_SRC);

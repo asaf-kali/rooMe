@@ -37,10 +37,10 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     private static ApartmentSearcherUser aUser;
 
     // Firebase instance variables
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mFirebaseDatabaseReference;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference firebaseDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +48,10 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         setContentView(R.layout.activity_main_apartment_searcher);
 //        FirebaseMediate.setDataSnapshot(); //todo
         // Initialize Firebase
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabaseReference = firebaseDatabase.getReference();
+        firebaseUser = firebaseAuth.getCurrentUser();
 //        aUser = FirebaseMediate.getCurrentApartmentSearcherUser();
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);
         viewPager.setOffscreenPageLimit(3);

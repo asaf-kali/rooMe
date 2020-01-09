@@ -29,10 +29,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ChoosingActivity extends AppCompatActivity {
 
     // Firebase instance variables
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mFirebaseDatabaseReference;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference firebaseDatabaseReference;
     final ArrayList<String>[] allApartmentSearcherIds = new ArrayList[1];
     final ArrayList<String>[] allRoommateSearcherIds = new ArrayList[1];
     final AtomicBoolean done = new AtomicBoolean(false);
@@ -45,14 +45,14 @@ public class ChoosingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choosing);
 
         // Initialize Firebase
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseDatabaseReference = firebaseDatabase.getReference();
 
         updateUserName();
 
-        mFirebaseDatabaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseDatabaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 FirebaseMediate.setDataSnapshot(dataSnapshot);
@@ -86,8 +86,8 @@ public class ChoosingActivity extends AppCompatActivity {
     private void updateUserName() {//todo
         String userName = "";
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(ChoosingActivity.this);
-        if (mFirebaseUser != null) {
-            userName = mFirebaseUser.getDisplayName();
+        if (firebaseUser != null) {
+            userName = firebaseUser.getDisplayName();
         } else if (acct != null) {
             userName = acct.getDisplayName();
         }
@@ -103,9 +103,9 @@ public class ChoosingActivity extends AppCompatActivity {
     public void roommateSearcherOnclick(View view) {
         MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
         User userObj = createNewUser();
-        mFirebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
+        firebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(firebaseUser.getUid()).setValue(userObj);
         while (!done.get()) ;
-        mFirebaseDatabaseReference.child("preferences").child("RoommateSearcherUser").child(mFirebaseUser.getUid()).child("0").setValue(allApartmentSearcherIds[0]);
+        firebaseDatabaseReference.child("preferences").child("RoommateSearcherUser").child(firebaseUser.getUid()).child("0").setValue(allApartmentSearcherIds[0]);
         Intent i = new Intent(ChoosingActivity.this, MainActivityRoommateSearcher.class);
         startActivity(i);
         finish();
@@ -121,9 +121,9 @@ public class ChoosingActivity extends AppCompatActivity {
         MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
         MyPreferences.setIsRoommateSearcherToFalse(getApplicationContext());
         User userObj = createNewUser();
-        mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
+        firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(firebaseUser.getUid()).setValue(userObj);
         while (!done.get()) ;
-        mFirebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).child("0").setValue(allRoommateSearcherIds[0]);
+        firebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(firebaseUser.getUid()).child("0").setValue(allRoommateSearcherIds[0]);
         Intent i = new Intent(ChoosingActivity.this, MainActivityApartmentSearcher.class);
         startActivity(i);
         finish();
