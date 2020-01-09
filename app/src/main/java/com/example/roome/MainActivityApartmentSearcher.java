@@ -72,7 +72,6 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
                     @Override
                     public void onTabUnselected(TabLayout.Tab tab) {
                         super.onTabUnselected(tab);
-
                         tab.setIcon(unselectedtabIcons[tab.getPosition()]);
                     }
 

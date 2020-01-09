@@ -72,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
                         i = new Intent(MainActivity.this, MainActivityApartmentSearcher.class);
 
                     }
-                    i.putExtra(MainActivity.FROM, MAIN_SRC);
+                    i.putExtra(MainActivity.FROM, MAIN_SRC); //todo maybe go to intermediate
+                    //activity(whose main purpose is to update the data snapshot)
                 }
                 startActivity(i);
                 finish();
