@@ -5,9 +5,9 @@ import android.media.Image;
 public class User {
 
     public static final int NAME_MAXIMUM_LENGTH = 18;
-    public static final int MAXIMUM_LENGTH = 4;
-    public static final int MAXIMUM_AGE = 120;
-    public static final int MINIMUM_AGE = 6;
+    public static final int MAXIMUM_AGE_LENGTH = 2;
+    public static final int MAXIMUM_AGE = 70;
+    public static final int MINIMUM_AGE = 14;
     public static final int PHONE_NUMBER_LENGTH = 10;
 
 

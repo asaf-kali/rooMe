@@ -16,8 +16,22 @@ public class MyPreferences {
         return reader.getBoolean(IS_FIRST_TIME, true);
     }
 
+    static void setIsFirstTimeToFalse(Context context) {
+        final SharedPreferences reader = context.getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
+        final SharedPreferences.Editor preferencesEditor = reader.edit();
+        preferencesEditor.putBoolean(MyPreferences.IS_FIRST_TIME, false);
+        preferencesEditor.apply();
+    }
+
+    static void setIsRoommateSearcherToFalse(Context context) {
+        final SharedPreferences reader = context.getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
+        final SharedPreferences.Editor preferencesEditor = reader.edit();
+        preferencesEditor.putBoolean(MyPreferences.IS_ROMMATE_SEARCHER, false);
+        preferencesEditor.apply();
+    }
+
     static boolean isRoommateSearcher(Context context) {
         final SharedPreferences reader = context.getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
-        return reader.getBoolean("isRoommateSearcher", true);
+        return reader.getBoolean(IS_ROMMATE_SEARCHER, true);
     }
 }

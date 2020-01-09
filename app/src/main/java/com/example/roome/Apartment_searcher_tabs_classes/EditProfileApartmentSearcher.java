@@ -27,11 +27,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
 public class EditProfileApartmentSearcher extends Fragment {
     private static final int GALLERY_REQUEST_CODE = 1;
-    private Boolean isUserFirstNameValid;//todo use
+    private Boolean isUserFirstNameValid;
     private Boolean isUserLastNameValid;
     private Boolean isUserAgeValid;
     private Boolean isUserPhoneValid;
@@ -40,7 +38,6 @@ public class EditProfileApartmentSearcher extends Fragment {
     private EditText mEnterLastNameEditText;
     private EditText ageEditText;
     private EditText phoneNumberEditText;
-    //todo: add save button in the edit profile
 
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
@@ -48,7 +45,16 @@ public class EditProfileApartmentSearcher extends Fragment {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mFirebaseDatabaseReference;
 
-    private ApartmentSearcherUser aUser;
+    public ApartmentSearcherUser getAsUser() {
+        return asUser;
+    }
+
+    public void setAsUser(ApartmentSearcherUser aUser) {
+        asUser = aUser;
+        validateUserInput();
+    }
+
+    private ApartmentSearcherUser asUser;
 
     //profile pic
     ImageView profilePic;
@@ -61,7 +67,20 @@ public class EditProfileApartmentSearcher extends Fragment {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
+        mFirebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mFirebaseUser = mFirebaseAuth.getCurrentUser();
+                asUser = dataSnapshot.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).getValue(ApartmentSearcherUser.class);
+                validateUserInput();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        asUser = new ApartmentSearcherUser();
         super.onCreate(savedInstanceState);
     }
 
@@ -86,12 +105,23 @@ public class EditProfileApartmentSearcher extends Fragment {
                 uploadPhotoOnClickAS();
             }
         });
+//        saveProfileAS.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (isUserInputValid()){
+//                    //todo: upload obj to DB
+//                }
+//                else {
+//                    //todo: toast error that data isn't saved cuz user's input is shit
+//                }
+//            }
+//        });
         validateUserInput();
         super.onActivityCreated(savedInstanceState);
     }
 
     /**
-     * validating all fields filled by the user
+     * validating relevant fields filled by the user
      */
 
     private void validateUserInput() {
@@ -101,28 +131,34 @@ public class EditProfileApartmentSearcher extends Fragment {
         validatePhoneNumber();
     }
 
+    /**
+     * Returns a boolean if all of the user's input is valid
+     */
+    private boolean isUserInputValid() {
+        return isUserFirstNameValid && isUserLastNameValid && isUserAgeValid && isUserPhoneValid;
+    }
 
 
-    public void uploadPhotoOnClickAS(){
+    public void uploadPhotoOnClickAS() {
         //Create an Intent with action as ACTION_PICK
-        Intent intent=new Intent(Intent.ACTION_PICK);
+        Intent intent = new Intent(Intent.ACTION_PICK);
         // Sets the type as image/*. This ensures only components of type image are selected
         intent.setType("image/*");
         //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
         String[] mimeTypes = {"image/jpeg", "image/png"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
         // Launching the Intent
-        startActivityForResult(intent,GALLERY_REQUEST_CODE);
+        startActivityForResult(intent, GALLERY_REQUEST_CODE);
     }
 
     @Override
-    public void onActivityResult(int requestCode,int resultCode,Intent data){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Result code is RESULT_OK only if the user selects an Image
         if (resultCode == Activity.RESULT_OK)
-            switch (requestCode){
+            switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
                     //data.getData returns the content URI for the selected Image
-                    Uri selectedImage = data.getData();
+                    Uri selectedImage = data.getData(); //todo:save profile pic to db
                     profilePic.setImageURI(selectedImage);
                     break;
             }
@@ -134,10 +170,12 @@ public class EditProfileApartmentSearcher extends Fragment {
      */
     private void validateUserFirstName() {
         mEnterFirstNameEditText = getView().findViewById(R.id.et_enterFirstName);
+        mEnterFirstNameEditText.setText(asUser.getFirstName() + "***"); //todo
+
         mEnterFirstNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                mEnterFirstNameEditText.setText(aUser.getFirstName() + "***"); //todo
+//                mEnterFirstNameEditText.setText(aUser.getFirstName() + "***"); //todo erase *
             }
 
             @Override
@@ -148,11 +186,10 @@ public class EditProfileApartmentSearcher extends Fragment {
                     mEnterFirstNameEditText.setError("Maximum Limit Reached!");
                     return;
                 } else if (inputLength == 0) {
-                    mEnterFirstNameEditText.setError("name is required!");
+                    mEnterFirstNameEditText.setError("First name is required!");
                 } else {
                     isUserFirstNameValid = true;
                 }
-//                mEnterFirstNameEditText.setText(aUser.getFirstName() + "***"); //todo
             }
 
             @Override
@@ -169,6 +206,7 @@ public class EditProfileApartmentSearcher extends Fragment {
         mEnterLastNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //todo: get last name from db
             }
 
             @Override
@@ -179,7 +217,7 @@ public class EditProfileApartmentSearcher extends Fragment {
                     mEnterLastNameEditText.setError("Maximum Limit Reached!");
                     return;
                 } else if (inputLength == 0) {
-                    mEnterLastNameEditText.setError("name is required!");
+                    mEnterLastNameEditText.setError("Last name is required!");
                 } else {
                     isUserLastNameValid = true;
                 }
@@ -199,13 +237,14 @@ public class EditProfileApartmentSearcher extends Fragment {
         ageEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //todo:if in db get it, else present the hint
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 isUserAgeValid = false;
                 int inputLength = ageEditText.getText().toString().length();
-                if (inputLength >= User.MAXIMUM_LENGTH) {
+                if (inputLength > User.MAXIMUM_AGE_LENGTH) {
                     ageEditText.setError("Maximum Limit Reached!");
                     return;
                 }
@@ -228,18 +267,18 @@ public class EditProfileApartmentSearcher extends Fragment {
                 if (!hasFocus) {
                     int inputLength = ageEditText.getText().toString().length();
                     if (inputLength == 0) {
-                        ageEditText.setError("age is required!");
+                        ageEditText.setError("Age is required!");
                         return;
                     }
-                    if (inputLength > User.MAXIMUM_LENGTH) {
+                    if (inputLength > User.MAXIMUM_AGE_LENGTH) {
                         ageEditText.setError("Maximum Limit Reached!");
                         return;
                     }
                     int curAge = Integer.parseInt(ageEditText.getText().toString());
                     if (curAge > User.MAXIMUM_AGE) {
-                        ageEditText.setError("age is too old!");
+                        ageEditText.setError("Age is too old!");
                     } else if (curAge < User.MINIMUM_AGE) {
-                        ageEditText.setError("age is too young!");
+                        ageEditText.setError("Age is too young!");
                     } else {
                         isUserAgeValid = true;
                     }
@@ -256,18 +295,13 @@ public class EditProfileApartmentSearcher extends Fragment {
         phoneNumberEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //todo:if in db get it' else present the hint
 
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                isUserPhoneValid = false;
-                int inputLength = phoneNumberEditText.getText().toString().length();
-                if (inputLength != User.PHONE_NUMBER_LENGTH) {
-                    phoneNumberEditText.setError("Invalid Phone Number");
-                    return;
-                }
-                isUserPhoneValid = true;
+
             }
 
             @Override
@@ -281,6 +315,10 @@ public class EditProfileApartmentSearcher extends Fragment {
                     int inputLength = phoneNumberEditText.getText().toString().length();
                     if (inputLength == 0) {
                         phoneNumberEditText.setError("Phone number is required!");
+                        return;
+                    }
+                    if (inputLength != User.PHONE_NUMBER_LENGTH) {
+                        phoneNumberEditText.setError("Invalid phone number");
                         return;
                     }
                     isUserPhoneValid = true;
