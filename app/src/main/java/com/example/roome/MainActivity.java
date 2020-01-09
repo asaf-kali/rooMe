@@ -20,6 +20,9 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
     private static final String FROM = "called from";
     private static final String MAIN_SRC = "MAIN";
+    private static final int MIN_SUPPORTED_API_LEVEL = 20;
+    //Time passed till next activity is launched
+    private static final int TIME_OUT = 3000;
 
     private String mUsername;
     private String mPhotoUrl;
@@ -37,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
         final SharedPreferences.Editor editor = reader.edit();
         editor.putBoolean(MyPreferences.IS_FIRST_TIME, true);
         editor.apply();
-        //Time passed till next activity is launched
-        int TIME_OUT = 3000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
                     }
                 }
-                startActivity();
+                startActivityWithAnimation();
                 finish();
             }
         }, TIME_OUT);
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
      * this method starts a new activity and adding the transition animation for relevant versions
      * of android
      */
-    public void startActivity(){
+    public void startActivityWithAnimation(){
         Intent i;
         boolean isFirstTime = MyPreferences.isFirstTime(MainActivity.this);
         if (isFirstTime) {
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
             i.putExtra(MainActivity.FROM, MAIN_SRC);
         }
-        if(Build.VERSION.SDK_INT>20){
+        if(Build.VERSION.SDK_INT > MIN_SUPPORTED_API_LEVEL){
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
             startActivity(i,options.toBundle());
         }else {
