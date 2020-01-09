@@ -22,6 +22,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     public ApartmentSearcherUser() {
+        super();
     }
 
     //------------------------------------------Getters---------------------------------------------
