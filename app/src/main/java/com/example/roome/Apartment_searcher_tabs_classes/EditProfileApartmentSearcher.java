@@ -168,6 +168,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     private void validateUserFirstName() {
         firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
         firstNameEditText.setText(asUser.getFirstName());
+        checkIfValidFirstName();
         firstNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -194,16 +195,23 @@ public class EditProfileApartmentSearcher extends Fragment {
         });
     }
 
+    private void checkIfValidFirstName() {
+        int inputLength = firstNameEditText.getText().toString().length();
+        if (inputLength < User.NAME_MAXIMUM_LENGTH && inputLength > 0) {
+            isUserFirstNameValid = true;
+        }
+    }
+
     /**
      * validate the entered name.
      */
     private void validateUserLastName() {
         lastNameEditText = getView().findViewById(R.id.et_enterLastName);
         lastNameEditText.setText(asUser.getLastName());
+        checkIfValidLastName();
         lastNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //todo: get last name from db
             }
 
             @Override
@@ -227,16 +235,23 @@ public class EditProfileApartmentSearcher extends Fragment {
         });
     }
 
+    private void checkIfValidLastName() {
+        int inputLength = lastNameEditText.getText().toString().length();
+        if (inputLength < User.NAME_MAXIMUM_LENGTH && inputLength > 0) {
+            isUserLastNameValid = true;
+        }
+    }
+
     /**
      * validating the age entered. Age has to be between 6 and 120.
      */
     private void validateAge() {
         ageEditText = getView().findViewById(R.id.et_enterAge);
         ageEditText.setText(Integer.toString(asUser.getAge()));
+        checkIfValidAge();
         ageEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //todo:if in db get it, else present the hint
             }
 
             @Override
@@ -258,7 +273,6 @@ public class EditProfileApartmentSearcher extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
         ageEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -286,6 +300,16 @@ public class EditProfileApartmentSearcher extends Fragment {
                 }
             }
         });
+    }
+
+    private void checkIfValidAge() {
+        int inputLength = ageEditText.getText().toString().length();
+        if (inputLength != 0) {
+            int curAge = Integer.parseInt(ageEditText.getText().toString());
+            if (curAge <= User.MAXIMUM_AGE && curAge >= User.MINIMUM_AGE) {
+                isUserAgeValid = true;
+            }
+        }
     }
 
     /**
@@ -318,16 +342,14 @@ public class EditProfileApartmentSearcher extends Fragment {
     private void validatePhoneNumber() {
         phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);
         phoneNumberEditText.setText(asUser.getPhoneNumber());
+        checkIfValidPhoneNumber();
         phoneNumberEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //todo:if in db get it' else present the hint
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
@@ -352,6 +374,13 @@ public class EditProfileApartmentSearcher extends Fragment {
                 }
             }
         });
+    }
+
+    private void checkIfValidPhoneNumber() {
+        int inputLength = phoneNumberEditText.getText().toString().length();
+        if (inputLength == User.PHONE_NUMBER_LENGTH) {
+            isUserPhoneValid = true;
+        }
     }
 
 }
