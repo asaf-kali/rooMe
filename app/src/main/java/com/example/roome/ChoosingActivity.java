@@ -58,6 +58,7 @@ public class ChoosingActivity extends AppCompatActivity {
                 FirebaseMediate.setDataSnapshot(dataSnapshot);
                 allApartmentSearcherIds[0] = FirebaseMediate.getAllApartmentSearcherIds();
                 allRoommateSearcherIds[0] = FirebaseMediate.getAllRoommateSearcherIds();
+                MyPreferences.setUserUid(getApplicationContext(),firebaseUser.getUid());
                 done.set(true);
             }
 
