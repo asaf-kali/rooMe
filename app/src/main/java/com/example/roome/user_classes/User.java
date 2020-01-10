@@ -1,6 +1,6 @@
 package com.example.roome.user_classes; //todo rename?
 
-import android.media.Image;
+import android.net.Uri;
 
 public class User {
 
@@ -16,7 +16,7 @@ public class User {
     private String lastName;
     private int age;
     private String gender;
-    private Image profilePic;
+    private Uri profilePic;
     private String phoneNumber;
 
     //--------------------filters---------------------
@@ -46,11 +46,11 @@ public class User {
         return age;
     }
 
-    public String getGender() {
-        return gender;
-    }
+    public String getPhoneNumber() { return phoneNumber; }
 
-    public Image getProfilePic() {
+    public String getGender() { return gender; }
+
+    public Uri getProfilePic() {
         return profilePic;
     }
 
@@ -68,19 +68,23 @@ public class User {
 
 
     //------------------------------------------Setters---------------------------------------------
-    private void setUserName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    private void setUserAge(int age) {
+    public void setLastName(String lastName) {this.lastName = lastName; }
+
+    public void setAge(int age) {
         this.age = age;
     }
+
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
     public void setGender(String gender) {
         this.gender = gender;
     }
 
-    public void setProfilePic(Image profilePic) {
+    public void setProfilePic(Uri profilePic) {
         this.profilePic = profilePic;
     }
 

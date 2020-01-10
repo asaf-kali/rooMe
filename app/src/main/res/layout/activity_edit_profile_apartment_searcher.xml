@@ -152,7 +152,6 @@
                     android:id="@+id/radio_btn_female"
                     android:layout_width="wrap_content"
                     android:layout_height="22dp"
-                    android:checked="true"
                     android:fontFamily="@font/walkway_bold"
                     android:text="Lady"
                     android:textColor="@android:color/secondary_text_light"
