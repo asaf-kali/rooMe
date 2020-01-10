@@ -32,10 +32,11 @@ public class ChoosingActivity extends AppCompatActivity {
     final ArrayList<String>[] allApartmentSearcherIds = new ArrayList[1];
     final ArrayList<String>[] allRoommateSearcherIds = new ArrayList[1];
     final AtomicBoolean done = new AtomicBoolean(false);
-    public static String NOT_SEEN = "not_seen";
-    public static String YES_TO_HOUSE = "yes_to_house";
-    public static String MAYBE_TO_HOUSE = "maybe_to_house";
-    public static String NO_TO_HOUSE = "no_to_house";
+    public static final String NOT_SEEN = "not_seen";
+    public static final String YES_TO_HOUSE = "yes_to_house";
+    public static final String MAYBE_TO_HOUSE = "maybe_to_house";
+    public static final String NO_TO_HOUSE = "no_to_house";
+    public static final String NOT_IN_LISTS = "doesnt appear on lists";
 
 
     @Override
@@ -112,7 +113,8 @@ public class ChoosingActivity extends AppCompatActivity {
         User userObj = createNewUser();
         mFirebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).setValue(userObj);
         while (!done.get()) ;
-        mFirebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(mFirebaseUser.getUid()).child("0").setValue(allRoommateSearcherIds[0]);
+        mFirebaseDatabaseReference.child("preferences").child(
+                "ApartmentSearcherUser").child(mFirebaseUser.getUid()).child(NOT_SEEN).setValue(allRoommateSearcherIds[0]);
         Intent i = new Intent(ChoosingActivity.this, MainActivityApartmentSearcher.class);
         startActivity(i);
         finish();

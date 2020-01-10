@@ -162,4 +162,21 @@ public class FirebaseMediate {
         allRoommateSearcherUsersIds = refDSS.getValue(t);
         return allRoommateSearcherUsersIds;
     }
+    public static String RoomateInApartmentSearcherPrefsList(String aptKey,
+                                                            String roommateKey)
+    {
+        if (FirebaseMediate.getLikeUsersIdR(aptKey).contains(roommateKey)){
+            return ChoosingActivity.YES_TO_HOUSE;
+        }
+        if (FirebaseMediate.getMaybeUsersIdR(aptKey).contains(roommateKey)){
+            return ChoosingActivity.MAYBE_TO_HOUSE;
+        }
+        if (FirebaseMediate.getUnlikeUsersIdR(aptKey).contains(roommateKey)){
+            return ChoosingActivity.NO_TO_HOUSE;
+        }
+        if (FirebaseMediate.getHaventSeenUsersIdR(aptKey).contains(roommateKey)){
+            return ChoosingActivity.NOT_SEEN;
+        }
+        return ChoosingActivity.NOT_IN_LISTS;
+    }
 }

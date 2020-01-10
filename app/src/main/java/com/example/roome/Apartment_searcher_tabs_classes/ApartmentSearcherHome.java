@@ -123,27 +123,34 @@ public class ApartmentSearcherHome extends Fragment {
         mFirebaseDatabaseReference.child("users").child("RoommateSearcherUser").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String roommateKey = dataSnapshot.getKey();
-                String aUserKey = getUserUid();
-//                DatabaseReference aUserPref = mFirebaseDatabaseReference.child("perferences").child("ApartmentSearcherUser").child(aUserKey);
-                if (!(FirebaseMediate.getLikeUsersIdR(aUserKey).contains(roommateKey)
-                        || FirebaseMediate.getUnlikeUsersIdR(aUserKey).contains(roommateKey)
-                        || FirebaseMediate.getMaybeUsersIdR(aUserKey).contains(roommateKey)
-                        || FirebaseMediate.getHaventSeenUsersIdR(aUserKey).contains(roommateKey))){
-                    //todo if theres a match - add to the havent seen list of
-                    // AptUser
-                }
-
+                onChildChanged(dataSnapshot, s);
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                String roommateKey = dataSnapshot.getKey();
+                String aUserKey = getUserUid();
+                String inWhichList =
+                        FirebaseMediate.RoomateInApartmentSearcherPrefsList(aUserKey, roommateKey);
+                if (FirebaseMediate.RoomateInApartmentSearcherPrefsList(aUserKey, roommateKey).equals(ChoosingActivity.NOT_IN_LISTS)) {
+                    //todo if theres a match - add to the havent seen list of
+                    // AptUser
+                } else {
+                    //todo if there is !!no!! match -> remove roommatekey from apt prefs list
+                }
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                String roommateKey = dataSnapshot.getKey();
+                String aUserKey = getUserUid();
+                String inWhichList =
+                        FirebaseMediate.RoomateInApartmentSearcherPrefsList(aUserKey, roommateKey);
+                if (!inWhichList.equals(ChoosingActivity.NOT_IN_LISTS)) {
+                    //todo remove from the list
+                    //todo we need to remember to update the apt lists when
+                    // he is offline
+                }
             }
 
             @Override
@@ -155,7 +162,7 @@ public class ApartmentSearcherHome extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        })
+        });
 
 
     }
