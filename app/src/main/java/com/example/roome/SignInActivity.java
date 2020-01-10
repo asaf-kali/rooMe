@@ -1,10 +1,13 @@
 package com.example.roome;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -128,5 +131,28 @@ public class SignInActivity extends AppCompatActivity implements
                         }
                     }
                 });
+    }
+
+
+    // ------------ without google version----------------
+    public void signWithoutGoogleFunc(View view) {
+
+        EditText fn = findViewById(R.id.et_first_name_without_google);
+        EditText ln = findViewById(R.id.et_last_name_without_google);
+        String first = fn.getText().toString();
+        String last = ln.getText().toString();
+
+        final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = reader.edit();
+        editor.putString("FIRSTNAME", first);
+        editor.putString("LASTNAME", last);
+        editor.apply();
+        startActivity(new Intent(SignInActivity.this, ChoosingActivity.class));
+        finish();
+
+
+
+
+
     }
 }
