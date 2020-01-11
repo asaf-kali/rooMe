@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.roome.user_classes.ApartmentSearcherUser;
+import com.example.roome.user_classes.RoommateSearcherUser;
 import com.example.roome.user_classes.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -24,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ChoosingActivity extends AppCompatActivity {
@@ -36,6 +39,7 @@ public class ChoosingActivity extends AppCompatActivity {
     final ArrayList<String>[] allApartmentSearcherIds = new ArrayList[1];
     final ArrayList<String>[] allRoommateSearcherIds = new ArrayList[1];
     final AtomicBoolean done = new AtomicBoolean(false);
+    private String num; //todo for random
 
 
     @Override
@@ -50,7 +54,7 @@ public class ChoosingActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabaseReference = firebaseDatabase.getReference();
 
-        updateUserName();
+//        updateUserName();  todo uncomment this
 
         firebaseDatabaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -58,7 +62,6 @@ public class ChoosingActivity extends AppCompatActivity {
                 FirebaseMediate.setDataSnapshot(dataSnapshot);
                 allApartmentSearcherIds[0] = FirebaseMediate.getAllApartmentSearcherIds();
                 allRoommateSearcherIds[0] = FirebaseMediate.getAllRoommateSearcherIds();
-                MyPreferences.setUserUid(getApplicationContext(),firebaseUser.getUid());
                 done.set(true);
             }
 
@@ -67,6 +70,13 @@ public class ChoosingActivity extends AppCompatActivity {
 
             }
         });
+
+        //todo this for random -------------
+        Random rnd = new Random();
+        num = Integer.toString(rnd.nextInt(1000));
+        TextView textView = findViewById(R.id.tv_hello_name);
+        textView.setText(String.format("Hi %s!", num));
+        //todo -------------------------------------
     }
 
     public void setAnimation() {
@@ -103,10 +113,14 @@ public class ChoosingActivity extends AppCompatActivity {
      */
     public void roommateSearcherOnclick(View view) {
         MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
-        User userObj = createNewUser();
-        firebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(firebaseUser.getUid()).setValue(userObj);
+        RoommateSearcherUser userObj = createRandomRoomateUser(); //todo create real roommate
+        DatabaseReference newRef = firebaseDatabaseReference.child("users").child("RoommateSearcherUser").push();
+        String key = newRef.getKey();
+        newRef.setValue(userObj);
+        MyPreferences.setUserUid(getApplicationContext(), key);
+//        firebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(key).setValue(userObj);
         while (!done.get()) ;
-        firebaseDatabaseReference.child("preferences").child("RoommateSearcherUser").child(firebaseUser.getUid()).child("0").setValue(allApartmentSearcherIds[0]);
+        firebaseDatabaseReference.child("preferences").child("RoommateSearcherUser").child(key).child("0").setValue(allApartmentSearcherIds[0]);
         Intent i = new Intent(ChoosingActivity.this, MainActivityRoommateSearcher.class);
         startActivity(i);
         finish();
@@ -121,10 +135,14 @@ public class ChoosingActivity extends AppCompatActivity {
     public void apartmentSearcherOnclick(View view) {
         MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
         MyPreferences.setIsRoommateSearcherToFalse(getApplicationContext());
-        User userObj = createNewUser();
-        firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(firebaseUser.getUid()).setValue(userObj);
+        ApartmentSearcherUser userObj = createRandomAptUser(); //todo create real apt searcher
+        DatabaseReference newRef = firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").push();
+        String key = newRef.getKey();
+        newRef.setValue(userObj);
+        MyPreferences.setUserUid(getApplicationContext(), key);
+//        firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(firebaseUser.getUid()).setValue(userObj);
         while (!done.get()) ;
-        firebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(firebaseUser.getUid()).child("0").setValue(allRoommateSearcherIds[0]);
+        firebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(key).child("0").setValue(allRoommateSearcherIds[0]);
         Intent i = new Intent(ChoosingActivity.this, MainActivityApartmentSearcher.class);
         startActivity(i);
         finish();
@@ -138,5 +156,14 @@ public class ChoosingActivity extends AppCompatActivity {
         String firstName = userAccount.getGivenName();
         String lastName = userAccount.getFamilyName();
         return new User(firstName, lastName);
+    }
+
+    private ApartmentSearcherUser createRandomAptUser() { //todo random
+        return new ApartmentSearcherUser(num, num, 20);
+    }
+
+    private RoommateSearcherUser createRandomRoomateUser() { //todo random
+
+        return new RoommateSearcherUser(num, num, 25);
     }
 }
