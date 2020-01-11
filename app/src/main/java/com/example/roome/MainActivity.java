@@ -51,17 +51,18 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (firebaseUser == null) {
-                    // Not signed in, launch the Sign In activity
-                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
-                    finish();
-                    return;
-                } else {
-                    userName = firebaseUser.getDisplayName();
-                    if (firebaseUser.getPhotoUrl() != null) {
-                        mPhotoUrl = firebaseUser.getPhotoUrl().toString();
-                    }
-                }
+
+//                if (firebaseUser == null) {
+//                    // Not signed in, launch the Sign In activity
+//                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
+//                    finish();
+//                    return;
+//                } else {
+//                    userName = firebaseUser.getDisplayName();
+//                    if (firebaseUser.getPhotoUrl() != null) {
+//                        mPhotoUrl = firebaseUser.getPhotoUrl().toString();
+//                    }
+//                }  //todo uncomment this
                 startActivityWithAnimation();
                 finish();
             }
