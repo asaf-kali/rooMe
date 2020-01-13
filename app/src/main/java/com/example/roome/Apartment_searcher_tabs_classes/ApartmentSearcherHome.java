@@ -32,7 +32,7 @@ public class ApartmentSearcherHome extends Fragment {
     private ArrayList<String> relevantRoommateSearchersIds;
     private ArrayList<Integer> temp_img;
     private int currentPlaceInList = -1;
-    private Button yesButton, maybeButton, noButton;
+    private ImageView yesButton, maybeButton, noButton;
     private ImageView mainImage;
     private TextView noMoreHousesText;
     private FirebaseAuth mFirebaseAuth;
