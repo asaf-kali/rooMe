@@ -1,9 +1,12 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -24,11 +27,20 @@ import com.example.roome.MyPreferences;
 import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.example.roome.user_classes.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.IOException;
+import java.util.UUID;
 
 public class EditProfileApartmentSearcher extends Fragment {
     private static final int GALLERY_REQUEST_CODE = 1;
@@ -47,18 +59,26 @@ public class EditProfileApartmentSearcher extends Fragment {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
 
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+
     private ApartmentSearcherUser asUser;
 
     //profile pic
     ImageView profilePic;
     ImageButton addProfilePic;
 
+    private Uri selectedImage;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // Initialize Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
-//        asUser = MainActivityApartmentSearcher.aUser;
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
         firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -103,6 +123,9 @@ public class EditProfileApartmentSearcher extends Fragment {
             public void onClick(View v) {
                 if (isUserInputValid()) {
                     //save user data to DB
+                    //todo: saving profile pic causes runtime err
+                    uploadPhoto();
+
                     firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
                     Toast.makeText(getContext(), "save to db.", Toast.LENGTH_SHORT).show(); //todo edit
 
@@ -115,6 +138,39 @@ public class EditProfileApartmentSearcher extends Fragment {
         });
         validateUserInput();
         super.onActivityCreated(savedInstanceState);
+    }
+
+    private void uploadPhoto(){
+        if (selectedImage != null){
+            final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+            //todo:save photo in relevant location in storage
+            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+            ref.putFile(selectedImage)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getActivity(), "Uploaded", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getActivity(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                    .getTotalByteCount());
+                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                        }
+                    });
+        }
     }
 
     /**
@@ -155,10 +211,17 @@ public class EditProfileApartmentSearcher extends Fragment {
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
                     //data.getData returns the content URI for the selected Image
-                    Uri selectedImage = data.getData();
-                    asUser.setProfilePic(selectedImage);
-                    firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
-                    profilePic.setImageURI(selectedImage);
+                    selectedImage = data.getData();
+//                    asUser.setProfilePic(selectedImage);
+//                    profilePic.setImageURI(selectedImage);
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
+                        profilePic.setImageBitmap(bitmap);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
                     break;
             }
     }
@@ -249,7 +312,9 @@ public class EditProfileApartmentSearcher extends Fragment {
      */
     private void validateAge() {
         ageEditText = getView().findViewById(R.id.et_enterAge);
-        ageEditText.setText(Integer.toString(asUser.getAge()));
+        if (asUser.getAge() >= User.MINIMUM_AGE) {
+            ageEditText.setText(Integer.toString(asUser.getAge()));
+        }
         checkIfValidAge();
         ageEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -387,3 +452,5 @@ public class EditProfileApartmentSearcher extends Fragment {
 
 }
 
+
+//todo: save bio in firebase and show in user's profile
