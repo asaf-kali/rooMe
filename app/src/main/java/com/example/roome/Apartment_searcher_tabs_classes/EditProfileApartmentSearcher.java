@@ -60,7 +60,8 @@ public class EditProfileApartmentSearcher extends Fragment {
         firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                asUser = dataSnapshot.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).getValue(ApartmentSearcherUser.class);
+                asUser = dataSnapshot.child("users").child("ApartmentSearcherUser").
+                        child(MyPreferences.getUserUid(getContext())).getValue(ApartmentSearcherUser.class);
                 validateUserInput();
             }
 
@@ -247,7 +248,10 @@ public class EditProfileApartmentSearcher extends Fragment {
      */
     private void validateAge() {
         ageEditText = getView().findViewById(R.id.et_enterAge);
-        ageEditText.setText(Integer.toString(asUser.getAge()));
+        if (asUser.getAge() >= User.MINIMUM_AGE) {
+            ageEditText.setText(Integer.toString(asUser.getAge()));
+        }
+
         checkIfValidAge();
         ageEditText.addTextChangedListener(new TextWatcher() {
             @Override
