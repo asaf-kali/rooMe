@@ -1,9 +1,17 @@
 package com.example.roome;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.Uri;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 
 import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.example.roome.user_classes.RoommateSearcherUser;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -12,6 +20,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -20,6 +32,8 @@ public class FirebaseMediate {
 
     private static FirebaseDatabase firebaseDatabase;
     private static DatabaseReference firebaseDatabaseReference;
+    private static FirebaseStorage storage;
+    private static StorageReference storageReference;
     private static FirebaseAuth firebaseAuth;
     private static FirebaseUser firebaseUser;
     private static DataSnapshot dataSs;
@@ -31,6 +45,8 @@ public class FirebaseMediate {
     }
 
     public static void setDataSnapshot() {
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -60,6 +76,42 @@ public class FirebaseMediate {
 
             }
         });
+    }
+
+    public static void uploadPhotoApartmentSearcher(Uri selectedImage, final Activity activity, Context context){
+        if (selectedImage != null){
+            final ProgressDialog progressDialog = new ProgressDialog(activity);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+            StorageReference ref = storageReference.child("images").child("Apartment Searcher User").child(MyPreferences.getUserUid(context));
+            ref.putFile(selectedImage)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(activity, "Uploaded", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(activity, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                    .getTotalByteCount());
+                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                        }
+                    });
+        }
+    }
+
+    public static Uri getPhotoApartmentSearcher(){ //todo: this
+        return null;
     }
 
     public static ArrayList<String> getAllApartmentSearcherIds() {

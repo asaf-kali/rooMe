@@ -61,10 +61,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     // Firebase instance variables
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
-
-    private FirebaseStorage storage;
-    private StorageReference storageReference;
-
+    
     private ApartmentSearcherUser asUser;
 
     //profile pic
@@ -78,10 +75,6 @@ public class EditProfileApartmentSearcher extends Fragment {
         // Initialize Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
-
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
-
         firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -127,7 +120,7 @@ public class EditProfileApartmentSearcher extends Fragment {
                 if (isUserInputValid()) {
                     //save user data to DB
                     if (changedPhoto){ //save image to DB only if it's a new one
-                        uploadPhoto();
+                        FirebaseMediate.uploadPhotoApartmentSearcher(selectedImage, getActivity(), getContext());
                         changedPhoto = false;
                     }
                     asUser.setBio(bioEditText.getText().toString());
@@ -184,38 +177,6 @@ public class EditProfileApartmentSearcher extends Fragment {
         isUserAgeValid = true;
         isUserPhoneValid = true;
 
-    }
-
-    private void uploadPhoto(){
-        if (selectedImage != null){
-            final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-            StorageReference ref = storageReference.child("images").child("Apartment Searcher User").child(MyPreferences.getUserUid(getContext()));
-            ref.putFile(selectedImage)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getActivity(), "Uploaded", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getActivity(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
-                        }
-                    });
-        }
     }
 
     /**
