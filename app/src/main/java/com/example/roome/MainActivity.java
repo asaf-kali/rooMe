@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
 //                    if (firebaseUser.getPhotoUrl() != null) {
 //                        mPhotoUrl = firebaseUser.getPhotoUrl().toString();
 //                    }
-//                }
+
+//                }  //todo uncomment this
                 startActivityWithAnimation();
                 finish();
             }
