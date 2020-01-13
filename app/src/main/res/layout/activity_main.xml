@@ -22,9 +22,9 @@
 
     <ImageView
         android:id="@+id/v_roome_logo"
-        android:layout_width="316dp"
-        android:layout_height="128dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="351dp"
+        android:layout_height="146dp"
+        android:layout_marginTop="24dp"
         android:contentDescription="roome_logo_img"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -37,7 +37,6 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_roomate_searcher);
 
-
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_roomate);

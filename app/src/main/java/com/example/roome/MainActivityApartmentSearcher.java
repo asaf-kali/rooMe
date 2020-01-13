@@ -34,25 +34,25 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
             R.drawable.ic_action_empty_heart, R.drawable.ic_action_empty_hourglass,
             R.drawable.ic_action_empty_person};
 
-    private static ApartmentSearcherUser aUser;
+    public static ApartmentSearcherUser aUser;
 
     // Firebase instance variables
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mFirebaseDatabaseReference;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference firebaseDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_apartment_searcher);
-//        FirebaseMediate.setDataSnapshot(); //todo
+//        FirebaseMediate.setDataSnapshot(); //todo add previous activity to handle this
         // Initialize Firebase
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-//        aUser = FirebaseMediate.getCurrentApartmentSearcherUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabaseReference = firebaseDatabase.getReference();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        aUser = getCurrentApartmentSearcherUser();
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);
         viewPager.setOffscreenPageLimit(3);
         setupViewPager(viewPager);
@@ -81,6 +81,12 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    private ApartmentSearcherUser getCurrentApartmentSearcherUser() {
+
+        String aptUid = MyPreferences.getUserUid(getApplicationContext());
+        return FirebaseMediate.getApartmentSearcherUserByUid(aptUid);
     }
 
 

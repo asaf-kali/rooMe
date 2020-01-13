@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".Apartment_searcher_tabs_classes.EditProfileApartmentSearcher">
 
+    <ImageView
+        android:id="@+id/profile_back_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.1"
+        android:src="@drawable/house_back_img"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
@@ -26,7 +37,7 @@
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/missingprofilepic2"
+        android:src="@drawable/no_profile_pic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
@@ -46,7 +57,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ib_addPhoto"
@@ -59,179 +70,152 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_enterFirstName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:text="First Name:"
-                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
-                app:layout_constraintTop_toBottomOf="@+id/details_linear_layout" />
-
             <EditText
                 android:id="@+id/et_enterFirstName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="282dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/ic_et_back"
+                android:ellipsize="none"
                 android:ems="10"
-                android:hint="Amit"
+                android:fontFamily="@font/walkway_bold"
+                android:gravity="start|center_horizontal"
+                android:hint="First Name"
                 android:inputType="textLongMessage|textPersonName"
-                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
-                app:layout_constraintTop_toBottomOf="@id/tv_enterFirstName" />
+                android:paddingStart="12dp"
+                android:textAlignment="viewStart"
+                app:layout_constraintStart_toStartOf="@+id/details_linear_layout" />
 
-            <TextView
-                android:id="@+id/tv_enterLastName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/et_enterLastName"
+                android:layout_width="282dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/ic_et_back"
                 android:ems="10"
-                android:text="Last Name:"
+                android:fontFamily="@font/walkway_bold"
+                android:gravity="start|center_horizontal"
+                android:hint="Last Name"
+                android:inputType="textLongMessage|textPersonName"
+                android:paddingStart="12dp"
                 app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
                 app:layout_constraintTop_toBottomOf="@id/et_enterFirstName" />
 
             <EditText
-                android:id="@+id/et_enterLastName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:hint="Cohen"
-                android:inputType="textLongMessage|textPersonName"
-                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
-                app:layout_constraintTop_toBottomOf="@id/tv_enterLastName" />
-
-            <TextView
-                android:id="@+id/tv_enterAge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Age:"
-                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
-                app:layout_constraintTop_toBottomOf="@id/et_enterLastName" />
-
-            <EditText
                 android:id="@+id/et_enterAge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="282dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:ems="3"
-                android:hint="23"
+                android:background="@drawable/ic_et_back"
+                android:ems="2"
+                android:fontFamily="@font/walkway_bold"
+                android:gravity="start|center_horizontal|left"
+                android:hint="Age"
                 android:inputType="numberSigned"
+                android:paddingStart="12dp"
                 app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
-                app:layout_constraintTop_toBottomOf="@id/tv_enterAge" />
-
-            <TextView
-                android:id="@+id/tv_gender_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Gender:"
-                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
-                app:layout_constraintTop_toBottomOf="@id/et_enterAge" />
+                app:layout_constraintTop_toBottomOf="@+id/et_enterLastName" />
 
             <RadioGroup
                 android:id="@+id/radioGroup_choose_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="282dp"
+                android:layout_height="35dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/ic_et_back"
+                android:gravity="center|start|right|top"
                 android:orientation="horizontal"
+                android:paddingTop="3dp"
                 app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
                 app:layout_constraintTop_toBottomOf="@id/tv_gender_label">
+
+                <TextView
+                    android:id="@+id/tv_gender_label"
+                    android:layout_width="105dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|left"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/walkway_bold"
+                    android:gravity="start|left"
+                    android:paddingStart="12dp"
+                    android:text="I am a:"
+                    android:textSize="18sp" />
 
                 <RadioButton
                     android:id="@+id/radio_btn_female"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Female"
+                    android:layout_height="22dp"
+                    android:fontFamily="@font/walkway_bold"
+                    android:text="Lady"
                     android:textColor="@android:color/secondary_text_light"
+                    android:textColorHighlight="#FFC107"
                     android:textColorLink="#4CAF50"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp" />
 
                 <RadioButton
                     android:id="@+id/radio_btn_male"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Male"
+                    android:layout_height="22dp"
+                    android:fontFamily="@font/walkway_bold"
+                    android:paddingEnd="12dp"
+                    android:text="Gentleman"
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorLink="#4CAF50"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp" />
+
             </RadioGroup>
 
-            <TextView
-                android:id="@+id/tv_phoneNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/et_phoneNumber"
+                android:layout_width="282dp"
+                android:layout_height="29dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Phone Number:"
+                android:background="@drawable/ic_et_back"
+                android:ems="10"
+                android:fontFamily="@font/walkway_bold"
+                android:gravity="start|center_horizontal"
+                android:hint="Phone Number"
+                android:inputType="numberSigned"
+                android:paddingStart="12dp"
                 app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
                 app:layout_constraintTop_toBottomOf="@+id/radioGroup_choose_gender" />
 
             <EditText
-                android:id="@+id/et_phoneNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:hint="0526593721"
-                android:inputType="numberSigned"
-                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
-                app:layout_constraintTop_toBottomOf="@+id/tv_phoneNumber" />
-
-            <TextView
-                android:id="@+id/tv_bio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Bio"
-                app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
-                app:layout_constraintTop_toBottomOf="@+id/et_phoneNumber" />
-
-            <EditText
                 android:id="@+id/et_bio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="285dp"
+                android:layout_height="220dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:hint="Describe yourself for roommate searchers."
-                android:inputType="textLongMessage"
+                android:background="@drawable/ic_et_back"
+                android:fontFamily="@font/walkway_bold"
+                android:gravity="start|center_horizontal"
+                android:hint="Say something about yourself..."
+                android:inputType="textLongMessage|textImeMultiLine"
+                android:paddingStart="12dp"
                 app:layout_constraintStart_toStartOf="@+id/details_linear_layout"
                 app:layout_constraintTop_toBottomOf="@+id/et_phoneNumber" />
 
             <Button
                 android:id="@+id/btn_save_profile_as"
-                android:layout_width="wrap_content"
+                android:layout_width="393dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="8dp"
                 android:text="Save">
-
             </Button>
+          
         </LinearLayout>
     </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

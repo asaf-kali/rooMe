@@ -56,6 +56,7 @@ public class ApartmentSearcherHome extends Fragment {
 //        setContentView(R.layout.activity_apartment_searcher_home);
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

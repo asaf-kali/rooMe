@@ -1,6 +1,8 @@
 package com.example.roome;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -18,15 +20,18 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity {
     private static final String FROM = "called from";
     private static final String MAIN_SRC = "MAIN";
+    private static final int MIN_SUPPORTED_API_LEVEL = 20;
+    //Time passed till next activity is launched
+    private static final int TIME_OUT = 3000;
 
-    private String mUsername;
+    private String userName;
     private String mPhotoUrl;
 
     // Firebase instance variables
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mFirebaseDatabaseReference;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference firebaseDatabaseReference;
 
 
     @Override
@@ -34,48 +39,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Initialize Firebase
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseDatabaseReference = firebaseDatabase.getReference();
+        FirebaseMediate.setDataSnapshot(); //todo move to another activity
         //todo delete 4 rows
 //        final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
 //        final SharedPreferences.Editor editor = reader.edit();
 //        editor.putBoolean(MyPreferences.IS_FIRST_TIME, true);
 //        editor.apply();
-        //Time passed till next activity is launched
-        int TIME_OUT = 3000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (mFirebaseUser == null) {
-                    // Not signed in, launch the Sign In activity
-                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
-                    finish();
-                    return;
-                } else {
-                    mUsername = mFirebaseUser.getDisplayName();
-                    if (mFirebaseUser.getPhotoUrl() != null) {
-                        mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
-                    }
-                }
-                Intent i;
-                boolean isFirstTime = MyPreferences.isFirstTime(MainActivity.this);
-                if (isFirstTime) {
-                    //show start activity
-                    i = new Intent(MainActivity.this, ChoosingActivity.class);
-                } else {
-                    boolean isRoommateSearcher = MyPreferences.isRoommateSearcher(MainActivity.this);
-                    if (isRoommateSearcher) {
-                        i = new Intent(MainActivity.this, MainActivityRoommateSearcher.class);
-                    } else {
-                        i = new Intent(MainActivity.this, MainActivityApartmentSearcher.class);
-
-                    }
-                    i.putExtra(MainActivity.FROM, MAIN_SRC); //todo maybe go to intermediate
+//                if (firebaseUser == null) { //todo check if signed up differently?
+//                    // Not signed in, launch the Sign In activity
+//                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
+//                    finish();
+//                    return;
+//                } else {
+//                    userName = firebaseUser.getDisplayName();
+//                    if (firebaseUser.getPhotoUrl() != null) {
+//                        mPhotoUrl = firebaseUser.getPhotoUrl().toString();
+//                    }
+//                }  //todo uncomment this
+                startActivityWithAnimation();//todo maybe go to intermediate
                     //activity(whose main purpose is to update the data snapshot)
-                }
-                startActivity(i);
+
                 finish();
             }
         }, TIME_OUT);
@@ -136,4 +126,31 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        }, TIME_OUT);
 //    }
+    /**
+     * this method starts a new activity and adding the transition animation for relevant versions
+     * of android
+     */
+    public void startActivityWithAnimation() {
+        Intent i;
+        boolean isFirstTime = MyPreferences.isFirstTime(MainActivity.this);
+        if (isFirstTime) {
+            //show home activity
+            i = new Intent(MainActivity.this, ChoosingActivity.class);
+        } else {
+            boolean isRoommateSearcher = MyPreferences.isRoommateSearcher(MainActivity.this);
+            if (isRoommateSearcher) {
+                i = new Intent(MainActivity.this, MainActivityRoommateSearcher.class);
+            } else {
+                i = new Intent(MainActivity.this, MainActivityApartmentSearcher.class);
+
+            }
+            i.putExtra(MainActivity.FROM, MAIN_SRC);
+        }
+        if (Build.VERSION.SDK_INT > MIN_SUPPORTED_API_LEVEL) {
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
+            startActivity(i, options.toBundle());
+        } else {
+            startActivity(i);
+        }
+    }
 }

@@ -33,39 +33,38 @@ public class SignInActivity extends AppCompatActivity implements
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
 
-    private SignInButton mSignInButton;
+    private SignInButton googleSignInButton;
 
-    private GoogleApiClient mGoogleApiClient;
+    private GoogleApiClient googleApiClient;
 
     // Firebase instance variables
-    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth firebaseAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        // Initialize FirebaseAuth
+        firebaseAuth = FirebaseAuth.getInstance();
 
         // Assign fields
-        mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
+        googleSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
         // Set the dimensions of the sign-in button.
-        mSignInButton.setSize(SignInButton.SIZE_STANDARD);
+        googleSignInButton.setSize(SignInButton.SIZE_STANDARD);
 
         // Set click listeners
-        mSignInButton.setOnClickListener(this);
+        googleSignInButton.setOnClickListener(this);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
+        googleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
-        // Initialize FirebaseAuth
-        mFirebaseAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -86,7 +85,7 @@ public class SignInActivity extends AppCompatActivity implements
     }
 
     private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
 
     }
@@ -110,19 +109,19 @@ public class SignInActivity extends AppCompatActivity implements
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGooogle:" + acct.getId());
+        Log.d(TAG, "firebase Auth With Gooogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mFirebaseAuth.signInWithCredential(credential)
+        firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+                        Log.d(TAG, "signIn With Credential: onComplete:" + task.isSuccessful());
 
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithCredential", task.getException());
+                            Log.w(TAG, "signIn With Credential", task.getException());
                             Toast.makeText(SignInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
@@ -154,5 +153,8 @@ public class SignInActivity extends AppCompatActivity implements
 
 
 
+    public void randomSignIn(View view) { //todo random
+        startActivity(new Intent(SignInActivity.this, ChoosingActivity.class));
+        finish();
     }
 }
