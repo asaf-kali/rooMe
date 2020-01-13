@@ -92,4 +92,9 @@ public class ApartmentSearcherUser extends User {
     public void setMaxNumDesiredRoommates(int maxNumDesiredRoommates) {
         this.maxNumDesiredRoommates = maxNumDesiredRoommates;
     }
+
+    public boolean matches(RoommateSearcherUser roommateSearcherUser) {
+        //todo check if there is a match
+        return true;   //todo delete
+    }
 }

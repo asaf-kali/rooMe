@@ -34,7 +34,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
             R.drawable.ic_action_empty_heart, R.drawable.ic_action_empty_hourglass,
             R.drawable.ic_action_empty_person};
 
-    private static ApartmentSearcherUser aUser;
+    public static ApartmentSearcherUser aUser;
 
     // Firebase instance variables
     private FirebaseAuth firebaseAuth;
@@ -46,13 +46,13 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_apartment_searcher);
-//        FirebaseMediate.setDataSnapshot(); //todo
+//        FirebaseMediate.setDataSnapshot(); //todo add previous activity to handle this
         // Initialize Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
         firebaseUser = firebaseAuth.getCurrentUser();
-//        aUser = FirebaseMediate.getCurrentApartmentSearcherUser();
+        aUser = getCurrentApartmentSearcherUser();
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);
         viewPager.setOffscreenPageLimit(3);
         setupViewPager(viewPager);
@@ -72,7 +72,6 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
                     @Override
                     public void onTabUnselected(TabLayout.Tab tab) {
                         super.onTabUnselected(tab);
-
                         tab.setIcon(unselectedtabIcons[tab.getPosition()]);
                     }
 
@@ -82,6 +81,12 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    private ApartmentSearcherUser getCurrentApartmentSearcherUser() {
+
+        String aptUid = MyPreferences.getUserUid(getApplicationContext());
+        return FirebaseMediate.getApartmentSearcherUserByUid(aptUid);
     }
 
 

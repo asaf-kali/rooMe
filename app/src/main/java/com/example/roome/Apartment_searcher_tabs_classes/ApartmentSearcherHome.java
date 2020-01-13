@@ -9,11 +9,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
+import com.example.roome.MainActivityApartmentSearcher;
+import com.example.roome.MyPreferences;
 import com.example.roome.R;
 import com.example.roome.user_classes.RoommateSearcherUser;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -25,11 +37,21 @@ public class ApartmentSearcherHome extends Fragment {
     private Button yesButton, maybeButton, noButton;
     private ImageView mainImage;
     private TextView noMoreHousesText;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mFirebaseDatabaseReference;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
         super.onCreate(savedInstanceState);
+
 //        FirebaseMediate.setDataSnapshot(); //todo
 //        setContentView(R.layout.activity_apartment_searcher_home);
     }
@@ -54,6 +76,7 @@ public class ApartmentSearcherHome extends Fragment {
         noMoreHousesText = getView().findViewById(R.id.tv_no_more_houses);
         fillTempImgArray(); //todo delete
         setClickListeners();
+//        setFirebaseListeners();
         moveToNextOption();
         super.onActivityCreated(savedInstanceState);
 
@@ -90,6 +113,58 @@ public class ApartmentSearcherHome extends Fragment {
                 pressedMaybeToApartment(view);
             }
         });
+
+    }
+
+    private String getUserUid() { //todo delete
+        return "delete this function";
+    }
+
+    private void setFirebaseListeners() {
+        mFirebaseDatabaseReference.child("users").child("RoommateSearcherUser").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                onChildChanged(dataSnapshot, s);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String roommateKey = dataSnapshot.getKey();
+                String aUserKey = getUserUid();
+                String inWhichList =
+                        FirebaseMediate.RoomateInApartmentSearcherPrefsList(aUserKey, roommateKey);
+                if (FirebaseMediate.RoomateInApartmentSearcherPrefsList(aUserKey, roommateKey).equals(ChoosingActivity.NOT_IN_LISTS)) {
+                    //todo if theres a match - add to the havent seen list of
+                    // AptUser
+                } else {
+                    //todo if there is !!no!! match -> remove roommatekey from apt prefs list
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                String roommateKey = dataSnapshot.getKey();
+                String aUserKey = getUserUid();
+                String inWhichList =
+                        FirebaseMediate.RoomateInApartmentSearcherPrefsList(aUserKey, roommateKey);
+                if (!inWhichList.equals(ChoosingActivity.NOT_IN_LISTS)) {
+                    //todo remove from the list
+                    //todo we need to remember to update the apt lists when
+                    // he is offline
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
 
