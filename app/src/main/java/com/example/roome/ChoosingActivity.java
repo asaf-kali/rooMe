@@ -153,8 +153,8 @@ public class ChoosingActivity extends AppCompatActivity {
         MyPreferences.setUserUid(getApplicationContext(), key);
         while (!done.get()) ;
         // add all roommate searchers as relevant to see
-        firebaseDatabaseReference.child("preferences").child(
-                "ApartmentSearcherUser").child(key).child(NOT_SEEN).setValue(allRoommateSearcherIds[0]);
+        FirebaseMediate.setAptPrefList(ChoosingActivity.NOT_SEEN,key,
+                allRoommateSearcherIds[0]);
 
         Intent i = new Intent(ChoosingActivity.this, MainActivityApartmentSearcher.class);
         startActivityWithAnimation(i);

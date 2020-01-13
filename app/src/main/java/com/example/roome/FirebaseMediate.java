@@ -140,6 +140,10 @@ public class FirebaseMediate {
         DataSnapshot refDSS =
                 dataSs.child("preferences").child("ApartmentSearcherUser").child(aptKey).child(list);
         allRoommateSearcherUsersIds = refDSS.getValue(t);
+        if (allRoommateSearcherUsersIds == null) {
+            return new ArrayList<String>();
+
+        }
         return allRoommateSearcherUsersIds;
     }
 
@@ -152,6 +156,9 @@ public class FirebaseMediate {
         DataSnapshot refDSS =
                 dataSs.child("preferences").child("RoommateSearcherUser").child(roommateKey).child(list);
         allAptSearcherUsersIds = refDSS.getValue(t);
+        if (allAptSearcherUsersIds == null){
+            return new ArrayList<String>();
+        }
         return allAptSearcherUsersIds;
     }
 
@@ -211,19 +218,25 @@ public class FirebaseMediate {
 
     public static String RoomateInApartmentSearcherPrefsList(String aptKey,
                                                              String roommateKey) {
-        if (FirebaseMediate.getAptPrefList(ChoosingActivity.YES_TO_HOUSE,
-                aptKey).contains(roommateKey)) {
+        ArrayList<String> likedArr, maybeArr, unlikedArr, notSeenArr;
+        likedArr = FirebaseMediate.getAptPrefList(ChoosingActivity.YES_TO_HOUSE,
+                aptKey);
+        maybeArr = FirebaseMediate.getAptPrefList(ChoosingActivity.MAYBE_TO_HOUSE,
+                aptKey);
+        unlikedArr = FirebaseMediate.getAptPrefList(ChoosingActivity.NO_TO_HOUSE,
+                aptKey);
+        notSeenArr = FirebaseMediate.getAptPrefList(ChoosingActivity.NOT_SEEN,
+                aptKey);
+        if (likedArr.contains(roommateKey)) {
             return ChoosingActivity.YES_TO_HOUSE;
         }
-        if (FirebaseMediate.getAptPrefList(ChoosingActivity.MAYBE_TO_HOUSE,
-                aptKey).contains(roommateKey)) {
+        if (maybeArr.contains(roommateKey)) {
             return ChoosingActivity.MAYBE_TO_HOUSE;
         }
-        if (FirebaseMediate.getAptPrefList(ChoosingActivity.NO_TO_HOUSE,
-                aptKey).contains(roommateKey)) {
+        if (unlikedArr.contains(roommateKey)) {
             return ChoosingActivity.NO_TO_HOUSE;
         }
-        if (FirebaseMediate.getAptPrefList(ChoosingActivity.NOT_SEEN, aptKey).contains(roommateKey)) {
+        if (notSeenArr.contains(roommateKey)) {
             return ChoosingActivity.NOT_SEEN;
         }
         return ChoosingActivity.NOT_IN_LISTS;
@@ -249,9 +262,6 @@ public class FirebaseMediate {
     public static void addToAptPrefList(String list, String aptUid,
                                         String roomateUid) {
         ArrayList<String> allRelevantRoomatesUid = getAptPrefList(list, aptUid);
-        if (allRelevantRoomatesUid == null) {
-            allRelevantRoomatesUid = new ArrayList<String>();
-        }
         allRelevantRoomatesUid.add(roomateUid);
         setAptPrefList(list, aptUid, allRelevantRoomatesUid);
     }
@@ -260,9 +270,6 @@ public class FirebaseMediate {
                                              String aptUid) {
         ArrayList<String> allRelevantAptUid = getRoommatePrefList(list,
                 roommateUid);
-        if (allRelevantAptUid == null) {
-            allRelevantAptUid = new ArrayList<String>();
-        }
         allRelevantAptUid.add(aptUid);
         setRoommatePrefList(list, roommateUid, allRelevantAptUid);
     }

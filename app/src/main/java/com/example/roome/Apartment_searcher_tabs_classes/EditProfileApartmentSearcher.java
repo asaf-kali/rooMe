@@ -81,7 +81,7 @@ public class EditProfileApartmentSearcher extends Fragment {
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-
+        asUser = MainActivityApartmentSearcher.aUser;
         firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
