@@ -53,6 +53,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     private EditText lastNameEditText;
     private EditText ageEditText;
     private EditText phoneNumberEditText;
+    private EditText bioEditText;
     private RadioButton maleRadioButton;
 
     // Firebase instance variables
@@ -83,7 +84,7 @@ public class EditProfileApartmentSearcher extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 asUser = MainActivityApartmentSearcher.aUser;
-                validateUserInput();
+                setInfo();
             }
 
             @Override
@@ -125,7 +126,7 @@ public class EditProfileApartmentSearcher extends Fragment {
                     //save user data to DB
                     //todo: saving profile pic causes runtime err
                     uploadPhoto();
-
+                    asUser.setBio(bioEditText.getText().toString());
                     firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
                     Toast.makeText(getContext(), "save to db.", Toast.LENGTH_SHORT).show(); //todo edit
 
@@ -138,6 +139,44 @@ public class EditProfileApartmentSearcher extends Fragment {
         });
         validateUserInput();
         super.onActivityCreated(savedInstanceState);
+    }
+
+    /**
+     * Sets the user's profile information from the firebase
+     */
+    private void setInfo(){
+        firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
+        firstNameEditText.setText(asUser.getFirstName());
+
+        lastNameEditText = getView().findViewById(R.id.et_enterLastName);
+        lastNameEditText.setText(asUser.getLastName());
+
+        ageEditText = getView().findViewById(R.id.et_enterAge);
+        if (asUser.getAge() >= User.MINIMUM_AGE) {
+            ageEditText.setText(Integer.toString(asUser.getAge()));
+        }
+
+        maleRadioButton = getView().findViewById(R.id.radio_btn_male);
+        RadioButton femaleRadioButton = getView().findViewById(R.id.radio_btn_female);
+        if (("MALE").equals(asUser.getGender())) {
+            maleRadioButton.setChecked(true);
+        } else {
+            femaleRadioButton.setChecked(true);
+        }
+
+        phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);
+        phoneNumberEditText.setText(asUser.getPhoneNumber());
+
+        bioEditText = getView().findViewById(R.id.et_bio);
+        bioEditText.setText(asUser.getBio());
+
+        //todo:upload user's profile image from storage
+
+        isUserFirstNameValid = true;
+        isUserLastNameValid = true;
+        isUserAgeValid = true;
+        isUserPhoneValid = true;
+
     }
 
     private void uploadPhoto(){
@@ -213,7 +252,6 @@ public class EditProfileApartmentSearcher extends Fragment {
                     //data.getData returns the content URI for the selected Image
                     selectedImage = data.getData();
 //                    asUser.setProfilePic(selectedImage);
-//                    profilePic.setImageURI(selectedImage);
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
                         profilePic.setImageBitmap(bitmap);
@@ -382,7 +420,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     /**
      * validating the Gender entered.
      */
-    private void validateGender() { //todo finish color right button
+    private void validateGender() {
         maleRadioButton = getView().findViewById(R.id.radio_btn_male);
         RadioButton femaleRadioButton = getView().findViewById(R.id.radio_btn_female);
         if (("MALE").equals(asUser.getGender())) {
