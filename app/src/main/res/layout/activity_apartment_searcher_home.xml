@@ -21,34 +21,6 @@
         android:scaleType="center"
         android:src="@drawable/home_example1" />
 
-    <Button
-        android:id="@+id/btn_yes_house"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/iv_home_display"
-        android:text="YES!!!" />
-
-    <Button
-        android:id="@+id/btn_maybe_house"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/iv_home_display"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentBottom="false"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="0dp"
-        android:gravity="center|center_horizontal|center_vertical"
-        android:text="MAYBE" />
-
-    <Button
-        android:id="@+id/btn_no_house"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/iv_home_display"
-        android:layout_alignEnd="@+id/iv_home_display"
-        android:layout_marginEnd="0dp"
-        android:text="NO!!!" />
 
     <TextView
         android:id="@+id/tv_no_more_houses"
@@ -60,4 +32,40 @@
         android:text="no houses to display , change your filters"
         android:textSize="20sp"
         android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/btn_no_house"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_home_display"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/btn_maybe_house"
+        android:src="@drawable/ic_home_button" />
+
+    <ImageView
+        android:id="@+id/btn_yes_house"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_home_display"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="50dp"
+        android:layout_toStartOf="@+id/btn_maybe_house"
+        android:src="@drawable/ic_home_button" />
+
+    <ImageView
+        android:id="@+id/btn_maybe_house"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_home_display"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="0dp"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:src="@drawable/ic_home_button" />
+
 </RelativeLayout>
