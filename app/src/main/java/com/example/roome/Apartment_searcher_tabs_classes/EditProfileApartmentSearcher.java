@@ -49,6 +49,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     private Boolean isUserLastNameValid;
     private Boolean isUserAgeValid;
     private Boolean isUserPhoneValid;
+    private Boolean changedPhoto = false;
 
     private EditText firstNameEditText;
     private EditText lastNameEditText;
@@ -125,8 +126,10 @@ public class EditProfileApartmentSearcher extends Fragment {
             public void onClick(View v) {
                 if (isUserInputValid()) {
                     //save user data to DB
-                    //todo: saving profile pic causes runtime err
-                    uploadPhoto();
+                    if (changedPhoto){ //save image to DB only if it's a new one
+                        uploadPhoto();
+                        changedPhoto = false;
+                    }
                     asUser.setBio(bioEditText.getText().toString());
                     firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
                     Toast.makeText(getContext(), "save to db.", Toast.LENGTH_SHORT).show(); //todo edit
@@ -171,7 +174,10 @@ public class EditProfileApartmentSearcher extends Fragment {
         bioEditText = getView().findViewById(R.id.et_bio);
         bioEditText.setText(asUser.getBio());
 
-        //todo:upload user's profile image from storage
+        if (asUser.getHasProfilePic()){
+            //todo:upload user's profile image from storage
+
+        }
 
         isUserFirstNameValid = true;
         isUserLastNameValid = true;
@@ -185,8 +191,7 @@ public class EditProfileApartmentSearcher extends Fragment {
             final ProgressDialog progressDialog = new ProgressDialog(getActivity());
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
-            //todo:save photo in relevant location in storage
-            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+            StorageReference ref = storageReference.child("images").child("Apartment Searcher User").child(MyPreferences.getUserUid(getContext()));
             ref.putFile(selectedImage)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -256,6 +261,8 @@ public class EditProfileApartmentSearcher extends Fragment {
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
                         profilePic.setImageBitmap(bitmap);
+                        asUser.setHasProfilePic(true);
+                        changedPhoto = true;
                     }
                     catch (IOException e)
                     {
@@ -490,6 +497,3 @@ public class EditProfileApartmentSearcher extends Fragment {
     }
 
 }
-
-
-//todo: save bio in firebase and show in user's profile
