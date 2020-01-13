@@ -133,63 +133,158 @@ public class FirebaseMediate {
         return temp.getValue(RoommateSearcherUser.class);
     }
 
-    public static ArrayList<String> getLikeUsersIdR(String aptKey) {
-        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
-        };
-        ArrayList<String> allRoommateSearcherUsersIds;
-        DataSnapshot refDSS =
-                dataSs.child("preferences").child("ApartmentSearcherUser").child(aptKey).child(ChoosingActivity.YES_TO_HOUSE);
-        allRoommateSearcherUsersIds = refDSS.getValue(t);
-        return allRoommateSearcherUsersIds;
-    }
 
-
-    public static ArrayList<String> getUnlikeUsersIdR(String aptKey) {
+    public static ArrayList<String> getAptPrefList(String list, String aptKey) {
         GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
         };
 
         ArrayList<String> allRoommateSearcherUsersIds;
         DataSnapshot refDSS =
-                dataSs.child("preferences").child("ApartmentSearcherUser").child(aptKey).child(ChoosingActivity.NO_TO_HOUSE);
+                dataSs.child("preferences").child("ApartmentSearcherUser").child(aptKey).child(list);
         allRoommateSearcherUsersIds = refDSS.getValue(t);
         return allRoommateSearcherUsersIds;
     }
 
-
-    public static ArrayList<String> getMaybeUsersIdR(String aptKey) {
+    public static ArrayList<String> getRoommatePrefList(String list,
+                                                        String roommateKey) {
         GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
         };
-        ArrayList<String> allRoommateSearcherUsersIds;
+
+        ArrayList<String> allAptSearcherUsersIds;
         DataSnapshot refDSS =
-                dataSs.child("preferences").child("ApartmentSearcherUser").child(aptKey).child(ChoosingActivity.MAYBE_TO_HOUSE);
-        allRoommateSearcherUsersIds = refDSS.getValue(t);
-        return allRoommateSearcherUsersIds;
+                dataSs.child("preferences").child("RoommateSearcherUser").child(roommateKey).child(list);
+        allAptSearcherUsersIds = refDSS.getValue(t);
+        return allAptSearcherUsersIds;
     }
 
-    public static ArrayList<String> getHaventSeenUsersIdR(String aptKey) {
-        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
-        };
-        ArrayList<String> allRoommateSearcherUsersIds;
-        DataSnapshot refDSS =
-                dataSs.child("preferences").child("ApartmentSearcherUser").child(aptKey).child(ChoosingActivity.NOT_SEEN);
-        allRoommateSearcherUsersIds = refDSS.getValue(t);
-        return allRoommateSearcherUsersIds;
+    public static void setAptPrefList(String list, String aptKey
+            , ArrayList<String> relevantUids) {
+        firebaseDatabaseReference.child("preferences").child(
+                "ApartmentSearcherUser").child(aptKey).child(list).setValue(relevantUids);
     }
+
+    public static void setRoommatePrefList(String list, String roommateKey
+            , ArrayList<String> relevantUids) {
+        firebaseDatabaseReference.child("preferences").child(
+                "RoommateSearcherUser").child(roommateKey).child(list).setValue(relevantUids);
+    }
+
+//    public static ArrayList<String> getLikeUsersIdR(String aptKey) {
+//        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
+//        };
+//        ArrayList<String> allRoommateSearcherUsersIds;
+//        DataSnapshot refDSS =
+//                dataSs.child("preferences").child("ApartmentSearcherUser").child(aptKey).child(ChoosingActivity.YES_TO_HOUSE);
+//        allRoommateSearcherUsersIds = refDSS.getValue(t);
+//        return allRoommateSearcherUsersIds;
+//    }
+//
+//    public static ArrayList<String> getUnlikeUsersIdR(String aptKey) {
+//        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
+//        };
+//
+//        ArrayList<String> allRoommateSearcherUsersIds;
+//        DataSnapshot refDSS =
+//                dataSs.child("preferences").child("ApartmentSearcherUser").child(aptKey).child(ChoosingActivity.NO_TO_HOUSE);
+//        allRoommateSearcherUsersIds = refDSS.getValue(t);
+//        return allRoommateSearcherUsersIds;
+//    }
+//
+//
+//    public static ArrayList<String> getMaybeUsersIdR(String aptKey) {
+//        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
+//        };
+//        ArrayList<String> allRoommateSearcherUsersIds;
+//        DataSnapshot refDSS =
+//                dataSs.child("preferences").child("ApartmentSearcherUser").child(aptKey).child(ChoosingActivity.MAYBE_TO_HOUSE);
+//        allRoommateSearcherUsersIds = refDSS.getValue(t);
+//        return allRoommateSearcherUsersIds;
+//    }
+//
+//    public static ArrayList<String> getHaventSeenUsersIdR(String aptKey) {
+//        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
+//        };
+//        ArrayList<String> allRoommateSearcherUsersIds;
+//        DataSnapshot refDSS =
+//                dataSs.child("preferences").child("ApartmentSearcherUser").child(aptKey).child(ChoosingActivity.NOT_SEEN);
+//        allRoommateSearcherUsersIds = refDSS.getValue(t);
+//        return allRoommateSearcherUsersIds;
+//    }
 
     public static String RoomateInApartmentSearcherPrefsList(String aptKey,
                                                              String roommateKey) {
-        if (FirebaseMediate.getLikeUsersIdR(aptKey).contains(roommateKey)) {
+        if (FirebaseMediate.getAptPrefList(ChoosingActivity.YES_TO_HOUSE,
+                aptKey).contains(roommateKey)) {
             return ChoosingActivity.YES_TO_HOUSE;
         }
-        if (FirebaseMediate.getMaybeUsersIdR(aptKey).contains(roommateKey)) {
+        if (FirebaseMediate.getAptPrefList(ChoosingActivity.MAYBE_TO_HOUSE,
+                aptKey).contains(roommateKey)) {
             return ChoosingActivity.MAYBE_TO_HOUSE;
         }
-        if (FirebaseMediate.getUnlikeUsersIdR(aptKey).contains(roommateKey)) {
+        if (FirebaseMediate.getAptPrefList(ChoosingActivity.NO_TO_HOUSE,
+                aptKey).contains(roommateKey)) {
             return ChoosingActivity.NO_TO_HOUSE;
         }
-        if (FirebaseMediate.getHaventSeenUsersIdR(aptKey).contains(roommateKey)) {
+        if (FirebaseMediate.getAptPrefList(ChoosingActivity.NOT_SEEN, aptKey).contains(roommateKey)) {
             return ChoosingActivity.NOT_SEEN;
         }
         return ChoosingActivity.NOT_IN_LISTS;
+    }
+
+    public static void removeFromAptPrefList(String list, String aptUid,
+                                             String roommateUid) {
+
+        ArrayList<String> prefListRoomates = getAptPrefList(list, aptUid);
+        prefListRoomates.remove(roommateUid);
+        setAptPrefList(list, aptUid, prefListRoomates);
+    }
+
+    public static void removeFromRoommatePrefList(String list,
+                                                  String roommateUid,
+                                                  String aptUid) {
+
+        ArrayList<String> prefListApt = getRoommatePrefList(list, roommateUid);
+        prefListApt.remove(aptUid);
+        setRoommatePrefList(list, roommateUid, prefListApt);
+    }
+
+    public static void addToAptPrefList(String list, String aptUid,
+                                        String roomateUid) {
+        ArrayList<String> allRelevantRoomatesUid = getAptPrefList(list, aptUid);
+        if (allRelevantRoomatesUid == null) {
+            allRelevantRoomatesUid = new ArrayList<String>();
+        }
+        allRelevantRoomatesUid.add(roomateUid);
+        setAptPrefList(list, aptUid, allRelevantRoomatesUid);
+    }
+
+    public static void addToRoommatePrefList(String list, String roommateUid,
+                                             String aptUid) {
+        ArrayList<String> allRelevantAptUid = getRoommatePrefList(list,
+                roommateUid);
+        if (allRelevantAptUid == null) {
+            allRelevantAptUid = new ArrayList<String>();
+        }
+        allRelevantAptUid.add(aptUid);
+        setRoommatePrefList(list, roommateUid, allRelevantAptUid);
+    }
+
+
+    public static void deleteAllAptUsers() //todo delete thid at the end
+    {
+        DataSnapshot ds = dataSs.child("users").child("ApartmentSearcherUser");
+        for (DataSnapshot child : ds.getChildren()) {
+            String key = child.getKey();
+            firebaseDatabaseReference.child("users").child(
+                    "ApartmentSearcherUser").child(key).removeValue();
+        }
+        DataSnapshot ds2 = dataSs.child("preferences").child(
+                "ApartmentSearcherUser");
+        for (DataSnapshot child : ds.getChildren()) {
+            String key = child.getKey();
+            firebaseDatabaseReference.child("preferences").child(
+                    "ApartmentSearcherUser").child(key).removeValue();
+        }
+
     }
 }
