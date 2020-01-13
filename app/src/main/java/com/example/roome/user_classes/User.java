@@ -24,6 +24,9 @@ public class User {
     private int minAgeRequired;
     private int maxAgeRequired;
 
+
+    private boolean hasProfilePic = false;
+
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -66,6 +69,8 @@ public class User {
         return maxAgeRequired;
     }
 
+    public boolean getHasProfilePic() {return hasProfilePic;}
+
 
     //------------------------------------------Setters---------------------------------------------
     public void setFirstName(String firstName) {
@@ -100,4 +105,6 @@ public class User {
     public void setMaxAgeRequired(int maxAgeRequired) {
         this.maxAgeRequired = maxAgeRequired;
     }
+
+    public void setHasProfilePic(boolean hasProfilePic) {this.hasProfilePic = hasProfilePic;}
 }
