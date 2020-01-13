@@ -134,9 +134,6 @@ public class ChoosingActivity extends AppCompatActivity {
         MyPreferences.setUserUid(getApplicationContext(), key);
 //        firebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(key).setValue(userObj);
         while (!done.get()) ;
-        firebaseDatabaseReference.child("preferences").child(
-                "RoommateSearcherUser").child(key).child(NOT_SEEN).setValue(allApartmentSearcherIds[0]); //todo maybe need to only create the child's title
-
         Intent i = new Intent(ChoosingActivity.this, MainActivityRoommateSearcher.class);
         startActivity(i);
         finish();
