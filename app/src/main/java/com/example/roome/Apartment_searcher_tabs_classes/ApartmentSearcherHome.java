@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +17,6 @@ import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +34,6 @@ public class ApartmentSearcherHome extends Fragment {
     private ImageView mainImage;
     private TextView noMoreHousesText;
     private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mFirebaseDatabaseReference;
 
@@ -46,12 +43,8 @@ public class ApartmentSearcherHome extends Fragment {
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
         super.onCreate(savedInstanceState);
-
-//        FirebaseMediate.setDataSnapshot(); //todo
-//        setContentView(R.layout.activity_apartment_searcher_home);
     }
 
 
@@ -65,7 +58,6 @@ public class ApartmentSearcherHome extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         currentPlaceInList = -1;
-
         mainImage = getView().findViewById(R.id.iv_home_display);
         yesButton = getView().findViewById(R.id.btn_yes_house);
         maybeButton = getView().findViewById(R.id.btn_maybe_house);
@@ -77,7 +69,6 @@ public class ApartmentSearcherHome extends Fragment {
 //        setFirebaseListeners();
         moveToNextOption();
         super.onActivityCreated(savedInstanceState);
-
     }
 
     private void fillTempImgArray() {
@@ -131,7 +122,7 @@ public class ApartmentSearcherHome extends Fragment {
     }
 
     private String getUserUid() { //todo delete
-        return "delete this function";
+        return MyPreferences.getUserUid(getContext());
     }
 
     private void setFirebaseListeners() {
@@ -192,15 +183,15 @@ public class ApartmentSearcherHome extends Fragment {
     }
 
 
-    private void removeFromHaventSeen(String roomateUid) {
+    private void removeFromHaveNotSeen(String roommateUid) {
         FirebaseMediate.removeFromAptPrefList(ChoosingActivity.NOT_SEEN,
-                MyPreferences.getUserUid(getContext()), roomateUid);
+                getUserUid(), roommateUid);
     }
 
     public void pressedYesToApartment(View view) {
         String likedRoomateId = relevantRoommateSearchersIds.get(currentPlaceInList);
-        String myUid = MyPreferences.getUserUid(getContext());
-        removeFromHaventSeen(likedRoomateId);
+        String myUid = getUserUid();
+        removeFromHaveNotSeen(likedRoomateId);
         FirebaseMediate.addToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
                 myUid, likedRoomateId);
         FirebaseMediate.addToRoommatePrefList(ChoosingActivity.NOT_SEEN,
@@ -210,21 +201,21 @@ public class ApartmentSearcherHome extends Fragment {
 
     public void pressedNoToApartment(View view) {
 
-        String unlikedRoomateId =
+        String unlikedRoommateId =
                 relevantRoommateSearchersIds.get(currentPlaceInList);
-        removeFromHaventSeen(unlikedRoomateId);
+        removeFromHaveNotSeen(unlikedRoommateId);
         FirebaseMediate.addToAptPrefList(ChoosingActivity.NO_TO_HOUSE,
-                MyPreferences.getUserUid(getContext()), unlikedRoomateId);
+                getUserUid(), unlikedRoommateId);
         moveToNextOption();
     }
 
     public void pressedMaybeToApartment(View view) {
 
-        String maybeRoomateId =
+        String maybeRoommateId =
                 relevantRoommateSearchersIds.get(currentPlaceInList);
-        removeFromHaventSeen(maybeRoomateId);
+        removeFromHaveNotSeen(maybeRoommateId);
         FirebaseMediate.addToAptPrefList(ChoosingActivity.MAYBE_TO_HOUSE,
-                MyPreferences.getUserUid(getContext()), maybeRoomateId);
+                getUserUid(), maybeRoommateId);
         moveToNextOption();
     }
 

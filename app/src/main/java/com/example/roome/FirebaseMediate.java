@@ -38,7 +38,6 @@ public class FirebaseMediate {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dataSs = dataSnapshot;
-                firebaseUser = firebaseAuth.getCurrentUser();
                 fmDone.set(true);
             }
 
@@ -51,7 +50,6 @@ public class FirebaseMediate {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dataSs = dataSnapshot;
-                firebaseUser = firebaseAuth.getCurrentUser();
                 fmDone.set(true);
             }
 
