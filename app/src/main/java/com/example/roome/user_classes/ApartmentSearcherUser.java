@@ -13,7 +13,7 @@ public class ApartmentSearcherUser extends User {
     private int maxRent;
     private String earliestEntryDate;//todo: make sure to represent it as MM/YYYY
     private String latestEntryDate;
-    private int minNumDesiredRoommates; //todo:decide if we want it to be exclusive or inclusive
+    private int minNumDesiredRoommates;
     private int maxNumDesiredRoommates;
 
 
