@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.roome.MainActivityApartmentSearcher;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentSearcherUser;
@@ -60,7 +61,7 @@ public class EditProfileApartmentSearcher extends Fragment {
         firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                asUser = dataSnapshot.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).getValue(ApartmentSearcherUser.class);
+                asUser = MainActivityApartmentSearcher.aUser;
                 validateUserInput();
             }
 

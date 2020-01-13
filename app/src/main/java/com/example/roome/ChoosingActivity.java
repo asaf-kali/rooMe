@@ -56,7 +56,7 @@ public class ChoosingActivity extends AppCompatActivity {
 
 //        updateUserName();  todo uncomment this
 
-        firebaseDatabaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 FirebaseMediate.setDataSnapshot(dataSnapshot);

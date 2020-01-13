@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabaseReference = firebaseDatabase.getReference();
+        FirebaseMediate.setDataSnapshot(); //todo move to another activity
         //todo delete 4 rows
 //        final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
 //        final SharedPreferences.Editor editor = reader.edit();
@@ -51,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
-//                if (firebaseUser == null) {
+//                if (firebaseUser == null) { //todo check if signed up differently?
 //                    // Not signed in, launch the Sign In activity
 //                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
 //                    finish();
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 //                    if (firebaseUser.getPhotoUrl() != null) {
 //                        mPhotoUrl = firebaseUser.getPhotoUrl().toString();
 //                    }
+
 //                }  //todo uncomment this
                 startActivityWithAnimation();
                 finish();
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
      * this method starts a new activity and adding the transition animation for relevant versions
      * of android
      */
-    public void startActivityWithAnimation(){
+    public void startActivityWithAnimation() {
         Intent i;
         boolean isFirstTime = MyPreferences.isFirstTime(MainActivity.this);
         if (isFirstTime) {
@@ -89,10 +90,10 @@ public class MainActivity extends AppCompatActivity {
             }
             i.putExtra(MainActivity.FROM, MAIN_SRC);
         }
-        if(Build.VERSION.SDK_INT > MIN_SUPPORTED_API_LEVEL){
+        if (Build.VERSION.SDK_INT > MIN_SUPPORTED_API_LEVEL) {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
-            startActivity(i,options.toBundle());
-        }else {
+            startActivity(i, options.toBundle());
+        } else {
             startActivity(i);
         }
     }

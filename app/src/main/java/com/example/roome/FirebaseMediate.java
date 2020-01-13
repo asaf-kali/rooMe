@@ -108,12 +108,12 @@ public class FirebaseMediate {
         return temp.getValue(ApartmentSearcherUser.class);
     }
 
-    public static ApartmentSearcherUser getCurrentApartmentSearcherUser() {
-        if (firebaseUser == null) {
-            return null;
-        }
-        return dataSs.child("users").child("ApartmentSearcherUser").child(firebaseUser.getUid()).getValue(ApartmentSearcherUser.class);
-    }
+//    public static ApartmentSearcherUser getCurrentApartmentSearcherUser() {
+//        if (firebaseUser == null) {
+//            return null;
+//        }
+//        return dataSs.child("users").child("ApartmentSearcherUser").child(firebaseUser.getUid()).getValue(ApartmentSearcherUser.class);
+//    }
 
     public static RoommateSearcherUser getRoommateSearcherUserByUid(String uid) {
         DataSnapshot temp = dataSs.child("users").child("RoommateSearcherUser").child(uid);
