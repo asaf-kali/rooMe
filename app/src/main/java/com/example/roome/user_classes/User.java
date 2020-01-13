@@ -16,7 +16,6 @@ public class User {
     private String lastName;
     private int age;
     private String gender;
-    private Uri profilePic;
     private String phoneNumber;
 
     //--------------------filters---------------------
@@ -53,10 +52,6 @@ public class User {
 
     public String getGender() { return gender; }
 
-    public Uri getProfilePic() {
-        return profilePic;
-    }
-
     public boolean getKosherImportance() {
         return kosherImportance;
     }
@@ -87,10 +82,6 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public void setProfilePic(Uri profilePic) {
-        this.profilePic = profilePic;
     }
 
     public void setKosherImportance(boolean kosherImportance) {
