@@ -148,6 +148,7 @@ public class SignInActivity extends AppCompatActivity implements
         editor.apply();
         startActivity(new Intent(SignInActivity.this, ChoosingActivity.class));
         finish();
+    }
 
 
 

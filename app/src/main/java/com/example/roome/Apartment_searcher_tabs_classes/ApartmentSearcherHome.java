@@ -76,7 +76,7 @@ public class ApartmentSearcherHome extends Fragment {
         noMoreHousesText = getView().findViewById(R.id.tv_no_more_houses);
         fillTempImgArray(); //todo delete
         setClickListeners();
-        setFirebaseListeners();
+//        setFirebaseListeners();
         moveToNextOption();
         super.onActivityCreated(savedInstanceState);
 
