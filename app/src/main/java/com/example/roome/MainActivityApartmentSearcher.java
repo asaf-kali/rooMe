@@ -1,6 +1,10 @@
 package com.example.roome;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.Slide;
+import android.view.Gravity;
+import android.view.animation.DecelerateInterpolator;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -45,6 +49,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setAnimation();
         setContentView(R.layout.activity_main_apartment_searcher);
 //        FirebaseMediate.setDataSnapshot(); //todo
         // Initialize Firebase
@@ -136,6 +141,17 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return null;
+        }
+    }
+
+    public void setAnimation() {
+        if (Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL) {
+            Slide slide = new Slide();
+            slide.setSlideEdge(Gravity.LEFT);
+            slide.setDuration(500);
+            slide.setInterpolator(new DecelerateInterpolator());
+            getWindow().setExitTransition(slide);
+            getWindow().setEnterTransition(slide);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.roome;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -80,10 +81,10 @@ public class ChoosingActivity extends AppCompatActivity {
     }
 
     public void setAnimation() {
-        if (Build.VERSION.SDK_INT > 20) {
+        if (Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL) {
             Slide slide = new Slide();
             slide.setSlideEdge(Gravity.LEFT);
-            slide.setDuration(400);
+            slide.setDuration(500);
             slide.setInterpolator(new DecelerateInterpolator());
             getWindow().setExitTransition(slide);
             getWindow().setEnterTransition(slide);
@@ -144,7 +145,7 @@ public class ChoosingActivity extends AppCompatActivity {
         while (!done.get()) ;
         firebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(key).child("0").setValue(allRoommateSearcherIds[0]);
         Intent i = new Intent(ChoosingActivity.this, MainActivityApartmentSearcher.class);
-        startActivity(i);
+        startActivityWithAnimation(i);
         finish();
     }
 
@@ -165,5 +166,14 @@ public class ChoosingActivity extends AppCompatActivity {
     private RoommateSearcherUser createRandomRoomateUser() { //todo random
 
         return new RoommateSearcherUser(num, num, 25);
+    }
+
+    public void startActivityWithAnimation(Intent intent){
+        if(Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL){
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
+            startActivity(intent, options.toBundle());
+        }else {
+            startActivity(intent);
+        }
     }
 }
