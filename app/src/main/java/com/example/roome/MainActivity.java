@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabaseReference = firebaseDatabase.getReference();
-        FirebaseMediate.setDataSnapshot(); //todo move to another activity
+        FirebaseMediate.setDataSnapshot();
         //todo delete 4 rows
 //        final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
 //        final SharedPreferences.Editor editor = reader.edit();
@@ -64,17 +64,12 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                }  //todo uncomment this
                 startActivityWithAnimation();//todo maybe go to intermediate
-                    //activity(whose main purpose is to update the data snapshot)
+                //activity(whose main purpose is to update the data snapshot)
 
                 finish();
             }
         }, TIME_OUT);
     }
-
-
-
-
-
 
 
     //-------------------only sign in with google-------------------------------------------
@@ -126,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        }, TIME_OUT);
 //    }
+
     /**
      * this method starts a new activity and adding the transition animation for relevant versions
      * of android

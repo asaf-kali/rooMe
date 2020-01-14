@@ -28,6 +28,7 @@ import java.util.List;
 
 public class MainActivityApartmentSearcher extends AppCompatActivity {
 
+    private static final int OFFSCREEN_PAGE_LIMIT = 3;
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private int[] selectedtabIcons = {R.drawable.ic_action_filled_home,
@@ -42,7 +43,6 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
 
     // Firebase instance variables
     private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
 
@@ -51,15 +51,13 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setAnimation();
         setContentView(R.layout.activity_main_apartment_searcher);
-//        FirebaseMediate.setDataSnapshot(); //todo add previous activity to handle this
         // Initialize Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
-        firebaseUser = firebaseAuth.getCurrentUser();
         aUser = getCurrentApartmentSearcherUser();
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs_apartment);
@@ -89,7 +87,6 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     }
 
     private ApartmentSearcherUser getCurrentApartmentSearcherUser() {
-
         String aptUid = MyPreferences.getUserUid(getApplicationContext());
         return FirebaseMediate.getApartmentSearcherUserByUid(aptUid);
     }
@@ -110,14 +107,6 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         adapter.addFragment(new EditFiltersApartmentSearcher(), "FILTERS");
         adapter.addFragment(new EditProfileApartmentSearcher(), "PROFILE");
         viewPager.setAdapter(adapter);
-    }
-
-    public ApartmentSearcherUser getaUser() {
-        return aUser;
-    }
-
-    public void setaUser(ApartmentSearcherUser aUser) {
-        this.aUser = aUser;
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -153,7 +142,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         if (Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL) {
             Slide slide = new Slide();
             slide.setSlideEdge(Gravity.LEFT);
-            slide.setDuration(500);
+            slide.setDuration(ChoosingActivity.ANIMATION_DELAY_TIME);
             slide.setInterpolator(new DecelerateInterpolator());
             getWindow().setExitTransition(slide);
             getWindow().setEnterTransition(slide);

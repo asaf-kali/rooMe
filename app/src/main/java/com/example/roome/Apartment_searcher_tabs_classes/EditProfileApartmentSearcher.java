@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,7 +23,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.roome.FirebaseMediate;
 import com.example.roome.MainActivityApartmentSearcher;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
@@ -41,7 +41,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.util.UUID;
 
 public class EditProfileApartmentSearcher extends Fragment {
     private static final int GALLERY_REQUEST_CODE = 1;
@@ -67,7 +66,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     //profile pic
     ImageView profilePic;
     ImageButton addProfilePic;
-
+    final long ONE_MEGABYTE = 1024 * 1024;
     private Uri selectedImage;
 
     @Override
@@ -75,6 +74,8 @@ public class EditProfileApartmentSearcher extends Fragment {
         // Initialize Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
         firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -141,7 +142,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     /**
      * Sets the user's profile information from the firebase
      */
-    private void setInfo(){
+    private void setInfo() {
         firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
         firstNameEditText.setText(asUser.getFirstName());
 
@@ -167,11 +168,21 @@ public class EditProfileApartmentSearcher extends Fragment {
         bioEditText = getView().findViewById(R.id.et_bio);
         bioEditText.setText(asUser.getBio());
 
-        if (asUser.getHasProfilePic()){
-            //todo:upload user's profile image from storage
-
+        if (asUser.getHasProfilePic()) {
+            //upload user's profile image from storage
+            storageReference.child("Images").child("Apartment Searcher User").child(MyPreferences.getUserUid(getContext())).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    profilePic.setImageBitmap(bmp);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Toast.makeText(getContext(), "No Such file or Path found!!", Toast.LENGTH_LONG).show();
+                }
+            });
         }
-
         isUserFirstNameValid = true;
         isUserLastNameValid = true;
         isUserAgeValid = true;
@@ -223,15 +234,12 @@ public class EditProfileApartmentSearcher extends Fragment {
                         profilePic.setImageBitmap(bitmap);
                         asUser.setHasProfilePic(true);
                         changedPhoto = true;
-                    }
-                    catch (IOException e)
-                    {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
             }
     }
-
 
     /**
      * validate the entered name.

@@ -37,9 +37,9 @@ import static com.example.roome.MyPreferences.MY_PREFERENCES;
 
 public class ChoosingActivity extends AppCompatActivity {
 
+    protected static final int ANIMATION_DELAY_TIME = 500;
     // Firebase instance variables
     private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
     final ArrayList<String>[] allApartmentSearcherIds = new ArrayList[1];
@@ -62,7 +62,6 @@ public class ChoosingActivity extends AppCompatActivity {
         // Initialize Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabaseReference = firebaseDatabase.getReference();
 
 //        updateUserName();  todo uncomment this
@@ -78,7 +77,6 @@ public class ChoosingActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 
@@ -94,7 +92,7 @@ public class ChoosingActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL) {
             Slide slide = new Slide();
             slide.setSlideEdge(Gravity.LEFT);
-            slide.setDuration(500);
+            slide.setDuration(ANIMATION_DELAY_TIME);
             slide.setInterpolator(new DecelerateInterpolator());
             getWindow().setExitTransition(slide);
             getWindow().setEnterTransition(slide);
@@ -117,7 +115,8 @@ public class ChoosingActivity extends AppCompatActivity {
         String first = reader.getString("FIRSTNAME", "NULL");
         String last = reader.getString("LASTNAME", "NULL");
         TextView textView = findViewById(R.id.tv_hello_name);
-        textView.setText(String.format("Hi %s!", first.concat(" ").concat(last)));
+        textView.setText(String.format("Hi %s!",
+                first.concat(" ").concat(last))); //todo delete this
     }
 
     /**
@@ -132,7 +131,6 @@ public class ChoosingActivity extends AppCompatActivity {
         String key = newRef.getKey();
         newRef.setValue(userObj);
         MyPreferences.setUserUid(getApplicationContext(), key);
-//        firebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(key).setValue(userObj);
         while (!done.get()) ;
         Intent i = new Intent(ChoosingActivity.this, MainActivityRoommateSearcher.class);
         startActivity(i);
@@ -153,10 +151,10 @@ public class ChoosingActivity extends AppCompatActivity {
         String key = newRef.getKey();
         newRef.setValue(userObj);
         MyPreferences.setUserUid(getApplicationContext(), key);
-//        firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(firebaseUser.getUid()).setValue(userObj);
         while (!done.get()) ;
-        firebaseDatabaseReference.child("preferences").child(
-                "ApartmentSearcherUser").child(key).child(NOT_SEEN).setValue(allRoommateSearcherIds[0]);
+        // add all roommate searchers as relevant to see
+        FirebaseMediate.setAptPrefList(ChoosingActivity.NOT_SEEN,key,
+                allRoommateSearcherIds[0]);
 
         Intent i = new Intent(ChoosingActivity.this, MainActivityApartmentSearcher.class);
         startActivityWithAnimation(i);
@@ -167,13 +165,10 @@ public class ChoosingActivity extends AppCompatActivity {
      * @return
      */
     private User createNewUser() {
-//        GoogleSignInAccount userAccount = GoogleSignIn.getLastSignedInAccount(ChoosingActivity.this);
-//        String firstName = userAccount.getGivenName();
-//        String lastName = userAccount.getFamilyName();
+        GoogleSignInAccount userAccount = GoogleSignIn.getLastSignedInAccount(ChoosingActivity.this);
+        String firstName = userAccount.getGivenName();
+        String lastName = userAccount.getFamilyName();
 
-        final SharedPreferences reader = getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
-        String firstName = reader.getString("FIRSTNAME", "NULL");
-        String lastName = reader.getString("LASTNAME", "NULL");
         return new User(firstName, lastName);
     }
 
@@ -186,11 +181,11 @@ public class ChoosingActivity extends AppCompatActivity {
         return new RoommateSearcherUser(num, num, 25);
     }
 
-    public void startActivityWithAnimation(Intent intent){
-        if(Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL){
+    public void startActivityWithAnimation(Intent intent) {
+        if (Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL) {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
             startActivity(intent, options.toBundle());
-        }else {
+        } else {
             startActivity(intent);
         }
     }
