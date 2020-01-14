@@ -1,33 +1,44 @@
-package com.example.roome;
+package com.example.roome.Roomate_searcher_tabs_classes;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
+import com.example.roome.EditProfileAlertDialog;
+import com.example.roome.FirebaseMediate;
+import com.example.roome.MyPreferences;
+import com.example.roome.R;
 import com.example.roome.user_classes.RoommateSearcherUser;
 import com.example.roome.user_classes.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 
-public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
-
+public class EditProfileRoommateSearcher extends Fragment {
     private static final int GALLERY_REQUEST_CODE = 1;
     private Boolean isUserFirstNameValid;
     private Boolean isUserLastNameValid;
@@ -41,7 +52,6 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
     private EditText phoneNumberEditText;
     private EditText bioEditText;
     private RadioButton maleRadioButton;
-    private Button addApartmentPhoto;
 
     // Firebase instance variables
     private FirebaseDatabase firebaseDatabase;
@@ -55,27 +65,44 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
     ImageView addProfilePic;
     final long ONE_MEGABYTE = 1024 * 1024;
     private Uri selectedImage;
-    private Uri apartmentImage;
-    private Boolean fromProfilePic = false;
-    private boolean hasApartmentPic;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_roommate_searcher_set_profile);
+    public void onCreate(Bundle savedInstanceState) {
         // Initialize Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        roommateSearcherUser = new RoommateSearcherUser();
+        firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                roommateSearcherUser = FirebaseMediate.getRoommateSearcherUserByUid(MyPreferences.getUserUid(getContext()));
+                setInfo();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        roommateSearcherUser = new RoommateSearcherUser();
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.activity_edit_profile_roommate_searcher, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
         isUserFirstNameValid = false;
         isUserLastNameValid = false;
         isUserAgeValid = false;
         isUserPhoneValid = false;
-        addProfilePic = findViewById(R.id.ib_add_photo);
-        profilePic = findViewById(R.id.iv_missingPhoto);
+        addProfilePic = getView().findViewById(R.id.ib_add_photo);
+        profilePic = getView().findViewById(R.id.iv_missingPhoto);
         addProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,46 +110,89 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
             }
         });
 
-        ImageView saveProfileButton = findViewById(R.id.btn_save_profile_as);
+        ImageView saveProfileButton = getView().findViewById(R.id.btn_save_profile_as);
         saveProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isUserInputValid()) {
                     //save user data to DB
-                    if (changedPhoto) { //save image to DB only if it's a new one
-                        FirebaseMediate.uploadPhotoToStorage(selectedImage, RoommateSearcherSetProfileActivity.this, getApplicationContext(),"Roommate Searcher User", "Profile Pic");
+                    if (changedPhoto){ //save image to DB only if it's a new one
+                        FirebaseMediate.uploadPhotoToStorage(selectedImage, getActivity(), getContext(),"Roommate Searcher User", "Profile Pic");
                         changedPhoto = false;
                     }
-                    if (hasApartmentPic) {
-//                        FirebaseMediate.uploadPhotoToStorage(apartmentImage, RoommateSearcherSetProfileActivity.this, getApplicationContext(), "Roommate Searcher User", "Apartment");
-                    }
+                    //todo bio?
 //                    roommateSearcherUser.setBio(bioEditText.getText().toString());
-                    firebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(MyPreferences.getUserUid(getApplicationContext())).setValue(roommateSearcherUser);
-                    Toast.makeText(getApplicationContext(), "save to db.", Toast.LENGTH_SHORT).show(); //todo edit
-                    Intent i = new Intent(RoommateSearcherSetProfileActivity.this, MainActivityRoommateSearcher.class);
-                    startActivity(i);
-                    finish();
+                    firebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(roommateSearcherUser);
+                    Toast.makeText(getContext(), "save to db.", Toast.LENGTH_SHORT).show(); //todo edit
 
                 } else {
-                    Intent intent = new Intent(RoommateSearcherSetProfileActivity.this, EditProfileAlertDialog.class);
+                    Intent intent = new Intent(EditProfileRoommateSearcher.this.getActivity(), EditProfileAlertDialog.class);
                     startActivity(intent);
                 }
             }
         });
-        addApartmentPhoto = findViewById(R.id.btn_add_photos);
-        addApartmentPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadApartmentPhotoOnClick();
-            }
-        });
-
         validateUserInput();
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    /**
+     * Sets the user's profile information from the firebase
+     */
+    private void setInfo() {
+        firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
+        firstNameEditText.setText(roommateSearcherUser.getFirstName());
+
+        lastNameEditText = getView().findViewById(R.id.et_enterLastName);
+        lastNameEditText.setText(roommateSearcherUser.getLastName());
+
+        ageEditText = getView().findViewById(R.id.et_enterAge);
+        if (roommateSearcherUser.getAge() >= User.MINIMUM_AGE) {
+            ageEditText.setText(Integer.toString(roommateSearcherUser.getAge()));
+            isUserAgeValid = true;
+        }
+
+        maleRadioButton = getView().findViewById(R.id.radio_btn_male);
+        RadioButton femaleRadioButton = getView().findViewById(R.id.radio_btn_female);
+        if (("MALE").equals(roommateSearcherUser.getGender())) {
+            maleRadioButton.setChecked(true);
+        } else {
+            femaleRadioButton.setChecked(true);
+        }
+
+        phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);
+        phoneNumberEditText.setText(roommateSearcherUser.getPhoneNumber());
+        if (roommateSearcherUser.getPhoneNumber() != null && roommateSearcherUser.getPhoneNumber().length() == User.PHONE_NUMBER_LENGTH){
+            isUserPhoneValid = true;
+        }
+
+        bioEditText = getView().findViewById(R.id.et_bio);
+        //todo bio?
+//        bioEditText.setText(roommateSearcherUser.getBio());
+
+        if (roommateSearcherUser.getHasProfilePic()) {
+            //upload user's profile image from storage
+            storageReference.child("Images").child("Roommate Searcher User").
+                    child(MyPreferences.getUserUid(getContext())).child("Profile Pic").getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    profilePic.setImageBitmap(bmp);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Toast.makeText(getContext(), "No Such file or Path found!!", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        isUserFirstNameValid = true;
+        isUserLastNameValid = true;
     }
 
     /**
      * validating relevant fields filled by the user
      */
+
     private void validateUserInput() {
         validateUserFirstName();
         validateUserLastName();
@@ -139,19 +209,6 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
     }
 
     public void uploadPhotoOnClickAS() {
-        fromProfilePic = true;
-        //Create an Intent with action as ACTION_PICK
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        // Sets the type as image/*. This ensures only components of type image are selected
-        intent.setType("image/*");
-        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
-        String[] mimeTypes = {"image/jpeg", "image/png"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-        // Launching the Intent
-        startActivityForResult(intent, GALLERY_REQUEST_CODE);
-    }
-
-    public void uploadApartmentPhotoOnClick() {
         //Create an Intent with action as ACTION_PICK
         Intent intent = new Intent(Intent.ACTION_PICK);
         // Sets the type as image/*. This ensures only components of type image are selected
@@ -166,28 +223,20 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Result code is RESULT_OK only if the user selects an Image
-        super.onActivityResult(requestCode, resultCode, data); //todo ???????
         if (resultCode == Activity.RESULT_OK)
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
-                    if (fromProfilePic == true) {
-                        //data.getData returns the content URI for the selected Image
-                        selectedImage = data.getData();
-                        try {
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), selectedImage);
-                            profilePic.setImageBitmap(bitmap);
-                            roommateSearcherUser.setHasProfilePic(true);
-                            changedPhoto = true;
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    } else {
-                        apartmentImage = data.getData();
-                        hasApartmentPic = true;
-                        //todo not here
-                        FirebaseMediate.uploadPhotoToStorage(apartmentImage, RoommateSearcherSetProfileActivity.this, getApplicationContext(), "Roommate Searcher User", "Apartment");
+                    //data.getData returns the content URI for the selected Image
+                    selectedImage = data.getData();
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
+                        profilePic.setImageBitmap(bitmap);
+                        roommateSearcherUser.setHasProfilePic(true);
+                        changedPhoto = true;
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                    break;
             }
     }
 
@@ -195,7 +244,7 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
      * validate the entered name.
      */
     private void validateUserFirstName() {
-        firstNameEditText = findViewById(R.id.et_enterFirstName);
+        firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
         firstNameEditText.setText(roommateSearcherUser.getFirstName());
         checkIfValidFirstName();
         firstNameEditText.addTextChangedListener(new TextWatcher() {
@@ -235,7 +284,7 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
      * validate the entered name.
      */
     private void validateUserLastName() {
-        lastNameEditText = findViewById(R.id.et_enterLastName);
+        lastNameEditText = getView().findViewById(R.id.et_enterLastName);
         lastNameEditText.setText(roommateSearcherUser.getLastName());
         checkIfValidLastName();
         lastNameEditText.addTextChangedListener(new TextWatcher() {
@@ -275,7 +324,7 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
      * validating the age entered. Age has to be between 6 and 120.
      */
     private void validateAge() {
-        ageEditText = findViewById(R.id.et_enterAge);
+        ageEditText = getView().findViewById(R.id.et_enterAge);
         if (roommateSearcherUser.getAge() >= User.MINIMUM_AGE) {
             ageEditText.setText(Integer.toString(roommateSearcherUser.getAge()));
         }
@@ -347,8 +396,8 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
      * validating the Gender entered.
      */
     private void validateGender() {
-        maleRadioButton = findViewById(R.id.radio_btn_male);
-        RadioButton femaleRadioButton = findViewById(R.id.radio_btn_female);
+        maleRadioButton = getView().findViewById(R.id.radio_btn_male);
+        RadioButton femaleRadioButton = getView().findViewById(R.id.radio_btn_female);
         if (("MALE").equals(roommateSearcherUser.getGender())) {
             maleRadioButton.setChecked(true);
         } else {
@@ -371,7 +420,7 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
      * validating the PhoneNumber entered.
      */
     private void validatePhoneNumber() {
-        phoneNumberEditText = findViewById(R.id.et_phoneNumber);
+        phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);
         phoneNumberEditText.setText(roommateSearcherUser.getPhoneNumber());
         checkIfValidPhoneNumber();
         phoneNumberEditText.addTextChangedListener(new TextWatcher() {
@@ -419,6 +468,4 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void addPhotos(View view) {
-    }
 }
