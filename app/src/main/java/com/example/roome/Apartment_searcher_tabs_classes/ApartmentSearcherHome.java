@@ -22,6 +22,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -57,7 +59,6 @@ public class ApartmentSearcherHome extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        currentPlaceInList = -1;
         mainImage = getView().findViewById(R.id.iv_home_display);
         yesButton = getView().findViewById(R.id.btn_yes_house);
         maybeButton = getView().findViewById(R.id.btn_maybe_house);
@@ -66,8 +67,7 @@ public class ApartmentSearcherHome extends Fragment {
         setClickListeners();
         setFirebaseListeners();
         retrieveRelevantRoommateSearchers();
-        fillTempImgArray(); //todo delete
-        moveToNextOption();
+        moreHouses();
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -180,8 +180,30 @@ public class ApartmentSearcherHome extends Fragment {
 
             }
         });
+        mFirebaseDatabaseReference.child("preferences").child(
+                "ApartmentSearcherUser").child(getUserUid()).child(ChoosingActivity.NOT_SEEN).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
+                };
+                relevantRoommateSearchersIds = dataSnapshot.getValue(t);
+                if (relevantRoommateSearchersIds == null){
+                    relevantRoommateSearchersIds = new ArrayList<>();
+                }
+                refreshList();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
+    }
+
+    private void refreshList() {
+        moreHouses();
     }
 
     private void updateMainImage() {
@@ -256,6 +278,17 @@ public class ApartmentSearcherHome extends Fragment {
         maybeButton.setVisibility(View.INVISIBLE);
         mainImage.setImageResource(R.drawable.no_more_houses_2);
         noMoreHousesText.setVisibility(View.VISIBLE);
+    }
+
+    private void moreHouses() {
+
+        yesButton.setVisibility(View.VISIBLE);
+        noButton.setVisibility(View.VISIBLE);
+        maybeButton.setVisibility(View.VISIBLE);
+        noMoreHousesText.setVisibility(View.INVISIBLE);
+        currentPlaceInList = -1;
+        fillTempImgArray(); //todo delete
+        moveToNextOption();
     }
 
     @Override
