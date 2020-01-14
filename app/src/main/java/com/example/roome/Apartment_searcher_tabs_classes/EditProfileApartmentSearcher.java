@@ -61,7 +61,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     // Firebase instance variables
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
-    
+
     private ApartmentSearcherUser asUser;
 
     //profile pic
@@ -218,7 +218,6 @@ public class EditProfileApartmentSearcher extends Fragment {
                 case GALLERY_REQUEST_CODE:
                     //data.getData returns the content URI for the selected Image
                     selectedImage = data.getData();
-//                    asUser.setProfilePic(selectedImage);
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
                         profilePic.setImageBitmap(bitmap);
@@ -424,6 +423,11 @@ public class EditProfileApartmentSearcher extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int inputLength = phoneNumberEditText.getText().toString().length();
+                if (inputLength == User.PHONE_NUMBER_LENGTH) {
+                    asUser.setPhoneNumber(phoneNumberEditText.getText().toString());
+                    isUserPhoneValid = true;
+                }
             }
 
             @Override
