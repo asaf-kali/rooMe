@@ -16,13 +16,15 @@ public class User {
     private String lastName;
     private int age;
     private String gender;
-    private Uri profilePic;
     private String phoneNumber;
 
     //--------------------filters---------------------
     private boolean kosherImportance;
     private int minAgeRequired;
     private int maxAgeRequired;
+
+
+    private boolean hasProfilePic = false;
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;
@@ -50,10 +52,6 @@ public class User {
 
     public String getGender() { return gender; }
 
-    public Uri getProfilePic() {
-        return profilePic;
-    }
-
     public boolean getKosherImportance() {
         return kosherImportance;
     }
@@ -65,6 +63,8 @@ public class User {
     public int getMaxAgeRequired() {
         return maxAgeRequired;
     }
+
+    public boolean getHasProfilePic() {return hasProfilePic;}
 
 
     //------------------------------------------Setters---------------------------------------------
@@ -84,10 +84,6 @@ public class User {
         this.gender = gender;
     }
 
-    public void setProfilePic(Uri profilePic) {
-        this.profilePic = profilePic;
-    }
-
     public void setKosherImportance(boolean kosherImportance) {
         this.kosherImportance = kosherImportance;
     }
@@ -100,4 +96,6 @@ public class User {
     public void setMaxAgeRequired(int maxAgeRequired) {
         this.maxAgeRequired = maxAgeRequired;
     }
+
+    public void setHasProfilePic(boolean hasProfilePic) {this.hasProfilePic = hasProfilePic;}
 }
