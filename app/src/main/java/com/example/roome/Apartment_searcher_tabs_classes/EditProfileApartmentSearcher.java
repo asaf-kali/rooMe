@@ -1,7 +1,6 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,7 +21,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.roome.FirebaseMediate;
-import com.example.roome.MainActivityApartmentSearcher;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentSearcherUser;
@@ -36,9 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
@@ -80,13 +76,12 @@ public class EditProfileApartmentSearcher extends Fragment {
         firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                asUser = MainActivityApartmentSearcher.aUser;
+                asUser = FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext()));
                 setInfo();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
         asUser = new ApartmentSearcherUser();
@@ -174,7 +169,8 @@ public class EditProfileApartmentSearcher extends Fragment {
 
         if (asUser.getHasProfilePic()) {
             //upload user's profile image from storage
-            storageReference.child("Images").child("Apartment Searcher User").child(MyPreferences.getUserUid(getContext())).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            storageReference.child("Images").child("Apartment Searcher User").
+                    child(MyPreferences.getUserUid(getContext())).child("Profile Pic").getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
                     Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
