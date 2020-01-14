@@ -23,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.roome.FirebaseMediate;
 import com.example.roome.MainActivityApartmentSearcher;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
@@ -60,7 +61,8 @@ public class EditProfileApartmentSearcher extends Fragment {
     // Firebase instance variables
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
-
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
     private ApartmentSearcherUser asUser;
 
     //profile pic
