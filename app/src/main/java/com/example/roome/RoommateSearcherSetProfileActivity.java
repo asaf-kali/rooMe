@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.roome.user_classes.Apartment;
 import com.example.roome.user_classes.RoommateSearcherUser;
 import com.example.roome.user_classes.User;
 import com.google.firebase.database.DatabaseReference;
@@ -46,6 +47,7 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
     // Firebase instance variables
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
+    private DatabaseReference userFirebaseDatabaseReference;
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private RoommateSearcherUser roommateSearcherUser;
@@ -66,6 +68,7 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
         // Initialize Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
+        userFirebaseDatabaseReference = firebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(MyPreferences.getUserUid(getApplicationContext()));
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         roommateSearcherUser = new RoommateSearcherUser();
@@ -97,7 +100,9 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
 //                        FirebaseMediate.uploadPhotoToStorage(apartmentImage, RoommateSearcherSetProfileActivity.this, getApplicationContext(), "Roommate Searcher User", "Apartment");
                     }
 //                    roommateSearcherUser.setBio(bioEditText.getText().toString());
-                    firebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(MyPreferences.getUserUid(getApplicationContext())).setValue(roommateSearcherUser);
+                    userFirebaseDatabaseReference.setValue(roommateSearcherUser);
+                    Apartment newApartment = new Apartment(false,"null",0,2,0);
+                    userFirebaseDatabaseReference.child("apartment").setValue(newApartment);
                     Toast.makeText(getApplicationContext(), "save to db.", Toast.LENGTH_SHORT).show(); //todo edit
                     Intent i = new Intent(RoommateSearcherSetProfileActivity.this, MainActivityRoommateSearcher.class);
                     startActivity(i);
