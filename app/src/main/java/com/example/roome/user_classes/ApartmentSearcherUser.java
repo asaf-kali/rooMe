@@ -16,6 +16,8 @@ public class ApartmentSearcherUser extends User {
     private int minNumDesiredRoommates;
     private int maxNumDesiredRoommates;
 
+    private static final int MAX_RENT_VALUE = 4000;
+
 
     public ApartmentSearcherUser(String firstName, String lastName, int age) {
         super(firstName, lastName);
@@ -23,6 +25,18 @@ public class ApartmentSearcherUser extends User {
 
     public ApartmentSearcherUser() {
         super();
+    }
+
+    public ApartmentSearcherUser(ApartmentSearcherUser aUser) {
+        super(aUser.getFirstName(), aUser.getLastName());
+        this.optionalNeighborhoods = aUser.optionalNeighborhoods;
+        this.minRent = aUser.minRent;
+        this.maxRent = aUser.maxRent;
+        this.earliestEntryDate = aUser.earliestEntryDate;
+        this.latestEntryDate = aUser.latestEntryDate;
+        this.minNumDesiredRoommates = aUser.minNumDesiredRoommates;
+        this.maxNumDesiredRoommates = aUser.maxNumDesiredRoommates;
+        this.bio = aUser.bio;
     }
 
     //------------------------------------------Getters---------------------------------------------
@@ -40,6 +54,9 @@ public class ApartmentSearcherUser extends User {
     }
 
     public int getMaxRent() {
+        if (maxRent == 0) {
+            return MAX_RENT_VALUE;
+        }
         return maxRent;
     }
 

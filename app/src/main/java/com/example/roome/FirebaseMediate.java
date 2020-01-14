@@ -207,10 +207,27 @@ public class FirebaseMediate {
         DataSnapshot refDSS =
                 dataSs.child("preferences").child("RoommateSearcherUser").child(roommateKey).child(list);
         allAptSearcherUsersIds = refDSS.getValue(t);
-        if (allAptSearcherUsersIds == null){
+        if (allAptSearcherUsersIds == null) {
             return new ArrayList<String>();
         }
         return allAptSearcherUsersIds;
+    }
+
+    /**
+     * a method to get all roommates user in the specified list of the user.
+     *
+     * @param list        specified list of the user.
+     * @param roommateKey the firebase uid of the user.
+     * @return all roommates user in the specified list of the user.
+     */
+    public static ArrayList<RoommateSearcherUser> getRoommatesByPrefList(String list,
+                                                                         String roommateKey) {
+        ArrayList<String> allRoommateSearcherUsersIds = getAptPrefList(list, roommateKey);
+        ArrayList<RoommateSearcherUser> allListRoommates = new ArrayList<>();
+        for (String roommateId : allRoommateSearcherUsersIds) {
+            allListRoommates.add(getRoommateSearcherUserByUid(roommateId));
+        }
+        return allListRoommates;
     }
 
     public static void setAptPrefList(String list, String aptKey
@@ -267,8 +284,8 @@ public class FirebaseMediate {
 //        return allRoommateSearcherUsersIds;
 //    }
 
-    public static String RoomateInApartmentSearcherPrefsList(String aptKey,
-                                                             String roommateKey) {
+    public static String RoommateInApartmentSearcherPrefsList(String aptKey,
+                                                              String roommateKey) {
         ArrayList<String> likedArr, maybeArr, unlikedArr, notSeenArr;
         likedArr = FirebaseMediate.getAptPrefList(ChoosingActivity.YES_TO_HOUSE,
                 aptKey);
