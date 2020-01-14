@@ -154,6 +154,7 @@ public class EditProfileApartmentSearcher extends Fragment {
         ageEditText = getView().findViewById(R.id.et_enterAge);
         if (asUser.getAge() >= User.MINIMUM_AGE) {
             ageEditText.setText(Integer.toString(asUser.getAge()));
+            isUserAgeValid = true;
         }
 
         maleRadioButton = getView().findViewById(R.id.radio_btn_male);
@@ -166,6 +167,9 @@ public class EditProfileApartmentSearcher extends Fragment {
 
         phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);
         phoneNumberEditText.setText(asUser.getPhoneNumber());
+        if (asUser.getPhoneNumber() != null && asUser.getPhoneNumber().length() == User.PHONE_NUMBER_LENGTH){
+            isUserPhoneValid = true;
+        }
 
         bioEditText = getView().findViewById(R.id.et_bio);
         bioEditText.setText(asUser.getBio());
@@ -187,9 +191,6 @@ public class EditProfileApartmentSearcher extends Fragment {
         }
         isUserFirstNameValid = true;
         isUserLastNameValid = true;
-        isUserAgeValid = true;
-        isUserPhoneValid = true;
-
     }
 
     /**
