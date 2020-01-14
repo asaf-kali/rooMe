@@ -12,9 +12,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -22,11 +20,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.roome.FirebaseMediate;
 import com.example.roome.MainActivityApartmentSearcher;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentSearcherUser;
+import com.example.roome.EditProfileAlertDialog;
 import com.example.roome.user_classes.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,7 +39,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.util.UUID;
 
 public class EditProfileApartmentSearcher extends Fragment {
     private static final int GALLERY_REQUEST_CODE = 1;
@@ -69,7 +66,7 @@ public class EditProfileApartmentSearcher extends Fragment {
 
     //profile pic
     ImageView profilePic;
-    ImageButton addProfilePic;
+    ImageView addProfilePic;
 
     private Uri selectedImage;
 
@@ -111,7 +108,7 @@ public class EditProfileApartmentSearcher extends Fragment {
         isUserLastNameValid = false;
         isUserAgeValid = false;
         isUserPhoneValid = false;
-        addProfilePic = getView().findViewById(R.id.ib_addPhoto);
+        addProfilePic = getView().findViewById(R.id.ib_add_photo);
         profilePic = getView().findViewById(R.id.iv_missingPhoto);
         addProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +117,7 @@ public class EditProfileApartmentSearcher extends Fragment {
             }
         });
 
-        Button saveProfileButton = getView().findViewById(R.id.btn_save_profile_as);
+        ImageView saveProfileButton = getView().findViewById(R.id.btn_save_profile_as);
         saveProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,9 +132,8 @@ public class EditProfileApartmentSearcher extends Fragment {
                     Toast.makeText(getContext(), "save to db.", Toast.LENGTH_SHORT).show(); //todo edit
 
                 } else {
-                    //todo: toast error that data isn't saved cuz user's input is shit
-                    Toast.makeText(getContext(), "invalid input.", Toast.LENGTH_SHORT).show(); //todo edit
-
+                    Intent intent = new Intent(EditProfileApartmentSearcher.this.getActivity(), EditProfileAlertDialog.class);
+                    startActivity(intent);
                 }
             }
         });
