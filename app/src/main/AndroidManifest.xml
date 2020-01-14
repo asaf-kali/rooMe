@@ -3,8 +3,6 @@
     package="com.example.roome">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
-
     <uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -14,6 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".RoommateSearcherSetProfileActivity"></activity>
+        <activity
+            android:name=".EditProfileAlertDialog"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
         <activity android:name=".MainActivityRoommateSearcher" />
         <activity android:name=".MainActivityApartmentSearcher" />
         <activity android:name=".SignInActivity" />
