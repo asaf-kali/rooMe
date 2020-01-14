@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
-import com.example.roome.MainActivityApartmentSearcher;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentSearcherUser;
@@ -69,8 +68,8 @@ public class EditFiltersApartmentSearcher extends Fragment {
         firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                asUser = new ApartmentSearcherUser(MainActivityApartmentSearcher.aUser); //todo is ok?
-                setSavedFiltersToLists();
+                asUser = FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext())); //todo is ok?
+//                setUsersPreferencesLists(); //todo set filters to current state
             }
 
             @Override
@@ -79,24 +78,6 @@ public class EditFiltersApartmentSearcher extends Fragment {
             }
         });
         asUser = new ApartmentSearcherUser(); //todo is ok?
-    }
-
-    private void setSavedFiltersToLists() {//todo check
-        setList(ChoosingActivity.NOT_SEEN);
-        setList(ChoosingActivity.MAYBE_TO_HOUSE);
-    }
-
-    private void setList(String listName) {
-        ArrayList<String> listRoommatesIds = FirebaseMediate.getAptPrefList(listName, MyPreferences.getUserUid(getContext()));
-        ArrayList<String> updatedUnSeenRoommatesIds = new ArrayList<>();
-        for (String roommateId : listRoommatesIds) {
-            RoommateSearcherUser roommate = FirebaseMediate.getRoommateSearcherUserByUid(roommateId);
-            double roommatesApartmentRent = roommate.getApartment().getRent();
-            if (roommatesApartmentRent <= asUser.getMaxRent() && roommatesApartmentRent >= asUser.getMinRent()) {
-                updatedUnSeenRoommatesIds.add(roommateId);
-            }
-        }
-        FirebaseMediate.setAptPrefList(listName, MyPreferences.getUserUid(getContext()), updatedUnSeenRoommatesIds);
     }
 
     @Override
@@ -113,7 +94,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
             @Override
             public void onClick(View v) {
                 firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
-                setUsersPreferencesLists();
+                setSavedFiltersToLists();
                 Toast.makeText(getContext(), "save to db.", Toast.LENGTH_SHORT).show(); //todo edit
             }
         });
@@ -271,8 +252,26 @@ public class EditFiltersApartmentSearcher extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    private void setUsersPreferencesLists() {
+    private void setUsersPreferencesLists() {//todo
 
+    }
+
+    private void setSavedFiltersToLists() {//todo check
+        setList(ChoosingActivity.NOT_SEEN);
+        setList(ChoosingActivity.MAYBE_TO_HOUSE);
+    }
+
+    private void setList(String listName) {
+        ArrayList<String> listRoommatesIds = FirebaseMediate.getAptPrefList(listName, MyPreferences.getUserUid(getContext()));
+        ArrayList<String> updatedUnSeenRoommatesIds = new ArrayList<>();
+        for (String roommateId : listRoommatesIds) {
+            RoommateSearcherUser roommate = FirebaseMediate.getRoommateSearcherUserByUid(roommateId);
+            double roommatesApartmentRent = roommate.getApartment().getRent();
+            if (roommatesApartmentRent <= asUser.getMaxRent() && roommatesApartmentRent >= asUser.getMinRent()) {
+                updatedUnSeenRoommatesIds.add(roommateId);
+            }
+        }
+        FirebaseMediate.setAptPrefList(listName, MyPreferences.getUserUid(getContext()), updatedUnSeenRoommatesIds);
     }
 
 }
