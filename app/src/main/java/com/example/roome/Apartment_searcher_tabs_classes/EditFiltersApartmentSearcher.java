@@ -36,6 +36,7 @@ import java.util.Calendar;
 //todo: send all data if save pressed
 public class EditFiltersApartmentSearcher extends Fragment {
 
+    public static final int MAX_RENT_VALUE = 4000;
     private RangeSeekBar costBar; //todo: present same vals when entering after change
 
 
@@ -101,7 +102,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
 
         //-----------------------------cost range-------------------------------------
         costBar = getView().findViewById(R.id.rsb_cost_bar);
-        costBar.setRangeValues(1000, 4000);
+        costBar.setRangeValues(1000, MAX_RENT_VALUE);
 
         costBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
@@ -266,9 +267,11 @@ public class EditFiltersApartmentSearcher extends Fragment {
         ArrayList<String> updatedUnSeenRoommatesIds = new ArrayList<>();
         for (String roommateId : listRoommatesIds) {
             RoommateSearcherUser roommate = FirebaseMediate.getRoommateSearcherUserByUid(roommateId);
-            double roommatesApartmentRent = roommate.getApartment().getRent();
-            if (roommatesApartmentRent <= asUser.getMaxRent() && roommatesApartmentRent >= asUser.getMinRent()) {
-                updatedUnSeenRoommatesIds.add(roommateId);
+            if (roommate.getApartment()!=null){
+                double roommatesApartmentRent = roommate.getApartment().getRent();
+                if (roommatesApartmentRent <= asUser.getMaxRent() && roommatesApartmentRent >= asUser.getMinRent()) {
+                    updatedUnSeenRoommatesIds.add(roommateId);
+                }
             }
         }
         FirebaseMediate.setAptPrefList(listName, MyPreferences.getUserUid(getContext()), updatedUnSeenRoommatesIds);

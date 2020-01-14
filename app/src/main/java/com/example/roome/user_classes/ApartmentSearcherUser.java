@@ -16,6 +16,8 @@ public class ApartmentSearcherUser extends User {
     private int minNumDesiredRoommates;
     private int maxNumDesiredRoommates;
 
+    private static final int MAX_RENT_VALUE = 4000;
+
 
     public ApartmentSearcherUser(String firstName, String lastName, int age) {
         super(firstName, lastName);
@@ -52,6 +54,9 @@ public class ApartmentSearcherUser extends User {
     }
 
     public int getMaxRent() {
+        if (maxRent == 0) {
+            return MAX_RENT_VALUE;
+        }
         return maxRent;
     }
 
