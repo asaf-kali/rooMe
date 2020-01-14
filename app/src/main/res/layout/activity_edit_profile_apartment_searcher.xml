@@ -10,7 +10,7 @@
         android:id="@+id/profile_back_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:alpha="0.2"
+        android:alpha="0.1"
         android:src="@drawable/house_back_img"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,20 +23,12 @@
         android:layout_width="151dp"
         android:layout_height="147dp"
         android:layout_gravity="center"
-        android:src="@drawable/no_profile_pic"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_no_profile_pic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/profile_back_img" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/ib_addPhoto"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/addphotobutton"
-        android:tint="#00FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_missingPhoto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_missingPhoto" />
 
     <ScrollView
         android:id="@+id/sv_details"
@@ -48,7 +40,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ib_addPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/iv_missingPhoto"
         app:layout_constraintVertical_bias="0.0">
 
 
@@ -66,14 +58,14 @@
                 android:background="@drawable/ic_et_back"
                 android:ellipsize="none"
                 android:ems="10"
-                android:fontFamily="@font/walkway_bold"
+                android:fontFamily="sans-serif"
                 android:gravity="start|center_horizontal"
                 android:hint="First Name"
                 android:inputType="textLongMessage|textPersonName"
                 android:paddingStart="12dp"
                 android:paddingTop="8dp"
                 android:textAlignment="viewStart"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -82,16 +74,16 @@
                 android:id="@+id/et_enterLastName"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/ic_et_back"
                 android:ems="10"
-                android:fontFamily="@font/walkway_bold"
+                android:fontFamily="sans-serif"
                 android:gravity="start|center_horizontal"
                 android:hint="Last Name"
                 android:inputType="textLongMessage|textPersonName"
                 android:paddingStart="12dp"
                 android:paddingTop="8dp"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
                 app:layout_constraintTop_toBottomOf="@id/et_enterFirstName" />
@@ -100,16 +92,16 @@
                 android:id="@+id/et_enterAge"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/ic_et_back"
                 android:ems="2"
-                android:fontFamily="@font/walkway_bold"
+                android:fontFamily="sans-serif"
                 android:gravity="start|center_horizontal|left"
                 android:hint="Age"
                 android:inputType="numberSigned"
                 android:paddingStart="12dp"
                 android:paddingTop="8dp"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.483"
                 app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
@@ -119,50 +111,52 @@
                 android:id="@+id/radioGroup_choose_gender"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/ic_et_back"
                 android:gravity="center|start|right|top"
                 android:orientation="horizontal"
-                android:paddingTop="7dp"
+                android:paddingTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
                 app:layout_constraintTop_toBottomOf="@+id/et_enterAge">
 
                 <TextView
                     android:id="@+id/tv_gender_label"
-                    android:layout_width="105dp"
+                    android:layout_width="82dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|left"
                     android:layout_weight="1"
-                    android:fontFamily="@font/walkway_bold"
+                    android:fontFamily="sans-serif"
                     android:gravity="start|left"
                     android:paddingStart="12dp"
-                    android:paddingTop="1dp"
+                    android:paddingTop="2dp"
                     android:text="I am a:"
-                    android:textSize="22sp" />
+                    android:textSize="20sp" />
 
                 <RadioButton
                     android:id="@+id/radio_btn_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint="@color/peach"
                     android:checked="true"
-                    android:fontFamily="@font/walkway_bold"
+                    android:fontFamily="sans-serif"
                     android:text="Lady"
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorHighlight="#FFC107"
                     android:textColorLink="#4CAF50"
-                    android:textSize="22sp" />
+                    android:textSize="20sp" />
 
                 <RadioButton
                     android:id="@+id/radio_btn_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/walkway_bold"
+                    android:buttonTint="@color/peach"
+                    android:fontFamily="sans-serif"
                     android:paddingEnd="12dp"
                     android:text="Gentleman"
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorLink="#4CAF50"
-                    android:textSize="22sp" />
+                    android:textSize="20sp" />
 
             </RadioGroup>
 
@@ -170,16 +164,16 @@
                 android:id="@+id/et_phoneNumber"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/ic_et_back"
                 android:ems="10"
-                android:fontFamily="@font/walkway_bold"
+                android:fontFamily="sans-serif"
                 android:gravity="start|center_horizontal"
                 android:hint="Phone Number"
                 android:inputType="numberSigned"
                 android:paddingStart="12dp"
                 android:paddingTop="8dp"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
@@ -188,35 +182,62 @@
             <EditText
                 android:id="@+id/et_bio"
                 android:layout_width="320dp"
-                android:layout_height="220dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/ic_et_back"
+                android:layout_height="215dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_bio_back"
                 android:capitalize="sentences"
-                android:fontFamily="@font/walkway_bold"
+                android:fontFamily="sans-serif"
                 android:gravity="start|center_horizontal"
                 android:hint="Some words about myself..."
                 android:includeFontPadding="false"
                 android:inputType="textMultiLine|textImeMultiLine"
-                android:maxLines="6"
+                android:maxLines="7"
                 android:paddingStart="12dp"
                 android:paddingTop="8dp"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
                 app:layout_constraintTop_toBottomOf="@+id/et_phoneNumber" />
 
-            <Button
+            <ImageView
                 android:id="@+id/btn_save_profile_as"
-                android:layout_width="320dp"
-                android:layout_height="54dp"
-                android:layout_gravity="end"
-                android:text="Save"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_save_button"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_bio"></Button>
+                app:layout_constraintTop_toBottomOf="@+id/et_bio" />
+
+            <ImageView
+                android:id="@+id/save_button_txt"
+                android:layout_width="63dp"
+                android:layout_height="37dp"
+                android:src="@drawable/ic_save_button_txt"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/btn_save_profile_as"
+                app:layout_constraintStart_toStartOf="@+id/btn_save_profile_as"
+                app:layout_constraintTop_toTopOf="@+id/btn_save_profile_as" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/ib_add_photo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_add_profile_pic_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_missingPhoto"
+        app:layout_constraintEnd_toEndOf="@+id/iv_missingPhoto" />
+
+    <ImageView
+        android:id="@+id/iv_plus_in_btn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_plus_in_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/ib_add_photo"
+        app:layout_constraintEnd_toEndOf="@+id/ib_add_photo"
+        app:layout_constraintStart_toStartOf="@+id/ib_add_photo"
+        app:layout_constraintTop_toTopOf="@+id/ib_add_photo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
