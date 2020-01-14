@@ -255,7 +255,7 @@ public class ApartmentSearcherHome extends Fragment {
                 String roommateKey = dataSnapshot.getKey();
                 String aUserKey = getUserUid();
                 String inWhichList =
-                        FirebaseMediate.RoomateInApartmentSearcherPrefsList(aUserKey, roommateKey);
+                        FirebaseMediate.RoommateInApartmentSearcherPrefsList(aUserKey, roommateKey);
                 if (inWhichList.equals(ChoosingActivity.NOT_IN_LISTS)) {
                     if (isMatch(aUserKey, roommateKey)) {
                         //if theres a match - add to the havent seen list of
@@ -276,7 +276,7 @@ public class ApartmentSearcherHome extends Fragment {
                 String roommateKey = dataSnapshot.getKey();
                 String aUserKey = getUserUid();
                 String inWhichList =
-                        FirebaseMediate.RoomateInApartmentSearcherPrefsList(aUserKey, roommateKey);
+                        FirebaseMediate.RoommateInApartmentSearcherPrefsList(aUserKey, roommateKey);
                 if (!inWhichList.equals(ChoosingActivity.NOT_IN_LISTS)) {
                     //remove from the list
                     FirebaseMediate.removeFromAptPrefList(inWhichList,

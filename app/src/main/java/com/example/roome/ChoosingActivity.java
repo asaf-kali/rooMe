@@ -4,7 +4,6 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Slide;
@@ -22,7 +21,6 @@ import com.example.roome.user_classes.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -132,7 +130,7 @@ public class ChoosingActivity extends AppCompatActivity {
         newRef.setValue(userObj);
         MyPreferences.setUserUid(getApplicationContext(), key);
         while (!done.get()) ;
-        Intent i = new Intent(ChoosingActivity.this, MainActivityRoommateSearcher.class);
+        Intent i = new Intent(ChoosingActivity.this, RoommateSearcherSetProfileActivity.class);
         startActivity(i);
         finish();
 

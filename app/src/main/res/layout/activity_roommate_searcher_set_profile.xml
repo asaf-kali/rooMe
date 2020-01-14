@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Apartment_searcher_tabs_classes.EditProfileApartmentSearcher">
+    tools:context=".RoommateSearcherSetProfileActivity">
 
     <ImageView
         android:id="@+id/profile_back_img"
@@ -29,6 +29,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/ib_add_photo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_add_profile_pic_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_missingPhoto"
+        app:layout_constraintEnd_toEndOf="@+id/iv_missingPhoto" />
+
+    <ImageView
+        android:id="@+id/iv_plus_in_btn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_plus_in_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/ib_add_photo"
+        app:layout_constraintEnd_toEndOf="@+id/ib_add_photo"
+        app:layout_constraintStart_toStartOf="@+id/ib_add_photo"
+        app:layout_constraintTop_toTopOf="@+id/ib_add_photo" />
 
     <ScrollView
         android:id="@+id/sv_details"
@@ -183,7 +200,6 @@
                 android:id="@+id/et_bio"
                 android:layout_width="320dp"
                 android:layout_height="215dp"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/ic_bio_back"
                 android:capitalize="sentences"
                 android:fontFamily="sans-serif"
@@ -196,6 +212,7 @@
                 android:paddingTop="8dp"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.604"
                 app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
                 app:layout_constraintTop_toBottomOf="@+id/et_phoneNumber" />
 
@@ -218,26 +235,17 @@
                 app:layout_constraintStart_toStartOf="@+id/btn_save_profile_as"
                 app:layout_constraintTop_toTopOf="@+id/btn_save_profile_as" />
 
+            <Button
+                android:id="@+id/btn_add_photos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:onClick="addPhotos"
+                android:text="add a photo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_bio"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <ImageView
-        android:id="@+id/ib_add_photo"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_add_profile_pic_btn"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_missingPhoto"
-        app:layout_constraintEnd_toEndOf="@+id/iv_missingPhoto" />
-
-    <ImageView
-        android:id="@+id/iv_plus_in_btn"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@drawable/ic_plus_in_btn"
-        app:layout_constraintBottom_toBottomOf="@+id/ib_add_photo"
-        app:layout_constraintEnd_toEndOf="@+id/ib_add_photo"
-        app:layout_constraintStart_toStartOf="@+id/ib_add_photo"
-        app:layout_constraintTop_toTopOf="@+id/ib_add_photo" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
