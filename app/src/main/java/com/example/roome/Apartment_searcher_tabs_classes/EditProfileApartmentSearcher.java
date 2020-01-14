@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -59,16 +60,14 @@ public class EditProfileApartmentSearcher extends Fragment {
     // Firebase instance variables
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
-
     private FirebaseStorage storage;
     private StorageReference storageReference;
-
     private ApartmentSearcherUser asUser;
 
     //profile pic
     ImageView profilePic;
     ImageView addProfilePic;
-
+    final long ONE_MEGABYTE = 1024 * 1024;
     private Uri selectedImage;
 
     @Override
@@ -76,10 +75,8 @@ public class EditProfileApartmentSearcher extends Fragment {
         // Initialize Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
-
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        asUser = MainActivityApartmentSearcher.aUser;
         firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -125,7 +122,7 @@ public class EditProfileApartmentSearcher extends Fragment {
                 if (isUserInputValid()) {
                     //save user data to DB
                     if (changedPhoto){ //save image to DB only if it's a new one
-                        uploadPhoto();
+                        FirebaseMediate.uploadPhotoApartmentSearcher(selectedImage, getActivity(), getContext());
                         changedPhoto = false;
                     }
                     asUser.setBio(bioEditText.getText().toString());
@@ -145,7 +142,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     /**
      * Sets the user's profile information from the firebase
      */
-    private void setInfo(){
+    private void setInfo() {
         firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
         firstNameEditText.setText(asUser.getFirstName());
 
@@ -171,48 +168,26 @@ public class EditProfileApartmentSearcher extends Fragment {
         bioEditText = getView().findViewById(R.id.et_bio);
         bioEditText.setText(asUser.getBio());
 
-        if (asUser.getHasProfilePic()){
-            //todo:upload user's profile image from storage
-
+        if (asUser.getHasProfilePic()) {
+            //upload user's profile image from storage
+            storageReference.child("Images").child("Apartment Searcher User").child(MyPreferences.getUserUid(getContext())).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    profilePic.setImageBitmap(bmp);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Toast.makeText(getContext(), "No Such file or Path found!!", Toast.LENGTH_LONG).show();
+                }
+            });
         }
-
         isUserFirstNameValid = true;
         isUserLastNameValid = true;
         isUserAgeValid = true;
         isUserPhoneValid = true;
 
-    }
-
-    private void uploadPhoto(){
-        if (selectedImage != null){
-            final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-            StorageReference ref = storageReference.child("images").child("Apartment Searcher User").child(MyPreferences.getUserUid(getContext()));
-            ref.putFile(selectedImage)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getActivity(), "Uploaded", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getActivity(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
-                        }
-                    });
-        }
     }
 
     /**
@@ -254,21 +229,17 @@ public class EditProfileApartmentSearcher extends Fragment {
                 case GALLERY_REQUEST_CODE:
                     //data.getData returns the content URI for the selected Image
                     selectedImage = data.getData();
-//                    asUser.setProfilePic(selectedImage);
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
                         profilePic.setImageBitmap(bitmap);
                         asUser.setHasProfilePic(true);
                         changedPhoto = true;
-                    }
-                    catch (IOException e)
-                    {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
             }
     }
-
 
     /**
      * validate the entered name.
@@ -460,6 +431,11 @@ public class EditProfileApartmentSearcher extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int inputLength = phoneNumberEditText.getText().toString().length();
+                if (inputLength == User.PHONE_NUMBER_LENGTH) {
+                    asUser.setPhoneNumber(phoneNumberEditText.getText().toString());
+                    isUserPhoneValid = true;
+                }
             }
 
             @Override
