@@ -25,6 +25,18 @@ public class ApartmentSearcherUser extends User {
         super();
     }
 
+    public ApartmentSearcherUser(ApartmentSearcherUser aUser) {
+        super(aUser.getFirstName(), aUser.getLastName());
+        this.optionalNeighborhoods = aUser.optionalNeighborhoods;
+        this.minRent = aUser.minRent;
+        this.maxRent = aUser.maxRent;
+        this.earliestEntryDate = aUser.earliestEntryDate;
+        this.latestEntryDate = aUser.latestEntryDate;
+        this.minNumDesiredRoommates = aUser.minNumDesiredRoommates;
+        this.maxNumDesiredRoommates = aUser.maxNumDesiredRoommates;
+        this.bio = aUser.bio;
+    }
+
     //------------------------------------------Getters---------------------------------------------
 
     public String getBio() {

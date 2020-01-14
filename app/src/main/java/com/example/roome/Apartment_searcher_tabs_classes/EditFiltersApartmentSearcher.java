@@ -11,11 +11,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.example.roome.MainActivityApartmentSearcher;
+import com.example.roome.MyPreferences;
 import com.example.roome.R;
+import com.example.roome.user_classes.ApartmentSearcherUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
 import java.util.ArrayList;
@@ -40,11 +50,35 @@ public class EditFiltersApartmentSearcher extends Fragment {
 
     private RangeSeekBar ageRoommatesBar;
 
-//todo:create onclick for the save button
+    // Firebase instance variables
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference firebaseDatabaseReference;
+
+    private ApartmentSearcherUser asUser;
+
+    //todo:create onclick for the save button
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        // Initialize Firebase
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseDatabaseReference = firebaseDatabase.getReference();
+        firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                asUser = MainActivityApartmentSearcher.aUser;
+                setSavedFiltersStatus();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        asUser = new ApartmentSearcherUser(MainActivityApartmentSearcher.aUser); //todo
+    }
+
+    private void setSavedFiltersStatus() {//todo
     }
 
 
@@ -57,6 +91,16 @@ public class EditFiltersApartmentSearcher extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        Button saveButton = getView().findViewById(R.id.btn_save_filters_as);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
+                setUsersPreferencesLists();
+                Toast.makeText(getContext(), "save to db.", Toast.LENGTH_SHORT).show(); //todo edit
+            }
+        });
+
         //-----------------------------cost range-------------------------------------
         costBar = getView().findViewById(R.id.rsb_cost_bar);
         costBar.setRangeValues(1000, 4000);
@@ -68,8 +112,8 @@ public class EditFiltersApartmentSearcher extends Fragment {
                 Number maxVal = bar.getSelectedMaxValue();
                 int min = (int) minVal;
                 int max = (int) maxVal;
-
-                //todo:send these vals as the new ones chosen
+                asUser.setMaxRent(max);
+                asUser.setMinRent(min);
             }
 
         });
@@ -162,6 +206,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
                 month = month + 1;
                 String date = day + "/" + month + "/" + year;
                 mDisplayDate.setText(date);
+                asUser.setEarliestEntryDate(date);
             }
         };
 
@@ -177,7 +222,8 @@ public class EditFiltersApartmentSearcher extends Fragment {
                 Number maxVal = bar.getSelectedMaxValue();
                 int min = (int) minVal;
                 int max = (int) maxVal;
-
+                asUser.setMaxNumDesiredRoommates(max);
+                asUser.setMinNumDesiredRoommates(min);
                 //todo:send these vals as the new ones chosen
             }
 
@@ -194,6 +240,8 @@ public class EditFiltersApartmentSearcher extends Fragment {
                 Number maxVal = bar.getSelectedMaxValue();
                 int min = (int) minVal;
                 int max = (int) maxVal;
+                asUser.setMaxAgeRequired(max);
+                asUser.setMinAgeRequired(min);
 
                 //todo:send these vals as the new ones chosen
             }
@@ -204,6 +252,10 @@ public class EditFiltersApartmentSearcher extends Fragment {
         //----------------------------kosher selection----------------------------
 //todo:extract the kosher preference
         super.onActivityCreated(savedInstanceState);
+    }
+
+    private void setUsersPreferencesLists() {
+
     }
 
 }
