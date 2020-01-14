@@ -3,7 +3,6 @@ package com.example.roome;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.widget.Toast;
 
@@ -77,18 +76,18 @@ public class FirebaseMediate {
         });
     }
 
-    public static void uploadPhotoApartmentSearcher(Uri selectedImage, final Activity activity, Context context){
+    public static boolean uploadPhotoToStorage(Uri selectedImage, final Activity activity, Context context, String userType, String photoType){
         if (selectedImage != null){
             final ProgressDialog progressDialog = new ProgressDialog(activity);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-            StorageReference ref = storageReference.child("Images").child("Apartment Searcher User").
-                    child(MyPreferences.getUserUid(context)).child("Profile Pic");
+//            progressDialog.setTitle("Uploading...");
+//            progressDialog.show();
+            StorageReference ref = storageReference.child("Images").child(userType).
+                    child(MyPreferences.getUserUid(context)).child(photoType);
             ref.putFile(selectedImage)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
+//                            progressDialog.dismiss();
                             Toast.makeText(activity, "Uploaded", Toast.LENGTH_SHORT).show();
                         }
                     })
@@ -108,6 +107,7 @@ public class FirebaseMediate {
                         }
                     });
         }
+        return true;
     }
 
 
