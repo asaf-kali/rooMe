@@ -1,7 +1,5 @@
 package com.example.roome.user_classes; //todo rename?
 
-import android.net.Uri;
-
 public class User {
 
     public static final int NAME_MAXIMUM_LENGTH = 18;
@@ -17,6 +15,7 @@ public class User {
     private int age;
     private String gender;
     private String phoneNumber;
+    private String info;
 
     //--------------------filters---------------------
     private boolean kosherImportance;
@@ -66,6 +65,7 @@ public class User {
 
     public boolean getHasProfilePic() {return hasProfilePic;}
 
+    public String getInfo() { return info; }
 
     //------------------------------------------Setters---------------------------------------------
     public void setFirstName(String firstName) {
@@ -98,4 +98,6 @@ public class User {
     }
 
     public void setHasProfilePic(boolean hasProfilePic) {this.hasProfilePic = hasProfilePic;}
+
+    public void setInfo(String info) { this.info = info; }
 }

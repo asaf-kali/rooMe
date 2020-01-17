@@ -56,13 +56,9 @@ public class ChoosingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setAnimation();
         setContentView(R.layout.activity_choosing);
+        initalizeFirebaseVariables();
 
-        // Initialize Firebase
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabaseReference = firebaseDatabase.getReference();
-
-//        updateUserName();  todo uncomment this
+        //        updateUserName();  todo uncomment this
 
         firebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -86,6 +82,15 @@ public class ChoosingActivity extends AppCompatActivity {
         //todo -------------------------------------
     }
 
+    /**
+     * This method initalizes firebase variables.
+     */
+    private void initalizeFirebaseVariables() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabaseReference = firebaseDatabase.getReference();
+    }
+
     public void setAnimation() {
         if (Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL) {
             Slide slide = new Slide();
@@ -99,7 +104,7 @@ public class ChoosingActivity extends AppCompatActivity {
 
     /**
      * The function displays the user's name (from which it got from the login) in this
-     * activity
+     * activity.
      */
     private void updateUserName() {//todo
 //        String userName = "";
@@ -118,9 +123,10 @@ public class ChoosingActivity extends AppCompatActivity {
     }
 
     /**
-     * on click for roommateSearcher button
+     * This method is the on click method  for roommateSearcher button. Adds user to data base and starts the
+     * RoommateSearcherSetProfileActivity activity.
      *
-     * @param view
+     * @param view - the view of the app.
      */
     public void roommateSearcherOnclick(View view) {
         MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
@@ -137,12 +143,12 @@ public class ChoosingActivity extends AppCompatActivity {
     }
 
     /**
-     * on click for apartmentSearcher button
+     * This method is the on click method for apartmentSearcher button. Adds user to data base and starts the
+     * MainActivityApartmentSearcher activity.
      *
-     * @param view
+     * @param view - the view of the app.
      */
     public void apartmentSearcherOnclick(View view) {
-        MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
         MyPreferences.setIsRoommateSearcherToFalse(getApplicationContext());
         ApartmentSearcherUser userObj = createRandomAptUser(); //todo create real apt searcher
         DatabaseReference newRef = firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").push();
@@ -151,7 +157,7 @@ public class ChoosingActivity extends AppCompatActivity {
         MyPreferences.setUserUid(getApplicationContext(), key);
         while (!done.get()) ;
         // add all roommate searchers as relevant to see
-        FirebaseMediate.setAptPrefList(ChoosingActivity.NOT_SEEN,key,
+        FirebaseMediate.setAptPrefList(ChoosingActivity.NOT_SEEN, key,
                 allRoommateSearcherIds[0]);
 
         Intent i = new Intent(ChoosingActivity.this, MainActivityApartmentSearcher.class);

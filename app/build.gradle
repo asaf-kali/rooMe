@@ -72,5 +72,8 @@ dependencies {
 
     //Matches' recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    //for swipecard
+    implementation 'link.fls:swipestack:0.3.0'
+
 }
 apply plugin: 'com.google.gms.google-services'
