@@ -3,8 +3,8 @@ package com.example.roome;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,12 +41,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ImageV
     public static class ImageViewHolder extends RecyclerView.ViewHolder{
 
         ImageView album;
-        EditText albumTitle;
+        TextView albumTitle;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             album = itemView.findViewById(R.id.iv_album);
-            albumTitle = itemView.findViewById(R.id.et_album_title);
+            albumTitle = itemView.findViewById(R.id.tv_album_title);
         }
     }
 }

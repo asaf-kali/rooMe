@@ -18,13 +18,13 @@
         android:scaleType="fitXY"
         android:gravity="center_horizontal"
         android:id="@+id/iv_album"/>
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp"
         android:gravity="center_horizontal"
         android:textSize="18dp"
         android:textStyle="bold"
-        android:id="@+id/et_album_title"/>
+        android:id="@+id/tv_album_title"/>
 
 </LinearLayout>

@@ -1,9 +1,7 @@
 package com.example.roome;
 
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
         firebaseDatabaseReference = firebaseDatabase.getReference();
         FirebaseMediate.setDataSnapshot();
         //todo delete 4 rows
-        final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = reader.edit();
-        editor.putBoolean(MyPreferences.IS_FIRST_TIME, true);
-        editor.apply();
+//        final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
+//        final SharedPreferences.Editor editor = reader.edit();
+//        editor.putBoolean(MyPreferences.IS_FIRST_TIME, true);
+//        editor.apply();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
