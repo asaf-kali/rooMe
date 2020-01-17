@@ -6,7 +6,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
- * this is a dialog themed activity for alerting in the EditProfileActivity when some fields are not
+ * This is a dialog themed activity for alerting in the EditProfileActivity when some fields are not
  * filled correctly.
  */
 public class EditProfileAlertDialog extends AppCompatActivity {
@@ -18,8 +18,8 @@ public class EditProfileAlertDialog extends AppCompatActivity {
     }
 
     /**
-     * closes the window when clicked ok or outside the window
-     * @param okButton
+     * Closes the window when clicked ok or outside the window
+     * @param okButton - The ok button in the dialog frame.
      */
     public void onClickOk(View okButton){
         finish();

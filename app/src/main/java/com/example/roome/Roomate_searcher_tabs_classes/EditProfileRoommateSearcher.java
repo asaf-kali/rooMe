@@ -87,7 +87,7 @@ public class EditProfileRoommateSearcher extends Fragment {
     /**
      * This method initalizes firebase variables
      */
-    void initalizeFirebaseVariables() {
+    private void initalizeFirebaseVariables() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
         storage = FirebaseStorage.getInstance();
