@@ -5,5 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="transparent">#00252122</color>
     <color name="peach">#ed866c</color>
+    <color name="white">#D0F8F8F8</color>
+
 
 </resources>

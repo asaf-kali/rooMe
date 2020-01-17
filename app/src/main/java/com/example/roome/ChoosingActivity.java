@@ -11,6 +11,7 @@ import android.transition.Slide;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,6 +59,7 @@ public class ChoosingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setAnimation();
         setContentView(R.layout.activity_choosing);
+        final ProgressBar progressBar = findViewById(R.id.progress_bar);
 
         // Initialize Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -73,6 +75,8 @@ public class ChoosingActivity extends AppCompatActivity {
                 allApartmentSearcherIds[0] = FirebaseMediate.getAllApartmentSearcherIds();
                 allRoommateSearcherIds[0] = FirebaseMediate.getAllRoommateSearcherIds();
                 done.set(true);
+                progressBar.setVisibility(View.GONE);
+
             }
 
             @Override
@@ -86,6 +90,7 @@ public class ChoosingActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.tv_hello_name);
         textView.setText(String.format("Hi %s!", num));
         //todo -------------------------------------
+
     }
 
     public void setAnimation() {
