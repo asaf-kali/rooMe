@@ -102,6 +102,8 @@ public class ApartmentSearcherHome extends Fragment {
                 pressedNoToApartment();
                 myAppAdapter.notifyDataSetChanged();
                 relevantRoommateSearchersIds.remove(0);
+                temp_img.remove(0);
+//                fillTempImgArray();
 //                if (relevantRoommateSearchersIds.size() == 0) {
 //                    Glide.with(getContext()).load(R.drawable.no_more_houses_2).into(viewHolder.cardImage);
 //                }
@@ -114,6 +116,8 @@ public class ApartmentSearcherHome extends Fragment {
             public void onRightCardExit(Object dataObject) {
                 pressedYesToApartment();
                 relevantRoommateSearchersIds.remove(0);
+                temp_img.remove(0);
+//                fillTempImgArray();
 //                if (relevantRoommateSearchersIds.size() == 0) {
 //                    Glide.with(getContext()).load(R.drawable.no_more_houses_2).into(viewHolder.cardImage);
 //                }
@@ -122,9 +126,6 @@ public class ApartmentSearcherHome extends Fragment {
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                if (itemsInAdapter == 0) {
-//                    noMoreHouses();
-                }
             }
 
             @Override
@@ -153,54 +154,17 @@ public class ApartmentSearcherHome extends Fragment {
 
     private void fillTempImgArray() {
         temp_img = new ArrayList<>();
-        if (relevantRoommateSearchersIds.size() == 6) {
-            temp_img.add(R.drawable.home_example1);
+        if (relevantRoommateSearchersIds.size() % 3 == 2) {
             temp_img.add(R.drawable.home_example2);
             temp_img.add(R.drawable.home_example3);
-            temp_img.add(R.drawable.home_example1);
-            temp_img.add(R.drawable.home_example2);
+        } else if (relevantRoommateSearchersIds.size() % 3 == 1) {
             temp_img.add(R.drawable.home_example3);
-
-        } else if (relevantRoommateSearchersIds.size() == 5) {
-
-            temp_img.add(R.drawable.home_example2);
-            temp_img.add(R.drawable.home_example3);
-            temp_img.add(R.drawable.home_example1);
-            temp_img.add(R.drawable.home_example2);
-            temp_img.add(R.drawable.home_example3);
-
-        } else if (relevantRoommateSearchersIds.size() == 4) {
-
-            temp_img.add(R.drawable.home_example3);
-            temp_img.add(R.drawable.home_example1);
-            temp_img.add(R.drawable.home_example2);
-            temp_img.add(R.drawable.home_example3);
-
-        } else if (relevantRoommateSearchersIds.size() == 3) {
-            temp_img.add(R.drawable.home_example1);
-            temp_img.add(R.drawable.home_example2);
-            temp_img.add(R.drawable.home_example3);
-
-        } else if (relevantRoommateSearchersIds.size() == 2) {
-            temp_img.add(R.drawable.home_example2);
-            temp_img.add(R.drawable.home_example3);
-
-        } else if (relevantRoommateSearchersIds.size() == 1) {
-            temp_img.add(R.drawable.home_example3);
-        } else if (relevantRoommateSearchersIds.size() == 0) {
-            temp_img = new ArrayList<>();
-        } else {
-
-            for (int i = 0; i < relevantRoommateSearchersIds.size(); i++) {
-                temp_img.add(R.drawable.home_example1);
-                temp_img.add(R.drawable.home_example2);
-                temp_img.add(R.drawable.home_example3);
-            }
-            temp_img = new ArrayList<>(temp_img.subList(0,
-                    relevantRoommateSearchersIds.size()));
         }
-
-
+        for (int i = 0; i < relevantRoommateSearchersIds.size() / 3; i++) {
+            temp_img.add(R.drawable.home_example1);
+            temp_img.add(R.drawable.home_example2);
+            temp_img.add(R.drawable.home_example3);
+        }
     }
 
     private void retrieveRelevantRoommateSearchers() {
@@ -493,7 +457,6 @@ public class ApartmentSearcherHome extends Fragment {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 //            viewHolder.basicInfo.setText("UserId : ".concat(parkingList.get(position)));
-            fillTempImgArray();
             Glide.with(getContext()).load(temp_img.get(position)).into(viewHolder.cardImage);
 
             return rowView;
