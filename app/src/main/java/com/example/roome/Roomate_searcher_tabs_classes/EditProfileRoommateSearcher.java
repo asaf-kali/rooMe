@@ -50,7 +50,7 @@ public class EditProfileRoommateSearcher extends Fragment {
     private EditText lastNameEditText;
     private EditText ageEditText;
     private EditText phoneNumberEditText;
-    private EditText bioEditText;
+    private EditText infoEditText;
     private RadioButton maleRadioButton;
 
     // Firebase instance variables
@@ -68,11 +68,7 @@ public class EditProfileRoommateSearcher extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // Initialize Firebase
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseDatabaseReference = firebaseDatabase.getReference();
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
+        initalizeFirebaseVariables();
         firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -88,6 +84,16 @@ public class EditProfileRoommateSearcher extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * This method initalizes firebase variables
+     */
+    void initalizeFirebaseVariables() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseDatabaseReference = firebaseDatabase.getReference();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -97,10 +103,7 @@ public class EditProfileRoommateSearcher extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        isUserFirstNameValid = false;
-        isUserLastNameValid = false;
-        isUserAgeValid = false;
-        isUserPhoneValid = false;
+        initializeDataFieldsVariablesToFalse();
         addProfilePic = getView().findViewById(R.id.ib_add_photo);
         profilePic = getView().findViewById(R.id.iv_missingPhoto);
         addProfilePic.setOnClickListener(new View.OnClickListener() {
@@ -120,8 +123,7 @@ public class EditProfileRoommateSearcher extends Fragment {
                         FirebaseMediate.uploadPhotoToStorage(selectedImage, getActivity(), getContext(),"Roommate Searcher User", "Profile Pic");
                         changedPhoto = false;
                     }
-                    //todo bio?
-//                    roommateSearcherUser.setBio(bioEditText.getText().toString());
+                    roommateSearcherUser.setInfo(infoEditText.getText().toString());
                     firebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(roommateSearcherUser);
                     Toast.makeText(getContext(), "save to db.", Toast.LENGTH_SHORT).show(); //todo edit
 
@@ -133,6 +135,16 @@ public class EditProfileRoommateSearcher extends Fragment {
         });
         validateUserInput();
         super.onActivityCreated(savedInstanceState);
+    }
+
+    /**
+     * This method initializes data fields variables to false.
+     */
+    void initializeDataFieldsVariablesToFalse() {
+        isUserFirstNameValid = false;
+        isUserLastNameValid = false;
+        isUserAgeValid = false;
+        isUserPhoneValid = false;
     }
 
     /**
@@ -165,9 +177,8 @@ public class EditProfileRoommateSearcher extends Fragment {
             isUserPhoneValid = true;
         }
 
-        bioEditText = getView().findViewById(R.id.et_bio);
-        //todo bio?
-//        bioEditText.setText(roommateSearcherUser.getBio());
+        infoEditText = getView().findViewById(R.id.et_info);
+        infoEditText.setText(roommateSearcherUser.getInfo());
 
         if (roommateSearcherUser.getHasProfilePic()) {
             //upload user's profile image from storage

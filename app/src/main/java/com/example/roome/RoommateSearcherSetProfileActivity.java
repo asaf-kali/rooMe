@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,7 +39,7 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
     private EditText lastNameEditText;
     private EditText ageEditText;
     private EditText phoneNumberEditText;
-    private EditText bioEditText;
+    private EditText infoEditText;
     private RadioButton maleRadioButton;
     private Button addApartmentPhoto;
 
@@ -73,10 +72,7 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
         storageReference = storage.getReference();
         roommateSearcherUser = new RoommateSearcherUser();
 
-        isUserFirstNameValid = false;
-        isUserLastNameValid = false;
-        isUserAgeValid = false;
-        isUserPhoneValid = false;
+        initializeDateFieldVariablesToFalse();
         addProfilePic = findViewById(R.id.ib_add_photo);
         profilePic = findViewById(R.id.iv_missingPhoto);
         addProfilePic.setOnClickListener(new View.OnClickListener() {
@@ -91,19 +87,7 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isUserInputValid()) {
-                    //save user data to DB
-                    if (changedPhoto) { //save image to DB only if it's a new one
-                        FirebaseMediate.uploadPhotoToStorage(selectedImage, RoommateSearcherSetProfileActivity.this, getApplicationContext(),"Roommate Searcher User", "Profile Pic");
-                        changedPhoto = false;
-                    }
-                    if (hasApartmentPic) {
-//                        FirebaseMediate.uploadPhotoToStorage(apartmentImage, RoommateSearcherSetProfileActivity.this, getApplicationContext(), "Roommate Searcher User", "Apartment");
-                    }
-//                    roommateSearcherUser.setBio(bioEditText.getText().toString());
-                    userFirebaseDatabaseReference.setValue(roommateSearcherUser);
-                    Apartment newApartment = new Apartment(false,"null",0,2,0);
-                    userFirebaseDatabaseReference.child("apartment").setValue(newApartment);
-                    Toast.makeText(getApplicationContext(), "save to db.", Toast.LENGTH_SHORT).show(); //todo edit
+                    saveUserDataToDataBase();
                     Intent i = new Intent(RoommateSearcherSetProfileActivity.this, MainActivityRoommateSearcher.class);
                     startActivity(i);
                     finish();
@@ -123,6 +107,28 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
         });
 
         validateUserInput();
+    }
+
+    private void initializeDateFieldVariablesToFalse() {
+        isUserFirstNameValid = false;
+        isUserLastNameValid = false;
+        isUserAgeValid = false;
+        isUserPhoneValid = false;
+    }
+
+    /**
+     * This method save users input data to data base.
+     */
+    void saveUserDataToDataBase() {
+        //save user data to DB
+        if (changedPhoto) { //save image to DB only if it's a new one
+            FirebaseMediate.uploadPhotoToStorage(selectedImage, RoommateSearcherSetProfileActivity.this, getApplicationContext(),"Roommate Searcher User", "Profile Pic");
+            changedPhoto = false;
+        }
+        roommateSearcherUser.setInfo(infoEditText.getText().toString());
+        userFirebaseDatabaseReference.setValue(roommateSearcherUser);
+        Apartment newApartment = new Apartment(false,"null",0,2,0);
+        userFirebaseDatabaseReference.child("apartment").setValue(newApartment);
     }
 
     /**
@@ -171,11 +177,11 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Result code is RESULT_OK only if the user selects an Image
-        super.onActivityResult(requestCode, resultCode, data); //todo ???????
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK)
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
-                    if (fromProfilePic == true) {
+                    if (fromProfilePic) {
                         //data.getData returns the content URI for the selected Image
                         selectedImage = data.getData();
                         try {
@@ -183,6 +189,7 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
                             profilePic.setImageBitmap(bitmap);
                             roommateSearcherUser.setHasProfilePic(true);
                             changedPhoto = true;
+                            fromProfilePic =false;
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -190,7 +197,6 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
                     } else {
                         apartmentImage = data.getData();
                         hasApartmentPic = true;
-                        //todo not here
                         FirebaseMediate.uploadPhotoToStorage(apartmentImage, RoommateSearcherSetProfileActivity.this, getApplicationContext(), "Roommate Searcher User", "Apartment");
                     }
             }
@@ -399,7 +405,7 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
         });
         phoneNumberEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { //todo:change to math phone requirements
+            public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     int inputLength = phoneNumberEditText.getText().toString().length();
                     if (inputLength == 0) {

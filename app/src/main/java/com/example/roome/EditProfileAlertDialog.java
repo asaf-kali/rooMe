@@ -1,12 +1,9 @@
 package com.example.roome;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.roome.R;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * this is a dialog themed activity for alerting in the EditProfileActivity when some fields are not
