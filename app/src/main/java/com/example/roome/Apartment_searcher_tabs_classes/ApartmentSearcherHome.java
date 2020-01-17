@@ -1,5 +1,6 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
+import com.example.roome.ApartmentSearcherOnBoardDialogActivity;
 import com.example.roome.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -42,13 +44,17 @@ public class ApartmentSearcherHome extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
+        boolean isFirstTime = MyPreferences.isFirstTime(getContext());
+        if (isFirstTime) {
+            showWelcomeOnBoardDialog();
+            MyPreferences.setIsFirstTimeToFalse(getContext());
+        }
+
         super.onCreate(savedInstanceState);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -187,7 +193,7 @@ public class ApartmentSearcherHome extends Fragment {
                 GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
                 };
                 relevantRoommateSearchersIds = dataSnapshot.getValue(t);
-                if (relevantRoommateSearchersIds == null){
+                if (relevantRoommateSearchersIds == null) {
                     relevantRoommateSearchersIds = new ArrayList<>();
                 }
                 refreshList();
@@ -297,5 +303,13 @@ public class ApartmentSearcherHome extends Fragment {
             // todo if we want to refresh when page is uploaded - do it here
         }
         super.setUserVisibleHint(isVisibleToUser);
+    }
+
+    /**
+     * This method opens the Apartment Searcher On Board Dialog Activity.
+     */
+    void showWelcomeOnBoardDialog() {
+        Intent intent = new Intent(ApartmentSearcherHome.this.getActivity(), ApartmentSearcherOnBoardDialogActivity.class);
+        startActivity(intent);
     }
 }

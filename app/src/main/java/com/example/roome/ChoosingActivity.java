@@ -149,7 +149,6 @@ public class ChoosingActivity extends AppCompatActivity {
      * @param view - the view of the app.
      */
     public void apartmentSearcherOnclick(View view) {
-        MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
         MyPreferences.setIsRoommateSearcherToFalse(getApplicationContext());
         ApartmentSearcherUser userObj = createRandomAptUser(); //todo create real apt searcher
         DatabaseReference newRef = firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").push();
