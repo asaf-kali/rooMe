@@ -292,6 +292,14 @@ public class ApartmentSearcherHome extends Fragment {
         moreHouses();
     }
 
+    /**
+     * This method opens the Apartment Searcher On Board Dialog Activity.
+     */
+    void showWelcomeOnBoardDialog() {
+        Intent intent = new Intent(ApartmentSearcherHome.this.getActivity(), ApartmentSearcherOnBoardDialogActivity.class);
+        startActivity(intent);
+    }
+
     private void updateMainImage() {
         //todo add all this
 //        RoommateSearcherUser currentRoomateSearcher = relevantRoommateSearchers.get(currentPlaceInList);
@@ -418,14 +426,6 @@ public class ApartmentSearcherHome extends Fragment {
             this.context = context;
         }
 
-    /**
-     * This method opens the Apartment Searcher On Board Dialog Activity.
-     */
-    void showWelcomeOnBoardDialog() {
-        Intent intent = new Intent(ApartmentSearcherHome.this.getActivity(), ApartmentSearcherOnBoardDialogActivity.class);
-        startActivity(intent);
-    }
-}
 
         public void setParkingList(ArrayList<String> parkingList) {
             this.parkingList = parkingList;
@@ -476,5 +476,6 @@ public class ApartmentSearcherHome extends Fragment {
             return rowView;
         }
     }
+
 }
 
