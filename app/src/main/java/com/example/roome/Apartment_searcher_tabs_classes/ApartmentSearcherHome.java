@@ -25,6 +25,7 @@ import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
 import com.example.roome.ApartmentSearcherOnBoardDialogActivity;
 import com.example.roome.R;
+import com.example.roome.user_classes.RoommateSearcherUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -48,7 +49,9 @@ public class ApartmentSearcherHome extends Fragment {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mFirebaseDatabaseReference;
-
+    private TextView locationText;
+    private TextView peopleText;
+    private TextView priceText;
 
     //for swipe
     public static MyAppAdapter myAppAdapter;
@@ -66,7 +69,6 @@ public class ApartmentSearcherHome extends Fragment {
             showWelcomeOnBoardDialog();
             MyPreferences.setIsFirstTimeToFalse(getContext());
         }
-
         super.onCreate(savedInstanceState);
     }
 
@@ -84,6 +86,7 @@ public class ApartmentSearcherHome extends Fragment {
         maybeButton = getView().findViewById(R.id.btn_maybe_house);
         noButton = getView().findViewById(R.id.btn_no_house);
         noMoreHousesText = getView().findViewById(R.id.tv_no_more_houses);
+
         setClickListeners();
         setFirebaseListeners();
         retrieveRelevantRoommateSearchers();
@@ -465,7 +468,14 @@ public class ApartmentSearcherHome extends Fragment {
                 viewHolder.basicInfo =
                         (LinearLayout) rowView.findViewById(R.id.basic_info_ll);
                 TextView tv = rowView.findViewById(R.id.tv_location);
-                //todo retrieve the location of the relevant house
+                RoommateSearcherUser currentRoommateSearcher =
+                        FirebaseMediate.getRoommateSearcherUserByUid(relevantRoommateSearchersIds.get(position));
+                peopleText =rowView.findViewById(R.id.tv_people);
+                locationText = rowView.findViewById(R.id.tv_location);
+                priceText = rowView.findViewById(R.id.tv_price);
+                peopleText.setText(Integer.toString(currentRoommateSearcher.getApartment().getNumberOfRoommates()));
+                locationText.setText(currentRoommateSearcher.getApartment().getNeighborhood());
+                priceText.setText(Integer.toString((int)(currentRoommateSearcher.getApartment().getRent())));
                 viewHolder.background =
                         (FrameLayout) rowView.findViewById(R.id.fl_background);
                 viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.cardImage);

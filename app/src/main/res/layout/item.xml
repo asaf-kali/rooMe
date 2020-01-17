@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
     android:layout_marginLeft="8dp"
     android:layout_marginTop="8dp"
@@ -23,7 +23,7 @@
             android:layout_marginBottom="6dp"
             android:background="@drawable/shape2"
             android:gravity="center_horizontal"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
         </LinearLayout>
 
@@ -69,33 +69,68 @@
             android:gravity="top|center_horizontal"
             android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent">
+                android:background="@color/transparent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_people_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_location_symbol"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_location" />
+
+                <TextView
+                    android:id="@+id/tv_people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="2"
+                    android:text="3"
+                    android:textSize="20sp" />
 
                 <ImageView
                     android:id="@+id/iv_location_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
                     android:src="@drawable/ic_location_symbol"
-                    app:layout_constraintRight_toLeftOf="@+id/tv_location"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintRight_toLeftOf="@+id/tv_location" />
 
                 <TextView
                     android:id="@+id/tv_location"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="2"
                     android:text="Rehavia"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/iv_price_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_location_symbol"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_location" />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="2"
+                    android:text="2000"
+                    android:textSize="20sp" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
 
         </LinearLayout>
