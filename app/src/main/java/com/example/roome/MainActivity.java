@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabaseReference = firebaseDatabase.getReference();
         FirebaseMediate.setDataSnapshot();
+        Data.initD();
         //todo delete 4 rows
 //        final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
 //        final SharedPreferences.Editor editor = reader.edit();
