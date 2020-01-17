@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,13 +40,13 @@ public class EditFiltersApartmentSearcher extends Fragment {
     private RangeSeekBar costBar; //todo: present same vals when entering after change
 
 
-    private Button mChooseLocations;
+    private ImageView mChooseLocations;
     TextView mChosenLocations;
     String[] locations;
     boolean[] checkedLocations;
     ArrayList<Integer> mUserLocations = new ArrayList<>(); //todo:send the locations chosen to db when save pressed
 
-    private TextView mDisplayDate;
+    private ImageView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     private RangeSeekBar numRoommatesBar;
@@ -89,7 +90,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        Button saveButton = getView().findViewById(R.id.btn_save_filters_as);
+        ImageView saveButton = getView().findViewById(R.id.btn_save_filters_as);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,8 +118,8 @@ public class EditFiltersApartmentSearcher extends Fragment {
         });
         //---------------------------------------------------------------------------
         //----------------------------location selection----------------------------
-        mChooseLocations = (Button) getView().findViewById(R.id.btn_choose_locations);
-        mChosenLocations = (TextView) getView().findViewById(R.id.tv_chosen_locations);
+        mChooseLocations = getView().findViewById(R.id.btn_choose_locations);
+        mChosenLocations = getView().findViewById(R.id.tv_chosen_locations);
 
         locations = getResources().getStringArray(R.array.locations);
         checkedLocations = new boolean[locations.length];
@@ -178,7 +179,8 @@ public class EditFiltersApartmentSearcher extends Fragment {
         });
         //---------------------------------------------------------------------------
         //----------------------------entry date selection----------------------------
-        mDisplayDate = (TextView) getView().findViewById(R.id.tv_entry_date_as);
+        mDisplayDate = getView().findViewById(R.id.iv_choose_entry_date);
+        final TextView chosenDate = getView().findViewById(R.id.tv_entry_date_as);
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,8 +205,10 @@ public class EditFiltersApartmentSearcher extends Fragment {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 String date = day + "/" + month + "/" + year;
-                mDisplayDate.setText(date);
+
+                chosenDate.setText(date);
                 asUser.setEarliestEntryDate(date);
+
             }
         };
 
