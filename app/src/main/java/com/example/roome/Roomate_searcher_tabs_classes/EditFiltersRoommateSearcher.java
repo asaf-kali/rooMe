@@ -1,4 +1,4 @@
-package com.example.roome.Apartment_searcher_tabs_classes;
+package com.example.roome.Roomate_searcher_tabs_classes;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -10,99 +10,55 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.example.roome.ChoosingActivity;
-import com.example.roome.FirebaseMediate;
-import com.example.roome.MyPreferences;
 import com.example.roome.R;
-import com.example.roome.user_classes.ApartmentSearcherUser;
-import com.example.roome.user_classes.RoommateSearcherUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class EditFiltersApartmentSearcher extends Fragment {
+//todo: send all data if save pressed
+public class EditFiltersRoommateSearcher extends Fragment {
 
-    public static final int MAX_RENT_VALUE = 4000;
     private RangeSeekBar costBar; //todo: present same vals when entering after change
 
 
-    private ImageView mChooseLocations;
+    private Button mChooseLocations;
     TextView mChosenLocations;
     String[] locations;
     boolean[] checkedLocations;
     ArrayList<Integer> mUserLocations = new ArrayList<>(); //todo:send the locations chosen to db when save pressed
 
-    private ImageView mDisplayDate;
+    private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     private RangeSeekBar numRoommatesBar;
 
     private RangeSeekBar ageRoommatesBar;
 
-    // Firebase instance variables
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference firebaseDatabaseReference;
-
-    private ApartmentSearcherUser asUser;
-
     //todo:create onclick for the save button
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize Firebase
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseDatabaseReference = firebaseDatabase.getReference();
-        firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                asUser = FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext())); //todo is ok?
-//                setUsersPreferencesLists(); //todo set filters to current state
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        asUser = new ApartmentSearcherUser();
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_filter_apartment_searcher, container, false);
+        return inflater.inflate(R.layout.activity_filter_roommate_searcher, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        ImageView saveButton = getView().findViewById(R.id.btn_save_filters_as);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
-                setSavedFiltersToLists();
-                Toast.makeText(getContext(), "save to db.", Toast.LENGTH_SHORT).show(); //todo edit
-            }
-        });
-
         //-----------------------------cost range-------------------------------------
         costBar = getView().findViewById(R.id.rsb_cost_bar);
-        costBar.setRangeValues(1000, MAX_RENT_VALUE);
+        costBar.setRangeValues(1000, 4000);
 
         costBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
@@ -111,15 +67,15 @@ public class EditFiltersApartmentSearcher extends Fragment {
                 Number maxVal = bar.getSelectedMaxValue();
                 int min = (int) minVal;
                 int max = (int) maxVal;
-                asUser.setMaxRent(max);
-                asUser.setMinRent(min);
+
+                //todo:send these vals as the new ones chosen
             }
 
         });
         //---------------------------------------------------------------------------
         //----------------------------location selection----------------------------
-        mChooseLocations = getView().findViewById(R.id.btn_choose_locations);
-        mChosenLocations = getView().findViewById(R.id.tv_chosen_locations);
+        mChooseLocations = (Button) getView().findViewById(R.id.btn_choose_locations);
+        mChosenLocations = (TextView) getView().findViewById(R.id.tv_chosen_locations);
 
         locations = getResources().getStringArray(R.array.locations);
         checkedLocations = new boolean[locations.length];
@@ -179,8 +135,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
         });
         //---------------------------------------------------------------------------
         //----------------------------entry date selection----------------------------
-        mDisplayDate = getView().findViewById(R.id.iv_choose_entry_date);
-        final TextView chosenDate = getView().findViewById(R.id.tv_entry_date_as);
+        mDisplayDate = (TextView) getView().findViewById(R.id.tv_entry_date_as);
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,10 +160,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 String date = day + "/" + month + "/" + year;
-
-                chosenDate.setText(date);
-                asUser.setEarliestEntryDate(date);
-
+                mDisplayDate.setText(date);
             }
         };
 
@@ -224,8 +176,8 @@ public class EditFiltersApartmentSearcher extends Fragment {
                 Number maxVal = bar.getSelectedMaxValue();
                 int min = (int) minVal;
                 int max = (int) maxVal;
-                asUser.setMaxNumDesiredRoommates(max);
-                asUser.setMinNumDesiredRoommates(min);
+
+                //todo:send these vals as the new ones chosen
             }
 
         });
@@ -241,8 +193,6 @@ public class EditFiltersApartmentSearcher extends Fragment {
                 Number maxVal = bar.getSelectedMaxValue();
                 int min = (int) minVal;
                 int max = (int) maxVal;
-                asUser.setMaxAgeRequired(max);
-                asUser.setMinAgeRequired(min);
 
                 //todo:send these vals as the new ones chosen
             }
@@ -253,30 +203,6 @@ public class EditFiltersApartmentSearcher extends Fragment {
         //----------------------------kosher selection----------------------------
 //todo:extract the kosher preference
         super.onActivityCreated(savedInstanceState);
-    }
-
-    private void setUsersPreferencesLists() {//todo
-
-    }
-
-    private void setSavedFiltersToLists() {//todo check
-        setList(ChoosingActivity.NOT_SEEN);
-        setList(ChoosingActivity.MAYBE_TO_HOUSE);
-    }
-
-    private void setList(String listName) {
-        ArrayList<String> listRoommatesIds = FirebaseMediate.getAptPrefList(listName, MyPreferences.getUserUid(getContext()));
-        ArrayList<String> updatedUnSeenRoommatesIds = new ArrayList<>();
-        for (String roommateId : listRoommatesIds) {
-            RoommateSearcherUser roommate = FirebaseMediate.getRoommateSearcherUserByUid(roommateId);
-            if (roommate.getApartment()!=null){
-                double roommatesApartmentRent = roommate.getApartment().getRent();
-                if (roommatesApartmentRent <= asUser.getMaxRent() && roommatesApartmentRent >= asUser.getMinRent()) {
-                    updatedUnSeenRoommatesIds.add(roommateId);
-                }
-            }
-        }
-        FirebaseMediate.setAptPrefList(listName, MyPreferences.getUserUid(getContext()), updatedUnSeenRoommatesIds);
     }
 
 }

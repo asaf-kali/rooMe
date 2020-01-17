@@ -1,8 +1,6 @@
 package com.example.roome;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -10,9 +8,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.roome.Roomate_searcher_tabs_classes.FourFragmentR;
+import com.example.roome.Roomate_searcher_tabs_classes.EditFiltersRoommateSearcher;
+import com.example.roome.Roomate_searcher_tabs_classes.EditProfileRoommateSearcher;
 import com.example.roome.Roomate_searcher_tabs_classes.OneFragmentR;
-import com.example.roome.Roomate_searcher_tabs_classes.ThreeFragmentR;
 import com.example.roome.Roomate_searcher_tabs_classes.TwoFragmentR;
 import com.google.android.material.tabs.TabLayout;
 
@@ -36,8 +34,6 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_roomate_searcher);
-
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_roomate);
         setupViewPager(viewPager);
@@ -67,9 +63,7 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
                     }
                 }
         );
-//        Toolbar apartment_toolbar = (Toolbar) findViewById(R.id.apartment_tool_bar);
-//        androidx.appcompat.widget.Toolbar apartment_toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.apartment_tool_bar);
-//        setSupportActionBar(apartment_toolbar);
+
     }
 
     private void setupTabIcons() {
@@ -85,20 +79,10 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new OneFragmentR(), "HOME");
         adapter.addFragment(new TwoFragmentR(), "MATCHES");
-        adapter.addFragment(new ThreeFragmentR(), "FILTERS");
-        adapter.addFragment(new FourFragmentR(), "PROFILE");
+        adapter.addFragment(new EditFiltersRoommateSearcher(), "FILTERS");
+        adapter.addFragment(new EditProfileRoommateSearcher(), "PROFILE");
         viewPager.setAdapter(adapter);
     }
-
-    public void uploadPhotoOnClick(View view) {//todo
-        //        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);//todo
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
-    }
-
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

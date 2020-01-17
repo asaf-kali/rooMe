@@ -4,7 +4,6 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Slide;
@@ -23,7 +22,6 @@ import com.example.roome.user_classes.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,13 +58,9 @@ public class ChoosingActivity extends AppCompatActivity {
         setAnimation();
         setContentView(R.layout.activity_choosing);
         final ProgressBar progressBar = findViewById(R.id.progress_bar);
+        initalizeFirebaseVariables();
 
-        // Initialize Firebase
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabaseReference = firebaseDatabase.getReference();
-
-//        updateUserName();  todo uncomment this
+//                updateUserName();  todo uncomment this
 
         firebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -93,6 +87,15 @@ public class ChoosingActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method initalizes firebase variables.
+     */
+    private void initalizeFirebaseVariables() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabaseReference = firebaseDatabase.getReference();
+    }
+
     public void setAnimation() {
         if (Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL) {
             Slide slide = new Slide();
@@ -106,7 +109,7 @@ public class ChoosingActivity extends AppCompatActivity {
 
     /**
      * The function displays the user's name (from which it got from the login) in this
-     * activity
+     * activity.
      */
     private void updateUserName() {//todo
 //        String userName = "";
@@ -125,9 +128,10 @@ public class ChoosingActivity extends AppCompatActivity {
     }
 
     /**
-     * on click for roommateSearcher button
+     * This method is the on click method  for roommateSearcher button. Adds user to data base and starts the
+     * RoommateSearcherSetProfileActivity activity.
      *
-     * @param view
+     * @param view - the view of the app.
      */
     public void roommateSearcherOnclick(View view) {
         MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
@@ -137,19 +141,19 @@ public class ChoosingActivity extends AppCompatActivity {
         newRef.setValue(userObj);
         MyPreferences.setUserUid(getApplicationContext(), key);
         while (!done.get()) ;
-        Intent i = new Intent(ChoosingActivity.this, MainActivityRoommateSearcher.class);
+        Intent i = new Intent(ChoosingActivity.this, RoommateSearcherSetProfileActivity.class);
         startActivity(i);
         finish();
 
     }
 
     /**
-     * on click for apartmentSearcher button
+     * This method is the on click method for apartmentSearcher button. Adds user to data base and starts the
+     * MainActivityApartmentSearcher activity.
      *
-     * @param view
+     * @param view - the view of the app.
      */
     public void apartmentSearcherOnclick(View view) {
-        MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
         MyPreferences.setIsRoommateSearcherToFalse(getApplicationContext());
         ApartmentSearcherUser userObj = createRandomAptUser(); //todo create real apt searcher
         DatabaseReference newRef = firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").push();
@@ -158,7 +162,7 @@ public class ChoosingActivity extends AppCompatActivity {
         MyPreferences.setUserUid(getApplicationContext(), key);
         while (!done.get()) ;
         // add all roommate searchers as relevant to see
-        FirebaseMediate.setAptPrefList(ChoosingActivity.NOT_SEEN,key,
+        FirebaseMediate.setAptPrefList(ChoosingActivity.NOT_SEEN, key,
                 allRoommateSearcherIds[0]);
 
         Intent i = new Intent(ChoosingActivity.this, MainActivityApartmentSearcher.class);
