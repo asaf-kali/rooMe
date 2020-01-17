@@ -164,7 +164,7 @@ public class EditProfileApartmentSearcher extends Fragment {
             isUserPhoneValid = true;
         }
 
-        bioEditText = getView().findViewById(R.id.et_info);
+        bioEditText = getView().findViewById(R.id.et_bio);
         bioEditText.setText(asUser.getBio());
 
         if (asUser.getHasProfilePic()) {
