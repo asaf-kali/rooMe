@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
     /**
-     * this method starts a new activity and adding the transition animation for relevant versions
+     * This method starts a new activity and adding the transition animation for relevant versions
      * of android
      */
     public void startActivityWithAnimation() {
