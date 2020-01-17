@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.roome.ChoosingActivity;
+import com.example.roome.Data;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
 import com.example.roome.ApartmentSearcherOnBoardDialogActivity;
@@ -159,16 +160,19 @@ public class ApartmentSearcherHome extends Fragment {
 
     private void fillTempImgArray() {
         temp_img = new ArrayList<>();
-        if (relevantRoommateSearchersIds.size() % 3 == 2) {
-            temp_img.add(R.drawable.home_example2);
-            temp_img.add(R.drawable.home_example3);
-        } else if (relevantRoommateSearchersIds.size() % 3 == 1) {
-            temp_img.add(R.drawable.home_example3);
-        }
-        for (int i = 0; i < relevantRoommateSearchersIds.size() / 3; i++) {
-            temp_img.add(R.drawable.home_example1);
-            temp_img.add(R.drawable.home_example2);
-            temp_img.add(R.drawable.home_example3);
+//        if (relevantRoommateSearchersIds.size() % 3 == 2) {
+//            temp_img.add(R.drawable.home_example2);
+//            temp_img.add(R.drawable.home_example3);
+//        } else if (relevantRoommateSearchersIds.size() % 3 == 1) {
+//            temp_img.add(R.drawable.home_example3);
+//        }
+//        for (int i = 0; i < relevantRoommateSearchersIds.size() / 3; i++) {
+//            temp_img.add(R.drawable.home_example1);
+//            temp_img.add(R.drawable.home_example2);
+//            temp_img.add(R.drawable.home_example3);
+//        }
+        for (String uid:relevantRoommateSearchersIds){
+            temp_img.add(Data.getImageByUid(uid));
         }
     }
 
