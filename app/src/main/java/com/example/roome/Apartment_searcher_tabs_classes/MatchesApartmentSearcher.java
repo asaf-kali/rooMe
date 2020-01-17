@@ -2,6 +2,7 @@ package com.example.roome.Apartment_searcher_tabs_classes;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +24,7 @@ public class MatchesApartmentSearcher extends Fragment {
             R.drawable.home_example3};
 //    private int[] noMatchesImg = {R.drawable.no_matches};
 //    private int[] images = noMatchesImg;
-//    private boolean hasMatches = false;
+    private boolean hasMatches = false;
     private RecyclerAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
@@ -37,14 +38,12 @@ public class MatchesApartmentSearcher extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.activity_matches_apartment_searcher, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         recyclerView = getView().findViewById(R.id.rv_matches_as);
-        //todo: change to 1 at start cuz no matches or make no matches a temp background
         layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
