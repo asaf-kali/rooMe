@@ -190,7 +190,6 @@ public class EditProfileApartmentSearcher extends Fragment {
     /**
      * validating relevant fields filled by the user
      */
-
     private void validateUserInput() {
         validateUserFirstName();
         validateUserLastName();
@@ -200,12 +199,15 @@ public class EditProfileApartmentSearcher extends Fragment {
     }
 
     /**
-     * Returns a boolean if all of the user's input is valid
+     * Returns a true if all of the user's input is valid
      */
     private boolean isUserInputValid() {
         return isUserFirstNameValid && isUserLastNameValid && isUserAgeValid && isUserPhoneValid;
     }
 
+    /**
+     * opens gallery choose image activity when user clicks on an upload photo button.
+     */
     public void uploadPhotoOnClickAS() {
         //Create an Intent with action as ACTION_PICK
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -244,7 +246,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     private void validateUserFirstName() {
         firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
         firstNameEditText.setText(asUser.getFirstName());
-        checkIfValidFirstName();
+        setIsUserFirstNameValidToTrueIfValidFirstName();
         firstNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -271,7 +273,10 @@ public class EditProfileApartmentSearcher extends Fragment {
         });
     }
 
-    private void checkIfValidFirstName() {
+    /**
+     * set isUserFirstNameValid to true if user's first name valid
+     */
+    private void setIsUserFirstNameValidToTrueIfValidFirstName() {
         int inputLength = firstNameEditText.getText().toString().length();
         if (inputLength < User.NAME_MAXIMUM_LENGTH && inputLength > 0) {
             isUserFirstNameValid = true;
@@ -284,7 +289,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     private void validateUserLastName() {
         lastNameEditText = getView().findViewById(R.id.et_enterLastName);
         lastNameEditText.setText(asUser.getLastName());
-        checkIfValidLastName();
+        setIisUserLastNameValidIfValidLastName();
         lastNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -311,7 +316,10 @@ public class EditProfileApartmentSearcher extends Fragment {
         });
     }
 
-    private void checkIfValidLastName() {
+    /**
+     * set isUserLastNameValid to true if user's last name valid
+     */
+    private void setIisUserLastNameValidIfValidLastName() {
         int inputLength = lastNameEditText.getText().toString().length();
         if (inputLength < User.NAME_MAXIMUM_LENGTH && inputLength > 0) {
             isUserLastNameValid = true;
@@ -326,7 +334,7 @@ public class EditProfileApartmentSearcher extends Fragment {
         if (asUser.getAge() >= User.MINIMUM_AGE) {
             ageEditText.setText(Integer.toString(asUser.getAge()));
         }
-        checkIfValidAge();
+        setIsUserAgeValidToTrueIfValidAge();
         ageEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -380,7 +388,10 @@ public class EditProfileApartmentSearcher extends Fragment {
         });
     }
 
-    private void checkIfValidAge() {
+    /**
+     * set isUserAgeValid to true If user's age is valid
+     */
+    private void setIsUserAgeValidToTrueIfValidAge() {
         int inputLength = ageEditText.getText().toString().length();
         if (inputLength != 0) {
             int curAge = Integer.parseInt(ageEditText.getText().toString());
@@ -420,7 +431,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     private void validatePhoneNumber() {
         phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);
         phoneNumberEditText.setText(asUser.getPhoneNumber());
-        checkIfValidPhoneNumber();
+        setIsUserPhoneValidToTrueIfPhoneNumberValid();
         phoneNumberEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -459,7 +470,10 @@ public class EditProfileApartmentSearcher extends Fragment {
         });
     }
 
-    private void checkIfValidPhoneNumber() {
+    /**
+     * set isUserPhoneValid to true if phone number is valid.
+     */
+    private void setIsUserPhoneValidToTrueIfPhoneNumberValid() {
         int inputLength = phoneNumberEditText.getText().toString().length();
         if (inputLength == User.PHONE_NUMBER_LENGTH) {
             isUserPhoneValid = true;

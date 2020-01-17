@@ -14,7 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".RoommateSearcherSetProfileActivity"></activity>
+        <activity
+            android:name=".ApartmentSearcherOnBoardDialogActivity"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
+        <activity android:name=".RoommateSearcherSetProfileActivity" />
         <activity
             android:name=".EditProfileAlertDialog"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />

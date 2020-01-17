@@ -33,7 +33,6 @@ import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-//todo: send all data if save pressed
 public class EditFiltersApartmentSearcher extends Fragment {
 
     public static final int MAX_RENT_VALUE = 4000;
@@ -78,7 +77,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
 
             }
         });
-        asUser = new ApartmentSearcherUser(); //todo is ok?
+        asUser = new ApartmentSearcherUser();
     }
 
     @Override
@@ -223,7 +222,6 @@ public class EditFiltersApartmentSearcher extends Fragment {
                 int max = (int) maxVal;
                 asUser.setMaxNumDesiredRoommates(max);
                 asUser.setMinNumDesiredRoommates(min);
-                //todo:send these vals as the new ones chosen
             }
 
         });

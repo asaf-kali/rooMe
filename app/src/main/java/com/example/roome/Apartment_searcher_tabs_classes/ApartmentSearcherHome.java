@@ -1,6 +1,7 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
+import com.example.roome.ApartmentSearcherOnBoardDialogActivity;
 import com.example.roome.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -33,7 +35,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.lorenzos.flingswipe.*;
 
 import java.util.ArrayList;
-
 
 public class ApartmentSearcherHome extends Fragment {
 
@@ -56,13 +57,17 @@ public class ApartmentSearcherHome extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
+        boolean isFirstTime = MyPreferences.isFirstTime(getContext());
+        if (isFirstTime) {
+            showWelcomeOnBoardDialog();
+            MyPreferences.setIsFirstTimeToFalse(getContext());
+        }
+
         super.onCreate(savedInstanceState);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -412,6 +417,15 @@ public class ApartmentSearcherHome extends Fragment {
             this.parkingList = apps;
             this.context = context;
         }
+
+    /**
+     * This method opens the Apartment Searcher On Board Dialog Activity.
+     */
+    void showWelcomeOnBoardDialog() {
+        Intent intent = new Intent(ApartmentSearcherHome.this.getActivity(), ApartmentSearcherOnBoardDialogActivity.class);
+        startActivity(intent);
+    }
+}
 
         public void setParkingList(ArrayList<String> parkingList) {
             this.parkingList = parkingList;

@@ -13,7 +13,7 @@ public class MyPreferences {
     static final String USER_UID = "userFirebaseUid";
 
 
-    static boolean isFirstTime(Context context) {
+    public static boolean isFirstTime(Context context) {
         final SharedPreferences reader = getSharedPreferences(context);
         return reader.getBoolean(IS_FIRST_TIME, true);
     }
@@ -30,7 +30,7 @@ public class MyPreferences {
         preferencesEditor.apply();
     }
 
-    static void setIsFirstTimeToFalse(Context context) {
+    public static void setIsFirstTimeToFalse(Context context) {
         final SharedPreferences reader = getSharedPreferences(context);
         final SharedPreferences.Editor preferencesEditor = reader.edit();
         preferencesEditor.putBoolean(IS_FIRST_TIME, false);

@@ -6,15 +6,14 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
- * This is a dialog themed activity for alerting in the EditProfileActivity when some fields are not
- * filled correctly.
+ * This is a dialog themed activity for a new apartment searcher on boarding.
  */
-public class EditProfileAlertDialog extends AppCompatActivity {
+public class ApartmentSearcherOnBoardDialogActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile_alert_dialog);
+        setContentView(R.layout.activity_apartment_searcher_on_board);
     }
 
     /**
