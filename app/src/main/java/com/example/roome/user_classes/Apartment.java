@@ -1,9 +1,5 @@
 package com.example.roome.user_classes;
 
-import android.media.Image;
-
-import java.util.ArrayList;
-
 public class Apartment {
 
 
@@ -12,22 +8,26 @@ public class Apartment {
 
     //--------------------apartment info---------------------
 
-    private ArrayList<Image> apartmentImages;
+    private Boolean hasMainImage;
     private String neighborhood;
     private int entryDate; //todo: make sure to represent it as MM/YYYY
     private int numberOfRoommates;
     private double rent;
 
+    public Apartment(){}
+
+    public Apartment(Boolean hasMainImage, String neighborhood, int entryDate, int numberOfRoommates, double rent) {
+        this.hasMainImage = hasMainImage;
+        this.neighborhood = neighborhood;
+        this.entryDate = entryDate;
+        this.numberOfRoommates = numberOfRoommates;
+        this.rent = rent;
+    }
+
 
     //------------------------------------------Getters---------------------------------------------
 
-
-    public ArrayList<Image> getApartmentImages() {
-        return apartmentImages;
-    }
-
-    public Image getMainImage() {return apartmentImages.get(MAIN_IMAGE_INDEX);}
-
+    public boolean getHasMainImage() {return hasMainImage;}
 
     public String getNeighborhood() {
         return neighborhood;
@@ -51,25 +51,19 @@ public class Apartment {
     //------------------------------------------Setters---------------------------------------------
 
 
-    public void setApartmentImages(ArrayList<Image> apartmentImages) {
-        this.apartmentImages = apartmentImages;
-    }
-
+    public void setHasMainImage(Boolean flag) { this.hasMainImage = flag; }
 
     public void setNeighborhood(String neighborhood) {
         this.neighborhood = neighborhood;
     }
 
-
     public void setEntryDate(int entryDate) {
         this.entryDate = entryDate;
     }
 
-
     public void setNumberOfRoommates(int numberOfRoommates) {
         this.numberOfRoommates = numberOfRoommates;
     }
-
 
     public void setRent(double rent) {
         this.rent = rent;
