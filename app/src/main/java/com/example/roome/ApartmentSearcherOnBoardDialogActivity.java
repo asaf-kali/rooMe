@@ -5,6 +5,9 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * This is a dialog themed activity for a new apartment searcher on boarding.
+ */
 public class ApartmentSearcherOnBoardDialogActivity extends AppCompatActivity {
 
     @Override
