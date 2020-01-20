@@ -88,7 +88,9 @@ public class EditFiltersApartmentSearcher extends Fragment {
         numRoommatesBar.setSelectedMinValue(asUser.getMinNumDesiredRoommates());
         numRoommatesBar.setSelectedMaxValue(asUser.getMaxNumDesiredRoommates());
         ageRoommatesBar.setSelectedMinValue(asUser.getMinAgeRequired());
-        ageRoommatesBar.setSelectedMaxValue(asUser.getMaxAgeRequired());
+        if(asUser.getMaxAgeRequired()!=0) {
+            ageRoommatesBar.setSelectedMaxValue(asUser.getMaxAgeRequired());
+        }
     }
 
     @Override
