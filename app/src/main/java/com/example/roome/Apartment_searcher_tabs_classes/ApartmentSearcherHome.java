@@ -389,10 +389,17 @@ public class ApartmentSearcherHome extends Fragment {
     }
 
     private void moreHouses() {
+//
+//        yesButton.setVisibility(View.VISIBLE);
+//        noButton.setVisibility(View.VISIBLE);
+//        maybeButton.setVisibility(View.VISIBLE); //todo uncomment this
 
-        yesButton.setVisibility(View.VISIBLE);
-        noButton.setVisibility(View.VISIBLE);
-        maybeButton.setVisibility(View.VISIBLE);
+        //-----------------------------------------
+        yesButton.setVisibility(View.INVISIBLE);
+        noButton.setVisibility(View.INVISIBLE);
+        maybeButton.setVisibility(View.INVISIBLE);
+        //---------------------------------------//todo delete this
+
         noMoreHousesText.setVisibility(View.INVISIBLE);
         currentPlaceInList = 0;
         fillTempImgArray(); //todo delete
