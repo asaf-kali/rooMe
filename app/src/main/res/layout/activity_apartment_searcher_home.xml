@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_home_apt_background"
     tools:context=".Apartment_searcher_tabs_classes.ApartmentSearcherHome">
 
     <!-- activity view -->
@@ -14,12 +15,22 @@
         android:layout_marginBottom="150dp"
         android:background="@drawable/ic_house_back_img">
 
+        <ImageView
+            android:id="@+id/iv_no_more_houses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_no_more_houses_to_show_edit" />
+
         <com.lorenzos.flingswipe.SwipeFlingAdapterView
             android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_house_back_img"
-            app:rotation_degrees="15.5" />
+            app:rotation_degrees="15.5" >
+
+        </com.lorenzos.flingswipe.SwipeFlingAdapterView>
 
     </FrameLayout>
 
