@@ -140,12 +140,8 @@ public class SignInActivity extends AppCompatActivity implements
         EditText ln = findViewById(R.id.et_last_name_without_google);
         String first = fn.getText().toString();
         String last = ln.getText().toString();
-
-        final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = reader.edit();
-        editor.putString("FIRSTNAME", first);
-        editor.putString("LASTNAME", last);
-        editor.apply();
+        MyPreferences.setManualFirstName(getApplicationContext(),first);
+        MyPreferences.setManualLastName(getApplicationContext(),last);
         startActivity(new Intent(SignInActivity.this, ChoosingActivity.class));
         finish();
     }
