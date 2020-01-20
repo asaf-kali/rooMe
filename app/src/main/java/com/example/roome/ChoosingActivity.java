@@ -3,6 +3,7 @@ package com.example.roome;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Slide;
@@ -106,6 +107,11 @@ public class ChoosingActivity extends AppCompatActivity {
             userName = firebaseUser.getDisplayName();
         } else if (acct != null) {
             userName = acct.getDisplayName();
+        } else if (acct == null) {
+
+            userName =
+                    MyPreferences.getManualFirstName(getApplicationContext()) + " " + MyPreferences.getManualLastName(getApplicationContext());
+
         }
         TextView textView = findViewById(R.id.tv_hello_name);
         textView.setText(String.format("Hi %s!", userName));
@@ -118,16 +124,16 @@ public class ChoosingActivity extends AppCompatActivity {
      * @param view - the view of the app.
      */
     public void roommateSearcherOnclick(View view) {
-        MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
-        User userObj = createNewUser();
-        DatabaseReference newRef = firebaseDatabaseReference.child("users").child("RoommateSearcherUser").push();
-        String key = newRef.getKey();
-        newRef.setValue(userObj);
-        MyPreferences.setUserUid(getApplicationContext(), key);
-        while (!done.get()) ;
-        Intent i = new Intent(ChoosingActivity.this, RoommateSearcherSetProfileActivity.class);
-        startActivity(i);
-        finish();
+//        MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
+//        User userObj = createNewUser();
+//        DatabaseReference newRef = firebaseDatabaseReference.child("users").child("RoommateSearcherUser").push();
+//        String key = newRef.getKey();
+//        newRef.setValue(userObj);
+//        MyPreferences.setUserUid(getApplicationContext(), key);
+//        while (!done.get()) ;
+//        Intent i = new Intent(ChoosingActivity.this, RoommateSearcherSetProfileActivity.class);
+//        startActivity(i);
+//        finish();//todo uncomment
 
     }
 
@@ -161,9 +167,15 @@ public class ChoosingActivity extends AppCompatActivity {
      */
     private User createNewUser() {
         GoogleSignInAccount userAccount = GoogleSignIn.getLastSignedInAccount(ChoosingActivity.this);
-        String firstName = userAccount.getGivenName();
-        String lastName = userAccount.getFamilyName();
-
+        String firstName, lastName;
+        if (userAccount == null) {
+            firstName =
+                    MyPreferences.getManualFirstName(getApplicationContext());
+            lastName = MyPreferences.getManualLastName(getApplicationContext());
+        } else {
+            firstName = userAccount.getGivenName();
+            lastName = userAccount.getFamilyName();
+        }
         return new User(firstName, lastName);
     }
 
