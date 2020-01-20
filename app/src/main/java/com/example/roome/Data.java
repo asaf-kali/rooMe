@@ -11,10 +11,11 @@ public final class Data {
     private static ArrayList<String> roommateSearchersUids;
 
     private static void initDrawablesImg() {
-        apartmentImages = new ArrayList<>(Arrays.asList(R.drawable.home_example1, R.drawable.home_example2,
-                R.drawable.home_example3, R.drawable.home_example1, R.drawable.home_example2,
-                R.drawable.home_example3, R.drawable.home_example1, R.drawable.home_example2,
-                R.drawable.home_example3, R.drawable.home_example1));
+        apartmentImages = new ArrayList<>(Arrays.asList(R.drawable.house1,
+                R.drawable.house2,
+                R.drawable.house3, R.drawable.house4,
+                R.drawable.house5,
+                R.drawable.house6, R.drawable.house7));
     }
 
     private static void initRSUids() {
