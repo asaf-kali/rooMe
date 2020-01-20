@@ -71,6 +71,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 asUser = FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext())); //todo is ok?
 //                setUsersPreferencesLists(); //todo set filters to current state
+                setValuesFromDataBase();
             }
 
             @Override
@@ -79,6 +80,15 @@ public class EditFiltersApartmentSearcher extends Fragment {
             }
         });
         asUser = new ApartmentSearcherUser();
+    }
+
+    private void setValuesFromDataBase() {
+        costBar.setSelectedMinValue(asUser.getMinRent());
+        costBar.setSelectedMaxValue(asUser.getMaxRent());
+        numRoommatesBar.setSelectedMinValue(asUser.getMinNumDesiredRoommates());
+        numRoommatesBar.setSelectedMaxValue(asUser.getMaxNumDesiredRoommates());
+        ageRoommatesBar.setSelectedMinValue(asUser.getMinAgeRequired());
+        ageRoommatesBar.setSelectedMaxValue(asUser.getMaxAgeRequired());
     }
 
     @Override
@@ -103,7 +113,10 @@ public class EditFiltersApartmentSearcher extends Fragment {
         //-----------------------------cost range-------------------------------------
         costBar = getView().findViewById(R.id.rsb_cost_bar);
         costBar.setRangeValues(1000, MAX_RENT_VALUE);
-
+        if(asUser!=null) {
+            costBar.setSelectedMinValue(asUser.getMinRent());
+            costBar.setSelectedMaxValue(asUser.getMaxRent());
+        }
         costBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
