@@ -134,16 +134,16 @@ public class ChoosingActivity extends AppCompatActivity {
      * @param view - the view of the app.
      */
     public void roommateSearcherOnclick(View view) {
-        MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
-        RoommateSearcherUser userObj = createRandomRoomateUser(); //todo create real roommate
-        DatabaseReference newRef = firebaseDatabaseReference.child("users").child("RoommateSearcherUser").push();
-        String key = newRef.getKey();
-        newRef.setValue(userObj);
-        MyPreferences.setUserUid(getApplicationContext(), key);
-        while (!done.get()) ;
-        Intent i = new Intent(ChoosingActivity.this, RoommateSearcherSetProfileActivity.class);
-        startActivity(i);
-        finish();
+//        MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
+//        RoommateSearcherUser userObj = createRandomRoomateUser(); //todo create real roommate
+//        DatabaseReference newRef = firebaseDatabaseReference.child("users").child("RoommateSearcherUser").push();
+//        String key = newRef.getKey();
+//        newRef.setValue(userObj);
+//        MyPreferences.setUserUid(getApplicationContext(), key);
+//        while (!done.get()) ;
+//        Intent i = new Intent(ChoosingActivity.this, RoommateSearcherSetProfileActivity.class);
+//        startActivity(i);
+//        finish();  //todo uncomment all of this
 
     }
 
