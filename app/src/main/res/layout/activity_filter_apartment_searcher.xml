@@ -19,30 +19,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/tv_edit_filter_explain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Here you can edit your filters.\nDo so in order for us to find the best apartments\nfor you!"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
     <ScrollView
         android:id="@+id/sv_filters_as"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="105dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_edit_filter_explain"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="@+id/profile_back_img3">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/filters_constrained_layout"
@@ -279,35 +265,37 @@
                 app:layout_constraintStart_toStartOf="@+id/iv_choose_entry_date"
                 app:layout_constraintTop_toTopOf="@+id/iv_choose_entry_date" />
 
-            <ImageView
-                android:id="@+id/btn_save_filters_as"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_save_button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup_kosher_as" />
-
-            <TextView
-                android:id="@+id/tv_save_in_btn_ef"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:shadowColor="#40000000"
-                android:shadowDy="4"
-                android:shadowRadius="4"
-                android:text="SAVE"
-                android:textColor="@color/common_google_signin_btn_text_dark_default"
-                android:textSize="20sp"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_save_filters_as"
-                app:layout_constraintEnd_toEndOf="@+id/btn_save_filters_as"
-                app:layout_constraintStart_toStartOf="@+id/btn_save_filters_as"
-                app:layout_constraintTop_toTopOf="@+id/btn_save_filters_as" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/btn_save_filters_as"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_save_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv_filters_as" />
+
+    <TextView
+        android:id="@+id/tv_save_in_btn_ef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:shadowColor="#40000000"
+        android:shadowDy="4"
+        android:shadowRadius="4"
+        android:text="SAVE"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_save_filters_as"
+        app:layout_constraintEnd_toEndOf="@+id/btn_save_filters_as"
+        app:layout_constraintStart_toStartOf="@+id/btn_save_filters_as"
+        app:layout_constraintTop_toTopOf="@+id/btn_save_filters_as" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
