@@ -29,11 +29,24 @@ public class MyPreferences {
         return reader.getString(MANUAL_LAST_NAME, "null");
     }
 
+    static void setManualFirstName(Context context, String firstName) {
+        final SharedPreferences reader = getSharedPreferences(context);
+        final SharedPreferences.Editor preferencesEditor = reader.edit();
+        preferencesEditor.putString(MANUAL_FIRST_NAME, firstName);
+        preferencesEditor.apply();
+    }
+
+    static void setManualLastName(Context context, String lastName) {
+        final SharedPreferences reader = getSharedPreferences(context);
+        final SharedPreferences.Editor preferencesEditor = reader.edit();
+        preferencesEditor.putString(MANUAL_LAST_NAME, lastName);
+        preferencesEditor.apply();
+    }
+
     public static String getUserUid(Context context) {
         final SharedPreferences reader = getSharedPreferences(context);
         return reader.getString(USER_UID, null);
     }
-
 
     static void setUserUid(Context context, String userUid) {
         final SharedPreferences reader = getSharedPreferences(context);

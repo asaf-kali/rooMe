@@ -124,16 +124,16 @@ public class ChoosingActivity extends AppCompatActivity {
      * @param view - the view of the app.
      */
     public void roommateSearcherOnclick(View view) {
-        MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
-        User userObj = createNewUser();
-        DatabaseReference newRef = firebaseDatabaseReference.child("users").child("RoommateSearcherUser").push();
-        String key = newRef.getKey();
-        newRef.setValue(userObj);
-        MyPreferences.setUserUid(getApplicationContext(), key);
-        while (!done.get()) ;
-        Intent i = new Intent(ChoosingActivity.this, RoommateSearcherSetProfileActivity.class);
-        startActivity(i);
-        finish();
+//        MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
+//        User userObj = createNewUser();
+//        DatabaseReference newRef = firebaseDatabaseReference.child("users").child("RoommateSearcherUser").push();
+//        String key = newRef.getKey();
+//        newRef.setValue(userObj);
+//        MyPreferences.setUserUid(getApplicationContext(), key);
+//        while (!done.get()) ;
+//        Intent i = new Intent(ChoosingActivity.this, RoommateSearcherSetProfileActivity.class);
+//        startActivity(i);
+//        finish();//todo uncomment
 
     }
 
@@ -169,17 +169,13 @@ public class ChoosingActivity extends AppCompatActivity {
         GoogleSignInAccount userAccount = GoogleSignIn.getLastSignedInAccount(ChoosingActivity.this);
         String firstName, lastName;
         if (userAccount == null) {
-
-
             firstName =
                     MyPreferences.getManualFirstName(getApplicationContext());
             lastName = MyPreferences.getManualLastName(getApplicationContext());
-
         } else {
             firstName = userAccount.getGivenName();
             lastName = userAccount.getFamilyName();
         }
-
         return new User(firstName, lastName);
     }
 
