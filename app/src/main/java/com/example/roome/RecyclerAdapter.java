@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.example.roome.Data;
+import com.example.roome.user_classes.RoommateSearcherUser;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,9 +30,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ImageV
     public void onBindViewHolder(ImageViewHolder holder, int position) {
         int image_id = images[position];
         holder.album.setImageResource(image_id);
-
-        //todo:create dict with image_id:String of apartment info
-        holder.albumTitle.setText("Image: " + position); //todo:change to apartment details (location, rent..)
+        String uid = Data.getUidByImg(image_id);
+        RoommateSearcherUser roommateSearcher = FirebaseMediate.getRoommateSearcherUserByUid(uid);
+        String location = roommateSearcher.getApartment().getNeighborhood();
+        int rent = (int) roommateSearcher.getApartment().getRent();
+        String phone = roommateSearcher.getPhoneNumber();
+        holder.albumTitle.setText("Location: " + location +"\nRent: "+rent+ "\nPhone Number: "+phone);
     }
 
     @Override
