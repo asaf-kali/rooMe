@@ -18,9 +18,6 @@ import com.example.roome.R;
 import com.example.roome.RecyclerAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MatchesApartmentSearcher extends Fragment {
 

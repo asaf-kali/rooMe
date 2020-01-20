@@ -34,4 +34,13 @@ public final class Data {
         return uidToDrawable.get(roommateUid);
     }
 
+    public static String getUidByImg(int imgId){
+        for (String key : uidToDrawable.keySet()){
+            int val = uidToDrawable.get(key);
+            if (val == imgId){
+                return key;
+            }
+        }
+        return null;
+    }
 }
