@@ -81,7 +81,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_location_symbol"
+                    android:paddingTop="5dp"
+                    android:src="@drawable/ic_group_icon_black"
                     app:layout_constraintRight_toLeftOf="@+id/tv_location" />
 
                 <TextView
@@ -99,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_location_symbol"
+                    android:src="@drawable/ic_location_icon_black"
                     app:layout_constraintRight_toLeftOf="@+id/tv_location" />
 
                 <TextView
@@ -117,7 +118,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_location_symbol"
+                    android:paddingTop="5dp"
+                    android:src="@drawable/ic_price_icon_black"
                     app:layout_constraintRight_toLeftOf="@+id/tv_location" />
 
                 <TextView
