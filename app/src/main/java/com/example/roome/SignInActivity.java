@@ -143,8 +143,8 @@ public class SignInActivity extends AppCompatActivity implements
 
         final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = reader.edit();
-        editor.putString("FIRSTNAME", first);
-        editor.putString("LASTNAME", last);
+        editor.putString(MyPreferences.MANUAL_FIRST_NAME, first);
+        editor.putString(MyPreferences.MANUAL_LAST_NAME, last);
         editor.apply();
         startActivity(new Intent(SignInActivity.this, ChoosingActivity.class));
         finish();

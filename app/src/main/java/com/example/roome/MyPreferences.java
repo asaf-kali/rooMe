@@ -11,17 +11,29 @@ public class MyPreferences {
     static final String IS_FIRST_TIME = "isFirstTime";
     static final String IS_ROOMMATE_SEARCHER = "isRoommateSearcher";
     static final String USER_UID = "userFirebaseUid";
+    static final String MANUAL_FIRST_NAME = "FIRSTNAME";
+    static final String MANUAL_LAST_NAME = "LASTNAME";
 
 
     public static boolean isFirstTime(Context context) {
         final SharedPreferences reader = getSharedPreferences(context);
         return reader.getBoolean(IS_FIRST_TIME, true);
     }
+    public static String getManualFirstName(Context context) {
+        final SharedPreferences reader = getSharedPreferences(context);
+        return reader.getString(MANUAL_FIRST_NAME, "null");
+    }
+
+    public static String getManualLastName(Context context) {
+        final SharedPreferences reader = getSharedPreferences(context);
+        return reader.getString(MANUAL_LAST_NAME, "null");
+    }
 
     public static String getUserUid(Context context) {
         final SharedPreferences reader = getSharedPreferences(context);
         return reader.getString(USER_UID, null);
     }
+
 
     static void setUserUid(Context context, String userUid) {
         final SharedPreferences reader = getSharedPreferences(context);
