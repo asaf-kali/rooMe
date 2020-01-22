@@ -382,7 +382,7 @@ public class FirebaseMediate {
     }
 
 
-    public static void deleteAllAptUsers() //todo delete thid at the end
+    public static void deleteAllAptUsers() //todo delete this at the end
     {
         DataSnapshot ds = dataSs.child("users").child("ApartmentSearcherUser");
         for (DataSnapshot child : ds.getChildren()) {
@@ -397,6 +397,5 @@ public class FirebaseMediate {
             firebaseDatabaseReference.child("preferences").child(
                     "ApartmentSearcherUser").child(key).removeValue();
         }
-
     }
 }
