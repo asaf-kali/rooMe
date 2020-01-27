@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -45,11 +46,13 @@ public class MatchesApartmentSearcher extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         ArrayList<String> matchedUids = FirebaseMediate.getAptPrefList(ChoosingActivity.YES_TO_HOUSE, MyPreferences.getUserUid(getContext()));
         initMatchedImages(matchedUids);
-        if (matchedUids.size() == 0){
-            RecyclerView rv = getView().findViewById(R.id.rv_matches_as);
-            rv.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.no_matches));
-        }
-        else {
+        if (matchedUids.size() != 0){
+//            RecyclerView rv = getView().findViewById(R.id.rv_matches_as);
+//
+//            rv.setBackground(ContextCompat.getDrawable(getContext(),
+//                    R.drawable.you_have_no_matches_yet));
+            ImageView noMatches = getView().findViewById(R.id.iv_no_matches);
+            noMatches.setVisibility(View.INVISIBLE);
             recyclerView = getView().findViewById(R.id.rv_matches_as);
             layoutManager = new GridLayoutManager(getContext(), 2);
             recyclerView.setHasFixedSize(true);
