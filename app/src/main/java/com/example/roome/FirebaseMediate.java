@@ -57,7 +57,6 @@ public class FirebaseMediate {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
         firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -69,7 +68,6 @@ public class FirebaseMediate {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
@@ -87,15 +85,15 @@ public class FirebaseMediate {
     public static void uploadPhotoToStorage(Uri selectedImage, final Activity activity, Context context, String userType, String photoType) {
         if (selectedImage != null) {
             final ProgressDialog progressDialog = new ProgressDialog(activity);
-//            progressDialog.setTitle("Uploading...");
-//            progressDialog.show();
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
             StorageReference ref = storageReference.child("Images").child(userType).
                     child(MyPreferences.getUserUid(context)).child(photoType);
             ref.putFile(selectedImage)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                            progressDialog.dismiss();
+                            progressDialog.dismiss();
                             Toast.makeText(activity, "Uploaded", Toast.LENGTH_SHORT).show();
                         }
                     })
@@ -134,6 +132,7 @@ public class FirebaseMediate {
 
     /**
      * This method returns all ApartmentSearcher users.
+     *
      * @return all ApartmentSearcher users.
      */
     public static ArrayList<ApartmentSearcherUser> getAllApartmentSearcher() {
@@ -150,6 +149,7 @@ public class FirebaseMediate {
 
     /**
      * This method returns all RoommateSearcher users ids (from database).
+     *
      * @return all RoommateSearcher users ids (from database).
      */
     public static ArrayList<String> getAllRoommateSearcherIds() {
@@ -206,8 +206,8 @@ public class FirebaseMediate {
     /**
      * This method returns all RoommateSearcherUsers ids from the relevant list in database.
      *
-     * @param list - the list name to retrieve the data from in data base (not_seen/yes_to_house/maybe_to_house).
-     * @param aptUid  - uid of ApartmentSearcherUser
+     * @param list   - the list name to retrieve the data from in data base (not_seen/yes_to_house/maybe_to_house).
+     * @param aptUid - uid of ApartmentSearcherUser
      * @return all RoommateSearcherUsers ids from the relevant list in database.
      */
     public static ArrayList<String> getAptPrefList(String list, String aptUid) {
@@ -331,9 +331,9 @@ public class FirebaseMediate {
     public static void removeFromAptPrefList(String list, String aptUid,
                                              String roommateUid) {
 
-        ArrayList<String> prefListRoomates = getAptPrefList(list, aptUid);
-        prefListRoomates.remove(roommateUid);
-        setAptPrefList(list, aptUid, prefListRoomates);
+        ArrayList<String> prefListRoommates = getAptPrefList(list, aptUid);
+        prefListRoommates.remove(roommateUid);
+        setAptPrefList(list, aptUid, prefListRoommates);
     }
 
     /**
@@ -361,9 +361,9 @@ public class FirebaseMediate {
      */
     public static void addToAptPrefList(String list, String aptUid,
                                         String roommateUid) {
-        ArrayList<String> allRelevantRoomatesUid = getAptPrefList(list, aptUid);
-        allRelevantRoomatesUid.add(roommateUid);
-        setAptPrefList(list, aptUid, allRelevantRoomatesUid);
+        ArrayList<String> allRelevantRoommatesUid = getAptPrefList(list, aptUid);
+        allRelevantRoommatesUid.add(roommateUid);
+        setAptPrefList(list, aptUid, allRelevantRoommatesUid);
     }
 
     /**
@@ -379,24 +379,5 @@ public class FirebaseMediate {
                 roommateUid);
         allRelevantAptUid.add(aptUid);
         setRoommatePrefList(list, roommateUid, allRelevantAptUid);
-    }
-
-
-    public static void deleteAllAptUsers() //todo delete thid at the end
-    {
-        DataSnapshot ds = dataSs.child("users").child("ApartmentSearcherUser");
-        for (DataSnapshot child : ds.getChildren()) {
-            String key = child.getKey();
-            firebaseDatabaseReference.child("users").child(
-                    "ApartmentSearcherUser").child(key).removeValue();
-        }
-        DataSnapshot ds2 = dataSs.child("preferences").child(
-                "ApartmentSearcherUser");
-        for (DataSnapshot child : ds.getChildren()) {
-            String key = child.getKey();
-            firebaseDatabaseReference.child("preferences").child(
-                    "ApartmentSearcherUser").child(key).removeValue();
-        }
-
     }
 }

@@ -116,14 +116,12 @@ public class EditProfileApartmentSearcher extends Fragment {
             public void onClick(View v) {
                 if (isUserInputValid()) {
                     //save user data to DB
-                    if (changedPhoto){ //save image to DB only if it's a new one
-                        FirebaseMediate.uploadPhotoToStorage(selectedImage, getActivity(), getContext(),"Apartment Searcher User", "Profile Pic");
+                    if (changedPhoto) { //save image to DB only if it's a new one
+                        FirebaseMediate.uploadPhotoToStorage(selectedImage, getActivity(), getContext(), "Apartment Searcher User", "Profile Pic");
                         changedPhoto = false;
                     }
                     asUser.setBio(bioEditText.getText().toString());
                     firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
-                    Toast.makeText(getContext(), "save to db.", Toast.LENGTH_SHORT).show(); //todo edit
-
                 } else {
                     Intent intent = new Intent(EditProfileApartmentSearcher.this.getActivity(), EditProfileAlertDialog.class);
                     startActivity(intent);
@@ -160,7 +158,7 @@ public class EditProfileApartmentSearcher extends Fragment {
 
         phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);
         phoneNumberEditText.setText(asUser.getPhoneNumber());
-        if (asUser.getPhoneNumber() != null && asUser.getPhoneNumber().length() == User.PHONE_NUMBER_LENGTH){
+        if (asUser.getPhoneNumber() != null && asUser.getPhoneNumber().length() == User.PHONE_NUMBER_LENGTH) {
             isUserPhoneValid = true;
         }
 
