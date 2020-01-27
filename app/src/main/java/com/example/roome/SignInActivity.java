@@ -1,6 +1,7 @@
 package com.example.roome;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -111,12 +112,15 @@ public class SignInActivity extends AppCompatActivity implements
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebase Auth With Gooogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        final ProgressDialog progressDialog = new ProgressDialog(SignInActivity.this);
+        progressDialog.setTitle("Signing in...");
+        progressDialog.show();
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signIn With Credential: onComplete:" + task.isSuccessful());
-
+                        progressDialog.dismiss();
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
