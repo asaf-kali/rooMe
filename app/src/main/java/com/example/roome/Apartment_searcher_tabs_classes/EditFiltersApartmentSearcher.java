@@ -8,11 +8,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -70,8 +68,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 asUser = FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext())); //todo is ok?
-//                setUsersPreferencesLists(); //todo set filters to current state
-                setValuesFromDataBase();
+                setFiltersValuesFromDataBase();
             }
 
             @Override
@@ -80,17 +77,6 @@ public class EditFiltersApartmentSearcher extends Fragment {
             }
         });
         asUser = new ApartmentSearcherUser();
-    }
-
-    private void setValuesFromDataBase() {
-        costBar.setSelectedMinValue(asUser.getMinRent());
-        costBar.setSelectedMaxValue(asUser.getMaxRent());
-        numRoommatesBar.setSelectedMinValue(asUser.getMinNumDesiredRoommates());
-        numRoommatesBar.setSelectedMaxValue(asUser.getMaxNumDesiredRoommates());
-        ageRoommatesBar.setSelectedMinValue(asUser.getMinAgeRequired());
-        if(asUser.getMaxAgeRequired()!=0) {
-            ageRoommatesBar.setSelectedMaxValue(asUser.getMaxAgeRequired());
-        }
     }
 
     @Override
@@ -108,17 +94,12 @@ public class EditFiltersApartmentSearcher extends Fragment {
             public void onClick(View v) {
                 firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
                 setSavedFiltersToLists();
-                Toast.makeText(getContext(), "save to db.", Toast.LENGTH_SHORT).show(); //todo edit
             }
         });
 
         //-----------------------------cost range-------------------------------------
         costBar = getView().findViewById(R.id.rsb_cost_bar);
         costBar.setRangeValues(1000, MAX_RENT_VALUE);
-        if(asUser!=null) {
-            costBar.setSelectedMinValue(asUser.getMinRent());
-            costBar.setSelectedMaxValue(asUser.getMaxRent());
-        }
         costBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
@@ -258,8 +239,6 @@ public class EditFiltersApartmentSearcher extends Fragment {
                 int max = (int) maxVal;
                 asUser.setMaxAgeRequired(max);
                 asUser.setMinAgeRequired(min);
-
-                //todo:send these vals as the new ones chosen
             }
 
         });
@@ -270,21 +249,25 @@ public class EditFiltersApartmentSearcher extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    private void setUsersPreferencesLists() {//todo
-
+    /**
+     * This method calls the method to filters out the the irrelevant roommate users from with 
+     * a specified list.
+     */
+    private void setSavedFiltersToLists() {
+        filterOutRoommatesFromList(ChoosingActivity.NOT_SEEN);
     }
 
-    private void setSavedFiltersToLists() {//todo check
-        setList(ChoosingActivity.NOT_SEEN);
-        setList(ChoosingActivity.MAYBE_TO_HOUSE);
-    }
-
-    private void setList(String listName) {
+    /**
+     * This method filters out the the irrelevant roommate users from the specified list.
+     *
+     * @param listName - The list to filter the irrelevant roommate users from.
+     */
+    private void filterOutRoommatesFromList(String listName) {
         ArrayList<String> listRoommatesIds = FirebaseMediate.getAptPrefList(listName, MyPreferences.getUserUid(getContext()));
         ArrayList<String> updatedUnSeenRoommatesIds = new ArrayList<>();
         for (String roommateId : listRoommatesIds) {
             RoommateSearcherUser roommate = FirebaseMediate.getRoommateSearcherUserByUid(roommateId);
-            if (roommate.getApartment()!=null){
+            if (roommate.getApartment() != null) {
                 double roommatesApartmentRent = roommate.getApartment().getRent();
                 if (roommatesApartmentRent <= asUser.getMaxRent() && roommatesApartmentRent >= asUser.getMinRent()) {
                     updatedUnSeenRoommatesIds.add(roommateId);
@@ -292,6 +275,20 @@ public class EditFiltersApartmentSearcher extends Fragment {
             }
         }
         FirebaseMediate.setAptPrefList(listName, MyPreferences.getUserUid(getContext()), updatedUnSeenRoommatesIds);
+    }
+
+    /**
+     * This method sets the filters to the users preferences values stored in database.
+     */
+    private void setFiltersValuesFromDataBase() {
+        costBar.setSelectedMinValue(asUser.getMinRent());
+        costBar.setSelectedMaxValue(asUser.getMaxRent());
+        numRoommatesBar.setSelectedMinValue(asUser.getMinNumDesiredRoommates());
+        numRoommatesBar.setSelectedMaxValue(asUser.getMaxNumDesiredRoommates());
+        ageRoommatesBar.setSelectedMinValue(asUser.getMinAgeRequired());
+        if (asUser.getMaxAgeRequired() != 0) { //until user edit his age in edit profile the default value is 0
+            ageRoommatesBar.setSelectedMaxValue(asUser.getMaxAgeRequired());
+        }
     }
 
 }

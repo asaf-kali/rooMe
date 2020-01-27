@@ -63,12 +63,12 @@ public class EditProfileRoommateSearcher extends Fragment {
     //profile pic
     ImageView profilePic;
     ImageView addProfilePic;
-    final long ONE_MEGABYTE = 1024 * 1024;
+    private static final long ONE_MEGABYTE = 1024 * 1024;
     private Uri selectedImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        initalizeFirebaseVariables();
+        initializeFirebaseVariables();
         firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -85,9 +85,9 @@ public class EditProfileRoommateSearcher extends Fragment {
     }
 
     /**
-     * This method initalizes firebase variables
+     * This method initializes firebase variables.
      */
-    private void initalizeFirebaseVariables() {
+    private void initializeFirebaseVariables() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
         storage = FirebaseStorage.getInstance();
@@ -119,14 +119,12 @@ public class EditProfileRoommateSearcher extends Fragment {
             public void onClick(View v) {
                 if (isUserInputValid()) {
                     //save user data to DB
-                    if (changedPhoto){ //save image to DB only if it's a new one
-                        FirebaseMediate.uploadPhotoToStorage(selectedImage, getActivity(), getContext(),"Roommate Searcher User", "Profile Pic");
+                    if (changedPhoto) { //save image to DB only if it's a new one
+                        FirebaseMediate.uploadPhotoToStorage(selectedImage, getActivity(), getContext(), "Roommate Searcher User", "Profile Pic");
                         changedPhoto = false;
                     }
                     roommateSearcherUser.setInfo(infoEditText.getText().toString());
                     firebaseDatabaseReference.child("users").child("RoommateSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(roommateSearcherUser);
-                    Toast.makeText(getContext(), "save to db.", Toast.LENGTH_SHORT).show(); //todo edit
-
                 } else {
                     Intent intent = new Intent(EditProfileRoommateSearcher.this.getActivity(), EditProfileAlertDialog.class);
                     startActivity(intent);
@@ -148,7 +146,7 @@ public class EditProfileRoommateSearcher extends Fragment {
     }
 
     /**
-     * Sets the user's profile information from the firebase
+     * This method sets the user's profile information from the firebase
      */
     private void setInfo() {
         firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
@@ -173,7 +171,7 @@ public class EditProfileRoommateSearcher extends Fragment {
 
         phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);
         phoneNumberEditText.setText(roommateSearcherUser.getPhoneNumber());
-        if (roommateSearcherUser.getPhoneNumber() != null && roommateSearcherUser.getPhoneNumber().length() == User.PHONE_NUMBER_LENGTH){
+        if (roommateSearcherUser.getPhoneNumber() != null && roommateSearcherUser.getPhoneNumber().length() == User.PHONE_NUMBER_LENGTH) {
             isUserPhoneValid = true;
         }
 
@@ -203,7 +201,6 @@ public class EditProfileRoommateSearcher extends Fragment {
     /**
      * validating relevant fields filled by the user
      */
-
     private void validateUserInput() {
         validateUserFirstName();
         validateUserLastName();
@@ -257,7 +254,7 @@ public class EditProfileRoommateSearcher extends Fragment {
     private void validateUserFirstName() {
         firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
         firstNameEditText.setText(roommateSearcherUser.getFirstName());
-        checkIfValidFirstName();
+        setIsUserFirstNameValidToTrueIfValidFirstName();
         firstNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -284,7 +281,10 @@ public class EditProfileRoommateSearcher extends Fragment {
         });
     }
 
-    private void checkIfValidFirstName() {
+    /**
+     * This method sets IsUserFirstNameValid to true if valid first name.
+     */
+    private void setIsUserFirstNameValidToTrueIfValidFirstName() {
         int inputLength = firstNameEditText.getText().toString().length();
         if (inputLength < User.NAME_MAXIMUM_LENGTH && inputLength > 0) {
             isUserFirstNameValid = true;
@@ -297,7 +297,7 @@ public class EditProfileRoommateSearcher extends Fragment {
     private void validateUserLastName() {
         lastNameEditText = getView().findViewById(R.id.et_enterLastName);
         lastNameEditText.setText(roommateSearcherUser.getLastName());
-        checkIfValidLastName();
+        setIsUserLastNameValidToTrueIfValidLastName();
         lastNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -324,7 +324,10 @@ public class EditProfileRoommateSearcher extends Fragment {
         });
     }
 
-    private void checkIfValidLastName() {
+    /**
+     * This method sets isUserLastNameValid to true if valid last name.
+     */
+    private void setIsUserLastNameValidToTrueIfValidLastName() {
         int inputLength = lastNameEditText.getText().toString().length();
         if (inputLength < User.NAME_MAXIMUM_LENGTH && inputLength > 0) {
             isUserLastNameValid = true;
@@ -339,7 +342,7 @@ public class EditProfileRoommateSearcher extends Fragment {
         if (roommateSearcherUser.getAge() >= User.MINIMUM_AGE) {
             ageEditText.setText(Integer.toString(roommateSearcherUser.getAge()));
         }
-        checkIfValidAge();
+        setIsUserAgeValidToTrueIfValidAge();
         ageEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -393,7 +396,10 @@ public class EditProfileRoommateSearcher extends Fragment {
         });
     }
 
-    private void checkIfValidAge() {
+    /**
+     * This method sets isUserAgeValid to true if valid age.
+     */
+    private void setIsUserAgeValidToTrueIfValidAge() {
         int inputLength = ageEditText.getText().toString().length();
         if (inputLength != 0) {
             int curAge = Integer.parseInt(ageEditText.getText().toString());
@@ -433,7 +439,7 @@ public class EditProfileRoommateSearcher extends Fragment {
     private void validatePhoneNumber() {
         phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);
         phoneNumberEditText.setText(roommateSearcherUser.getPhoneNumber());
-        checkIfValidPhoneNumber();
+        setIsUserPhoneValidToTrueIfValidPhoneNumber();
         phoneNumberEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -472,7 +478,10 @@ public class EditProfileRoommateSearcher extends Fragment {
         });
     }
 
-    private void checkIfValidPhoneNumber() {
+    /**
+     * This method sets isUserPhoneValid to true if valid phone number.
+     */
+    private void setIsUserPhoneValidToTrueIfValidPhoneNumber() {
         int inputLength = phoneNumberEditText.getText().toString().length();
         if (inputLength == User.PHONE_NUMBER_LENGTH) {
             isUserPhoneValid = true;
