@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,6 +123,7 @@ public class EditProfileApartmentSearcher extends Fragment {
                     }
                     asUser.setBio(bioEditText.getText().toString());
                     firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
+                    Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(EditProfileApartmentSearcher.this.getActivity(), EditProfileAlertDialog.class);
                     startActivity(intent);
@@ -177,7 +179,7 @@ public class EditProfileApartmentSearcher extends Fragment {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    Toast.makeText(getContext(), "No Such file or Path found!!", Toast.LENGTH_LONG).show();
+                    Log.d("EditProfileAS", "No Such file or Path found!!");
                 }
             });
         }

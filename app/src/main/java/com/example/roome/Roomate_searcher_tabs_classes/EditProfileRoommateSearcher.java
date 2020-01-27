@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -190,7 +191,7 @@ public class EditProfileRoommateSearcher extends Fragment {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    Toast.makeText(getContext(), "No Such file or Path found!!", Toast.LENGTH_LONG).show();
+                    Log.d("EditProfileRS", "No Such file or Path found!!");
                 }
             });
         }

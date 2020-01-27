@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -20,6 +21,7 @@ import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
+import com.example.roome.SignInActivity;
 import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.example.roome.user_classes.RoommateSearcherUser;
 import com.google.firebase.database.DataSnapshot;
@@ -93,6 +95,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
             @Override
             public void onClick(View v) {
                 firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
+                Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
                 setSavedFiltersToLists();
             }
         });
@@ -250,7 +253,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
     }
 
     /**
-     * This method calls the method to filters out the the irrelevant roommate users from with 
+     * This method calls the method to filters out the the irrelevant roommate users from with
      * a specified list.
      */
     private void setSavedFiltersToLists() {
