@@ -21,7 +21,8 @@
         android:id="@+id/fl_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_below="@id/iv_trash_can"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="150dp"
         android:background="@drawable/ic_house_back_img">
 
