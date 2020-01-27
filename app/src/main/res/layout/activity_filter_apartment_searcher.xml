@@ -11,7 +11,7 @@
         android:id="@+id/profile_back_img3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:alpha="0.1"
+        android:alpha="0"
         android:src="@drawable/house_back_img"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

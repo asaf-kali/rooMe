@@ -1,21 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sign_in_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
 
-
-    <TextView
+    <ImageView
+        android:id="@+id/back_img4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
-        android:gravity="center_horizontal"
-        android:text="Welcome to \nrooMe"
-        android:textSize="36sp"
-        android:textStyle="bold" />
+        android:alpha="0.05"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/house_back_img" />
+
+
+    <ImageView
+        android:id="@+id/iv_roome_logo"
+        android:layout_width="351dp"
+        android:layout_height="146dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_roome_logo" />
+
+
+    <EditText
+        android:id="@+id/et_first_name_without_google"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/ic_et_back"
+        android:ems="10"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:ellipsize="none"
+        android:fontFamily="sans-serif"
+        android:gravity="start|center_horizontal"
+        android:hint="First Name"
+        android:paddingStart="12dp"
+        android:paddingTop="8dp"
+        android:textAlignment="viewStart"
+        android:textSize="20sp"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_roome_logo" />
+
+    <EditText
+        android:id="@+id/et_last_name_without_google"
+        android:layout_marginTop="24dp"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_et_back"
+        android:ellipsize="none"
+        android:fontFamily="sans-serif"
+        android:gravity="start|center_horizontal"
+        android:paddingStart="12dp"
+        android:paddingTop="8dp"
+        android:textAlignment="viewStart"
+        android:textSize="20sp"
+        android:ems="10"
+        android:hint="Last name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_first_name_without_google" />
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_sign_without_google"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:onClick="signWithoutGoogleFunc"-->
+<!--        android:text="create account and sign in"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/et_last_name_without_google" />-->
+
+    <TextView
+        android:id="@+id/tv_or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="Or sign in with google"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_sign_without_google" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
@@ -23,36 +99,44 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:visibility="visible" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_or" />
 
-    <EditText
-        android:id="@+id/et_first_name_without_google"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="500sp"
-        android:ems="10"
-        android:hint="first name"
-        android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/et_last_name_without_google"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="550sp"
-        android:ems="10"
-        android:hint="last name"
-        android:inputType="textPersonName" />
 
-    <Button
+    <ImageView
         android:id="@+id/btn_sign_without_google"
+        android:layout_width="149dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_last_name_without_google"
+        app:srcCompat="@drawable/ic_save_button" />
+
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="600sp"
-        android:onClick="signWithoutGoogleFunc"
-        android:text="sign without google" />
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="Create account\n and sign in"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:shadowColor="#40000000"
+        android:shadowDy="4"
+        android:shadowRadius="4"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_sign_without_google"
+        app:layout_constraintEnd_toEndOf="@+id/btn_sign_without_google"
+        app:layout_constraintStart_toStartOf="@+id/btn_sign_without_google"
+        app:layout_constraintTop_toTopOf="@+id/btn_sign_without_google" />
 
-</FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
