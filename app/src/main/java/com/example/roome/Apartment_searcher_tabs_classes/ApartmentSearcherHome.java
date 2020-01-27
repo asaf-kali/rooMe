@@ -154,8 +154,6 @@ public class ApartmentSearcherHome extends Fragment {
             public void onItemClicked(int itemPosition, Object dataObject) {
                 View view = flingContainer.getSelectedView();
                 view.findViewById(R.id.fl_background).setAlpha(0);
-                Toast.makeText(getContext(), "Clicked",
-                        Toast.LENGTH_SHORT).show();
                 myAppAdapter.notifyDataSetChanged();
             }
         });
