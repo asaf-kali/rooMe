@@ -14,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:gravity="center"
-        android:text="Welcome to rooMe!\n Here you can see all apartments searching for a roommate.\n We suggest you edit your filters and profile so that you will see apartments relevant to your preferences."
+        android:text="Welcome to rooMe!\n Now you can see all available apartments out there.\n Tip: edit your filters and profile so you will see apartments relevant to your preferences."
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
