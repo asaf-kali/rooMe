@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,6 +44,7 @@ public class ApartmentSearcherHome extends Fragment {
     private int currentPlaceInList = 0;
     private ImageView yesButton, maybeButton, noButton;
     private ImageView mainImage;
+    private ImageView trashCanImage;
     private TextView noMoreHousesText;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseDatabase mFirebaseDatabase;
@@ -84,6 +84,7 @@ public class ApartmentSearcherHome extends Fragment {
         mainImage = getView().findViewById(R.id.cardImage);
         yesButton = getView().findViewById(R.id.btn_yes_house);
         maybeButton = getView().findViewById(R.id.btn_maybe_house);
+        trashCanImage = getView().findViewById(R.id.iv_trash_can);
         noButton = getView().findViewById(R.id.btn_no_house);
         noMoreHousesText = getView().findViewById(R.id.tv_no_more_houses);
 
@@ -174,7 +175,7 @@ public class ApartmentSearcherHome extends Fragment {
 //            temp_img.add(R.drawable.home_example2);
 //            temp_img.add(R.drawable.home_example3);
 //        }
-        for (String uid:relevantRoommateSearchersIds){
+        for (String uid : relevantRoommateSearchersIds) {
             temp_img.add(Data.getImageByUid(uid));
         }
     }
@@ -205,6 +206,12 @@ public class ApartmentSearcherHome extends Fragment {
             @Override
             public void onClick(View view) {
                 pressedMaybeToApartment(view);
+            }
+        });
+
+        trashCanImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
             }
         });
 
@@ -477,12 +484,12 @@ public class ApartmentSearcherHome extends Fragment {
                 TextView tv = rowView.findViewById(R.id.tv_location);
                 RoommateSearcherUser currentRoommateSearcher =
                         FirebaseMediate.getRoommateSearcherUserByUid(relevantRoommateSearchersIds.get(position));
-                peopleText =rowView.findViewById(R.id.tv_people);
+                peopleText = rowView.findViewById(R.id.tv_people);
                 locationText = rowView.findViewById(R.id.tv_location);
                 priceText = rowView.findViewById(R.id.tv_price);
                 peopleText.setText(Integer.toString(currentRoommateSearcher.getApartment().getNumberOfRoommates()));
                 locationText.setText(currentRoommateSearcher.getApartment().getNeighborhood());
-                priceText.setText(Integer.toString((int)(currentRoommateSearcher.getApartment().getRent())));
+                priceText.setText(Integer.toString((int) (currentRoommateSearcher.getApartment().getRent())));
                 viewHolder.background =
                         (FrameLayout) rowView.findViewById(R.id.fl_background);
                 viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.cardImage);
