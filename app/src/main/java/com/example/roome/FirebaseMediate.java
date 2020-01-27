@@ -380,22 +380,4 @@ public class FirebaseMediate {
         allRelevantAptUid.add(aptUid);
         setRoommatePrefList(list, roommateUid, allRelevantAptUid);
     }
-
-
-    public static void deleteAllAptUsers() //todo delete this at the end
-    {
-        DataSnapshot ds = dataSs.child("users").child("ApartmentSearcherUser");
-        for (DataSnapshot child : ds.getChildren()) {
-            String key = child.getKey();
-            firebaseDatabaseReference.child("users").child(
-                    "ApartmentSearcherUser").child(key).removeValue();
-        }
-        DataSnapshot ds2 = dataSs.child("preferences").child(
-                "ApartmentSearcherUser");
-        for (DataSnapshot child : ds.getChildren()) {
-            String key = child.getKey();
-            firebaseDatabaseReference.child("preferences").child(
-                    "ApartmentSearcherUser").child(key).removeValue();
-        }
-    }
 }
