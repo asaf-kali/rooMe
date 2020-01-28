@@ -23,7 +23,8 @@
         android:id="@+id/sv_filters_as"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="105dp"
+        android:layout_marginBottom="130dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -41,8 +42,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Select your preferred cost range "
-                android:textAlignment="center"
+                android:text="What's your cost range?"
+                android:layout_marginLeft="15dp"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,22 +58,33 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_cost_range" />
 
+            <ImageView
+                android:id="@+id/sep_line0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_seperating_line"
+                app:layout_constraintBottom_toTopOf="@+id/tv_chosen_locations"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_cost_range" />
 
             <ImageView
                 android:id="@+id/btn_choose_locations"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:src="@drawable/ic_et_back"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rsb_cost_bar" />
+                app:layout_constraintTop_toBottomOf="@+id/sep_line0" />
 
             <TextView
                 android:id="@+id/tv_chosen_locations"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:hint="Choose your preferred locations"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:textSize="18sp"
@@ -84,7 +96,7 @@
                 android:id="@+id/iv_choose_entry_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:shadowColor="#40000000"
                 android:shadowDy="4"
                 android:shadowRadius="4"
@@ -99,6 +111,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textSize="18sp"
+                android:gravity="center"
+                android:hint="Pick an entry date"
                 app:layout_constraintBottom_toTopOf="@id/sep_line1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -119,13 +133,10 @@
                 android:id="@+id/tv_choose_roommates_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
-                android:text="Choose range of total number of roommates"
+                android:text="How many roommates in total?"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sep_line1" />
 
@@ -154,13 +165,10 @@
                 android:id="@+id/tv_choose_roommates_age_range"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
-                android:text="Select roommates' age range preference"
+                android:text="Select roommates' age range"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/sep_line2" />
 
@@ -188,13 +196,10 @@
                 android:id="@+id/tv_is_kosher_important"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
-                android:text="Is a Kosher apartment important to you?"
+                android:text="Kosher?"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/sep_line3" />
 
@@ -202,53 +207,35 @@
                 android:id="@+id/radioGroup_kosher_as"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_is_kosher_important">
-
-                <RadioButton
-                    android:id="@+id/radio_btn_as_yes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/peach"
-                    android:checked="true"
-                    android:paddingEnd="10dp"
-                    android:text="Yes!"
-                    android:textColor="@android:color/secondary_text_light"
-                    android:textColorLink="#4CAF50"
-                    android:textSize="20sp" />
 
                 <RadioButton
                     android:id="@+id/radio_btn_as_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/peach"
+                    android:checked="true"
+                    android:paddingEnd="10dp"
                     android:text="I don't mind"
+                    android:textColor="@android:color/secondary_text_light"
+                    android:textColorLink="#4CAF50"
+                    android:textSize="20sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_btn_as_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/peach"
+                    android:text="Yes!"
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorLink="#4CAF50"
                     android:textSize="20sp" />
             </RadioGroup>
 
-
-            <TextView
-                android:id="@+id/tv_click_here_locations"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:shadowColor="#40000000"
-                android:shadowDy="4"
-                android:shadowRadius="4"
-                android:text="Click here to choose your preferred ereas"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_choose_locations"
-                app:layout_constraintEnd_toEndOf="@+id/btn_choose_locations"
-                app:layout_constraintStart_toStartOf="@+id/btn_choose_locations"
-                app:layout_constraintTop_toTopOf="@+id/btn_choose_locations" />
 
             <TextView
                 android:id="@+id/tv_click_here_entry_date"
@@ -264,17 +251,14 @@
                 app:layout_constraintEnd_toEndOf="@+id/iv_choose_entry_date"
                 app:layout_constraintStart_toStartOf="@+id/iv_choose_entry_date"
                 app:layout_constraintTop_toTopOf="@+id/iv_choose_entry_date" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
     <ImageView
         android:id="@+id/btn_save_filters_as"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_width="179dp"
+        android:layout_height="84dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
         android:src="@drawable/ic_save_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sv_filters_as" />
@@ -282,14 +266,16 @@
     <TextView
         android:id="@+id/tv_save_in_btn_ef"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
         android:layout_marginBottom="8dp"
         android:shadowColor="#40000000"
         android:shadowDy="4"
         android:shadowRadius="4"
-        android:text="SAVE"
+        android:text="Show me\nrelevant apartments"
+        android:textAlignment="center"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/btn_save_filters_as"
         app:layout_constraintEnd_toEndOf="@+id/btn_save_filters_as"
