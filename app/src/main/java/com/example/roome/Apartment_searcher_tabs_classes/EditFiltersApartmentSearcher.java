@@ -117,13 +117,13 @@ public class EditFiltersApartmentSearcher extends Fragment {
         });
         //---------------------------------------------------------------------------
         //----------------------------location selection----------------------------
-        mChooseLocations = getView().findViewById(R.id.btn_choose_locations);
+//        mChooseLocations = getView().findViewById(R.id.btn_choose_locations);
         mChosenLocations = getView().findViewById(R.id.tv_chosen_locations);
 
         locations = getResources().getStringArray(R.array.locations);
         checkedLocations = new boolean[locations.length];
 
-        mChooseLocations.setOnClickListener(new View.OnClickListener() {
+        mChosenLocations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
@@ -178,10 +178,10 @@ public class EditFiltersApartmentSearcher extends Fragment {
         });
         //---------------------------------------------------------------------------
         //----------------------------entry date selection----------------------------
-        mDisplayDate = getView().findViewById(R.id.iv_choose_entry_date);
+//        mDisplayDate = getView().findViewById(R.id.iv_choose_entry_date);
         final TextView chosenDate = getView().findViewById(R.id.tv_entry_date_as);
 
-        mDisplayDate.setOnClickListener(new View.OnClickListener() {
+        chosenDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar cal = Calendar.getInstance();
