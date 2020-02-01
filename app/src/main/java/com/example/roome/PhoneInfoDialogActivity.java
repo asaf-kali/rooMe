@@ -8,12 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 /**
  * This is a dialog themed activity for a new apartment searcher on boarding.
  */
-public class ApartmentSearcherOnBoardDialogActivity extends AppCompatActivity {
+public class PhoneInfoDialogActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_apartment_searcher_on_board);
+        setContentView(R.layout.activity_phone_info_dialog);
     }
 
     /**
