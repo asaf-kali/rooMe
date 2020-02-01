@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_alert_msg_part_1"
-        app:srcCompat="@drawable/ic_save_button" />
+        app:srcCompat="@drawable/ic_button_save_small" />
 
     <TextView
         android:id="@+id/ok_txt_in_btn"
@@ -41,7 +41,7 @@
         android:shadowColor="#40000000"
         android:shadowDy="4"
         android:shadowRadius="4"
-        android:text="ok"
+        android:text="@android:string/ok"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/btn_ok_dialog"

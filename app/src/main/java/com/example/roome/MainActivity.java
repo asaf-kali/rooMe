@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String MAIN_SRC = "MAIN";
     protected static final int MIN_SUPPORTED_API_LEVEL = 20;
     //Time passed till next activity is launched
-    private static final int TIME_OUT = 3000;
+    private static final int TIME_OUT = 2500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
