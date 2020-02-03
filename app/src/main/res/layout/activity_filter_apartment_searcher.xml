@@ -42,7 +42,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="8dp"
-                android:text="What's your cost range?"
+                android:text="Preferred cost range"
+                android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,19 +63,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_seperating_line"
                 app:layout_constraintBottom_toTopOf="@+id/tv_chosen_locations"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_cost_range" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_cost_range" />
 
             <ImageView
                 android:id="@+id/btn_choose_locations"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:src="@drawable/ic_et_back"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +87,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:hint="Choose your preferred locations"
+                android:hint="Preferred locations"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:hint="Pick an entry date"
+                android:hint="Entry date"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@id/sep_line1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -124,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_seperating_line"
                 app:layout_constraintBottom_toTopOf="@+id/tv_choose_roommates_num"
@@ -137,8 +137,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="24dp"
-                android:text="How many roommates in total?"
+                android:layout_marginTop="16dp"
+                android:text="Number of roommates in total"
+                android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sep_line1" />
@@ -157,7 +158,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_seperating_line"
                 app:layout_constraintBottom_toTopOf="@id/tv_choose_roommates_age_range"
@@ -171,8 +172,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="24dp"
-                android:text="Select roommates' age range"
+                android:layout_marginTop="16dp"
+                android:text="Roommates' age range"
+                android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/sep_line2" />
@@ -191,7 +193,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_seperating_line"
                 app:layout_constraintBottom_toTopOf="@+id/tv_is_kosher_important"
@@ -204,8 +206,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="Things I care about:"
+                android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/sep_line3" />
@@ -248,9 +251,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="Smoking free "
+                android:layout_marginTop="12dp"
                 android:buttonTint="@color/peach"
+                android:text="Smoking free "
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_is_kosher_important" />
 
@@ -270,7 +275,7 @@
                 app:layout_constraintTop_toTopOf="@+id/iv_choose_entry_date" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/iv_smoking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_smoke_free_icon"
@@ -280,24 +285,75 @@
                 app:layout_constraintTop_toTopOf="@+id/check_box_smoking" />
 
             <CheckBox
-                android:id="@+id/checkBox2"
+                android:id="@+id/check_box_pets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:buttonTint="@color/peach"
                 android:text="No pets "
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/iv_smoking"
                 app:layout_constraintTop_toBottomOf="@+id/tv_is_kosher_important" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/iv_pets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_pets_icon"
-                app:layout_constraintBottom_toBottomOf="@+id/checkBox2"
-                app:layout_constraintStart_toEndOf="@+id/checkBox2"
-                app:layout_constraintTop_toTopOf="@+id/checkBox2" />
+                app:layout_constraintBottom_toBottomOf="@+id/check_box_pets"
+                app:layout_constraintStart_toEndOf="@+id/check_box_pets"
+                app:layout_constraintTop_toTopOf="@+id/check_box_pets" />
+
+            <CheckBox
+                android:id="@+id/check_box_ac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:buttonTint="@color/peach"
+                android:text="AC "
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/filters_constrained_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/check_box_smoking" />
+
+            <ImageView
+                android:id="@+id/iv_ac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_ac_icon"
+                app:layout_constraintBottom_toBottomOf="@+id/check_box_ac"
+                app:layout_constraintStart_toEndOf="@+id/check_box_ac"
+                app:layout_constraintTop_toTopOf="@+id/check_box_ac" />
+
+            <CheckBox
+                android:id="@+id/check_box_kosher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="69dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:buttonTint="@color/peach"
+                android:text="Kosher "
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/filters_constrained_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_ac"
+                app:layout_constraintTop_toBottomOf="@id/check_box_pets" />
+
+            <ImageView
+                android:id="@+id/iv_kosher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_kitchen_icon"
+                app:layout_constraintBottom_toBottomOf="@+id/check_box_kosher"
+                app:layout_constraintStart_toEndOf="@+id/check_box_kosher"
+                app:layout_constraintTop_toTopOf="@+id/check_box_kosher" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -330,6 +386,7 @@
         app:layout_constraintEnd_toEndOf="@+id/btn_save_filters_as"
         app:layout_constraintStart_toStartOf="@+id/btn_save_filters_as"
         app:layout_constraintTop_toTopOf="@+id/btn_save_filters_as" />
+
 
 
 
