@@ -158,7 +158,7 @@ public class EditProfileApartmentSearcher extends Fragment {
         lastNameEditText = getView().findViewById(R.id.et_enter_last_name);
         lastNameEditText.setText(asUser.getLastName());
 
-        ageEditText = getView().findViewById(R.id.et_enterAge);
+        ageEditText = getView().findViewById(R.id.et_enter_age);
         if (asUser.getAge() >= User.MINIMUM_AGE) {
             ageEditText.setText(Integer.toString(asUser.getAge()));
             isUserAgeValid = true;
@@ -344,7 +344,7 @@ public class EditProfileApartmentSearcher extends Fragment {
      * validating the age entered. Age has to be between 6 and 120.
      */
     private void validateAge() {
-        ageEditText = getView().findViewById(R.id.et_enterAge);
+        ageEditText = getView().findViewById(R.id.et_enter_age);
         if (asUser.getAge() >= User.MINIMUM_AGE) {
             ageEditText.setText(Integer.toString(asUser.getAge()));
         }
