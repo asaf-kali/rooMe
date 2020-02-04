@@ -10,8 +10,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.roome.Roomate_searcher_tabs_classes.EditFiltersRoommateSearcher;
 import com.example.roome.Roomate_searcher_tabs_classes.EditProfileRoommateSearcher;
-import com.example.roome.Roomate_searcher_tabs_classes.OneFragmentR;
-import com.example.roome.Roomate_searcher_tabs_classes.TwoFragmentR;
+import com.example.roome.Roomate_searcher_tabs_classes.RoommateSearcherHome;
+import com.example.roome.Roomate_searcher_tabs_classes.MatchesRoommateSearcher;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -77,8 +77,8 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new OneFragmentR(), "HOME");
-        adapter.addFragment(new TwoFragmentR(), "MATCHES");
+        adapter.addFragment(new RoommateSearcherHome(), "HOME");
+        adapter.addFragment(new MatchesRoommateSearcher(), "MATCHES");
         adapter.addFragment(new EditFiltersRoommateSearcher(), "FILTERS");
         adapter.addFragment(new EditProfileRoommateSearcher(), "PROFILE");
         viewPager.setAdapter(adapter);

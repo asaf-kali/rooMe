@@ -16,11 +16,9 @@ import com.example.roome.Apartment_searcher_tabs_classes.ApartmentSearcherHome;
 import com.example.roome.Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher;
 import com.example.roome.Apartment_searcher_tabs_classes.EditProfileApartmentSearcher;
 import com.example.roome.Apartment_searcher_tabs_classes.MatchesApartmentSearcher;
-import com.example.roome.Apartment_searcher_tabs_classes.TwoFragmentA;
 import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

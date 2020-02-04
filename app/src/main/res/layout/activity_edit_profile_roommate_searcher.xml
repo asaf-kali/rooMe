@@ -204,7 +204,7 @@
                 android:layout_width="120dp"
                 android:layout_height="50dp"
                 android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_save_button"
+                android:src="@drawable/ic_button_save_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_info" />
 

@@ -1,7 +1,6 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.example.roome.ChoosingActivity;
 import com.example.roome.Data;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
-import com.example.roome.PhoneInfoDialogActivity;
 import com.example.roome.R;
 import com.example.roome.user_classes.RoommateSearcherUser;
 import com.google.firebase.auth.FirebaseAuth;
@@ -294,23 +292,11 @@ public class ApartmentSearcherHome extends Fragment {
 
             }
         });
-
-
     }
 
     private void refreshList() {
         moreHouses();
     }
-
-        private void updateMainImage() {
-        //todo add all this
-//        RoommateSearcherUser currentRoomateSearcher = relevantRoommateSearchers.get(currentPlaceInList);
-//        Apartment cur_apt = currentRoomateSearcher.getApartment();
-//        Image mainImg = cur_apt.getMainImage();
-        //todo update the imageview (iv_display_house) to mainImg
-        mainImage.setImageResource(R.drawable.home_example1); //todo delete this
-    }
-
 
     private void removeFromHaveNotSeen(String roommateUid) {
         FirebaseMediate.removeFromAptPrefList(ChoosingActivity.NOT_SEEN,
@@ -361,34 +347,6 @@ public class ApartmentSearcherHome extends Fragment {
 //        moveToNextOption();
     }
 
-//    private void moveToNextOption() { //todo delete , undelete the function below
-//        currentPlaceInList++;
-//        if (currentPlaceInList < temp_img.size()) {
-//            Toast.makeText(getActivity(), Integer.toString(currentPlaceInList), Toast.LENGTH_SHORT).show();
-//            mainImage.setImageResource(temp_img.get(currentPlaceInList));
-//        } else {
-//            noMoreHouses();
-//        }
-//    }
-//    private void moveToNextOption() {
-//        //todo check boundries of array
-//        currentPlaceInList++;
-//        if (currentPlaceInList < relevantRoommateSearchers.size()) {
-//            Toast.makeText(getActivity(), Integer.toString(currentPlaceInList), Toast.LENGTH_SHORT).show();
-//            updateMainImage();
-//        } else {
-//            noMoreHouses();
-//        }
-//    }
-
-    private void noMoreHouses() {
-        yesButton.setVisibility(View.INVISIBLE);
-        noButton.setVisibility(View.INVISIBLE);
-        maybeButton.setVisibility(View.INVISIBLE);
-
-        Glide.with(getContext()).load(R.drawable.no_more_houses_2).into(viewHolder.cardImage);
-        noMoreHousesText.setVisibility(View.VISIBLE);
-    }
 
     private void moreHouses() {
 //
@@ -464,7 +422,7 @@ public class ApartmentSearcherHome extends Fragment {
             if (rowView == null) {
 
                 LayoutInflater inflater = getLayoutInflater();
-                rowView = inflater.inflate(R.layout.item, parent, false);
+                rowView = inflater.inflate(R.layout.card_item, parent, false);
                 // configure view holder
                 viewHolder = new ViewHolder();
                 viewHolder.basicInfo =
