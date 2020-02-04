@@ -13,11 +13,9 @@ public class ApartmentSearcherUser extends User {
     private int maxRent;
     private String earliestEntryDate;//todo: make sure to represent it as MM/YYYY
     private String latestEntryDate;
-    private int minNumDesiredRoommates;
     private int maxNumDesiredRoommates;
 
     private static final int MAX_RENT_VALUE = 4000;
-    private static final int MAX_NUM_D_VALUE = 5;
 
 
     public ApartmentSearcherUser(String firstName, String lastName, int age) {
@@ -35,7 +33,6 @@ public class ApartmentSearcherUser extends User {
         this.maxRent = aUser.maxRent;
         this.earliestEntryDate = aUser.earliestEntryDate;
         this.latestEntryDate = aUser.latestEntryDate;
-        this.minNumDesiredRoommates = aUser.minNumDesiredRoommates;
         this.maxNumDesiredRoommates = aUser.maxNumDesiredRoommates;
         this.bio = aUser.bio;
     }
@@ -65,18 +62,7 @@ public class ApartmentSearcherUser extends User {
         return earliestEntryDate;
     }
 
-    public String getLatestEntryDate() {
-        return latestEntryDate;
-    }
-
-    public int getMinNumDesiredRoommates() {
-        return minNumDesiredRoommates;
-    }
-
     public int getMaxNumDesiredRoommates() {
-        if (maxNumDesiredRoommates==0){
-            return MAX_NUM_D_VALUE;
-        }
         return maxNumDesiredRoommates;
     }
 
@@ -100,14 +86,6 @@ public class ApartmentSearcherUser extends User {
 
     public void setEarliestEntryDate(String earliestEntryDate) {
         this.earliestEntryDate = earliestEntryDate;
-    }
-
-    public void setLatestEntryDate(String latestEntryDate) {
-        this.latestEntryDate = latestEntryDate;
-    }
-
-    public void setMinNumDesiredRoommates(int minNumDesiredRoommates) {
-        this.minNumDesiredRoommates = minNumDesiredRoommates;
     }
 
     public void setMaxNumDesiredRoommates(int maxNumDesiredRoommates) {
