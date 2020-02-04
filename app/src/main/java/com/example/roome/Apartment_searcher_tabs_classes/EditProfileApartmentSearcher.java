@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -129,6 +134,8 @@ public class EditProfileApartmentSearcher extends Fragment {
                 }
             }
         });
+        addRedStarToTextView(R.id.tv_age,"Age");
+        addRedStarToTextView(R.id.tv_phoneNumber,"Phone number");
         validateUserInput();
         phoneInfoButton = getView().findViewById(R.id.iv_phone_info_btn);
         phoneInfoButton.setOnClickListener(new View.OnClickListener() {
@@ -145,10 +152,10 @@ public class EditProfileApartmentSearcher extends Fragment {
      * Sets the user's profile information from the firebase
      */
     private void setInfo() {
-        firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
+        firstNameEditText = getView().findViewById(R.id.et_enter_first_name);
         firstNameEditText.setText(asUser.getFirstName());
 
-        lastNameEditText = getView().findViewById(R.id.et_enterLastName);
+        lastNameEditText = getView().findViewById(R.id.et_enter_last_name);
         lastNameEditText.setText(asUser.getLastName());
 
         ageEditText = getView().findViewById(R.id.et_enterAge);
@@ -165,7 +172,7 @@ public class EditProfileApartmentSearcher extends Fragment {
             femaleRadioButton.setChecked(true);
         }
 
-        phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);
+        phoneNumberEditText = getView().findViewById(R.id.et_phone_number);
         phoneNumberEditText.setText(asUser.getPhoneNumber());
         if (asUser.getPhoneNumber() != null && asUser.getPhoneNumber().length() == User.PHONE_NUMBER_LENGTH) {
             isUserPhoneValid = true;
@@ -251,7 +258,7 @@ public class EditProfileApartmentSearcher extends Fragment {
      * validate the entered name.
      */
     private void validateUserFirstName() {
-        firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
+        firstNameEditText = getView().findViewById(R.id.et_enter_first_name);
         firstNameEditText.setText(asUser.getFirstName());
         setIsUserFirstNameValidToTrueIfValidFirstName();
         firstNameEditText.addTextChangedListener(new TextWatcher() {
@@ -294,7 +301,7 @@ public class EditProfileApartmentSearcher extends Fragment {
      * validate the entered name.
      */
     private void validateUserLastName() {
-        lastNameEditText = getView().findViewById(R.id.et_enterLastName);
+        lastNameEditText = getView().findViewById(R.id.et_enter_last_name);
         lastNameEditText.setText(asUser.getLastName());
         setIisUserLastNameValidIfValidLastName();
         lastNameEditText.addTextChangedListener(new TextWatcher() {
@@ -436,7 +443,7 @@ public class EditProfileApartmentSearcher extends Fragment {
      * validating the PhoneNumber entered.
      */
     private void validatePhoneNumber() {
-        phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);
+        phoneNumberEditText = getView().findViewById(R.id.et_phone_number);
         phoneNumberEditText.setText(asUser.getPhoneNumber());
         setIsUserPhoneValidToTrueIfPhoneNumberValid();
         phoneNumberEditText.addTextChangedListener(new TextWatcher() {
@@ -485,6 +492,36 @@ public class EditProfileApartmentSearcher extends Fragment {
         if (inputLength == User.PHONE_NUMBER_LENGTH) {
             isUserPhoneValid = true;
         }
+    }
+
+    /**
+     * This method returns a SpannableStringBuilder with the text and red star.
+     * @param text - the text to show in the text view.
+     * @return SpannableStringBuilder.
+     */
+    @NonNull
+    private SpannableStringBuilder setStarToLabel(String text) {
+        String simple = text;
+        String colored = "*";
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        builder.append(simple);
+        int start = builder.length();
+        builder.append(colored);
+        int end = builder.length();
+        builder.setSpan(new ForegroundColorSpan(Color.RED), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return builder;
+    }
+
+    /**
+     * This method adds a red star to a text view filed.
+     * @param textView - the text view to add the red star to.
+     * @param text - the text to show in the text view.
+     */
+    @NonNull
+    private void addRedStarToTextView(int textView, String text) {
+        TextView tv = (TextView) getView().findViewById(textView);
+        SpannableStringBuilder builder1 = setStarToLabel(text);
+        tv.setText(builder1);
     }
 
 }

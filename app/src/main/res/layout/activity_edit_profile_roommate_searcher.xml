@@ -51,7 +51,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/et_enterFirstName"
+                android:id="@+id/et_enter_first_name"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
@@ -71,7 +71,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/et_enterLastName"
+                android:id="@+id/et_enter_last_name"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -86,7 +86,7 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
-                app:layout_constraintTop_toBottomOf="@id/et_enterFirstName" />
+                app:layout_constraintTop_toBottomOf="@id/et_enter_first_name" />
 
             <EditText
                 android:id="@+id/et_enterAge"
@@ -105,10 +105,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.483"
                 app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
-                app:layout_constraintTop_toBottomOf="@+id/et_enterLastName" />
+                app:layout_constraintTop_toBottomOf="@+id/et_enter_last_name" />
 
             <RadioGroup
-                android:id="@+id/radioGroup_choose_gender"
+                android:id="@+id/radio_group_choose_gender"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -161,7 +161,7 @@
             </RadioGroup>
 
             <EditText
-                android:id="@+id/et_phoneNumber"
+                android:id="@+id/et_phone_number"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -177,7 +177,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup_choose_gender" />
+                app:layout_constraintTop_toBottomOf="@+id/radio_group_choose_gender" />
 
             <EditText
                 android:id="@+id/et_info"
@@ -197,7 +197,7 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
-                app:layout_constraintTop_toBottomOf="@+id/et_phoneNumber" />
+                app:layout_constraintTop_toBottomOf="@+id/et_phone_number" />
 
             <ImageView
                 android:id="@+id/btn_save_profile_as"
