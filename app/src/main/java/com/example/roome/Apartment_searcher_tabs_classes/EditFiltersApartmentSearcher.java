@@ -42,7 +42,7 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
     TextView mChosenLocations;
     String[] locations;
     boolean[] checkedLocations;
-    ArrayList<Integer> mUserLocations = new ArrayList<>(); //todo:send the locations chosen to db when save pressed
+    ArrayList<Integer> userLocations = new ArrayList<>(); //todo:send the locations chosen to db when save pressed
     int[] checkBoxesValues = new int[]{R.id.check_box_pets, R.id.check_box_kosher, R.id.check_box_ac, R.id.check_box_smoking};
     private ImageView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -114,53 +114,53 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         mChooseLocations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
-                mBuilder.setTitle("Locations in Jerusalem");
-                mBuilder.setMultiChoiceItems(locations, checkedLocations, new DialogInterface.OnMultiChoiceClickListener() {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setTitle("Locations in Jerusalem");
+                for (int index : asUser.getOptionalNeighborhoods()) {
+                    checkedLocations[index] = true;
+                }
+                alertDialogBuilder.setMultiChoiceItems(locations, checkedLocations, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
                         if (isChecked) {
-                            mUserLocations.add(position);
+                            if (!userLocations.contains(position)) {
+                                userLocations.add(position);
+                            }
                         } else {
-                            mUserLocations.remove((Integer.valueOf(position)));
+                            userLocations.remove(position);
                         }
                     }
                 });
 
-                mBuilder.setCancelable(false);
-                mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setCancelable(false);
+                alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-                        String item = "";
-                        for (int i = 0; i < mUserLocations.size(); i++) {
-                            item = item + locations[mUserLocations.get(i)];
-                            if (i != mUserLocations.size() - 1) {
-                                item = item + ", ";
-                            }
-                        }
-                        mChosenLocations.setText(item);
+                        String text = toStringUserLocations();
+                        mChosenLocations.setText(text);
+                        asUser.setOptionalNeighborhoods(userLocations);
                     }
                 });
 
-                mBuilder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
                     }
                 });
 
-                mBuilder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         for (int i = 0; i < checkedLocations.length; i++) {
                             checkedLocations[i] = false;
-                            mUserLocations.clear();
+                            userLocations.clear();
                             mChosenLocations.setText("");
                         }
                     }
                 });
 
-                AlertDialog mDialog = mBuilder.create();
+                AlertDialog mDialog = alertDialogBuilder.create();
                 mDialog.show();
             }
         });
@@ -249,8 +249,22 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         addOnClickToCheckBoxes();
 
         super.onActivityCreated(savedInstanceState);
-        asUser = FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext())); //todo is ok?
+        asUser = FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext()));
         setFiltersValuesFromDataBase();
+    }
+
+    /**
+     * This method returns a string from the user location list.
+     */
+    private String toStringUserLocations() {
+        String text = "";
+        for (int i = 0; i < userLocations.size(); i++) {
+            text = text + locations[userLocations.get(i)];
+            if (i != userLocations.size() - 1) {
+                text = text + ", ";
+            }
+        }
+        return text;
     }
 
     /**
@@ -310,6 +324,9 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         setCheckBoxesToUserPreferences();
         final TextView chosenDate = getView().findViewById(R.id.tv_click_here_entry_date);
         chosenDate.setText(asUser.getEarliestEntryDate());
+        userLocations = asUser.getOptionalNeighborhoods();
+        String text = toStringUserLocations();
+        mChosenLocations.setText(text);
     }
 
     /**
@@ -406,5 +423,4 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
                 return false;
         }
     }
-
 }
