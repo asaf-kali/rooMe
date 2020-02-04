@@ -163,7 +163,6 @@
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/peach"
                     android:checked="true"
-                    android:paddingEnd="10dp"
                     android:text="2"
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorLink="#4CAF50"

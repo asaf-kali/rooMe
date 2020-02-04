@@ -282,7 +282,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
     }
 
 
-    //todo: set selected max num of roommates into radio buttons
+    //todo: set selected max num of roommates into radio buttons & things i care about
     /**
      * This method sets the filters to the users preferences values stored in database.
      */
