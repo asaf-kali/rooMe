@@ -6,6 +6,24 @@
     <string name="edit_profile_button_ab">edit profile</string>
     <string name="edit_filters_button_ab">edit filters</string>
     <string name="what_would_you_like_to_find">What would you like to find?</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="age">Age</string>
+    <string name="gender">Gender</string>
+    <string name="lady">Lady</string>
+    <string name="gentleman">Gentleman</string>
+    <string name="phone_number">Phone number</string>
+    <string name="bio">Bio</string>
+    <string name="some_words_about_myself">Some words about myself...</string>
+    <string name="save">SAVE</string>
+    <string name="apartment">Apartment</string>
+    <string name="to_join_to">to join to</string>
+    <string name="roommate">Roommate</string>
+    <string name="for_my_apt">for my apt</string>
+    <string name="save_profile_warning">Oops!  we can see that you have some  unfilled or invalid fields. please   take a look again before saving.</string>
+    <string name="yea_sure">Yea, sure!</string>
+    <string name="background_desc">background image</string>
+    <string name="logo_desc">rooMe logo image</string>
 
 
     <string-array name="locations">

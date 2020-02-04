@@ -13,6 +13,8 @@ public class MyPreferences {
     static final String USER_UID = "userFirebaseUid";
     static final String MANUAL_FIRST_NAME = "FIRSTNAME";
     static final String MANUAL_LAST_NAME = "LASTNAME";
+    private static final String IS_FIRST_LIKE = "FIRST_LIKE" ;
+    private static final String IS_FIRST_UNLIKE = "FIRST_UNLIKE" ;
 
 
     public static boolean isFirstTime(Context context) {
@@ -72,6 +74,28 @@ public class MyPreferences {
     static boolean isRoommateSearcher(Context context) {
         final SharedPreferences reader = getSharedPreferences(context);
         return reader.getBoolean(IS_ROOMMATE_SEARCHER, true);
+    }
+
+    public static boolean isFirstLike(Context context) {
+        final SharedPreferences reader = getSharedPreferences(context);
+        return reader.getBoolean(IS_FIRST_LIKE, true);
+    }
+    public static void setIsFirstLikeToFalse(Context context) {
+        final SharedPreferences reader = getSharedPreferences(context);
+        final SharedPreferences.Editor preferencesEditor = reader.edit();
+        preferencesEditor.putBoolean(IS_FIRST_LIKE, false);
+        preferencesEditor.apply();
+    }
+    public static void setIsFirstUnlikeToFalse(Context context) {
+        final SharedPreferences reader = getSharedPreferences(context);
+        final SharedPreferences.Editor preferencesEditor = reader.edit();
+        preferencesEditor.putBoolean(IS_FIRST_UNLIKE, false);
+        preferencesEditor.apply();
+    }
+
+    public static boolean isFirstUnlike(Context context) {
+        final SharedPreferences reader = getSharedPreferences(context);
+        return reader.getBoolean(IS_FIRST_UNLIKE, true);
     }
 
     private static SharedPreferences getSharedPreferences(Context context) {
