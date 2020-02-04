@@ -13,12 +13,14 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.roome.Data;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.R;
 
 public class ApartmentAdditionalInfo extends DialogFragment {
-    ImageView iv_exit_btn;
-    TextView additionalInfo;
+    ImageView exitOption,aptImg;
+    TextView additionalInfo, numOfRoomates, neighborhood, price;
+
     RoommateSearcherUser roommateSearcherUser;
     public void ApartmentAdditionalInfo(){
 
@@ -41,30 +43,40 @@ public class ApartmentAdditionalInfo extends DialogFragment {
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
-        iv_exit_btn = getView().findViewById(R.id.iv_btn_x);
-        iv_exit_btn.setOnClickListener(new View.OnClickListener() {
+        exitOption = getView().findViewById(R.id.iv_btn_x);
+        exitOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getDialog().dismiss();
             }
         });
         additionalInfo = getView().findViewById(R.id.tv_additional_info);
+        numOfRoomates = getView().findViewById(R.id.tv_roommate_num);
+        price = getView().findViewById(R.id.tv_apt_price);
+        neighborhood = getView().findViewById(R.id.tv_location);
         additionalInfo.setText(roommateSearcherUser.getAdditionalInfo());
+        numOfRoomates.setText(Integer.toString(roommateSearcherUser.getApartment().getNumberOfRoommates()));
+        price.setText(Integer.toString((int)roommateSearcherUser.getApartment().getRent()));
+        neighborhood.setText(roommateSearcherUser.getApartment().getNeighborhood());
+        aptImg = getView().findViewById(R.id.iv_house_img);
+        aptImg.setImageResource(Data.getImageByUid(getArguments().getString(
+                "roommateId")));
+
         super.onActivityCreated(savedInstanceState);
     }
 
-//    @Override
-//    public void onStart()
-//    {
-//        super.onStart();
-//        Dialog dialog = getDialog();
-//        if (dialog != null)
-//        {
-//            Window window = getDialog().getWindow();
-//            WindowManager.LayoutParams params = window.getAttributes();
-//            params.width = SIZE_OF_DIALOG;
-//            params.height = SIZE_OF_DIALOG;
-//            window.setAttributes(params);
-//        }
-//    }
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null)
+        {
+            Window window = getDialog().getWindow();
+            WindowManager.LayoutParams params = window.getAttributes();
+            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            window.setAttributes(params);
+        }
+    }
 }
