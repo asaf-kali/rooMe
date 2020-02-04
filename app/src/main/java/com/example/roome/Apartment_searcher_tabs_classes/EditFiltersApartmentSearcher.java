@@ -87,13 +87,12 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validCostRange && validAgeRange){
+                if (validCostRange && validAgeRange) {
                     firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
                     Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
                     setSavedFiltersToLists();
                     getDialog().dismiss();
-                }
-                else {
+                } else {
                     Toast.makeText(getContext(), "Invalid input", Toast.LENGTH_SHORT).show();
                 }
 
@@ -119,13 +118,12 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
             public void afterTextChanged(Editable s) {
                 int minInputLen = minCostEditText.getText().toString().length();
                 int maxInputLen = maxCostEditText.getText().toString().length();
-                if (minInputLen != 0 && maxInputLen != 0){
+                if (minInputLen != 0 && maxInputLen != 0) {
                     int minCostInput = Integer.parseInt(minCostEditText.getText().toString());
-                    if (minCostInput > Integer.parseInt(maxCostEditText.getText().toString())){
+                    if (minCostInput > Integer.parseInt(maxCostEditText.getText().toString())) {
                         minCostEditText.setError("Min is bigger than max!");
                         validCostRange = false;
-                    }
-                    else {
+                    } else {
                         validCostRange = true;
                         asUser.setMinRent(minCostInput);
                     }
@@ -144,13 +142,12 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int minInputLen = minCostEditText.getText().toString().length();
                 int maxInputLen = maxCostEditText.getText().toString().length();
-                if (minInputLen != 0 && maxInputLen != 0){
+                if (minInputLen != 0 && maxInputLen != 0) {
                     int maxCostInput = Integer.parseInt(maxCostEditText.getText().toString());
-                    if (maxCostInput >= Integer.parseInt(minCostEditText.getText().toString())){
+                    if (maxCostInput >= Integer.parseInt(minCostEditText.getText().toString())) {
                         validCostRange = true;
                         asUser.setMaxRent(maxCostInput);
-                    }
-                    else{
+                    } else {
                         validCostRange = false;
                     }
                 }
@@ -164,16 +161,15 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         maxCostEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
+                if (!hasFocus) {
                     int minInputLen = minCostEditText.getText().toString().length();
                     int maxInputLen = maxCostEditText.getText().toString().length();
-                    if (minInputLen != 0 && maxInputLen != 0){
+                    if (minInputLen != 0 && maxInputLen != 0) {
                         int maxCostInput = Integer.parseInt(maxCostEditText.getText().toString());
-                        if (maxCostInput < Integer.parseInt(minCostEditText.getText().toString())){
+                        if (maxCostInput < Integer.parseInt(minCostEditText.getText().toString())) {
                             validCostRange = false;
                             maxCostEditText.setError("Max is smaller than min!");
-                        }
-                        else {
+                        } else {
                             validCostRange = true;
                             asUser.setMaxRent(maxCostInput);
                         }
@@ -204,7 +200,12 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
                                 userLocations.add(position);
                             }
                         } else {
-                            userLocations.remove(position);
+                            for (int i = 0; i < userLocations.size(); i++) {
+                                if (userLocations.get(i) == position) {
+                                    userLocations.remove(i);
+                                    break;
+                                }
+                            }
                         }
                     }
                 });
@@ -323,13 +324,12 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
             public void afterTextChanged(Editable s) {
                 int minInputLen = minAgeEditText.getText().toString().length();
                 int maxInputLen = maxAgeEditText.getText().toString().length();
-                if (minInputLen != 0 && maxInputLen != 0){
+                if (minInputLen != 0 && maxInputLen != 0) {
                     int minAgeInput = Integer.parseInt(minAgeEditText.getText().toString());
-                    if (minAgeInput > Integer.parseInt(maxAgeEditText.getText().toString())){
+                    if (minAgeInput > Integer.parseInt(maxAgeEditText.getText().toString())) {
                         minAgeEditText.setError("Min is bigger than max!");
                         validAgeRange = false;
-                    }
-                    else {
+                    } else {
                         validAgeRange = true;
                         asUser.setMinAgeRequired(minAgeInput);
                     }
@@ -348,18 +348,18 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int minInputLen = minAgeEditText.getText().toString().length();
                 int maxInputLen = maxAgeEditText.getText().toString().length();
-                if (minInputLen != 0 && maxInputLen != 0){
+                if (minInputLen != 0 && maxInputLen != 0) {
                     int maxAgeInput = Integer.parseInt(maxAgeEditText.getText().toString());
-                    if (maxAgeInput >= Integer.parseInt(minAgeEditText.getText().toString())){
+                    if (maxAgeInput >= Integer.parseInt(minAgeEditText.getText().toString())) {
                         validAgeRange = true;
                         asUser.setMaxAgeRequired(maxAgeInput);
-                    }
-                    else {
+                    } else {
                         validAgeRange = false;
 
                     }
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -368,16 +368,15 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         maxAgeEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
+                if (!hasFocus) {
                     int minInputLen = minAgeEditText.getText().toString().length();
                     int maxInputLen = maxAgeEditText.getText().toString().length();
-                    if (minInputLen != 0 && maxInputLen != 0){
+                    if (minInputLen != 0 && maxInputLen != 0) {
                         int maxAgeInput = Integer.parseInt(maxAgeEditText.getText().toString());
-                        if (maxAgeInput < Integer.parseInt(minAgeEditText.getText().toString())){
+                        if (maxAgeInput < Integer.parseInt(minAgeEditText.getText().toString())) {
                             validAgeRange = false;
                             maxAgeEditText.setError("Max is smaller than min!");
-                        }
-                        else {
+                        } else {
                             validAgeRange = true;
                             asUser.setMaxAgeRequired(maxAgeInput);
 
@@ -398,7 +397,7 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
     }
 
     private void setCheckedLocationsToTrue() {
-        if(asUser.getOptionalNeighborhoods()!=null) {
+        if (asUser.getOptionalNeighborhoods() != null) {
             for (int index : asUser.getOptionalNeighborhoods()) {
                 checkedLocations[index] = true;
             }
@@ -462,19 +461,19 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         }
     }
 
-    private void setCostRangeValsFB(){
+    private void setCostRangeValsFB() {
         int min = asUser.getMinRent();
         int max = asUser.getMaxRent();
-        if (max != 0){
+        if (max != 0) {
             maxCostEditText.setText(Integer.toString(max));
         }
         minCostEditText.setText(Integer.toString(min));
     }
 
-    private void setAgeRangeValsFB(){
+    private void setAgeRangeValsFB() {
         int min = asUser.getMinAgeRequired();
         int max = asUser.getMaxAgeRequired();
-        if (max != 0){
+        if (max != 0) {
             maxAgeEditText.setText(Integer.toString(max));
         }
         minAgeEditText.setText(Integer.toString(min));
@@ -493,7 +492,7 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         setCheckBoxesToUserPreferences();
         final TextView chosenDate = getView().findViewById(R.id.tv_click_here_entry_date);
         chosenDate.setText(asUser.getEarliestEntryDate());
-        if(asUser.getOptionalNeighborhoods()!= null) {
+        if (asUser.getOptionalNeighborhoods() != null) {
             userLocations = asUser.getOptionalNeighborhoods();
         }
         String text = toStringUserLocations();
