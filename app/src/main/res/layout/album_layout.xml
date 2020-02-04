@@ -14,7 +14,7 @@
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:src="@drawable/home_example1"
+        android:src="@drawable/house1"
         android:scaleType="fitXY"
         android:gravity="center_horizontal"
         android:id="@+id/iv_album"/>

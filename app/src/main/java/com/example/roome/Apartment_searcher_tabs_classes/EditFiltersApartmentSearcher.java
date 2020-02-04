@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -41,7 +42,7 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
     String[] locations;
     boolean[] checkedLocations;
     ArrayList<Integer> mUserLocations = new ArrayList<>(); //todo:send the locations chosen to db when save pressed
-
+    int[] checkBoxesValues = new int[]{R.id.check_box_pets, R.id.check_box_kosher, R.id.check_box_ac, R.id.check_box_smoking};
     private ImageView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -245,8 +246,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         //---------------------------------------------------------------------------
         //----------------------------entry date selection----------------------------
         mDisplayDate = getView().findViewById(R.id.iv_choose_entry_date);
-        final TextView chosenDate = getView().findViewById(R.id.tv_click_here_entry_date);
-
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -262,9 +261,10 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
                         year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
+                asUser.setEarliestEntryDate(dialog.toString());
             }
         });
-
+        final TextView chosenDate = getView().findViewById(R.id.tv_click_here_entry_date);
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -392,12 +392,11 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
 
         //---------------------------------------------------------------------------
         //----------------------------Things i care about selection----------------------------
-
+        addOnClickToCheckBoxes();
 
         super.onActivityCreated(savedInstanceState);
         asUser = FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext())); //todo is ok?
         setFiltersValuesFromDataBase();
-
     }
 
     /**
@@ -428,9 +427,9 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         FirebaseMediate.setAptPrefList(listName, MyPreferences.getUserUid(getContext()), updatedUnSeenRoommatesIds);
     }
 
-    private void setMaxNumRoommatesRB(){
+    private void setMaxNumRoommatesRB() {
         int chosenNum = asUser.getMaxNumDesiredRoommates();
-        switch (chosenNum){
+        switch (chosenNum) {
             case 2:
                 twoRoommatesMax.setChecked(true);
                 break;
@@ -440,7 +439,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
             case 4:
                 fourRoommatesMax.setChecked(true);
                 break;
-
         }
     }
 
@@ -464,6 +462,7 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
 
 
     //todo: things i care about
+
     /**
      * This method sets the filters to the users preferences values stored in database.
      */
@@ -471,18 +470,103 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         setCostRangeValsFB();
         setMaxNumRoommatesRB();
         setAgeRangeValsFB();
+        setCheckBoxesToUserPreferences();
+        final TextView chosenDate = getView().findViewById(R.id.tv_click_here_entry_date);
+        chosenDate.setText(asUser.getEarliestEntryDate());
+    }
+
+    /**
+     * This method sets the check boxes to user preferences
+     */
+    private void setCheckBoxesToUserPreferences() {
+        for (int checkBoxValue : checkBoxesValues) {
+            if (isCheckedForUser(checkBoxValue)) {
+                CheckBox checkBox = getView().findViewById(checkBoxValue);
+                checkBox.setChecked(true);
+            }
+        }
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
         Dialog dialog = getDialog();
-        if (dialog != null)
-        {
+        if (dialog != null) {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
             dialog.getWindow().setLayout(width, height);
+        }
+    }
+
+    /**
+     * This method adds onClick listeners to the check boxes
+     */
+    private void addOnClickToCheckBoxes() {
+        for (int checkbox : checkBoxesValues) {
+            addOnClickListenerToCheckBox(checkbox);
+        }
+    }
+
+    /**
+     * This method adds a onClick listener
+     *
+     * @param checkBoxValue - the int value of the check box to add the listener to.
+     */
+    private void addOnClickListenerToCheckBox(final int checkBoxValue) {
+        final CheckBox checkBox = getView().findViewById(checkBoxValue);
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkBox.isChecked()) {
+                    setAsUserFilterValue(true, checkBoxValue);
+                } else {
+                    setAsUserFilterValue(false, checkBoxValue);
+                }
+            }
+        });
+    }
+
+    /**
+     * This method sets a user field to true if check box is checked otherwise false
+     *
+     * @param flag          - true if check box is checked otherwise false
+     * @param checkBoxValue - the check box to change the value.
+     */
+    private void setAsUserFilterValue(boolean flag, int checkBoxValue) {
+        switch (checkBoxValue) {
+            case R.id.check_box_pets:
+                asUser.setHasNoPets(flag);
+                break;
+            case R.id.check_box_kosher:
+                asUser.setKosherImportance(flag);
+                break;
+            case R.id.check_box_smoking:
+                asUser.setSmokingFree(flag);
+                break;
+            case R.id.check_box_ac:
+                asUser.setHasAC(flag);
+                break;
+        }
+    }
+
+    /**
+     * This method returns true if the filter is important for the user, otherwise false.
+     *
+     * @param checkBoxValue - the int value of the check box.
+     * @return true if the filter is important for the user (he checked the box before), otherwise false.
+     */
+    private boolean isCheckedForUser(int checkBoxValue) {
+        switch (checkBoxValue) {
+            case R.id.check_box_pets:
+                return asUser.isHasNoPets();
+            case R.id.check_box_kosher:
+                return asUser.getKosherImportance();
+            case R.id.check_box_smoking:
+                return asUser.isSmokingFree();
+            case R.id.check_box_ac:
+                return asUser.isHasAC();
+            default:
+                return false;
         }
     }
 

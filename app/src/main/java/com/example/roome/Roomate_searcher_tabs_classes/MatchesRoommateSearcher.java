@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.roome.R;
 
-public class TwoFragmentR extends Fragment {
+public class MatchesRoommateSearcher extends Fragment {
 
-    public TwoFragmentR() {
+    public MatchesRoommateSearcher() {
         // Required empty public constructor
     }
 
@@ -27,7 +27,7 @@ public class TwoFragmentR extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_two_r, container, false);
+        return inflater.inflate(R.layout.activity_matches_roommate_searcher, container, false);
     }
 
 }

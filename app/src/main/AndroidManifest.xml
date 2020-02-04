@@ -17,11 +17,16 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".PressedUnlikeDialogActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert"></activity>
+        <activity
+            android:name=".PressedLikeDialogActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
+        <activity
             android:name=".Apartment_searcher_tabs_classes.MatchesApartmentSearcher"
-            android:screenOrientation="portrait">
-
-        </activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".PhoneInfoDialogActivity"
             android:screenOrientation="portrait"

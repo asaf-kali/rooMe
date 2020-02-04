@@ -7,23 +7,120 @@
     android:background="@color/common_google_signin_btn_text_dark_default"
     tools:context=".user_classes.ApartmentAdditionalInfo">
 
-    <TextView
-        android:id="@+id/tv_save_info_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save_Info"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <ImageView
+        android:id="@+id/iv_house_img"
+        android:layout_width="282dp"
+        android:layout_height="419dp"
+        android:layout_marginTop="8dp"
+        android:fadingEdge="horizontal|vertical"
+        android:src="@drawable/house1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_exit_additional_info"
+    <ImageView
+        android:id="@+id/iv_info_frame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Exit"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_house_img"
+        app:srcCompat="@drawable/ic_apartment_info_back" />
+
+
+    <ImageView
+        android:id="@+id/iv_num_roommates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_group_icon_black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_house_img" />
+
+    <TextView
+        android:id="@+id/tv_roommate_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="3"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_num_roommates"
+        app:layout_constraintStart_toEndOf="@+id/iv_num_roommates"
+        app:layout_constraintTop_toTopOf="@+id/iv_num_roommates" />
+
+    <ImageView
+        android:id="@+id/iv_location_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_location_icon_black"
+        app:layout_constraintStart_toEndOf="@+id/tv_roommate_num"
+        app:layout_constraintTop_toBottomOf="@+id/iv_house_img" />
+
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Rehavia"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_location_icon"
+        app:layout_constraintStart_toEndOf="@+id/iv_location_icon"
+        app:layout_constraintTop_toTopOf="@+id/iv_location_icon" />
+
+    <ImageView
+        android:id="@+id/iv_price_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_price_icon_black"
+        app:layout_constraintStart_toEndOf="@+id/tv_location"
+        app:layout_constraintTop_toBottomOf="@+id/iv_house_img" />
+
+    <TextView
+        android:id="@+id/tv_apt_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="5000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_price_icon"
+        app:layout_constraintStart_toEndOf="@+id/iv_price_icon"
+        app:layout_constraintTop_toTopOf="@+id/iv_price_icon" />
+
+    <ImageView
+        android:id="@+id/btn_exit"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_button_round"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_btn_x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_x_symbol"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_exit"
+        app:layout_constraintEnd_toEndOf="@+id/btn_exit"
+        app:layout_constraintStart_toStartOf="@+id/btn_exit"
+        app:layout_constraintTop_toTopOf="@+id/btn_exit" />
+
+    <TextView
+        android:id="@+id/tv_additional_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_location" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,47 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditProfileAlertDialog">
+    tools:context=".PressedUnlikeDialogActivity">
 
     <TextView
-        android:id="@+id/tv_alert_msg"
+        android:id="@+id/tv_unlike_instruction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:gravity="center"
-        android:text="@string/save_profile_warning"
+        android:text="you pressed unlike"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/btn_ok_dialog"
+        android:id="@+id/btn_ok_unlike_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:onClick="onClickOk"
+        android:onClick="onClickOkUnlike"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_alert_msg"
+        app:layout_constraintTop_toBottomOf="@+id/tv_unlike_instruction"
         app:srcCompat="@drawable/ic_button_save_small" />
 
     <TextView
-        android:id="@+id/ok_txt_in_btn"
+        android:id="@+id/ok_txt_unlike_in_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:shadowColor="#40000000"
         android:shadowDy="4"
         android:shadowRadius="4"
-        android:text="@string/yea_sure"
+        android:text="@android:string/ok"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/btn_ok_dialog"
-        app:layout_constraintStart_toStartOf="@+id/btn_ok_dialog"
-        app:layout_constraintTop_toTopOf="@+id/btn_ok_dialog" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_ok_unlike_dialog"
+        app:layout_constraintStart_toStartOf="@+id/btn_ok_unlike_dialog"
+        app:layout_constraintTop_toTopOf="@+id/btn_ok_unlike_dialog" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
