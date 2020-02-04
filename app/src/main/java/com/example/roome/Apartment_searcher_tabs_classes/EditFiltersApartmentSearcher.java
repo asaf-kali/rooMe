@@ -15,24 +15,17 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
-import com.example.roome.SignInActivity;
 import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.example.roome.user_classes.RoommateSearcherUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
 import java.util.ArrayList;
@@ -53,9 +46,9 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
     private ImageView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
-    private RadioButton twoRommatesMax;
-    private RadioButton threeRommatesMax;
-    private RadioButton fourRommatesMax;
+    private RadioButton twoRoommatesMax;
+    private RadioButton threeRoommatesMax;
+    private RadioButton fourRoommatesMax;
 
 
     private RangeSeekBar ageRoommatesBar;
@@ -207,30 +200,30 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
 
         //---------------------------------------------------------------------------
         //---------------------------- max num roommates selection----------------------------
-        twoRommatesMax = getView().findViewById(R.id.radio_btn_as_2);
-        twoRommatesMax.setOnClickListener(new View.OnClickListener() {
+        twoRoommatesMax = getView().findViewById(R.id.radio_btn_as_2);
+        twoRoommatesMax.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 asUser.setMaxNumDesiredRoommates(2);
-                twoRommatesMax.setChecked(true);
+                twoRoommatesMax.setChecked(true);
             }
         });
 
-        threeRommatesMax = getView().findViewById(R.id.radio_btn_as_3);
-        threeRommatesMax.setOnClickListener(new View.OnClickListener() {
+        threeRoommatesMax = getView().findViewById(R.id.radio_btn_as_3);
+        threeRoommatesMax.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 asUser.setMaxNumDesiredRoommates(3);
-                threeRommatesMax.setChecked(true);
+                threeRoommatesMax.setChecked(true);
             }
         });
 
-        fourRommatesMax = getView().findViewById(R.id.radio_btn_as_4);
-        fourRommatesMax.setOnClickListener(new View.OnClickListener() {
+        fourRoommatesMax = getView().findViewById(R.id.radio_btn_as_4);
+        fourRoommatesMax.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 asUser.setMaxNumDesiredRoommates(4);
-                fourRommatesMax.setChecked(true);
+                fourRoommatesMax.setChecked(true);
             }
         });
         //---------------------------------------------------------------------------
@@ -293,19 +286,14 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         int chosenNum = asUser.getMaxNumDesiredRoommates();
         switch (chosenNum){
             case 2:
-                twoRommatesMax.setChecked(true);
+                twoRoommatesMax.setChecked(true);
                 break;
             case 3:
-                threeRommatesMax.setChecked(true);
+                threeRoommatesMax.setChecked(true);
                 break;
             case 4:
-                fourRommatesMax.setChecked(true);
+                fourRoommatesMax.setChecked(true);
                 break;
-//            case 0:
-//                twoRommatesMax.setChecked(false);
-//                threeRommatesMax.setChecked(false);
-//                fourRommatesMax.setChecked(false);
-//                break;
 
         }
     }
