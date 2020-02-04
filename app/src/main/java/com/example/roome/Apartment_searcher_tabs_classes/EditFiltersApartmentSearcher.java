@@ -301,11 +301,11 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
             case 4:
                 fourRommatesMax.setChecked(true);
                 break;
-            case 0:
-                twoRommatesMax.setChecked(false);
-                threeRommatesMax.setChecked(false);
-                fourRommatesMax.setChecked(false);
-                break;
+//            case 0:
+//                twoRommatesMax.setChecked(false);
+//                threeRommatesMax.setChecked(false);
+//                fourRommatesMax.setChecked(false);
+//                break;
 
         }
     }
