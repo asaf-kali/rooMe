@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.roome.R;
 
-public class OneFragmentR extends Fragment {
+public class RoommateSearcherHome extends Fragment {
 
-    public OneFragmentR() {
+    public RoommateSearcherHome() {
         // Required empty public constructor
     }
 
@@ -26,7 +26,7 @@ public class OneFragmentR extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_one_r, container, false);
+        return inflater.inflate(R.layout.activity_roommate_searcher_home, container, false);
     }
     public void onActivityCreated(){
 
