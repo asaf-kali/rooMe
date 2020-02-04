@@ -364,9 +364,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:shadowColor="#40000000"
-                android:shadowDy="4"
-                android:shadowRadius="4"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_choose_entry_date"
                 app:layout_constraintEnd_toEndOf="@+id/iv_choose_entry_date"
@@ -550,6 +547,26 @@
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/et_max_age_val"
                 app:layout_constraintTop_toTopOf="@+id/et_max_age_val" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_calander_icon"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_click_here_entry_date"
+                app:layout_constraintEnd_toEndOf="@+id/iv_choose_entry_date"
+                app:layout_constraintTop_toTopOf="@+id/tv_click_here_entry_date" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_location_icon_black"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_picked_locations"
+                app:layout_constraintEnd_toEndOf="@+id/btn_choose_locations"
+                app:layout_constraintTop_toTopOf="@+id/tv_picked_locations" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
