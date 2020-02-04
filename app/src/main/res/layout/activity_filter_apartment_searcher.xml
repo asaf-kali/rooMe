@@ -25,7 +25,7 @@
         android:id="@+id/sv_filters_as"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="105dp"
+        android:layout_marginBottom="51dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -486,9 +486,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_dollar_icon"
                 app:layout_constraintBottom_toBottomOf="@+id/et_min_cost_val"
-                app:layout_constraintStart_toStartOf="@+id/et_min_cost_val"
-                android:src="@drawable/ic_dollar_icon" />
+                app:layout_constraintStart_toStartOf="@+id/et_min_cost_val" />
 
             <TextView
                 android:id="@+id/tv_min_cost"
@@ -577,7 +577,9 @@
         android:layout_width="500dp"
         android:layout_height="51dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="5dp"
         android:src="@drawable/ic_button_save_big"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sv_filters_as" />
