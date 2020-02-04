@@ -8,7 +8,7 @@ public class ApartmentSearcherUser extends User {
     private String bio; //where the user can write about himself
 
     //---------------------------------------------filters------------------------------------------
-    private ArrayList<String> optionalNeighborhoods;
+    private ArrayList<Integer> optionalNeighborhoods;
     private int minRent;
     private int maxRent;
     private String earliestEntryDate;
@@ -47,7 +47,7 @@ public class ApartmentSearcherUser extends User {
         return bio;
     }
 
-    public ArrayList<String> getOptionalNeighborhoods() {
+    public ArrayList<Integer> getOptionalNeighborhoods() {
         return optionalNeighborhoods;
     }
 
@@ -80,7 +80,7 @@ public class ApartmentSearcherUser extends User {
     public boolean isHasAC() { return hasAC; }
 
     //------------------------------------------Seters---------------------------------------------
-    private void setOptionalNeighborhoods(ArrayList<String> optionalNeighborhoods) {
+    public void setOptionalNeighborhoods(ArrayList<Integer> optionalNeighborhoods) {
         this.optionalNeighborhoods = optionalNeighborhoods;
     }
 
