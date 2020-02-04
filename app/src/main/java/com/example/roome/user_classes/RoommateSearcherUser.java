@@ -8,7 +8,7 @@ public class RoommateSearcherUser extends User {
 
     //--------------------profile info---------------------
     private ArrayList<Image> roommatesImages; //todo: maybe delete
-    private String additionalInfo; //such as bio
+    private String bio; //such as bio
     private Apartment apartment;
 
     //--------------------filters---------------------
@@ -31,8 +31,8 @@ public class RoommateSearcherUser extends User {
     }
 
 
-    public String getAdditionalInfo() {
-        return additionalInfo;
+    public String getBio() {
+        return bio;
     }
 
 
@@ -54,8 +54,8 @@ public class RoommateSearcherUser extends User {
     }
 
 
-    public void setAdditionalInfo(String additionalInfo) {
-        this.additionalInfo = additionalInfo;
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
 
@@ -66,6 +66,4 @@ public class RoommateSearcherUser extends User {
     public void setApartment(Apartment apartment) {
         this.apartment = apartment;
     }
-
-
 }

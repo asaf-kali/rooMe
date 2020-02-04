@@ -58,6 +58,7 @@ public class ApartmentSearcherHome extends Fragment {
 
     private EditFiltersApartmentSearcher editFiltersDialog;
     private ApartmentAdditionalInfo additionalInfoDialog;
+    public RoommateSearcherUser currentRoommateSearcher;
 
 
     //for swipe
@@ -167,6 +168,10 @@ public class ApartmentSearcherHome extends Fragment {
                 view.findViewById(R.id.fl_background).setAlpha(0);
                 myAppAdapter.notifyDataSetChanged();
                 Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putString("roomateId",
+                        relevantRoommateSearchersIds.get(itemPosition));
+                additionalInfoDialog.setArguments(bundle);
                 additionalInfoDialog.show(getFragmentManager(),
                         "additionalInfo");
 
@@ -488,7 +493,7 @@ public class ApartmentSearcherHome extends Fragment {
                 viewHolder.basicInfo =
                         (LinearLayout) rowView.findViewById(R.id.basic_info_ll);
                 TextView tv = rowView.findViewById(R.id.tv_location);
-                RoommateSearcherUser currentRoommateSearcher =
+                currentRoommateSearcher =
                         FirebaseMediate.getRoommateSearcherUserByUid(relevantRoommateSearchersIds.get(position));
                 peopleText = rowView.findViewById(R.id.tv_people);
                 locationText = rowView.findViewById(R.id.tv_location);
