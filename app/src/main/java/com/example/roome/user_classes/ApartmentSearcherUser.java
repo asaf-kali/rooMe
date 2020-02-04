@@ -18,7 +18,7 @@ public class ApartmentSearcherUser extends User {
     private boolean hasNoPets;
     private boolean hasAC;
 
-    private static final int MAX_RENT_VALUE = 4000;
+    public static final int DEFAULT_MAX_RENT_VALUE = 6000;
     private static final int DEFAULT_MAX_ROOMMATES = 4;
 
 
@@ -51,13 +51,11 @@ public class ApartmentSearcherUser extends User {
         return optionalNeighborhoods;
     }
 
-    public int getMinRent() {
-        return minRent;
-    }
+    public int getMinRent() {return minRent;}
 
     public int getMaxRent() {
         if (maxRent == 0) {
-            return MAX_RENT_VALUE;
+            return DEFAULT_MAX_RENT_VALUE;
         }
         return maxRent;
     }

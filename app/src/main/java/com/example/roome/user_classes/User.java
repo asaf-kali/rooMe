@@ -7,6 +7,8 @@ public class User {
     public static final int MAXIMUM_AGE = 70;
     public static final int MINIMUM_AGE = 14;
     public static final int PHONE_NUMBER_LENGTH = 10;
+    public static final int DEFAULT_MAXIMUM_AGE = 99;
+    public static final int DEFAULT_MINIMUM_AGE = 0;
 
 
     //--------------------profile info---------------------
@@ -55,11 +57,12 @@ public class User {
         return kosherImportance;
     }
 
-    public int getMinAgeRequired() {
-        return minAgeRequired;
-    }
+    public int getMinAgeRequired() {return minAgeRequired;}
 
     public int getMaxAgeRequired() {
+        if (maxAgeRequired == 0){
+            return DEFAULT_MAXIMUM_AGE;
+        }
         return maxAgeRequired;
     }
 
