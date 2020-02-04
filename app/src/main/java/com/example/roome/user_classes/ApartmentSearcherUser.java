@@ -11,9 +11,12 @@ public class ApartmentSearcherUser extends User {
     private ArrayList<String> optionalNeighborhoods;
     private int minRent;
     private int maxRent;
-    private String earliestEntryDate;//todo: make sure to represent it as MM/YYYY
+    private String earliestEntryDate;
     private String latestEntryDate;
     private int maxNumDesiredRoommates;
+    private boolean isSmokingFree;
+    private boolean hasNoPets;
+    private boolean hasAC;
 
     private static final int MAX_RENT_VALUE = 4000;
     private static final int DEFAULT_MAX_ROOMMATES = 4;
@@ -70,6 +73,11 @@ public class ApartmentSearcherUser extends User {
         return maxNumDesiredRoommates;
     }
 
+    public boolean isSmokingFree() { return isSmokingFree;  }
+
+    public boolean isHasNoPets() { return hasNoPets; }
+
+    public boolean isHasAC() { return hasAC; }
 
     //------------------------------------------Seters---------------------------------------------
     private void setOptionalNeighborhoods(ArrayList<String> optionalNeighborhoods) {
@@ -100,4 +108,11 @@ public class ApartmentSearcherUser extends User {
         //todo check if there is a match
         return true;   //todo delete
     }
+
+    public void setSmokingFree(boolean smokingFree) { isSmokingFree = smokingFree; }
+
+    public void setHasNoPets(boolean hasNoPets) { this.hasNoPets = hasNoPets; }
+
+    public void setHasAC(boolean hasAC) { this.hasAC = hasAC; }
+
 }
