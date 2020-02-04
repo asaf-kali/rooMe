@@ -15,7 +15,7 @@
         app:tabGravity="fill"
         app:tabIndicatorAnimationDuration="300"
         app:tabIndicatorColor="@color/peach"
-        app:tabIndicatorGravity="top"
+        app:tabIndicatorGravity="bottom"
         app:tabMode="fixed"
         app:tabTextColor="#00D10303" />
 

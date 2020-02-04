@@ -11,7 +11,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +21,7 @@ import com.example.roome.ChoosingActivity;
 import com.example.roome.Data;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
-import com.example.roome.ApartmentSearcherOnBoardDialogActivity;
+import com.example.roome.PhoneInfoDialogActivity;
 import com.example.roome.R;
 import com.example.roome.user_classes.RoommateSearcherUser;
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,7 +65,6 @@ public class ApartmentSearcherHome extends Fragment {
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
         boolean isFirstTime = MyPreferences.isFirstTime(getContext());
         if (isFirstTime) {
-            showWelcomeOnBoardDialog();
             MyPreferences.setIsFirstTimeToFalse(getContext());
         }
         super.onCreate(savedInstanceState);
@@ -304,15 +302,7 @@ public class ApartmentSearcherHome extends Fragment {
         moreHouses();
     }
 
-    /**
-     * This method opens the Apartment Searcher On Board Dialog Activity.
-     */
-    void showWelcomeOnBoardDialog() {
-        Intent intent = new Intent(ApartmentSearcherHome.this.getActivity(), ApartmentSearcherOnBoardDialogActivity.class);
-        startActivity(intent);
-    }
-
-    private void updateMainImage() {
+        private void updateMainImage() {
         //todo add all this
 //        RoommateSearcherUser currentRoomateSearcher = relevantRoommateSearchers.get(currentPlaceInList);
 //        Apartment cur_apt = currentRoomateSearcher.getApartment();

@@ -118,7 +118,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
         //---------------------------------------------------------------------------
         //----------------------------location selection----------------------------
         mChooseLocations = getView().findViewById(R.id.btn_choose_locations);
-        mChosenLocations = getView().findViewById(R.id.tv_chosen_locations);
+        mChosenLocations = getView().findViewById(R.id.tv_picked_locations);
 
         locations = getResources().getStringArray(R.array.locations);
         checkedLocations = new boolean[locations.length];
@@ -179,7 +179,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
         //---------------------------------------------------------------------------
         //----------------------------entry date selection----------------------------
         mDisplayDate = getView().findViewById(R.id.iv_choose_entry_date);
-        final TextView chosenDate = getView().findViewById(R.id.tv_entry_date_as);
+        final TextView chosenDate = getView().findViewById(R.id.tv_click_here_entry_date);
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,21 +213,22 @@ public class EditFiltersApartmentSearcher extends Fragment {
 
         //---------------------------------------------------------------------------
         //----------------------------num roommates selection----------------------------
-        numRoommatesBar = getView().findViewById(R.id.rsb_num_roommates_bar);
-        numRoommatesBar.setRangeValues(1, 5);
-
-        numRoommatesBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
-            @Override
-            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-                Number minVal = bar.getSelectedMinValue();
-                Number maxVal = bar.getSelectedMaxValue();
-                int min = (int) minVal;
-                int max = (int) maxVal;
-                asUser.setMaxNumDesiredRoommates(max);
-                asUser.setMinNumDesiredRoommates(min);
-            }
-
-        });
+        //todo: same but for radio btns
+//        numRoommatesBar = getView().findViewById(R.id.rsb_num_roommates_bar);
+//        numRoommatesBar.setRangeValues(1, 5);
+//
+//        numRoommatesBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
+//            @Override
+//            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
+//                Number minVal = bar.getSelectedMinValue();
+//                Number maxVal = bar.getSelectedMaxValue();
+//                int min = (int) minVal;
+//                int max = (int) maxVal;
+//                asUser.setMaxNumDesiredRoommates(max);
+//                asUser.setMinNumDesiredRoommates(min);
+//            }
+//
+//        });
         //---------------------------------------------------------------------------
         //----------------------------roommates' age selection----------------------------
         ageRoommatesBar = getView().findViewById(R.id.rsb_age_roommates_bar);
@@ -280,14 +281,16 @@ public class EditFiltersApartmentSearcher extends Fragment {
         FirebaseMediate.setAptPrefList(listName, MyPreferences.getUserUid(getContext()), updatedUnSeenRoommatesIds);
     }
 
+
+    //todo: set selected max num of roommates into radio buttons & things i care about
     /**
      * This method sets the filters to the users preferences values stored in database.
      */
     private void setFiltersValuesFromDataBase() {
         costBar.setSelectedMinValue(asUser.getMinRent());
         costBar.setSelectedMaxValue(asUser.getMaxRent());
-        numRoommatesBar.setSelectedMinValue(asUser.getMinNumDesiredRoommates());
-        numRoommatesBar.setSelectedMaxValue(asUser.getMaxNumDesiredRoommates());
+//        numRoommatesBar.setSelectedMinValue(asUser.getMinNumDesiredRoommates());
+//        numRoommatesBar.setSelectedMaxValue(asUser.getMaxNumDesiredRoommates());
         ageRoommatesBar.setSelectedMinValue(asUser.getMinAgeRequired());
         if (asUser.getMaxAgeRequired() != 0) { //until user edit his age in edit profile the default value is 0
             ageRoommatesBar.setSelectedMaxValue(asUser.getMaxAgeRequired());

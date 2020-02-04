@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ApartmentSearcherOnBoardDialogActivity">
+    tools:context=".PhoneInfoDialogActivity">
 
     <TextView
         android:id="@+id/tv_alert_msg_part_1"
@@ -14,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:gravity="center"
-        android:text="Welcome to rooMe!\n Now you can see all available apartments out there.\n Tip: edit your filters and profile so you will see apartments relevant to your preferences."
+        android:text="Your number will be shown only after a match"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_alert_msg_part_1"
-        app:srcCompat="@drawable/ic_save_button" />
+        app:srcCompat="@drawable/ic_button_save_small" />
 
     <TextView
         android:id="@+id/ok_txt_in_btn"
@@ -41,7 +41,7 @@
         android:shadowColor="#40000000"
         android:shadowDy="4"
         android:shadowRadius="4"
-        android:text="Let's go!"
+        android:text="@android:string/ok"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/btn_ok_dialog"
