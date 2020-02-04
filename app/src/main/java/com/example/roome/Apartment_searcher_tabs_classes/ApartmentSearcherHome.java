@@ -169,7 +169,7 @@ public class ApartmentSearcherHome extends Fragment {
                 myAppAdapter.notifyDataSetChanged();
                 Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
-                bundle.putString("roomateId",
+                bundle.putString("roommateId",
                         relevantRoommateSearchersIds.get(itemPosition));
                 additionalInfoDialog.setArguments(bundle);
                 additionalInfoDialog.show(getFragmentManager(),

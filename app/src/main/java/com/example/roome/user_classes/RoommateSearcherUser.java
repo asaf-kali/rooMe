@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class RoommateSearcherUser extends User {
 
-    //--------------------profile info---------------------
+    //--------------------profile additionalInfo---------------------
     private ArrayList<Image> roommatesImages; //todo: maybe delete
-    private String bio; //such as bio
+    private String additionalInfo; //such as additionalInfo
     private Apartment apartment;
 
     //--------------------filters---------------------
@@ -31,8 +31,8 @@ public class RoommateSearcherUser extends User {
     }
 
 
-    public String getBio() {
-        return bio;
+    public String getAdditionalInfo() {
+        return additionalInfo;
     }
 
 
@@ -54,8 +54,8 @@ public class RoommateSearcherUser extends User {
     }
 
 
-    public void setBio(String bio) {
-        this.bio = bio;
+    public void setAdditionalInfo(String info) {
+        this.additionalInfo = info;
     }
 
 
