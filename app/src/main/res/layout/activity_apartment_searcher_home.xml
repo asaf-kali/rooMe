@@ -17,7 +17,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:scaleType="centerCrop"
-        android:src="@android:drawable/ic_menu_delete" />
+        android:src="@android:drawable/ic_delete" />
 
     <ImageView
         android:id="@+id/iv_edit_filters"
@@ -26,9 +26,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
-        android:background="@color/colorAccent"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_action_empty_hourglass" />
+        android:src="@drawable/ic_filter" />
 
     <FrameLayout
         android:id="@+id/fl_card"
