@@ -1,6 +1,7 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,9 @@ import com.example.roome.ChoosingActivity;
 import com.example.roome.Data;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
+import com.example.roome.PhoneInfoDialogActivity;
+import com.example.roome.PressedLikeDialogActivity;
+import com.example.roome.PressedUnlikeDialogActivity;
 import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentAdditionalInfo;
 import com.example.roome.user_classes.RoommateSearcherUser;
@@ -127,6 +131,11 @@ public class ApartmentSearcherHome extends Fragment {
 //                if (relevantRoommateSearchersIds.size() == 0) {
 //                    Glide.with(getContext()).load(R.drawable.no_more_houses_2).into(viewHolder.cardImage);
 //                }
+                if (MyPreferences.isFirstUnlike(getContext())) {
+                    Intent intent = new Intent(getActivity(), PressedUnlikeDialogActivity.class);
+                    startActivity(intent);
+                    MyPreferences.setIsFirstUnlikeToFalse(getContext());
+                }
                 //Do something on the left!
                 //You also have access to the original object.
                 //If you want to use it just cast it (String) dataObject
@@ -142,6 +151,12 @@ public class ApartmentSearcherHome extends Fragment {
 //                    Glide.with(getContext()).load(R.drawable.no_more_houses_2).into(viewHolder.cardImage);
 //                }
                 myAppAdapter.notifyDataSetChanged();
+                if (MyPreferences.isFirstLike(getContext())) {
+
+                    Intent intent = new Intent(getActivity(), PressedLikeDialogActivity.class);
+                    startActivity(intent);
+                    MyPreferences.setIsFirstLikeToFalse(getContext());
+                }
             }
 
             @Override
