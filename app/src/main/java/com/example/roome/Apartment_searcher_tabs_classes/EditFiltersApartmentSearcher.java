@@ -1,6 +1,7 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,7 +16,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
@@ -34,7 +37,7 @@ import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class EditFiltersApartmentSearcher extends Fragment {
+public class EditFiltersApartmentSearcher extends DialogFragment {
 
     public static final int MAX_RENT_VALUE = 4000;
     private RangeSeekBar costBar; //todo: present same vals when entering after change
@@ -56,7 +59,6 @@ public class EditFiltersApartmentSearcher extends Fragment {
     // Firebase instance variables
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
-
     private ApartmentSearcherUser asUser;
 
     //todo:create onclick for the save button
@@ -66,19 +68,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
         // Initialize Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
-        firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                asUser = FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext())); //todo is ok?
-                setFiltersValuesFromDataBase();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        asUser = new ApartmentSearcherUser();
     }
 
     @Override
@@ -97,6 +87,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
                 firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
                 Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
                 setSavedFiltersToLists();
+                getDialog().dismiss();
             }
         });
 
@@ -250,6 +241,9 @@ public class EditFiltersApartmentSearcher extends Fragment {
         //----------------------------kosher selection----------------------------
 //todo:extract the kosher preference
         super.onActivityCreated(savedInstanceState);
+        asUser = FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext())); //todo is ok?
+        setFiltersValuesFromDataBase();
+
     }
 
     /**
@@ -291,6 +285,19 @@ public class EditFiltersApartmentSearcher extends Fragment {
         ageRoommatesBar.setSelectedMinValue(asUser.getMinAgeRequired());
         if (asUser.getMaxAgeRequired() != 0) { //until user edit his age in edit profile the default value is 0
             ageRoommatesBar.setSelectedMaxValue(asUser.getMaxAgeRequired());
+        }
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null)
+        {
+            int width = ViewGroup.LayoutParams.MATCH_PARENT;
+            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+            dialog.getWindow().setLayout(width, height);
         }
     }
 

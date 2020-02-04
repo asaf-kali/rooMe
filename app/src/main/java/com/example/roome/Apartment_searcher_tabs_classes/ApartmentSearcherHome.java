@@ -24,6 +24,7 @@ import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
 import com.example.roome.ApartmentSearcherOnBoardDialogActivity;
 import com.example.roome.R;
+import com.example.roome.user_classes.ApartmentAdditionalInfo;
 import com.example.roome.user_classes.RoommateSearcherUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -52,6 +53,12 @@ public class ApartmentSearcherHome extends Fragment {
     private TextView locationText;
     private TextView peopleText;
     private TextView priceText;
+    private ImageView editFiltersImage;
+    private FrameLayout cardImg;
+
+    private EditFiltersApartmentSearcher editFiltersDialog;
+    private ApartmentAdditionalInfo additionalInfoDialog;
+
 
     //for swipe
     public static MyAppAdapter myAppAdapter;
@@ -87,6 +94,11 @@ public class ApartmentSearcherHome extends Fragment {
         trashCanImage = getView().findViewById(R.id.iv_trash_can);
         noButton = getView().findViewById(R.id.btn_no_house);
         noMoreHousesText = getView().findViewById(R.id.tv_no_more_houses);
+        editFiltersImage = getView().findViewById(R.id.iv_edit_filters);
+        cardImg = getView().findViewById(R.id.fl_card);
+        editFiltersDialog = new EditFiltersApartmentSearcher();
+        additionalInfoDialog = new ApartmentAdditionalInfo();
+
 
         setClickListeners();
         setFirebaseListeners();
@@ -155,6 +167,10 @@ public class ApartmentSearcherHome extends Fragment {
                 View view = flingContainer.getSelectedView();
                 view.findViewById(R.id.fl_background).setAlpha(0);
                 myAppAdapter.notifyDataSetChanged();
+                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
+                additionalInfoDialog.show(getFragmentManager(),
+                        "additionalInfo");
+
             }
         });
     }
@@ -162,17 +178,6 @@ public class ApartmentSearcherHome extends Fragment {
 
     private void fillTempImgArray() {
         temp_img = new ArrayList<>();
-//        if (relevantRoommateSearchersIds.size() % 3 == 2) {
-//            temp_img.add(R.drawable.home_example2);
-//            temp_img.add(R.drawable.home_example3);
-//        } else if (relevantRoommateSearchersIds.size() % 3 == 1) {
-//            temp_img.add(R.drawable.home_example3);
-//        }
-//        for (int i = 0; i < relevantRoommateSearchersIds.size() / 3; i++) {
-//            temp_img.add(R.drawable.home_example1);
-//            temp_img.add(R.drawable.home_example2);
-//            temp_img.add(R.drawable.home_example3);
-//        }
         for (String uid : relevantRoommateSearchersIds) {
             temp_img.add(Data.getImageByUid(uid));
         }
@@ -212,6 +217,18 @@ public class ApartmentSearcherHome extends Fragment {
             public void onClick(View view) {
             }
         });
+        editFiltersImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editFiltersDialog.show(getFragmentManager(), "EditFilters");
+            }
+        });
+//        cardImg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
     }
 

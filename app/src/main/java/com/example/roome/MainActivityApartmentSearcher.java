@@ -33,11 +33,11 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private int[] selectedtabIcons = {R.drawable.ic_action_filled_home,
-            R.drawable.ic_action_filled_heart, R.drawable.ic_action_filled_hourglass,
+            R.drawable.ic_action_filled_heart,
             R.drawable.ic_action_filled_person};
 
     private int[] unselectedtabIcons = {R.drawable.ic_action_empty_home,
-            R.drawable.ic_action_empty_heart, R.drawable.ic_action_empty_hourglass,
+            R.drawable.ic_action_empty_heart,
             R.drawable.ic_action_empty_person};
 
     public static ApartmentSearcherUser aUser;
@@ -97,7 +97,6 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(selectedtabIcons[0]);
         tabLayout.getTabAt(1).setIcon(unselectedtabIcons[1]);
         tabLayout.getTabAt(2).setIcon(unselectedtabIcons[2]);
-        tabLayout.getTabAt(3).setIcon(unselectedtabIcons[3]);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -105,7 +104,6 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ApartmentSearcherHome(), "HOME");
         adapter.addFragment(new MatchesApartmentSearcher(), "MATCHES");
-        adapter.addFragment(new EditFiltersApartmentSearcher(), "FILTERS");
         adapter.addFragment(new EditProfileApartmentSearcher(), "PROFILE");
         viewPager.setAdapter(adapter);
     }
