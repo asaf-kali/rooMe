@@ -16,7 +16,6 @@ public class ApartmentSearcherUser extends User {
     private int maxNumDesiredRoommates;
 
     public static final int DEFAULT_MAX_RENT_VALUE = 6000;
-    public static final int DEFAULT_MIN_RENT_VALUE = 0;
     private static final int DEFAULT_MAX_ROOMMATES = 4;
 
 
@@ -49,12 +48,7 @@ public class ApartmentSearcherUser extends User {
         return optionalNeighborhoods;
     }
 
-    public int getMinRent() {
-        if (minRent == 0){
-            return DEFAULT_MIN_RENT_VALUE;
-        }
-        return minRent;
-    }
+    public int getMinRent() {return minRent;}
 
     public int getMaxRent() {
         if (maxRent == 0) {

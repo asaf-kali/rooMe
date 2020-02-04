@@ -51,11 +51,11 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
 
     private EditText minCostEditText;
     private EditText maxCostEditText;
-    private boolean validCostRange;
+    private boolean validCostRange = true;
 
     private EditText minAgeEditText;
     private EditText maxAgeEditText;
-    private boolean validAgeRange;
+    private boolean validAgeRange = true;
 
 
     // Firebase instance variables
@@ -86,7 +86,7 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validCostRange){
+                if (validCostRange && validAgeRange){
                     firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
                     Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
                     setSavedFiltersToLists();
@@ -126,6 +126,7 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
                     }
                     else {
                         validCostRange = true;
+                        asUser.setMinRent(minCostInput);
                     }
                 }
 
@@ -146,6 +147,10 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
                     int maxCostInput = Integer.parseInt(maxCostEditText.getText().toString());
                     if (maxCostInput >= Integer.parseInt(minCostEditText.getText().toString())){
                         validCostRange = true;
+                        asUser.setMaxRent(maxCostInput);
+                    }
+                    else{
+                        validCostRange = false;
                     }
                 }
             }
@@ -169,6 +174,7 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
                         }
                         else {
                             validCostRange = true;
+                            asUser.setMaxRent(maxCostInput);
                         }
                     }
                 }
@@ -320,13 +326,14 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
                 int minInputLen = minAgeEditText.getText().toString().length();
                 int maxInputLen = maxAgeEditText.getText().toString().length();
                 if (minInputLen != 0 && maxInputLen != 0){
-                    int minCostInput = Integer.parseInt(minAgeEditText.getText().toString());
-                    if (minCostInput > Integer.parseInt(maxAgeEditText.getText().toString())){
+                    int minAgeInput = Integer.parseInt(minAgeEditText.getText().toString());
+                    if (minAgeInput > Integer.parseInt(maxAgeEditText.getText().toString())){
                         minAgeEditText.setError("Min is bigger than max!");
                         validAgeRange = false;
                     }
                     else {
                         validAgeRange = true;
+                        asUser.setMinAgeRequired(minAgeInput);
                     }
                 }
             }
@@ -344,13 +351,17 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
                 int minInputLen = minAgeEditText.getText().toString().length();
                 int maxInputLen = maxAgeEditText.getText().toString().length();
                 if (minInputLen != 0 && maxInputLen != 0){
-                    int maxCostInput = Integer.parseInt(maxAgeEditText.getText().toString());
-                    if (maxCostInput >= Integer.parseInt(minAgeEditText.getText().toString())){
+                    int maxAgeInput = Integer.parseInt(maxAgeEditText.getText().toString());
+                    if (maxAgeInput >= Integer.parseInt(minAgeEditText.getText().toString())){
                         validAgeRange = true;
+                        asUser.setMaxAgeRequired(maxAgeInput);
+                    }
+                    else {
+                        validAgeRange = false;
+
                     }
                 }
             }
-
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -363,13 +374,15 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
                     int minInputLen = minAgeEditText.getText().toString().length();
                     int maxInputLen = maxAgeEditText.getText().toString().length();
                     if (minInputLen != 0 && maxInputLen != 0){
-                        int maxCostInput = Integer.parseInt(maxAgeEditText.getText().toString());
-                        if (maxCostInput < Integer.parseInt(minAgeEditText.getText().toString())){
+                        int maxAgeInput = Integer.parseInt(maxAgeEditText.getText().toString());
+                        if (maxAgeInput < Integer.parseInt(minAgeEditText.getText().toString())){
                             validAgeRange = false;
                             maxAgeEditText.setError("Max is smaller than min!");
                         }
                         else {
                             validAgeRange = true;
+                            asUser.setMaxAgeRequired(maxAgeInput);
+
                         }
                     }
                 }
@@ -431,7 +444,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         }
     }
 
-
     private void setCostRangeValsFB(){
         int min = asUser.getMinRent();
         int max = asUser.getMaxRent();
@@ -441,6 +453,16 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         minCostEditText.setText(Integer.toString(min));
     }
 
+    private void setAgeRangeValsFB(){
+        int min = asUser.getMinAgeRequired();
+        int max = asUser.getMaxAgeRequired();
+        if (max != 0){
+            maxAgeEditText.setText(Integer.toString(max));
+        }
+        minAgeEditText.setText(Integer.toString(min));
+    }
+
+
     //todo: things i care about
     /**
      * This method sets the filters to the users preferences values stored in database.
@@ -448,10 +470,7 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
     private void setFiltersValuesFromDataBase() {
         setCostRangeValsFB();
         setMaxNumRoommatesRB();
-//        ageRoommatesBar.setSelectedMinValue(asUser.getMinAgeRequired());
-//        if (asUser.getMaxAgeRequired() != 0) { //until user edit his age in edit profile the default value is 0
-//            ageRoommatesBar.setSelectedMaxValue(asUser.getMaxAgeRequired());
-//        }
+        setAgeRangeValsFB();
     }
 
     @Override
