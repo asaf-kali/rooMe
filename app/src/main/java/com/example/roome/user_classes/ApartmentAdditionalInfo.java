@@ -10,14 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.roome.FirebaseMediate;
 import com.example.roome.R;
 
 public class ApartmentAdditionalInfo extends DialogFragment {
-    TextView updateInfoTV;
-    private static int SIZE_OF_DIALOG = 400;
+    ImageView iv_exit_btn;
     TextView additionalInfo;
     RoommateSearcherUser roommateSearcherUser;
     public void ApartmentAdditionalInfo(){
@@ -41,30 +41,30 @@ public class ApartmentAdditionalInfo extends DialogFragment {
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
-        updateInfoTV = getView().findViewById(R.id.tv_save_info_btn);
-        updateInfoTV.setOnClickListener(new View.OnClickListener() {
+        iv_exit_btn = getView().findViewById(R.id.iv_btn_x);
+        iv_exit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getDialog().dismiss();
             }
         });
-        additionalInfo = getView().findViewById(R.id.tv_bio);
+        additionalInfo = getView().findViewById(R.id.tv_additional_info);
         additionalInfo.setText(roommateSearcherUser.getAdditionalInfo());
         super.onActivityCreated(savedInstanceState);
     }
 
-    @Override
-    public void onStart()
-    {
-        super.onStart();
-        Dialog dialog = getDialog();
-        if (dialog != null)
-        {
-            Window window = getDialog().getWindow();
-            WindowManager.LayoutParams params = window.getAttributes();
-            params.width = SIZE_OF_DIALOG;
-            params.height = SIZE_OF_DIALOG;
-            window.setAttributes(params);
-        }
-    }
+//    @Override
+//    public void onStart()
+//    {
+//        super.onStart();
+//        Dialog dialog = getDialog();
+//        if (dialog != null)
+//        {
+//            Window window = getDialog().getWindow();
+//            WindowManager.LayoutParams params = window.getAttributes();
+//            params.width = SIZE_OF_DIALOG;
+//            params.height = SIZE_OF_DIALOG;
+//            window.setAttributes(params);
+//        }
+//    }
 }
