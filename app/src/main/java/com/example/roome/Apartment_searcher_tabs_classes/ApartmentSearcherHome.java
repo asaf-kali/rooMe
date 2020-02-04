@@ -171,14 +171,12 @@ public class ApartmentSearcherHome extends Fragment {
                 View view = flingContainer.getSelectedView();
                 view.findViewById(R.id.fl_background).setAlpha(0);
                 myAppAdapter.notifyDataSetChanged();
-                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
                 bundle.putString("roommateId",
                         relevantRoommateSearchersIds.get(itemPosition));
                 additionalInfoDialog.setArguments(bundle);
                 additionalInfoDialog.show(getFragmentManager(),
                         "additionalInfo");
-
             }
         });
     }

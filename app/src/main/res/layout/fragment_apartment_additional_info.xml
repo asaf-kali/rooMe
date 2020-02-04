@@ -19,25 +19,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_info_frame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_house_img"
-        app:srcCompat="@drawable/ic_apartment_info_back" />
-
 
     <ImageView
         android:id="@+id/iv_num_roommates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
         android:layout_marginTop="24dp"
         android:src="@drawable/ic_group_icon_black"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/iv_house_img"
         app:layout_constraintTop_toBottomOf="@+id/iv_house_img" />
 
     <TextView
@@ -55,7 +44,7 @@
         android:id="@+id/iv_location_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="24dp"
         android:src="@drawable/ic_location_icon_black"
         app:layout_constraintStart_toEndOf="@+id/tv_roommate_num"
@@ -76,7 +65,7 @@
         android:id="@+id/iv_price_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="24dp"
         android:src="@drawable/ic_price_icon_black"
         app:layout_constraintStart_toEndOf="@+id/tv_location"
@@ -90,6 +79,7 @@
         android:text="5000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_price_icon"
+        app:layout_constraintEnd_toEndOf="@+id/iv_house_img"
         app:layout_constraintStart_toEndOf="@+id/iv_price_icon"
         app:layout_constraintTop_toTopOf="@+id/iv_price_icon" />
 
@@ -99,7 +89,9 @@
         android:layout_height="40dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="4dp"
         android:src="@drawable/ic_button_round"
+        app:layout_constraintEnd_toStartOf="@+id/iv_house_img"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -118,7 +110,11 @@
         android:id="@+id/tv_additional_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
         android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
