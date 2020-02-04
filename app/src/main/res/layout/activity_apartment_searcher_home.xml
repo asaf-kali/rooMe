@@ -69,39 +69,4 @@
         android:textSize="20sp"
         android:visibility="invisible" />
 
-    <ImageView
-        android:id="@+id/btn_no_house"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fl_card"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="-100dp"
-        android:layout_toEndOf="@+id/btn_maybe_house"
-        android:src="@drawable/ic_home_button" />
-
-    <ImageView
-        android:id="@+id/btn_yes_house"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fl_card"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="-100dp"
-        android:layout_marginEnd="50dp"
-        android:layout_toStartOf="@+id/btn_maybe_house"
-        android:src="@drawable/ic_home_button" />
-
-    <ImageView
-        android:id="@+id/btn_maybe_house"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fl_card"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentBottom="false"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="-100dp"
-        android:layout_marginBottom="0dp"
-        android:gravity="center|center_horizontal|center_vertical"
-        android:src="@drawable/ic_home_button" />
-
 </RelativeLayout>
