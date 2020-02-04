@@ -14,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:gravity="center"
-        android:text="Want to see more apartments like this one?\n edit your filters and profile!"
+        android:text="Want to see more apartments like this one?\n Edit your filters and profile!"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

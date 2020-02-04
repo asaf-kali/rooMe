@@ -14,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:gravity="center"
-        android:text="Want to regret?\nyou can always go the\n trash icon above to undo"
+        android:text="Regret deleting this?\nYou can always go to the\n trash icon above to undo"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
