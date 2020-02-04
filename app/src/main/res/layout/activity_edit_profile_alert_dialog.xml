@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_alert_msg"
-        app:srcCompat="@drawable/ic_save_button" />
+        app:srcCompat="@drawable/ic_button_save_small" />
 
     <TextView
         android:id="@+id/ok_txt_in_btn"

@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name=".ApartmentSearcherOnBoardDialogActivity"
+            android:name=".PhoneInfoDialogActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />
         <activity

@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
+import com.example.roome.PhoneInfoDialogActivity;
 import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.example.roome.EditProfileAlertDialog;
@@ -41,10 +42,10 @@ import java.io.IOException;
 
 public class EditProfileApartmentSearcher extends Fragment {
     private static final int GALLERY_REQUEST_CODE = 1;
-    private Boolean isUserFirstNameValid;
-    private Boolean isUserLastNameValid;
-    private Boolean isUserAgeValid;
-    private Boolean isUserPhoneValid;
+    private Boolean isUserFirstNameValid = false;
+    private Boolean isUserLastNameValid = false;
+    private Boolean isUserAgeValid = false;
+    private Boolean isUserPhoneValid = false;
     private Boolean changedPhoto = false;
 
     private EditText firstNameEditText;
@@ -66,6 +67,8 @@ public class EditProfileApartmentSearcher extends Fragment {
     ImageView addProfilePic;
     final long ONE_MEGABYTE = 1024 * 1024;
     private Uri selectedImage;
+
+    ImageView phoneInfoButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,10 +101,6 @@ public class EditProfileApartmentSearcher extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        isUserFirstNameValid = false;
-        isUserLastNameValid = false;
-        isUserAgeValid = false;
-        isUserPhoneValid = false;
         addProfilePic = getView().findViewById(R.id.ib_add_photo);
         profilePic = getView().findViewById(R.id.iv_missingPhoto);
         addProfilePic.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +130,14 @@ public class EditProfileApartmentSearcher extends Fragment {
             }
         });
         validateUserInput();
+        phoneInfoButton = getView().findViewById(R.id.iv_phone_info_btn);
+        phoneInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), PhoneInfoDialogActivity.class);
+                    startActivity(intent);
+                }
+        });
         super.onActivityCreated(savedInstanceState);
     }
 

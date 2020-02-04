@@ -6,8 +6,9 @@
     <color name="transparent">#00252122</color>
     <color name="milk">#CDFFFFFF</color>
     <color name="peach">#ed866c</color>
-    <color name="white">#E9F8F8F8</color>
+    <color name="white">#F2FFFFFF</color>
     <color name="light">#40A6B1E4</color>
+    <color name="gray">#D9474343</color>
 
 
 </resources>
