@@ -41,7 +41,7 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
     TextView mChosenLocations;
     String[] locations;
     boolean[] checkedLocations;
-    ArrayList<Integer> userLocations = new ArrayList<>(); //todo:send the locations chosen to db when save pressed
+    ArrayList<Integer> userLocations = new ArrayList<>();
     int[] checkBoxesValues = new int[]{R.id.check_box_pets, R.id.check_box_kosher, R.id.check_box_ac, R.id.check_box_smoking};
     private ImageView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -195,9 +195,7 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
             public void onClick(View view) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                 alertDialogBuilder.setTitle("Locations in Jerusalem");
-                for (int index : asUser.getOptionalNeighborhoods()) {
-                    checkedLocations[index] = true;
-                }
+                setCheckedLocationsToTrue();
                 alertDialogBuilder.setMultiChoiceItems(locations, checkedLocations, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
@@ -399,6 +397,14 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         setFiltersValuesFromDataBase();
     }
 
+    private void setCheckedLocationsToTrue() {
+        if(asUser.getOptionalNeighborhoods()!=null) {
+            for (int index : asUser.getOptionalNeighborhoods()) {
+                checkedLocations[index] = true;
+            }
+        }
+    }
+
     /**
      * This method returns a string from the user location list.
      */
@@ -487,7 +493,9 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         setCheckBoxesToUserPreferences();
         final TextView chosenDate = getView().findViewById(R.id.tv_click_here_entry_date);
         chosenDate.setText(asUser.getEarliestEntryDate());
-        userLocations = asUser.getOptionalNeighborhoods();
+        if(asUser.getOptionalNeighborhoods()!= null) {
+            userLocations = asUser.getOptionalNeighborhoods();
+        }
         String text = toStringUserLocations();
         mChosenLocations.setText(text);
     }
