@@ -1,6 +1,7 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -10,34 +11,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
-import com.example.roome.SignInActivity;
 import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.example.roome.user_classes.RoommateSearcherUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class EditFiltersApartmentSearcher extends Fragment {
+public class EditFiltersApartmentSearcher extends DialogFragment {
 
     public static final int MAX_RENT_VALUE = 4000;
-    private RangeSeekBar costBar; //todo: present same vals when entering after change
+    private RangeSeekBar costBar;
 
 
     private ImageView mChooseLocations;
@@ -49,36 +46,25 @@ public class EditFiltersApartmentSearcher extends Fragment {
     private ImageView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
-    private RangeSeekBar numRoommatesBar;
+    private RadioButton twoRoommatesMax;
+    private RadioButton threeRoommatesMax;
+    private RadioButton fourRoommatesMax;
+
 
     private RangeSeekBar ageRoommatesBar;
 
     // Firebase instance variables
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
-
     private ApartmentSearcherUser asUser;
 
-    //todo:create onclick for the save button
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Initialize Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
-        firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                asUser = FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext())); //todo is ok?
-                setFiltersValuesFromDataBase();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        asUser = new ApartmentSearcherUser();
     }
 
     @Override
@@ -97,6 +83,7 @@ public class EditFiltersApartmentSearcher extends Fragment {
                 firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
                 Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
                 setSavedFiltersToLists();
+                getDialog().dismiss();
             }
         });
 
@@ -212,23 +199,33 @@ public class EditFiltersApartmentSearcher extends Fragment {
         };
 
         //---------------------------------------------------------------------------
-        //----------------------------num roommates selection----------------------------
-        //todo: same but for radio btns
-//        numRoommatesBar = getView().findViewById(R.id.rsb_num_roommates_bar);
-//        numRoommatesBar.setRangeValues(1, 5);
-//
-//        numRoommatesBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
-//            @Override
-//            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-//                Number minVal = bar.getSelectedMinValue();
-//                Number maxVal = bar.getSelectedMaxValue();
-//                int min = (int) minVal;
-//                int max = (int) maxVal;
-//                asUser.setMaxNumDesiredRoommates(max);
-//                asUser.setMinNumDesiredRoommates(min);
-//            }
-//
-//        });
+        //---------------------------- max num roommates selection----------------------------
+        twoRoommatesMax = getView().findViewById(R.id.radio_btn_as_2);
+        twoRoommatesMax.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                asUser.setMaxNumDesiredRoommates(2);
+                twoRoommatesMax.setChecked(true);
+            }
+        });
+
+        threeRoommatesMax = getView().findViewById(R.id.radio_btn_as_3);
+        threeRoommatesMax.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                asUser.setMaxNumDesiredRoommates(3);
+                threeRoommatesMax.setChecked(true);
+            }
+        });
+
+        fourRoommatesMax = getView().findViewById(R.id.radio_btn_as_4);
+        fourRoommatesMax.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                asUser.setMaxNumDesiredRoommates(4);
+                fourRoommatesMax.setChecked(true);
+            }
+        });
         //---------------------------------------------------------------------------
         //----------------------------roommates' age selection----------------------------
         ageRoommatesBar = getView().findViewById(R.id.rsb_age_roommates_bar);
@@ -248,9 +245,13 @@ public class EditFiltersApartmentSearcher extends Fragment {
         });
 
         //---------------------------------------------------------------------------
-        //----------------------------kosher selection----------------------------
-//todo:extract the kosher preference
+        //----------------------------Things i care about selection----------------------------
+
+
         super.onActivityCreated(savedInstanceState);
+        asUser = FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext())); //todo is ok?
+        setFiltersValuesFromDataBase();
+
     }
 
     /**
@@ -281,19 +282,47 @@ public class EditFiltersApartmentSearcher extends Fragment {
         FirebaseMediate.setAptPrefList(listName, MyPreferences.getUserUid(getContext()), updatedUnSeenRoommatesIds);
     }
 
+    private void setMaxNumRoommatesRB(){
+        int chosenNum = asUser.getMaxNumDesiredRoommates();
+        switch (chosenNum){
+            case 2:
+                twoRoommatesMax.setChecked(true);
+                break;
+            case 3:
+                threeRoommatesMax.setChecked(true);
+                break;
+            case 4:
+                fourRoommatesMax.setChecked(true);
+                break;
 
-    //todo: set selected max num of roommates into radio buttons & things i care about
+        }
+    }
+
+
+    //todo: things i care about
     /**
      * This method sets the filters to the users preferences values stored in database.
      */
     private void setFiltersValuesFromDataBase() {
         costBar.setSelectedMinValue(asUser.getMinRent());
         costBar.setSelectedMaxValue(asUser.getMaxRent());
-//        numRoommatesBar.setSelectedMinValue(asUser.getMinNumDesiredRoommates());
-//        numRoommatesBar.setSelectedMaxValue(asUser.getMaxNumDesiredRoommates());
+        setMaxNumRoommatesRB();
         ageRoommatesBar.setSelectedMinValue(asUser.getMinAgeRequired());
         if (asUser.getMaxAgeRequired() != 0) { //until user edit his age in edit profile the default value is 0
             ageRoommatesBar.setSelectedMaxValue(asUser.getMaxAgeRequired());
+        }
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null)
+        {
+            int width = ViewGroup.LayoutParams.MATCH_PARENT;
+            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+            dialog.getWindow().setLayout(width, height);
         }
     }
 

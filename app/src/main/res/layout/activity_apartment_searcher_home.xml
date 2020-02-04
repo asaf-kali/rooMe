@@ -2,12 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_apartment_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_home_apt_background"
     tools:context=".Apartment_searcher_tabs_classes.ApartmentSearcherHome">
 
     <!-- activity view -->
+
     <ImageView
         android:id="@+id/iv_trash_can"
         android:layout_width="50sp"
@@ -15,7 +17,17 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:scaleType="centerCrop"
-        android:src="@android:drawable/ic_menu_delete" />
+        android:src="@android:drawable/ic_delete" />
+
+    <ImageView
+        android:id="@+id/iv_edit_filters"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_filter" />
 
     <FrameLayout
         android:id="@+id/fl_card"

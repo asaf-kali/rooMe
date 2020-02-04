@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -150,10 +149,10 @@ public class EditProfileRoommateSearcher extends Fragment {
      * This method sets the user's profile information from the firebase
      */
     private void setInfo() {
-        firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
+        firstNameEditText = getView().findViewById(R.id.et_enter_first_name);
         firstNameEditText.setText(roommateSearcherUser.getFirstName());
 
-        lastNameEditText = getView().findViewById(R.id.et_enterLastName);
+        lastNameEditText = getView().findViewById(R.id.et_enter_last_name);
         lastNameEditText.setText(roommateSearcherUser.getLastName());
 
         ageEditText = getView().findViewById(R.id.et_enterAge);
@@ -170,7 +169,7 @@ public class EditProfileRoommateSearcher extends Fragment {
             femaleRadioButton.setChecked(true);
         }
 
-        phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);
+        phoneNumberEditText = getView().findViewById(R.id.et_phone_number);
         phoneNumberEditText.setText(roommateSearcherUser.getPhoneNumber());
         if (roommateSearcherUser.getPhoneNumber() != null && roommateSearcherUser.getPhoneNumber().length() == User.PHONE_NUMBER_LENGTH) {
             isUserPhoneValid = true;
@@ -253,7 +252,7 @@ public class EditProfileRoommateSearcher extends Fragment {
      * validate the entered name.
      */
     private void validateUserFirstName() {
-        firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
+        firstNameEditText = getView().findViewById(R.id.et_enter_first_name);
         firstNameEditText.setText(roommateSearcherUser.getFirstName());
         setIsUserFirstNameValidToTrueIfValidFirstName();
         firstNameEditText.addTextChangedListener(new TextWatcher() {
@@ -296,7 +295,7 @@ public class EditProfileRoommateSearcher extends Fragment {
      * validate the entered name.
      */
     private void validateUserLastName() {
-        lastNameEditText = getView().findViewById(R.id.et_enterLastName);
+        lastNameEditText = getView().findViewById(R.id.et_enter_last_name);
         lastNameEditText.setText(roommateSearcherUser.getLastName());
         setIsUserLastNameValidToTrueIfValidLastName();
         lastNameEditText.addTextChangedListener(new TextWatcher() {
@@ -438,7 +437,7 @@ public class EditProfileRoommateSearcher extends Fragment {
      * validating the PhoneNumber entered.
      */
     private void validatePhoneNumber() {
-        phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);
+        phoneNumberEditText = getView().findViewById(R.id.et_phone_number);
         phoneNumberEditText.setText(roommateSearcherUser.getPhoneNumber());
         setIsUserPhoneValidToTrueIfValidPhoneNumber();
         phoneNumberEditText.addTextChangedListener(new TextWatcher() {
