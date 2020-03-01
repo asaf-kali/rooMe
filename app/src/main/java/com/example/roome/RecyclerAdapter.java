@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.example.roome.Data;
+
 import com.example.roome.user_classes.RoommateSearcherUser;
 
 import androidx.annotation.NonNull;
@@ -30,7 +30,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ImageV
     public void onBindViewHolder(ImageViewHolder holder, int position) {
         int image_id = images[position];
         holder.album.setImageResource(image_id);
-        String uid = Data.getUidByImg(image_id);
+        String uid = RoommateSearcherInfoConnector.getUidByImg(image_id);
         RoommateSearcherUser roommateSearcher = FirebaseMediate.getRoommateSearcherUserByUid(uid);
         String location = roommateSearcher.getApartment().getNeighborhood();
         int rent = (int) roommateSearcher.getApartment().getRent();

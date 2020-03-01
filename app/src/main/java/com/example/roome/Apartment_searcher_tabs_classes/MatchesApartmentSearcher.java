@@ -6,13 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roome.ChoosingActivity;
-import com.example.roome.Data;
+import com.example.roome.RoommateSearcherInfoConnector;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
@@ -66,7 +65,7 @@ public class MatchesApartmentSearcher extends Fragment {
     private void initMatchedImages(ArrayList<String> matchedUids) {
         images = new int[matchedUids.size()];
         for (int i=0;i<matchedUids.size();i++){
-            images[i]= Data.getImageByUid(matchedUids.get(i));
+            images[i]= RoommateSearcherInfoConnector.getImageByUid(matchedUids.get(i));
         }
     }
 

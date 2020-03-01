@@ -9,7 +9,7 @@ import java.util.Map;
  * This class bind between roommateId to the house drawable ,
  * We didn't implement the import / upload images to the firebase.
  */
-public final class Data {
+public final class RoommateSearcherInfoConnector {
     private static Map<String, Integer> uidToDrawable = new HashMap<String, Integer>();
     private static ArrayList<Integer> apartmentImages;
     private static ArrayList<String> roommateSearchersUids;

@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.roome.ChoosingActivity;
-import com.example.roome.Data;
+import com.example.roome.RoommateSearcherInfoConnector;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
 import com.example.roome.PressedLikeDialogActivity;
@@ -207,7 +207,7 @@ public class ApartmentSearcherHome extends Fragment {
     private void fillTempImgArray() {
         temp_img = new ArrayList<>();
         for (String uid : relevantRoommateSearchersIds) {
-            temp_img.add(Data.getImageByUid(uid));
+            temp_img.add(RoommateSearcherInfoConnector.getImageByUid(uid));
         }
     }
 
