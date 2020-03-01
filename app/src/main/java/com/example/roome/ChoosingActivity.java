@@ -40,9 +40,9 @@ public class ChoosingActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
-    final ArrayList<String>[] allApartmentSearcherIds = new ArrayList[1];
-    final ArrayList<String>[] allRoommateSearcherIds = new ArrayList[1];
-    final AtomicBoolean done = new AtomicBoolean(false);
+    private final ArrayList<String>[] allApartmentSearcherIds = new ArrayList[1];
+    private final ArrayList<String>[] allRoommateSearcherIds = new ArrayList[1];
+    private final AtomicBoolean done = new AtomicBoolean(false);
     /* Firebase data base lists names */
     public static final String NOT_SEEN = "not_seen";
     public static final String YES_TO_HOUSE = "yes_to_house";
@@ -98,7 +98,7 @@ public class ChoosingActivity extends AppCompatActivity {
     /**
      * This method defines the animation of the activity.
      */
-    public void setAnimation() {
+    private void setAnimation() {
         if (Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL) {
             Slide slide = new Slide();
             slide.setSlideEdge(Gravity.LEFT);
@@ -128,6 +128,7 @@ public class ChoosingActivity extends AppCompatActivity {
     }
 
     /**
+     * RoommateSearcher hasn't been implemented - that's way it's commented.
      * This method is the on click method  for roommateSearcher button. Adds user to data base and starts the
      * RoommateSearcherSetProfileActivity activity.
      *
@@ -219,7 +220,7 @@ public class ChoosingActivity extends AppCompatActivity {
      *
      * @param intent - The passed intent
      */
-    public void startActivityWithAnimation(Intent intent) {
+    private void startActivityWithAnimation(Intent intent) {
         if (Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL) {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
             startActivity(intent, options.toBundle());
