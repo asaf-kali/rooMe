@@ -433,17 +433,23 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
      */
     private void filterOutRoommatesFromList(String listName) {
         ArrayList<String> listRoommatesIds = FirebaseMediate.getAptPrefList(listName, MyPreferences.getUserUid(getContext()));
+        ArrayList<String> filteredOutRoommatesIds = FirebaseMediate.getAptPrefList("filtered_out", MyPreferences.getUserUid(getContext()));
         ArrayList<String> updatedUnSeenRoommatesIds = new ArrayList<>();
+        ArrayList<String> updatedFilteredOutRoommatesIds = new ArrayList<>();
+        listRoommatesIds.addAll(filteredOutRoommatesIds);
         for (String roommateId : listRoommatesIds) {
             RoommateSearcherUser roommate = FirebaseMediate.getRoommateSearcherUserByUid(roommateId);
             if (roommate.getApartment() != null) {
                 double roommatesApartmentRent = roommate.getApartment().getRent();
                 if (roommatesApartmentRent <= asUser.getMaxRent() && roommatesApartmentRent >= asUser.getMinRent()) {
                     updatedUnSeenRoommatesIds.add(roommateId);
+                } else {
+                    updatedFilteredOutRoommatesIds.add(roommateId);
                 }
             }
         }
         FirebaseMediate.setAptPrefList(listName, MyPreferences.getUserUid(getContext()), updatedUnSeenRoommatesIds);
+        FirebaseMediate.setAptPrefList("filtered_out", MyPreferences.getUserUid(getContext()), updatedFilteredOutRoommatesIds);
     }
 
     private void setMaxNumRoommatesRB() {
