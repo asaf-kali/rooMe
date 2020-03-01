@@ -42,13 +42,13 @@ import java.util.Calendar;
 public class EditFiltersApartmentSearcher extends DialogFragment {
     //location preferences variables
     private ImageView chooseLocations;
-    TextView chosenLocations;
-    String[] locations;
-    boolean[] checkedLocations;
-    ArrayList<Integer> userLocations = new ArrayList<>();
+    private TextView chosenLocations;
+    private String[] locations;
+    private boolean[] checkedLocations;
+    private ArrayList<Integer> userLocations = new ArrayList<>();
 
     //things i care about (checkbox) variables
-    int[] checkBoxesValues = new int[]{R.id.check_box_pets, R.id.check_box_kosher,
+    private int[] checkBoxesValues = new int[]{R.id.check_box_pets, R.id.check_box_kosher,
             R.id.check_box_ac, R.id.check_box_smoking};
 
     //date variables
@@ -229,6 +229,69 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
 
 
     /**
+     * handles the OK button in the date dialog
+     * @param alertDialogBuilder AlertDialog.Builder
+     */
+    private void locationsOKButton(AlertDialog.Builder alertDialogBuilder){
+        alertDialogBuilder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    /**
+                     * handles the event when user selects OK button - updates the text
+                     * as the chosen locations
+                     * @param dialogInterface the dialog interface
+                     * @param which int
+                     */
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        String text = toStringUserLocations();
+                        chosenLocations.setText(text);
+                        asUser.setOptionalNeighborhoods(userLocations);
+                    }
+                });
+    }
+
+    /**
+     * handles the Dismiss button in the date dialog
+     * @param alertDialogBuilder AlertDialog.Builder
+     */
+    private void locationsDismissButton(AlertDialog.Builder alertDialogBuilder){
+        alertDialogBuilder.setNegativeButton("Dismiss",
+                new DialogInterface.OnClickListener() {
+                    /**
+                     * Handles the event the user clicks the Dismiss button
+                     * @param dialogInterface the dialog interface
+                     * @param i int
+                     */
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+    }
+
+    /**
+     * handles the Clear All button in the date dialog
+     * @param alertDialogBuilder AlertDialog.Builder
+     */
+    private void locationsClearAllButton(AlertDialog.Builder alertDialogBuilder){
+        alertDialogBuilder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+            /**
+             * Handles the event where the user clicks the Clear All button
+             * @param dialogInterface the dialog interface
+             * @param which int
+             */
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                for (int i = 0; i < checkedLocations.length; i++) {
+                    checkedLocations[i] = false;
+                    userLocations.clear();
+                    chosenLocations.setText("");
+                }
+            }
+        });
+    }
+
+    /**
      * The method handles the location view in the event the user picks/unpicks locations
      */
     public void handleChosenLocation(){
@@ -272,53 +335,10 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
                         }
                     }
                 });
-
                 alertDialogBuilder.setCancelable(false);
-                alertDialogBuilder.setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            /**
-                             * handles the event when user selects OK button - updates the text
-                             * as the chosen locations
-                             * @param dialogInterface the dialog interface
-                             * @param which int
-                             */
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        String text = toStringUserLocations();
-                        chosenLocations.setText(text);
-                        asUser.setOptionalNeighborhoods(userLocations);
-                    }
-                });
-
-                alertDialogBuilder.setNegativeButton("Dismiss",
-                        new DialogInterface.OnClickListener() {
-                            /**
-                             * Handles the event the user clicks the Dismiss button
-                             * @param dialogInterface the dialog interface
-                             * @param i int
-                             */
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                alertDialogBuilder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
-                    /**
-                     * Handles the event where the user clicks the Clear All button
-                     * @param dialogInterface the dialog interface
-                     * @param which int
-                     */
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        for (int i = 0; i < checkedLocations.length; i++) {
-                            checkedLocations[i] = false;
-                            userLocations.clear();
-                            chosenLocations.setText("");
-                        }
-                    }
-                });
-
+                locationsOKButton(alertDialogBuilder);
+                locationsDismissButton(alertDialogBuilder);
+                locationsClearAllButton(alertDialogBuilder);
                 AlertDialog mDialog = alertDialogBuilder.create();
                 mDialog.show();
             }
