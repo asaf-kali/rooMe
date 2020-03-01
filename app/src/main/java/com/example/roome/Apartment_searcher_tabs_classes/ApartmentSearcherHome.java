@@ -1,6 +1,5 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,24 +10,19 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.bumptech.glide.Glide;
 import com.example.roome.ChoosingActivity;
 import com.example.roome.Data;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
-import com.example.roome.PhoneInfoDialogActivity;
 import com.example.roome.PressedLikeDialogActivity;
 import com.example.roome.PressedUnlikeDialogActivity;
 import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentAdditionalInfo;
 import com.example.roome.user_classes.RoommateSearcherUser;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,34 +34,47 @@ import com.lorenzos.flingswipe.*;
 
 import java.util.ArrayList;
 
+/**
+ * This fragment is the main fragment.
+ * The relevant roommate's houses are displayed in this fragment.
+ * The apartment searcher user choose to swipe left/right (unlike/like) the
+ * apartments.
+ * When the user clicks the apartment he can see more info about the apartment.
+ * Also , from this fragment the user can click on the filters icon to change
+ * the filters
+ */
 public class ApartmentSearcherHome extends Fragment {
 
-    private ArrayList<String> relevantRoommateSearchersIds;
-    private ArrayList<Integer> temp_img;
+    /* Firebase */
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference firebaseDatabaseReference;
+
+    /* Views references */
     private ImageView trashCanImage;
     private TextView noMoreHousesText;
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mFirebaseDatabaseReference;
     private TextView locationText;
     private TextView peopleText;
     private TextView priceText;
     private ImageView editFiltersImage;
 
+    /* For swipe */
+    public static MyAppAdapter myAppAdapter;
+    public static ViewHolder viewHolder;
+    private SwipeFlingAdapterView flingContainer;
+
+    /* Other class members */
+    private ArrayList<String> relevantRoommateSearchersIds;
+    private ArrayList<Integer> temp_img;
     private EditFiltersApartmentSearcher editFiltersDialog;
     private ApartmentAdditionalInfo additionalInfoDialog;
     public RoommateSearcherUser currentRoommateSearcher;
 
 
-    //for swipe
-    public static MyAppAdapter myAppAdapter;
-    public static ViewHolder viewHolder;
-    private SwipeFlingAdapterView flingContainer;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
+        firebaseDatabaseReference = mFirebaseDatabase.getReference();
         boolean isFirstTime = MyPreferences.isFirstTime(getContext());
         if (isFirstTime) {
             MyPreferences.setIsFirstTimeToFalse(getContext());
@@ -89,8 +96,6 @@ public class ApartmentSearcherHome extends Fragment {
         editFiltersImage = getView().findViewById(R.id.iv_edit_filters);
         editFiltersDialog = new EditFiltersApartmentSearcher();
         additionalInfoDialog = new ApartmentAdditionalInfo();
-
-
         setClickListeners();
         setFirebaseListeners();
         retrieveRelevantRoommateSearchers();
@@ -104,48 +109,51 @@ public class ApartmentSearcherHome extends Fragment {
      */
     private void swipeOnCreate() {
         flingContainer =
-                (SwipeFlingAdapterView) getView().findViewById(R.id.frame);
-        myAppAdapter = new MyAppAdapter(relevantRoommateSearchersIds, getContext());
+                (SwipeFlingAdapterView) getView().findViewById(R.id.frame_card);
+        myAppAdapter = new MyAppAdapter(relevantRoommateSearchersIds);
         flingContainer.setAdapter(myAppAdapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
+            /**
+             * remove first object from the adapter
+             */
             @Override
             public void removeFirstObjectInAdapter() {
 
             }
 
+            /**
+             * When swiping card to the left
+             * @param dataObject
+             */
             @Override
             public void onLeftCardExit(Object dataObject) {
                 pressedNoToApartment();
                 myAppAdapter.notifyDataSetChanged();
                 relevantRoommateSearchersIds.remove(0);
                 temp_img.remove(0);
-//                fillTempImgArray();
-//                if (relevantRoommateSearchersIds.size() == 0) {
-//                    Glide.with(getContext()).load(R.drawable.no_more_houses_2).into(viewHolder.cardImage);
-//                }
                 if (MyPreferences.isFirstUnlike(getContext())) {
-                    Intent intent = new Intent(getActivity(), PressedUnlikeDialogActivity.class);
+                    Intent intent = new Intent(getActivity(),
+                            PressedUnlikeDialogActivity.class); //showing
+                    // information about swiping left(unlike apt)
                     startActivity(intent);
                     MyPreferences.setIsFirstUnlikeToFalse(getContext());
                 }
-                //Do something on the left!
-                //You also have access to the original object.
-                //If you want to use it just cast it (String) dataObject
             }
 
+            /**
+             * When swiping card to the right
+             * @param dataObject
+             */
             @Override
             public void onRightCardExit(Object dataObject) {
                 pressedYesToApartment();
                 relevantRoommateSearchersIds.remove(0);
                 temp_img.remove(0);
-//                fillTempImgArray();
-//                if (relevantRoommateSearchersIds.size() == 0) {
-//                    Glide.with(getContext()).load(R.drawable.no_more_houses_2).into(viewHolder.cardImage);
-//                }
                 myAppAdapter.notifyDataSetChanged();
                 if (MyPreferences.isFirstLike(getContext())) {
-
-                    Intent intent = new Intent(getActivity(), PressedLikeDialogActivity.class);
+                    Intent intent = new Intent(getActivity(),
+                            PressedLikeDialogActivity.class); //showing
+                    // information about swiping right(like apt)
                     startActivity(intent);
                     MyPreferences.setIsFirstLikeToFalse(getContext());
                 }
@@ -156,16 +164,27 @@ public class ApartmentSearcherHome extends Fragment {
 
             }
 
+            /**
+             * This function responsible for animation when scrolling
+             * @param scrollProgressPercent
+             */
             @Override
             public void onScroll(float scrollProgressPercent) {
                 View view = flingContainer.getSelectedView();
                 view.findViewById(R.id.fl_background).setAlpha(0);
-                view.findViewById(R.id.item_swipe_right_indicator).setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
-                view.findViewById(R.id.item_swipe_left_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
+                view.findViewById(R.id.item_swipe_right_indicator)
+                        .setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
+                view.findViewById(R.id.item_swipe_left_indicator)
+                        .setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
             }
         });
 
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
+            /**
+             * This function is responsible for handling item click
+             * @param itemPosition - the item position in the container
+             * @param dataObject
+             */
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
                 View view = flingContainer.getSelectedView();
@@ -176,7 +195,8 @@ public class ApartmentSearcherHome extends Fragment {
                         relevantRoommateSearchersIds.get(itemPosition));
                 additionalInfoDialog.setArguments(bundle);
                 additionalInfoDialog.show(getFragmentManager(),
-                        "additionalInfo");
+                        "additionalInfo"); // showing additional info about
+                // the apartment
             }
         });
     }
@@ -201,6 +221,8 @@ public class ApartmentSearcherHome extends Fragment {
                         MyPreferences.getUserUid(getContext()));
         ArrayList<String> allMaybeUid = FirebaseMediate.getAptPrefList(ChoosingActivity.MAYBE_TO_HOUSE,
                 MyPreferences.getUserUid(getContext()));
+        // the relevant roommates are the ones that the user liked or chosen
+        // maybe
         relevantRoommateSearchersIds.addAll(allMaybeUid);
     }
 
@@ -209,11 +231,22 @@ public class ApartmentSearcherHome extends Fragment {
      */
     private void setClickListeners() {
         trashCanImage.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * This function is responsible for displaying all the apartments
+             * that the user unlike
+             * @param view - The view
+             */
             @Override
-            public void onClick(View view) {// when clicking the trashCan
+            public void onClick(View view) {
+                // we didn't implement this feature
             }
         });
         editFiltersImage.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Opening the edit filters dialog
+             * @param view - The view
+             */
             @Override
             public void onClick(View view) {
                 editFiltersDialog.show(getFragmentManager(), "EditFilters");
@@ -231,14 +264,14 @@ public class ApartmentSearcherHome extends Fragment {
     }
 
     /**
-     * check if the apt user and roommate user have a match
+     * check if the apt user and roommate user have a match according to filters
      *
      * @param aptUid      - apt id
      * @param roommateUid - roommate id
      * @return true if there's a match , otherwise false
      */
-    private boolean isMatch(String aptUid, String roommateUid) { //todo maybe
-        // delete this function
+    private boolean isMatch(String aptUid, String roommateUid) {
+        // We didn't implement this
         return true;
     }
 
@@ -246,7 +279,7 @@ public class ApartmentSearcherHome extends Fragment {
      * set fireBase listeners
      */
     private void setFirebaseListeners() {
-        mFirebaseDatabaseReference.child("users").child("RoommateSearcherUser").addChildEventListener(new ChildEventListener() {
+        firebaseDatabaseReference.child("users").child("RoommateSearcherUser").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 onChildChanged(dataSnapshot, s);
@@ -266,7 +299,7 @@ public class ApartmentSearcherHome extends Fragment {
                     }
                 } else {
                     if (!isMatch(aUserKey, roommateKey)) {
-                        //if there is !!no!! match -> remove roommatekey from apt prefs list
+                        //if there is no match -> remove roommatekey from apt prefs list
                         FirebaseMediate.removeFromAptPrefList(inWhichList,
                                 aUserKey, roommateKey);
                     }
@@ -296,7 +329,7 @@ public class ApartmentSearcherHome extends Fragment {
 
             }
         });
-        mFirebaseDatabaseReference.child("preferences").child(
+        firebaseDatabaseReference.child("preferences").child(
                 "ApartmentSearcherUser").child(getUserUid()).child(ChoosingActivity.NOT_SEEN).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -325,7 +358,7 @@ public class ApartmentSearcherHome extends Fragment {
     }
 
     /**
-     * remove the roomate user from the current apt user "haveNotSeen" list
+     * remove the roommate user from the current apt user "haveNotSeen" list
      *
      * @param roommateUid - roommate id
      */
@@ -336,24 +369,25 @@ public class ApartmentSearcherHome extends Fragment {
 
     /**
      * called when user liked an apt , without params
+     * adds the roommate to the liked list
      */
     public void pressedYesToApartment() {
-        String likedRoomateId =
-                relevantRoommateSearchersIds.get(0);
+        String likedRoommateId =
+                relevantRoommateSearchersIds.get(0); // the current roommate
         String myUid = getUserUid();
-        removeFromHaveNotSeen(likedRoomateId);
+        removeFromHaveNotSeen(likedRoommateId);
         FirebaseMediate.addToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
-                myUid, likedRoomateId);
+                myUid, likedRoommateId);
         FirebaseMediate.addToRoommatePrefList(ChoosingActivity.NOT_SEEN,
-                likedRoomateId, myUid);
+                likedRoommateId, myUid);
     }
 
 
     /**
      * called when user didn't like an apt , without params
+     * adds the roommate to the unliked list
      */
     public void pressedNoToApartment() {
-
         String unlikedRoommateId =
                 relevantRoommateSearchersIds.get(0);
         removeFromHaveNotSeen(unlikedRoommateId);
@@ -362,12 +396,11 @@ public class ApartmentSearcherHome extends Fragment {
     }
 
     private void moreHouses() {
-
         noMoreHousesText.setVisibility(View.INVISIBLE);
-        fillTempImgArray(); //todo delete
+        fillTempImgArray();
     }
 
-    //for swipe
+    //for swipe action
 
     /**
      * viewHolder class , adapter for roommate apt image
@@ -378,37 +411,65 @@ public class ApartmentSearcherHome extends Fragment {
         public ImageView cardImage;
     }
 
+    /**
+     * Adapter for relevant roommates
+     */
     public class MyAppAdapter extends BaseAdapter {
 
 
-        public ArrayList<String> parkingList;
-        public Context context;
+        private ArrayList<String> parkingList;
 
-        private MyAppAdapter(ArrayList<String> apps, Context context) {
+
+        private MyAppAdapter(ArrayList<String> apps) {
             this.parkingList = apps;
-            this.context = context;
         }
 
-
+        /**
+         * Setting the list
+         * @param parkingList - The list to set
+         */
         public void setParkingList(ArrayList<String> parkingList) {
             this.parkingList = parkingList;
         }
 
+        /**
+         * Get the size of the list
+         * @return - The size of the list
+         */
         @Override
         public int getCount() {
             return parkingList.size();
         }
 
+        /**
+         *  Return the item according to position
+         * @param position - The position
+         * @return - The item in that position
+         */
         @Override
         public Object getItem(int position) {
+            //We didn't implement this
             return position;
         }
 
+        /**
+         * Getting the image id
+         * @param position - position
+         * @return - The id
+         */
         @Override
         public long getItemId(int position) {
+            //We didn't implement this
             return position;
         }
 
+        /**
+         * Getting the relevant view
+         * @param position - position
+         * @param convertView - view
+         * @param parent - parent
+         * @return - The view
+         */
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
 
@@ -423,7 +484,7 @@ public class ApartmentSearcherHome extends Fragment {
                 viewHolder = new ViewHolder();
                 viewHolder.basicInfo =
                         (LinearLayout) rowView.findViewById(R.id.basic_info_ll);
-                TextView tv = rowView.findViewById(R.id.tv_location);
+                //creating view holder for every roommate
                 currentRoommateSearcher =
                         FirebaseMediate.getRoommateSearcherUserByUid(relevantRoommateSearchersIds.get(position));
                 peopleText = rowView.findViewById(R.id.tv_people);
@@ -440,7 +501,6 @@ public class ApartmentSearcherHome extends Fragment {
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-//            viewHolder.basicInfo.setText("UserId : ".concat(parkingList.get(position)));
             Glide.with(getContext()).load(temp_img.get(position)).into(viewHolder.cardImage);
 
             return rowView;
