@@ -26,16 +26,24 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * This class is responsible for mediating with the firebase data base.
+ */
 public class FirebaseMediate {
 
+    // Firebase instance variables
     private static FirebaseDatabase firebaseDatabase;
     private static DatabaseReference firebaseDatabaseReference;
     private static FirebaseStorage storage;
     private static StorageReference storageReference;
+
     private static DataSnapshot dataSs;
+    private final static AtomicBoolean fmDone = new AtomicBoolean(false);
 
-    public final static AtomicBoolean fmDone = new AtomicBoolean(false);
-
+    /**
+     * This method sets the data snapshot to the current data snapshot.
+     * @param dataSnapshot
+     */
     public static void setDataSnapshot(@NonNull DataSnapshot dataSnapshot) {
         dataSs = dataSnapshot;
     }
