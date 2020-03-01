@@ -13,7 +13,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.roome.Data;
+import com.example.roome.RoommateSearcherInfoConnector;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.R;
 
@@ -59,7 +59,7 @@ public class ApartmentAdditionalInfo extends DialogFragment {
         price.setText(Integer.toString((int)roommateSearcherUser.getApartment().getRent()));
         neighborhood.setText(roommateSearcherUser.getApartment().getNeighborhood());
         aptImg = getView().findViewById(R.id.iv_house_img);
-        aptImg.setImageResource(Data.getImageByUid(getArguments().getString(
+        aptImg.setImageResource(RoommateSearcherInfoConnector.getImageByUid(getArguments().getString(
                 "roommateId")));
 
         super.onActivityCreated(savedInstanceState);
