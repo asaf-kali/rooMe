@@ -51,7 +51,7 @@ public class ApartmentSearcherHome extends Fragment {
 
     /* Views references */
     private ImageView trashCanImage;
-    private TextView noMoreHousesText;
+    private ImageView noMoreHousesText;
     private TextView locationText;
     private TextView peopleText;
     private TextView priceText;
@@ -92,7 +92,7 @@ public class ApartmentSearcherHome extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         trashCanImage = getView().findViewById(R.id.iv_trash_can);
-        noMoreHousesText = getView().findViewById(R.id.tv_no_more_houses);
+        noMoreHousesText = getView().findViewById(R.id.iv_no_more_houses);
         editFiltersImage = getView().findViewById(R.id.iv_edit_filters);
         editFiltersDialog = new EditFiltersApartmentSearcher();
         additionalInfoDialog = new ApartmentAdditionalInfo();
@@ -416,8 +416,10 @@ public class ApartmentSearcherHome extends Fragment {
                 getUserUid(), unlikedRoommateId);
     }
 
+    /**
+     * Called when there are more houses to display
+     */
     private void moreHouses() {
-        noMoreHousesText.setVisibility(View.INVISIBLE);
         fillTempImgArray();
     }
 
@@ -504,7 +506,7 @@ public class ApartmentSearcherHome extends Fragment {
                 // configure view holder
                 viewHolder = new ViewHolder();
                 viewHolder.basicInfo =
-                        (LinearLayout) rowView.findViewById(R.id.basic_info_ll);
+                        (LinearLayout) rowView.findViewById(R.id.ll_basic_info);
                 //creating view holder for every roommate
                 currentRoommateSearcher =
                         FirebaseMediate.getRoommateSearcherUserByUid(relevantRoommateSearchersIds.get(position));
@@ -516,7 +518,7 @@ public class ApartmentSearcherHome extends Fragment {
                 priceText.setText(Integer.toString((int) (currentRoommateSearcher.getApartment().getRent())));
                 viewHolder.background =
                         (FrameLayout) rowView.findViewById(R.id.fl_background);
-                viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.cardImage);
+                viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.iv_card);
                 rowView.setTag(viewHolder);
 
             } else {
