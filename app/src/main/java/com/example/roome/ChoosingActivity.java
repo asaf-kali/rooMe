@@ -1,9 +1,7 @@
 package com.example.roome;
 
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Slide;
@@ -30,6 +28,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * This class represents the ChoosingActivity. On the first login to the app the users chooses
+ * between ApartmentSearcher and RoommateSearcher.
+ */
 public class ChoosingActivity extends AppCompatActivity {
 
     protected static final int ANIMATION_DELAY_TIME = 500;
@@ -38,14 +40,15 @@ public class ChoosingActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
-    final ArrayList<String>[] allApartmentSearcherIds = new ArrayList[1];
-    final ArrayList<String>[] allRoommateSearcherIds = new ArrayList[1];
-    final AtomicBoolean done = new AtomicBoolean(false);
+    private final ArrayList<String>[] allApartmentSearcherIds = new ArrayList[1];
+    private final ArrayList<String>[] allRoommateSearcherIds = new ArrayList[1];
+    private final AtomicBoolean done = new AtomicBoolean(false);
+    /* Firebase data base lists names */
     public static final String NOT_SEEN = "not_seen";
     public static final String YES_TO_HOUSE = "yes_to_house";
     public static final String MAYBE_TO_HOUSE = "maybe_to_house";
     public static final String NO_TO_HOUSE = "no_to_house";
-    public static final String NOT_IN_LISTS = "doesnt appear on lists";
+    public static final String NOT_IN_LISTS = "doesn't appear on lists";
 
 
     @Override
@@ -53,10 +56,19 @@ public class ChoosingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setAnimation();
         setContentView(R.layout.activity_choosing);
-        final ProgressBar progressBar = findViewById(R.id.progress_bar);
-        initalizeFirebaseVariables();
+        final ProgressBar progressBar = findViewById(R.id.pb_progress_bar);
+        initializeFirebaseVariables();
         updateUserName();
 
+        addListenerToFirebaseDbReference(progressBar);
+    }
+
+    /**
+     * This method adds adds a Single Event Listener to the data base reference.
+     *
+     * @param progressBar The progress bar for finishing sign in activity.
+     */
+    private void addListenerToFirebaseDbReference(final ProgressBar progressBar) {
         firebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -65,27 +77,28 @@ public class ChoosingActivity extends AppCompatActivity {
                 allRoommateSearcherIds[0] = FirebaseMediate.getAllRoommateSearcherIds();
                 done.set(true);
                 progressBar.setVisibility(View.GONE);
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
     }
 
     /**
-     * This method initalizes firebase variables.
+     * This method initializes firebase variables.
      */
-    private void initalizeFirebaseVariables() {
+    private void initializeFirebaseVariables() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabaseReference = firebaseDatabase.getReference();
     }
 
-    public void setAnimation() {
+    /**
+     * This method defines the animation of the activity.
+     */
+    private void setAnimation() {
         if (Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL) {
             Slide slide = new Slide();
             slide.setSlideEdge(Gravity.LEFT);
@@ -101,23 +114,21 @@ public class ChoosingActivity extends AppCompatActivity {
      * activity.
      */
     private void updateUserName() {//todo
-        String userName = "";
+        String userName;
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(ChoosingActivity.this);
         if (firebaseUser != null) {
             userName = firebaseUser.getDisplayName();
         } else if (acct != null) {
             userName = acct.getDisplayName();
-        } else if (acct == null) {
-
-            userName =
-                    MyPreferences.getManualFirstName(getApplicationContext()) + " " + MyPreferences.getManualLastName(getApplicationContext());
-
+        } else {
+            userName = getUserNameFromMyPreferences();
         }
         TextView textView = findViewById(R.id.tv_hello_name);
         textView.setText(String.format("Hi %s!", userName));
     }
 
     /**
+     * RoommateSearcher hasn't been implemented - that's way it's commented.
      * This method is the on click method  for roommateSearcher button. Adds user to data base and starts the
      * RoommateSearcherSetProfileActivity activity.
      *
@@ -133,8 +144,7 @@ public class ChoosingActivity extends AppCompatActivity {
 //        while (!done.get()) ;
 //        Intent i = new Intent(ChoosingActivity.this, RoommateSearcherSetProfileActivity.class);
 //        startActivity(i);
-//        finish();//todo uncomment
-
+//        finish();
     }
 
     /**
@@ -169,9 +179,8 @@ public class ChoosingActivity extends AppCompatActivity {
         GoogleSignInAccount userAccount = GoogleSignIn.getLastSignedInAccount(ChoosingActivity.this);
         String firstName, lastName;
         if (userAccount == null) {
-            firstName =
-                    MyPreferences.getManualFirstName(getApplicationContext());
-            lastName = MyPreferences.getManualLastName(getApplicationContext());
+            firstName = getUserFirstNameFromMyPreferences();
+            lastName = getUserLastNameFromMyPreferences();
         } else {
             firstName = userAccount.getGivenName();
             lastName = userAccount.getFamilyName();
@@ -179,7 +188,39 @@ public class ChoosingActivity extends AppCompatActivity {
         return new User(firstName, lastName);
     }
 
-    public void startActivityWithAnimation(Intent intent) {
+    /**
+     * This method returns the user last name saved in MyPreferences.
+     *
+     * @return the user last name saved in MyPreferences.
+     */
+    private String getUserLastNameFromMyPreferences() {
+        return MyPreferences.getManualLastName(getApplicationContext());
+    }
+
+    /**
+     * This method returns the user name saved in MyPreferences.
+     *
+     * @return the user name saved in MyPreferences.
+     */
+    private String getUserNameFromMyPreferences() {
+        return getUserFirstNameFromMyPreferences() + " " + getUserLastNameFromMyPreferences();
+    }
+
+    /**
+     * This method returns the user first name saved in MyPreferences.
+     *
+     * @return the user first name saved in MyPreferences.
+     */
+    private String getUserFirstNameFromMyPreferences() {
+        return MyPreferences.getManualFirstName(getApplicationContext());
+    }
+
+    /**
+     * This method starts the MainActivityApartmentSearcher activity With adjusted animation
+     *
+     * @param intent - The passed intent
+     */
+    private void startActivityWithAnimation(Intent intent) {
         if (Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL) {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
             startActivity(intent, options.toBundle());
