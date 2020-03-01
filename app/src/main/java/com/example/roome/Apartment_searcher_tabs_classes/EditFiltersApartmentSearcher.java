@@ -611,9 +611,13 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
      * @param listName - The list to filter the irrelevant roommate users from.
      */
     private void filterOutRoommatesFromList(String listName) {
-        ArrayList<String> listRoommatesIds = FirebaseMediate.getAptPrefList(listName,
-                MyPreferences.getUserUid(getContext()));
+        //get relevant lists from Firebase data base
+        ArrayList<String> listRoommatesIds = getAptPrefListFromFirebase(listName);
+        ArrayList<String> filteredOutRoommatesIds = getAptPrefListFromFirebase("filtered_out");
+
         ArrayList<String> updatedUnSeenRoommatesIds = new ArrayList<>();
+        ArrayList<String> updatedFilteredOutRoommatesIds = new ArrayList<>();
+        listRoommatesIds.addAll(filteredOutRoommatesIds);
         for (String roommateId : listRoommatesIds) {
             RoommateSearcherUser roommate = FirebaseMediate.getRoommateSearcherUserByUid(roommateId);
             if (roommate.getApartment() != null) {
@@ -621,11 +625,32 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
                 if (roommatesApartmentRent <= asUser.getMaxRent() &&
                         roommatesApartmentRent >= asUser.getMinRent()) {
                     updatedUnSeenRoommatesIds.add(roommateId);
+                } else {
+                    updatedFilteredOutRoommatesIds.add(roommateId);
                 }
             }
         }
-        FirebaseMediate.setAptPrefList(listName, MyPreferences.getUserUid(getContext()),
-                updatedUnSeenRoommatesIds);
+        //set the lists in firbase to the updated lists.
+        setUsersListInFirebase(listName, updatedUnSeenRoommatesIds);
+        setUsersListInFirebase("filtered_out", updatedFilteredOutRoommatesIds);
+    }
+
+    /**
+     * This method returns the relevant Users list from Firebase data base.
+     * @param listName - the name of the list in firebase
+     * @return the relevant Users list from Firebase data base.
+     */
+    private ArrayList<String> getAptPrefListFromFirebase(String listName) {
+        return FirebaseMediate.getAptPrefList(listName, MyPreferences.getUserUid(getContext()));
+    }
+
+    /**
+     * This method sets the relevant list in Firebase.
+     * @param listName - the name of the list in firebase
+     * @param updatedIdsList - the updated list to set to.
+     */
+    private void setUsersListInFirebase(String listName, ArrayList<String> updatedIdsList) {
+        FirebaseMediate.setAptPrefList(listName, MyPreferences.getUserUid(getContext()), updatedIdsList);
     }
 
 
