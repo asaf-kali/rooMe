@@ -56,7 +56,7 @@ public class ChoosingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setAnimation();
         setContentView(R.layout.activity_choosing);
-        final ProgressBar progressBar = findViewById(R.id.progress_bar);
+        final ProgressBar progressBar = findViewById(R.id.pb_progress_bar);
         initializeFirebaseVariables();
         updateUserName();
 
@@ -114,13 +114,13 @@ public class ChoosingActivity extends AppCompatActivity {
      * activity.
      */
     private void updateUserName() {//todo
-        String userName = "";
+        String userName;
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(ChoosingActivity.this);
         if (firebaseUser != null) {
             userName = firebaseUser.getDisplayName();
         } else if (acct != null) {
             userName = acct.getDisplayName();
-        } else if (acct == null) {
+        } else {
             userName = getUserNameFromMyPreferences();
         }
         TextView textView = findViewById(R.id.tv_hello_name);
@@ -179,7 +179,7 @@ public class ChoosingActivity extends AppCompatActivity {
         String firstName, lastName;
         if (userAccount == null) {
             firstName = getUserFirstNameFromMyPreferences();
-            lastName = getUserLastNameFromMypreferences();
+            lastName = getUserLastNameFromMyPreferences();
         } else {
             firstName = userAccount.getGivenName();
             lastName = userAccount.getFamilyName();
@@ -192,7 +192,7 @@ public class ChoosingActivity extends AppCompatActivity {
      *
      * @return the user last name saved in MyPreferences.
      */
-    private String getUserLastNameFromMypreferences() {
+    private String getUserLastNameFromMyPreferences() {
         return MyPreferences.getManualLastName(getApplicationContext());
     }
 
@@ -202,7 +202,7 @@ public class ChoosingActivity extends AppCompatActivity {
      * @return the user name saved in MyPreferences.
      */
     private String getUserNameFromMyPreferences() {
-        return getUserFirstNameFromMyPreferences() + " " + getUserLastNameFromMypreferences();
+        return getUserFirstNameFromMyPreferences() + " " + getUserLastNameFromMyPreferences();
     }
 
     /**
