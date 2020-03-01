@@ -86,7 +86,8 @@
                 android:textColor="@color/gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_first_name"
-                app:layout_constraintTop_toBottomOf="@+id/iv_missingPhoto" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_missingPhoto"
+                android:importantForAutofill="no" />
 
             <TextView
                 android:id="@+id/tv_last_name"
@@ -317,7 +318,8 @@
                 android:textColor="@color/gray"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
-                app:layout_constraintTop_toBottomOf="@+id/tv_additional_info" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_additional_info"
+                android:importantForAutofill="no" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
