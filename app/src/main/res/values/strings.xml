@@ -25,7 +25,6 @@
     <string name="background_desc">background image</string>
     <string name="logo_desc">rooMe logo image</string>
 
-
     <string-array name="locations">
         <item>Rehavia</item>
         <item>Beit-Hacerem</item>
@@ -34,7 +33,8 @@
         <item>Mount Scopus</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="got_it">Got it!</string>
+    <string name="or_sign_in_with_google">Or sign in with google</string>
+    <string name="create_account_and_sign_in">Create account and sign in</string>
 </resources>
