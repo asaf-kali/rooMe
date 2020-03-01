@@ -23,7 +23,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * The mainActivity for the apartment searcher , contains the tab layout
+ * and viewPager handlers
+ */
 public class MainActivityApartmentSearcher extends AppCompatActivity {
 
 
@@ -174,7 +177,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     }
 
     /**
-     * Setting animation 
+     * Setting animation
      */
     public void setAnimation() {
         if (Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL) {
