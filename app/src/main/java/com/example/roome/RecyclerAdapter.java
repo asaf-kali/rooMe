@@ -69,8 +69,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ImageV
      * Static class representing the album (a matched apartment) and its title (some apartment info)
      */
     public static class ImageViewHolder extends RecyclerView.ViewHolder{
-        ImageView album;
-        TextView albumTitle;
+        public ImageView album;
+        public TextView albumTitle;
 
         /**
          * Constructor for the ImageViewHolder class. Binds the fields to their view.
