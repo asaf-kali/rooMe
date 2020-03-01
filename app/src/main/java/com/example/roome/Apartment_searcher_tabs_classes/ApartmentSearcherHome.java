@@ -112,73 +112,7 @@ public class ApartmentSearcherHome extends Fragment {
                 (SwipeFlingAdapterView) getView().findViewById(R.id.frame_card);
         myAppAdapter = new MyAppAdapter(relevantRoommateSearchersIds);
         flingContainer.setAdapter(myAppAdapter);
-        flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
-            /**
-             * remove first object from the adapter
-             */
-            @Override
-            public void removeFirstObjectInAdapter() {
-
-            }
-
-            /**
-             * When swiping card to the left
-             * @param dataObject
-             */
-            @Override
-            public void onLeftCardExit(Object dataObject) {
-                pressedNoToApartment();
-                myAppAdapter.notifyDataSetChanged();
-                relevantRoommateSearchersIds.remove(0);
-                temp_img.remove(0);
-                if (MyPreferences.isFirstUnlike(getContext())) {
-                    Intent intent = new Intent(getActivity(),
-                            PressedUnlikeDialogActivity.class); //showing
-                    // information about swiping left(unlike apt)
-                    startActivity(intent);
-                    MyPreferences.setIsFirstUnlikeToFalse(getContext());
-                }
-            }
-
-            /**
-             * When swiping card to the right
-             * @param dataObject
-             */
-            @Override
-            public void onRightCardExit(Object dataObject) {
-                pressedYesToApartment();
-                relevantRoommateSearchersIds.remove(0);
-                temp_img.remove(0);
-                myAppAdapter.notifyDataSetChanged();
-                if (MyPreferences.isFirstLike(getContext())) {
-                    Intent intent = new Intent(getActivity(),
-                            PressedLikeDialogActivity.class); //showing
-                    // information about swiping right(like apt)
-                    startActivity(intent);
-                    MyPreferences.setIsFirstLikeToFalse(getContext());
-                }
-            }
-
-            @Override
-            public void onAdapterAboutToEmpty(int itemsInAdapter) {
-
-            }
-
-            /**
-             * This function responsible for animation when scrolling
-             * @param scrollProgressPercent
-             */
-            @Override
-            public void onScroll(float scrollProgressPercent) {
-                View view = flingContainer.getSelectedView();
-                view.findViewById(R.id.fl_background).setAlpha(0);
-                view.findViewById(R.id.item_swipe_right_indicator)
-                        .setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
-                view.findViewById(R.id.item_swipe_left_indicator)
-                        .setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
-            }
-        });
-
+        setOnFlingListener();
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             /**
              * This function is responsible for handling item click
@@ -202,6 +136,91 @@ public class ApartmentSearcherHome extends Fragment {
     }
 
     /**
+     * Setting fling listener
+     */
+    private void setOnFlingListener() {
+        flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
+            /**
+             * remove first object from the adapter
+             */
+            @Override
+            public void removeFirstObjectInAdapter() {
+
+            }
+
+            /**
+             * When swiping card to the left
+             * @param dataObject
+             */
+            @Override
+            public void onLeftCardExit(Object dataObject) {
+                handlingLeftCardExit();
+            }
+
+            /**
+             * When swiping card to the right
+             * @param dataObject
+             */
+            @Override
+            public void onRightCardExit(Object dataObject) {
+                handlingRightCardExit();
+            }
+
+            @Override
+            public void onAdapterAboutToEmpty(int itemsInAdapter) {
+
+            }
+
+            /**
+             * This function responsible for animation when scrolling
+             * @param scrollProgressPercent
+             */
+            @Override
+            public void onScroll(float scrollProgressPercent) {
+                View view = flingContainer.getSelectedView();
+                view.findViewById(R.id.fl_background).setAlpha(0);
+                view.findViewById(R.id.item_swipe_right_indicator)
+                        .setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
+                view.findViewById(R.id.item_swipe_left_indicator)
+                        .setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
+            }
+        });
+    }
+
+    /**
+     * Handling swiping card to the left
+     */
+    private void handlingLeftCardExit() {
+        pressedNoToApartment();
+        myAppAdapter.notifyDataSetChanged();
+        relevantRoommateSearchersIds.remove(0);
+        temp_img.remove(0);
+        if (MyPreferences.isFirstUnlike(getContext())) {
+            Intent intent = new Intent(getActivity(),
+                    PressedUnlikeDialogActivity.class); //showing
+            // information about swiping left(unlike apartment)
+            startActivity(intent);
+            MyPreferences.setIsFirstUnlikeToFalse(getContext());
+        }
+    }
+
+    /**
+     * Handling swiping card to the right
+     */
+    private void handlingRightCardExit() {
+        pressedYesToApartment();
+        relevantRoommateSearchersIds.remove(0);
+        temp_img.remove(0);
+        myAppAdapter.notifyDataSetChanged();
+        if (MyPreferences.isFirstLike(getContext())) {
+            Intent intent = new Intent(getActivity(),
+                    PressedLikeDialogActivity.class); //showing
+            // information about swiping right(like apartment)
+            startActivity(intent);
+            MyPreferences.setIsFirstLikeToFalse(getContext());
+        }
+    }
+    /**
      * fill image array with relevant images according to roommate users
      */
     private void fillTempImgArray() {
@@ -213,7 +232,7 @@ public class ApartmentSearcherHome extends Fragment {
 
     /**
      * add to the relevantRelevantRoommateIds all the roommate ids that fits
-     * to the current apt user
+     * to the current apartment user
      */
     private void retrieveRelevantRoommateSearchers() {
         relevantRoommateSearchersIds =
@@ -255,18 +274,19 @@ public class ApartmentSearcherHome extends Fragment {
     }
 
     /**
-     * get the apt user id
+     * get the apartment user id
      *
-     * @return apt user id
+     * @return apartment user id
      */
     private String getUserUid() {
         return MyPreferences.getUserUid(getContext());
     }
 
     /**
-     * check if the apt user and roommate user have a match according to filters
+     * check if the apartment user and roommate user have a match according to
+     * filters
      *
-     * @param aptUid      - apt id
+     * @param aptUid      - apartment id
      * @param roommateUid - roommate id
      * @return true if there's a match , otherwise false
      */
@@ -358,7 +378,8 @@ public class ApartmentSearcherHome extends Fragment {
     }
 
     /**
-     * remove the roommate user from the current apt user "haveNotSeen" list
+     * remove the roommate user from the current apartment user "haveNotSeen"
+     * list
      *
      * @param roommateUid - roommate id
      */
@@ -368,7 +389,7 @@ public class ApartmentSearcherHome extends Fragment {
     }
 
     /**
-     * called when user liked an apt , without params
+     * called when user liked an apartment , without params
      * adds the roommate to the liked list
      */
     public void pressedYesToApartment() {
@@ -384,7 +405,7 @@ public class ApartmentSearcherHome extends Fragment {
 
 
     /**
-     * called when user didn't like an apt , without params
+     * called when user didn't like an apartment , without params
      * adds the roommate to the unliked list
      */
     public void pressedNoToApartment() {
@@ -403,7 +424,7 @@ public class ApartmentSearcherHome extends Fragment {
     //for swipe action
 
     /**
-     * viewHolder class , adapter for roommate apt image
+     * viewHolder class , adapter for roommate apartment image
      */
     public static class ViewHolder {
         public static FrameLayout background;
