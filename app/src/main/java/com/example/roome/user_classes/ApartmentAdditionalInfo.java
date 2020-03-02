@@ -13,13 +13,16 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.roome.Data;
+import com.example.roome.RoommateSearcherInfoConnector;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.R;
 
+/**
+ * A class representing a ApartmentAdditionalInfo - user apartment additional info.
+ */
 public class ApartmentAdditionalInfo extends DialogFragment {
-    ImageView exitOption,aptImg;
-    TextView additionalInfo, numOfRoomates, neighborhood, price;
+    private ImageView exitOption,aptImg;
+    private TextView additionalInfo, numOfRoommates, neighborhood, price;
 
     RoommateSearcherUser roommateSearcherUser;
     public void ApartmentAdditionalInfo(){
@@ -28,8 +31,6 @@ public class ApartmentAdditionalInfo extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -51,15 +52,15 @@ public class ApartmentAdditionalInfo extends DialogFragment {
             }
         });
         additionalInfo = getView().findViewById(R.id.tv_additional_info);
-        numOfRoomates = getView().findViewById(R.id.tv_roommate_num);
+        numOfRoommates = getView().findViewById(R.id.tv_roommate_num);
         price = getView().findViewById(R.id.tv_apt_price);
         neighborhood = getView().findViewById(R.id.tv_location);
         additionalInfo.setText(roommateSearcherUser.getAdditionalInfo());
-        numOfRoomates.setText(Integer.toString(roommateSearcherUser.getApartment().getNumberOfRoommates()));
+        numOfRoommates.setText(Integer.toString(roommateSearcherUser.getApartment().getNumberOfRoommates()));
         price.setText(Integer.toString((int)roommateSearcherUser.getApartment().getRent()));
         neighborhood.setText(roommateSearcherUser.getApartment().getNeighborhood());
         aptImg = getView().findViewById(R.id.iv_house_img);
-        aptImg.setImageResource(Data.getImageByUid(getArguments().getString(
+        aptImg.setImageResource(RoommateSearcherInfoConnector.getImageByUid(getArguments().getString(
                 "roommateId")));
 
         super.onActivityCreated(savedInstanceState);

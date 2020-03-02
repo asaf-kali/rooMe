@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+/**
+ * This class' purpose is to open a dialog with some basic app info once the user swipes
+ * like on an apartment for the first time.
+ */
 public class PressedLikeDialogActivity extends AppCompatActivity {
 
     @Override

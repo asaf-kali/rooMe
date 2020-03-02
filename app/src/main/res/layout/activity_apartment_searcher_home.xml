@@ -47,7 +47,7 @@
             android:src="@drawable/ic_no_more_houses_to_show_edit" />
 
         <com.lorenzos.flingswipe.SwipeFlingAdapterView
-            android:id="@+id/frame"
+            android:id="@+id/frame_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_house_back_img"
@@ -56,17 +56,5 @@
         </com.lorenzos.flingswipe.SwipeFlingAdapterView>
 
     </FrameLayout>
-
-
-    <TextView
-        android:id="@+id/tv_no_more_houses"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btn_maybe_house"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp"
-        android:text="no houses to display , change your filters"
-        android:textSize="20sp"
-        android:visibility="invisible" />
 
 </RelativeLayout>

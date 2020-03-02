@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/sign_in_layout"
+    android:id="@+id/cl_sign_in"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/back_img4"
+        android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.05"
@@ -83,7 +83,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_sign_without_google" />
 
     <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
+        android:id="@+id/btn_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -109,7 +109,7 @@
         app:srcCompat="@drawable/ic_button_sign_in" />
 
     <TextView
-        android:id="@+id/tv_sign_without_google"
+        android:id="@+id/tv_create_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"

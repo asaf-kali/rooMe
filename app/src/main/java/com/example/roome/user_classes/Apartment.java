@@ -1,16 +1,14 @@
 package com.example.roome.user_classes;
 
+/**
+ * A class representing a Apartment.
+ */
 public class Apartment {
 
-
-    private static final int MAIN_IMAGE_INDEX = 0;
-
-
     //--------------------apartment info---------------------
-
     private Boolean hasMainImage;
     private String neighborhood;
-    private int entryDate; //todo: make sure to represent it as MM/YYYY
+    private int entryDate;
     private int numberOfRoommates;
     private double rent;
 
