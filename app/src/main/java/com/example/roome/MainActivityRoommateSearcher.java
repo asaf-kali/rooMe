@@ -37,7 +37,6 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
 
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_roomate);
         setupViewPager(viewPager);
-
         tabLayout = (TabLayout) findViewById(R.id.tabs_roomate);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();

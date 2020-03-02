@@ -57,16 +57,4 @@
 
     </FrameLayout>
 
-
-    <TextView
-        android:id="@+id/tv_no_more_houses"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btn_maybe_house"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp"
-        android:text="no houses to display , change your filters"
-        android:textSize="20sp"
-        android:visibility="invisible" />
-
 </RelativeLayout>
