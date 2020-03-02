@@ -38,6 +38,9 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 
+/**
+ *  please don't check this class.
+ */
 public class EditProfileRoommateSearcher extends Fragment {
     private static final int GALLERY_REQUEST_CODE = 1;
     private Boolean isUserFirstNameValid;

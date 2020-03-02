@@ -17,6 +17,9 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  please don't check this class.
+ */
 public class MainActivityRoommateSearcher extends AppCompatActivity {
 
 
@@ -33,7 +36,7 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_roomate_searcher);
+        setContentView(R.layout.activity_main_roommate_searcher);
 
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_roomate);
         setupViewPager(viewPager);

@@ -22,6 +22,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 //todo: send all data if save pressed
+
+/**
+ *  please don't check this class.
+ */
 public class EditFiltersRoommateSearcher extends Fragment {
 
     private RangeSeekBar costBar; //todo: present same vals when entering after change

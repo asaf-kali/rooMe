@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.roome.R;
 
+/**
+ *  please don't check this class.
+ */
 public class MatchesRoommateSearcher extends Fragment {
 
     public MatchesRoommateSearcher() {
