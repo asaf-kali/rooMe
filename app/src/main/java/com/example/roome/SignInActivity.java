@@ -156,10 +156,10 @@ public class SignInActivity extends AppCompatActivity implements
      */
     public void signWithoutGoogleFunc(View view) {
 
-        EditText fn = findViewById(R.id.et_first_name_without_google);
-        EditText ln = findViewById(R.id.et_last_name_without_google);
-        String first = fn.getText().toString();
-        String last = ln.getText().toString();
+        EditText firstNameEditText = findViewById(R.id.et_first_name_without_google);
+        EditText lastNameEditText = findViewById(R.id.et_last_name_without_google);
+        String first = firstNameEditText.getText().toString();
+        String last = lastNameEditText.getText().toString();
         MyPreferences.setManualFirstName(getApplicationContext(),first);
         MyPreferences.setManualLastName(getApplicationContext(),last);
         startActivity(new Intent(SignInActivity.this, ChoosingActivity.class));
