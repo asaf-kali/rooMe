@@ -6,7 +6,24 @@
     <string name="edit_profile_button_ab">edit profile</string>
     <string name="edit_filters_button_ab">edit filters</string>
     <string name="what_would_you_like_to_find">What would you like to find?</string>
-
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="age">Age</string>
+    <string name="gender">Gender</string>
+    <string name="lady">Lady</string>
+    <string name="gentleman">Gentleman</string>
+    <string name="phone_number">Phone number</string>
+    <string name="bio">Bio</string>
+    <string name="some_words_about_myself">Some words about myself...</string>
+    <string name="save">SAVE</string>
+    <string name="apartment">Apartment</string>
+    <string name="to_join_to">to join to</string>
+    <string name="roommate">Roommate</string>
+    <string name="for_my_apt">for my apt</string>
+    <string name="save_profile_warning">Oops!  we can see that you have some  unfilled or invalid fields. please   take a look again before saving.</string>
+    <string name="yea_sure">Yea, sure!</string>
+    <string name="background_desc">background image</string>
+    <string name="logo_desc">rooMe logo image</string>
 
     <string-array name="locations">
         <item>Rehavia</item>
@@ -15,4 +32,32 @@
         <item>Mercaz</item>
         <item>Mount Scopus</item>
     </string-array>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="got_it">Got it!</string>
+    <string name="or_sign_in_with_google">Or sign in with google</string>
+    <string name="create_account_and_sign_in">Create account and sign in</string>
+    <string name="preferred_cost_range">Preferred cost range</string>
+    <string name="preferred_locations">Preferred locations</string>
+    <string name="earliest_entry_date">Earliest entry date</string>
+    <string name="max_number_of_roommates_in_total">Max number of roommates in total</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="roommates_age_range">Roommates\' age range</string>
+    <string name="_sep_age_range">-</string>
+    <string name="things_i_care_about">Things I care about:</string>
+    <string name="smoking_free">Smoking free</string>
+    <string name="no_pets">No pets</string>
+    <string name="ac">AC</string>
+    <string name="kosher">Kosher</string>
+    <string name="sep_cost_range">-</string>
+    <string name="min_price">Min price</string>
+    <string name="max_price">Max price</string>
+    <string name="min_age">Min age</string>
+    <string name="max_age">Max age</string>
+    <string name="show_me_relevant_apartments">Show me relevant apartments</string>
+    <string name="want_to_see_more_apartments_like_this_one_n_edit_your_filters_and_profile">Want to see more apartments like this one?  Edit your filters and profile!</string>
+    <string name="regret_deleting_this_nyou_can_always_go_to_the_n_trash_icon_above_to_undo">Regret deleting this? You can always go to the  trash icon above to undo</string>
+
 </resources>

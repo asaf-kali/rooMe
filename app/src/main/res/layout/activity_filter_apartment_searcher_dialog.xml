@@ -2,13 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_edit_filters"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher"
-    android:orientation="vertical">
+    android:background="@color/common_google_signin_btn_text_dark_pressed"
+    android:orientation="vertical"
+    tools:context=".Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher">
 
     <ImageView
-        android:id="@+id/profile_back_img3"
+        android:id="@+id/iv_profile_back_img3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0"
@@ -23,15 +25,16 @@
         android:id="@+id/sv_filters_as"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="105dp"
+        android:layout_marginBottom="51dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/profile_back_img3">
+        app:layout_constraintTop_toTopOf="@+id/iv_profile_back_img3"
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/filters_constrained_layout"
+            android:id="@+id/cl_filters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -42,34 +45,67 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="8dp"
-                android:text="Preferred cost range"
+                android:text="@string/preferred_cost_range"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
-                android:id="@+id/rsb_cost_bar"
-                android:layout_width="370dp"
-                android:layout_height="67dp"
-                android:layout_gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
+
+            <EditText
+                android:id="@+id/et_min_cost_val"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/ic_price_range_back"
+                android:gravity="bottom|center"
+                android:inputType="number"
+                android:maxLength="5"
+                android:paddingLeft="20dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="8dp"
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/iv_sep_line0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_cost_range" />
 
+            <EditText
+                android:id="@+id/et_max_cost_val"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/ic_price_range_back"
+                android:gravity="bottom|center"
+                android:inputType="number"
+                android:maxLength="5"
+                android:paddingLeft="20dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="8dp"
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/iv_sep_line0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_cost_range"
+                app:layout_constraintVertical_bias="1.0" />
+
             <ImageView
-                android:id="@+id/sep_line0"
+                android:id="@+id/iv_sep_line0"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="15dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_seperating_line"
                 app:layout_constraintBottom_toTopOf="@+id/tv_chosen_locations"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rsb_cost_bar" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_cost_range" />
 
             <TextView
                 android:id="@+id/tv_chosen_locations"
@@ -77,11 +113,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="16dp"
-                android:text="Preferred locations"
+                android:text="@string/preferred_locations"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sep_line0" />
+                app:layout_constraintTop_toBottomOf="@id/iv_sep_line0" />
 
             <ImageView
                 android:id="@+id/btn_choose_locations"
@@ -93,18 +129,31 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_chosen_locations" />
 
+            <ImageView
+                android:id="@+id/iv_sep_line1_5"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/ic_seperating_line"
+                app:layout_constraintBottom_toTopOf="@+id/tv_entry_date_as"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_choose_locations" />
+
             <TextView
                 android:id="@+id/tv_entry_date_as"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="16dp"
-                android:text="Earliest entry date"
+                android:text="@string/earliest_entry_date"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@id/iv_choose_entry_date"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_choose_locations" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_sep_line1_5" />
 
             <ImageView
                 android:id="@+id/iv_choose_entry_date"
@@ -115,14 +164,14 @@
                 android:shadowDy="4"
                 android:shadowRadius="4"
                 android:src="@drawable/ic_et_back"
+                app:layout_constraintBottom_toTopOf="@id/iv_sep_line1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_entry_date_as"
-                app:layout_constraintBottom_toTopOf="@id/sep_line1"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_entry_date_as" />
 
 
             <ImageView
-                android:id="@+id/sep_line1"
+                android:id="@+id/iv_sep_line1"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginStart="15dp"
@@ -140,11 +189,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="16dp"
-                android:text="Max number of roommates in total"
+                android:text="@string/max_number_of_roommates_in_total"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sep_line1" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_sep_line1" />
 
 
             <RadioGroup
@@ -163,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/peach"
                     android:checked="true"
-                    android:text="2"
+                    android:text="@string/_2"
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorLink="#4CAF50"
                     android:textSize="20sp" />
@@ -174,7 +223,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:buttonTint="@color/peach"
-                    android:text="3"
+                    android:text="@string/_3"
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorLink="#4CAF50"
                     android:textSize="20sp" />
@@ -185,23 +234,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:buttonTint="@color/peach"
-                    android:text="4"
+                    android:text="@string/_4"
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorLink="#4CAF50"
                     android:textSize="20sp" />
             </RadioGroup>
 
-<!--            <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar-->
-<!--                android:id="@+id/rsb_num_roommates_bar"-->
-<!--                android:layout_width="250dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/tv_choose_roommates_num" />-->
 
             <ImageView
-                android:id="@+id/sep_line2"
+                android:id="@+id/iv_sep_line2"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginStart="15dp"
@@ -213,30 +254,74 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radioGroup_max_rm_as" />
 
-
             <TextView
                 android:id="@+id/tv_choose_roommates_age_range"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="16dp"
-                android:text="Roommates' age range"
+                android:text="@string/roommates_age_range"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sep_line2" />
+                app:layout_constraintTop_toBottomOf="@id/iv_sep_line2" />
 
-            <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
-                android:id="@+id/rsb_age_roommates_bar"
-                android:layout_width="370dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
+            <EditText
+                android:id="@+id/et_min_age_val"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/ic_price_range_back"
+                android:gravity="bottom|center"
+                android:inputType="number"
+                android:maxLength="2"
+                android:paddingBottom="8dp"
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/iv_sep_line3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_choose_roommates_age_range" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_choose_roommates_age_range" />
+
+            <TextView
+                android:id="@+id/tv_age_range_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp"
+                android:text="@string/_sep_age_range"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/iv_sep_line3"
+                app:layout_constraintEnd_toStartOf="@+id/et_max_age_val"
+                app:layout_constraintHorizontal_bias="0.444"
+                app:layout_constraintStart_toEndOf="@+id/et_min_age_val"
+                app:layout_constraintTop_toBottomOf="@+id/tv_choose_roommates_age_range"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <EditText
+                android:id="@+id/et_max_age_val"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/ic_price_range_back"
+                android:gravity="bottom|center"
+                android:inputType="number"
+                android:maxLength="2"
+                android:paddingBottom="8dp"
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/iv_sep_line3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_choose_roommates_age_range"
+                app:layout_constraintVertical_bias="1.0" />
+
 
             <ImageView
-                android:id="@+id/sep_line3"
+                android:id="@+id/iv_sep_line3"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginStart="15dp"
@@ -246,7 +331,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/tv_is_kosher_important"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rsb_age_roommates_bar" />
+                app:layout_constraintTop_toBottomOf="@id/tv_choose_roommates_age_range" />
 
             <TextView
                 android:id="@+id/tv_is_kosher_important"
@@ -254,11 +339,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="16dp"
-                android:text="Things I care about:"
+                android:text="@string/things_i_care_about"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sep_line3" />
+                app:layout_constraintTop_toBottomOf="@id/iv_sep_line3" />
 
             <CheckBox
                 android:id="@+id/check_box_smoking"
@@ -267,7 +352,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:buttonTint="@color/peach"
-                android:text="Smoking free "
+                android:text="@string/smoking_free"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -278,9 +363,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:shadowColor="#40000000"
-                android:shadowDy="4"
-                android:shadowRadius="4"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_choose_entry_date"
                 app:layout_constraintEnd_toEndOf="@+id/iv_choose_entry_date"
@@ -303,7 +385,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:buttonTint="@color/peach"
-                android:text="No pets "
+                android:text="@string/no_pets"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -327,10 +409,10 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:buttonTint="@color/peach"
-                android:text="AC "
+                android:text="@string/ac"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/filters_constrained_layout"
+                app:layout_constraintBottom_toBottomOf="@id/cl_filters"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/check_box_smoking" />
 
@@ -351,10 +433,10 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:buttonTint="@color/peach"
-                android:text="Kosher "
+                android:text="@string/kosher"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/filters_constrained_layout"
+                app:layout_constraintBottom_toBottomOf="@id/cl_filters"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_ac"
                 app:layout_constraintTop_toBottomOf="@id/check_box_pets" />
@@ -381,6 +463,110 @@
                 app:layout_constraintStart_toStartOf="@+id/btn_choose_locations"
                 app:layout_constraintTop_toTopOf="@+id/btn_choose_locations" />
 
+            <TextView
+                android:id="@+id/tv_cost_range_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp"
+                android:text="@string/sep_cost_range"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/iv_sep_line0"
+                app:layout_constraintEnd_toStartOf="@+id/et_max_cost_val"
+                app:layout_constraintHorizontal_bias="0.444"
+                app:layout_constraintStart_toEndOf="@+id/et_min_cost_val"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cost_range"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ImageView
+                android:id="@+id/iv_cost_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_dollar_icon"
+                app:layout_constraintBottom_toBottomOf="@+id/et_min_cost_val"
+                app:layout_constraintStart_toStartOf="@+id/et_min_cost_val" />
+
+            <TextView
+                android:id="@+id/tv_min_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/min_price"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/et_min_cost_val"
+                app:layout_constraintTop_toTopOf="@+id/et_min_cost_val" />
+
+            <TextView
+                android:id="@+id/tv_max_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/max_price"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/et_max_cost_val"
+                app:layout_constraintTop_toTopOf="@+id/et_max_cost_val" />
+
+            <ImageView
+                android:id="@+id/iv_cost_icon_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_dollar_icon"
+                app:layout_constraintBottom_toBottomOf="@+id/et_max_cost_val"
+                app:layout_constraintStart_toStartOf="@+id/et_max_cost_val" />
+
+            <TextView
+                android:id="@+id/tv_min_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/min_age"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/et_min_age_val"
+                app:layout_constraintTop_toTopOf="@+id/et_min_age_val" />
+
+            <TextView
+                android:id="@+id/tv_max_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/max_age"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/et_max_age_val"
+                app:layout_constraintTop_toTopOf="@+id/et_max_age_val" />
+
+            <ImageView
+                android:id="@+id/iv_calender_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_calander_icon"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_click_here_entry_date"
+                app:layout_constraintEnd_toEndOf="@+id/iv_choose_entry_date"
+                app:layout_constraintTop_toTopOf="@+id/tv_click_here_entry_date" />
+
+            <ImageView
+                android:id="@+id/iv_location_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_location_icon_black"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_picked_locations"
+                app:layout_constraintEnd_toEndOf="@+id/btn_choose_locations"
+                app:layout_constraintTop_toTopOf="@+id/tv_picked_locations" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -390,7 +576,9 @@
         android:layout_width="500dp"
         android:layout_height="51dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="5dp"
         android:src="@drawable/ic_button_save_big"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sv_filters_as" />
@@ -403,7 +591,7 @@
         android:shadowColor="#40000000"
         android:shadowDy="4"
         android:shadowRadius="4"
-        android:text="Show me relevant apartments"
+        android:text="@string/show_me_relevant_apartments"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -412,8 +600,5 @@
         app:layout_constraintEnd_toEndOf="@+id/btn_save_filters_as"
         app:layout_constraintStart_toStartOf="@+id/btn_save_filters_as"
         app:layout_constraintTop_toTopOf="@+id/btn_save_filters_as" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

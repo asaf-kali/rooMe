@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_edit_profile_apt_searcher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Apartment_searcher_tabs_classes.EditProfileApartmentSearcher">
@@ -20,7 +21,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/details_constrained_layout"
+            android:id="@+id/cl_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -33,94 +34,100 @@
                 android:layout_marginTop="16dp"
                 android:src="@drawable/ic_no_profile_pic"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/ib_add_photo"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_add_profile_pic_btn"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_missingPhoto"
-                app:layout_constraintEnd_toEndOf="@+id/iv_missingPhoto" />
+                app:layout_constraintEnd_toEndOf="@+id/iv_missingPhoto"
+                app:srcCompat="@drawable/ic_add_profile_pic_btn" />
 
             <ImageView
                 android:id="@+id/iv_plus_in_btn"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_plus_in_btn"
                 app:layout_constraintBottom_toBottomOf="@+id/ib_add_photo"
                 app:layout_constraintEnd_toEndOf="@+id/ib_add_photo"
                 app:layout_constraintStart_toStartOf="@+id/ib_add_photo"
-                app:layout_constraintTop_toTopOf="@+id/ib_add_photo" />
+                app:layout_constraintTop_toTopOf="@+id/ib_add_photo"
+                app:srcCompat="@drawable/ic_plus_in_btn" />
 
             <TextView
-                android:id="@+id/tv_FirstName"
+                android:id="@+id/tv_first_name"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="8dp"
-                android:width="103dp"
+                android:width="100dp"
                 android:ems="10"
                 android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:text="First Name "
-                android:textColor="@android:color/primary_text_light"
+                android:gravity="start|center"
+                android:text="@string/first_name"
+                android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 android:textStyle="normal"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
                 app:layout_constraintTop_toBottomOf="@id/iv_missingPhoto" />
 
             <EditText
-                android:id="@+id/et_enterFirstName"
-                android:layout_width="wrap_content"
+                android:id="@+id/et_enter_first_name"
+                android:layout_width="244dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
                 android:height="45dp"
                 android:background="@null"
                 android:ems="10"
                 android:fontFamily="sans-serif"
                 android:inputType="textPersonName"
                 android:textColor="@color/gray"
-                app:layout_constraintStart_toEndOf="@+id/tv_FirstName"
-                app:layout_constraintTop_toBottomOf="@+id/iv_missingPhoto" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_first_name"
+                app:layout_constraintTop_toBottomOf="@+id/iv_missingPhoto"
+                android:importantForAutofill="no" />
 
             <TextView
-                android:id="@+id/tv_LastName"
+                android:id="@+id/tv_last_name"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_marginStart="28dp"
+                android:width="100dp"
                 android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:text="Last Name "
-                android:textColor="@android:color/primary_text_light"
+                android:gravity="start|center"
+                android:text="@string/last_name"
+                android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 android:textStyle="normal"
                 app:layout_constraintBottom_toTopOf="@+id/tv_age"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
-                app:layout_constraintTop_toBottomOf="@+id/tv_FirstName" />
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                app:layout_constraintTop_toBottomOf="@+id/tv_first_name" />
 
             <EditText
-                android:id="@+id/et_enterLastName"
-                android:layout_width="wrap_content"
+                android:id="@+id/et_enter_last_name"
+                android:layout_width="244dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="10dp"
                 android:background="@null"
                 android:ems="10"
                 android:fontFamily="sans-serif"
                 android:inputType="text"
                 android:textColor="@color/gray"
-                app:layout_constraintStart_toEndOf="@+id/tv_LastName"
-                app:layout_constraintTop_toBottomOf="@+id/et_enterFirstName" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_last_name"
+                app:layout_constraintTop_toBottomOf="@+id/et_enter_first_name" />
 
             <View
                 style="@style/Divider.Horizontal"
                 android:layout_height="1dp"
                 android:layout_marginTop="6dp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_age"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
-                app:layout_constraintTop_toBottomOf="@+id/et_enterLastName" />
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                app:layout_constraintTop_toBottomOf="@+id/et_enter_last_name" />
 
             <TextView
                 android:id="@+id/tv_age"
@@ -130,34 +137,36 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
-                android:text="Age "
-                android:textColor="@android:color/primary_text_light"
+                android:text="@string/age"
+                android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 android:textStyle="normal"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
-                app:layout_constraintTop_toBottomOf="@+id/tv_LastName" />
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                app:layout_constraintTop_toBottomOf="@+id/tv_last_name" />
 
             <EditText
-                android:id="@+id/et_enterAge"
-                android:layout_width="wrap_content"
+                android:id="@+id/et_enter_age"
+                android:layout_width="309dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@null"
                 android:ems="10"
                 android:fontFamily="sans-serif"
                 android:inputType="numberSigned|number|textPersonName"
                 android:textColor="@color/gray"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_age"
-                app:layout_constraintTop_toBottomOf="@+id/et_enterLastName" />
+                app:layout_constraintTop_toBottomOf="@+id/et_enter_last_name" />
 
             <View
                 style="@style/Divider.Horizontal"
                 android:layout_height="1dp"
                 android:layout_marginTop="6dp"
                 android:paddingBottom="2dp"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
-                app:layout_constraintTop_toBottomOf="@+id/et_enterAge" />
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                app:layout_constraintTop_toBottomOf="@+id/et_enter_age" />
 
             <TextView
                 android:id="@+id/tv_gender_label"
@@ -170,15 +179,15 @@
                 android:fontFamily="sans-serif"
                 android:gravity="start|left"
                 android:paddingTop="6dp"
-                android:text="Gender "
-                android:textColor="@android:color/primary_text_light"
+                android:text="@string/gender"
+                android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 android:textStyle="normal"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
                 app:layout_constraintTop_toBottomOf="@+id/tv_age" />
 
             <RadioGroup
-                android:id="@+id/radioGroup_choose_gender"
+                android:id="@+id/radio_group_choose_gender"
                 android:layout_width="320dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="24dp"
@@ -190,7 +199,7 @@
                 android:paddingTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_gender_label"
-                app:layout_constraintTop_toBottomOf="@+id/et_enterAge">
+                app:layout_constraintTop_toBottomOf="@+id/et_enter_age">
 
 
                 <RadioButton
@@ -201,7 +210,7 @@
                     android:checked="true"
                     android:fontFamily="sans-serif"
                     android:paddingEnd="10dp"
-                    android:text="Lady"
+                    android:text="@string/lady"
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorHighlight="#FFC107"
                     android:textColorLink="#4CAF50"
@@ -214,7 +223,7 @@
                     android:buttonTint="@color/peach"
                     android:fontFamily="sans-serif"
                     android:paddingEnd="12dp"
-                    android:text="Gentleman"
+                    android:text="@string/gentleman"
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorLink="#4CAF50"
                     android:textSize="20sp" />
@@ -225,8 +234,8 @@
                 style="@style/Divider.Horizontal"
                 android:layout_height="1dp"
                 android:layout_marginTop="6dp"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup_choose_gender" />
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                app:layout_constraintTop_toBottomOf="@+id/radio_group_choose_gender" />
 
             <TextView
                 android:id="@+id/tv_phoneNumber"
@@ -236,56 +245,58 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
-                android:text="Phone number "
-                android:textColor="@android:color/primary_text_light"
+                android:text="@string/phone_number"
+                android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 android:textStyle="normal"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
                 app:layout_constraintTop_toBottomOf="@+id/tv_gender_label" />
 
             <EditText
-                android:id="@+id/et_phoneNumber"
+                android:id="@+id/et_phone_number"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@null"
                 android:ems="10"
                 android:fontFamily="sans-serif"
-                android:inputType="textPersonName"
+                android:inputType="phone"
                 android:textColor="@color/gray"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_phoneNumber"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup_choose_gender" />
+                app:layout_constraintTop_toBottomOf="@+id/radio_group_choose_gender" />
 
             <View
                 style="@style/Divider.Horizontal"
                 android:layout_height="1dp"
                 android:layout_marginTop="6dp"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
-                app:layout_constraintTop_toBottomOf="@+id/et_phoneNumber" />
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                app:layout_constraintTop_toBottomOf="@+id/et_phone_number" />
 
             <ImageButton
                 android:id="@+id/iv_phone_info_btn"
                 android:layout_width="23dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_info_black_24dp"
-                app:layout_constraintBottom_toBottomOf="@+id/et_phoneNumber"
-                app:layout_constraintEnd_toEndOf="@+id/et_phoneNumber"
-                app:layout_constraintTop_toTopOf="@+id/et_phoneNumber" />
+                app:layout_constraintBottom_toBottomOf="@+id/et_phone_number"
+                app:layout_constraintEnd_toEndOf="@+id/et_phone_number"
+                app:layout_constraintTop_toTopOf="@+id/et_phone_number"
+                app:srcCompat="@drawable/ic_info_black_24dp" />
 
             <TextView
-                android:id="@+id/tv_bio"
+                android:id="@+id/tv_additional_info"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
-                android:text="Bio"
-                android:textColor="@android:color/primary_text_light"
+                android:text="@string/bio"
+                android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 android:textStyle="normal"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
                 app:layout_constraintTop_toBottomOf="@+id/tv_phoneNumber" />
 
             <EditText
@@ -298,7 +309,7 @@
                 android:capitalize="sentences"
                 android:fontFamily="sans-serif"
                 android:gravity="start|center_horizontal"
-                android:hint="Some words about myself..."
+                android:hint="@string/some_words_about_myself"
                 android:includeFontPadding="false"
                 android:inputType="textMultiLine|textImeMultiLine"
                 android:maxLines="7"
@@ -307,9 +318,9 @@
                 android:paddingEnd="5dp"
                 android:textColor="@color/gray"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
-                app:layout_constraintTop_toBottomOf="@+id/tv_bio" />
-
+                android:importantForAutofill="no"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                app:layout_constraintTop_toBottomOf="@+id/tv_additional_info" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
@@ -318,10 +329,10 @@
         android:layout_width="500dp"
         android:layout_height="51dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/ic_button_save_big"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sv_details" />
+        app:layout_constraintTop_toBottomOf="@+id/sv_details"
+        app:srcCompat="@drawable/ic_button_save_big" />
 
     <TextView
         android:id="@+id/tv_save_in_btn_ef"
@@ -330,7 +341,7 @@
         android:shadowColor="#40000000"
         android:shadowDy="4"
         android:shadowRadius="4"
-        android:text="SAVE"
+        android:text="@string/save"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="normal"
@@ -338,8 +349,6 @@
         app:layout_constraintEnd_toEndOf="@+id/btn_save_profile_as"
         app:layout_constraintStart_toStartOf="@+id/btn_save_profile_as"
         app:layout_constraintTop_toTopOf="@+id/btn_save_profile_as" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

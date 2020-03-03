@@ -10,24 +10,30 @@ import androidx.fragment.app.Fragment;
 
 import com.example.roome.R;
 
-public class TwoFragmentR extends Fragment {
+/**
+ * **** DON'T CHECK! ****
+ * this class is for future implementation (we did not implement the roommate searcher side)
+ */
+public class RoommateSearcherHome extends Fragment {
 
-    public TwoFragmentR() {
+    public RoommateSearcherHome() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Intent i = new Intent(getActivity(), EditProfileApartmentSearcher.class);
-//        startActivity(i);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_two_r, container, false);
+        return inflater.inflate(R.layout.activity_roommate_searcher_home, container, false);
+    }
+    public void onActivityCreated(){
+
     }
 
 }

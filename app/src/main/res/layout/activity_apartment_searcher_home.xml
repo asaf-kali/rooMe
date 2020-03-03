@@ -2,20 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_apartment_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_home_apt_background"
     tools:context=".Apartment_searcher_tabs_classes.ApartmentSearcherHome">
 
     <!-- activity view -->
+
     <ImageView
         android:id="@+id/iv_trash_can"
-        android:layout_width="50sp"
-        android:layout_height="50sp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:scaleType="centerCrop"
-        android:src="@android:drawable/ic_menu_delete" />
+        android:src="@drawable/ic_delete_black" />
+
+    <ImageView
+        android:id="@+id/iv_edit_filters"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_filter" />
 
     <FrameLayout
         android:id="@+id/fl_card"
@@ -35,7 +47,7 @@
             android:src="@drawable/ic_no_more_houses_to_show_edit" />
 
         <com.lorenzos.flingswipe.SwipeFlingAdapterView
-            android:id="@+id/frame"
+            android:id="@+id/frame_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_house_back_img"
@@ -44,52 +56,5 @@
         </com.lorenzos.flingswipe.SwipeFlingAdapterView>
 
     </FrameLayout>
-
-
-    <TextView
-        android:id="@+id/tv_no_more_houses"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btn_maybe_house"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp"
-        android:text="no houses to display , change your filters"
-        android:textSize="20sp"
-        android:visibility="invisible" />
-
-    <ImageView
-        android:id="@+id/btn_no_house"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fl_card"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="-100dp"
-        android:layout_toEndOf="@+id/btn_maybe_house"
-        android:src="@drawable/ic_home_button" />
-
-    <ImageView
-        android:id="@+id/btn_yes_house"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fl_card"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="-100dp"
-        android:layout_marginEnd="50dp"
-        android:layout_toStartOf="@+id/btn_maybe_house"
-        android:src="@drawable/ic_home_button" />
-
-    <ImageView
-        android:id="@+id/btn_maybe_house"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fl_card"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentBottom="false"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="-100dp"
-        android:layout_marginBottom="0dp"
-        android:gravity="center|center_horizontal|center_vertical"
-        android:src="@drawable/ic_home_button" />
 
 </RelativeLayout>

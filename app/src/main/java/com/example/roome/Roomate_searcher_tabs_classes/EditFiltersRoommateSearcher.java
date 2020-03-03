@@ -21,7 +21,10 @@ import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-//todo: send all data if save pressed
+/**
+ * **** DON'T CHECK! ****
+ * this class is for future implementation (we did not implement the roommate searcher side)
+ */
 public class EditFiltersRoommateSearcher extends Fragment {
 
     private RangeSeekBar costBar; //todo: present same vals when entering after change

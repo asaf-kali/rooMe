@@ -10,24 +10,27 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.roome.Roomate_searcher_tabs_classes.EditFiltersRoommateSearcher;
 import com.example.roome.Roomate_searcher_tabs_classes.EditProfileRoommateSearcher;
-import com.example.roome.Roomate_searcher_tabs_classes.OneFragmentR;
-import com.example.roome.Roomate_searcher_tabs_classes.TwoFragmentR;
+import com.example.roome.Roomate_searcher_tabs_classes.RoommateSearcherHome;
+import com.example.roome.Roomate_searcher_tabs_classes.MatchesRoommateSearcher;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * **** DON'T CHECK! ****
+ * this class is for future implementation (we did not implement the roommate searcher side)
+ */
 public class MainActivityRoommateSearcher extends AppCompatActivity {
-
 
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private int[] selectedtabIcons = {R.drawable.ic_action_filled_home,
-            R.drawable.ic_action_filled_heart, R.drawable.ic_action_filled_hourglass,
+            R.drawable.ic_action_filled_heart,
             R.drawable.ic_action_filled_person};
 
     private int[] unselectedtabIcons = {R.drawable.ic_action_empty_home,
-            R.drawable.ic_action_empty_heart, R.drawable.ic_action_empty_hourglass,
+            R.drawable.ic_action_empty_heart,
             R.drawable.ic_action_empty_person};
 
     @Override
@@ -37,7 +40,6 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
 
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_roomate);
         setupViewPager(viewPager);
-
         tabLayout = (TabLayout) findViewById(R.id.tabs_roomate);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
@@ -70,15 +72,14 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(selectedtabIcons[0]);
         tabLayout.getTabAt(1).setIcon(unselectedtabIcons[1]);
         tabLayout.getTabAt(2).setIcon(unselectedtabIcons[2]);
-        tabLayout.getTabAt(3).setIcon(unselectedtabIcons[3]);
     }
 
 
     private void setupViewPager(ViewPager viewPager) {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new OneFragmentR(), "HOME");
-        adapter.addFragment(new TwoFragmentR(), "MATCHES");
+        adapter.addFragment(new RoommateSearcherHome(), "HOME");
+        adapter.addFragment(new MatchesRoommateSearcher(), "MATCHES");
         adapter.addFragment(new EditFiltersRoommateSearcher(), "FILTERS");
         adapter.addFragment(new EditProfileRoommateSearcher(), "PROFILE");
         viewPager.setAdapter(adapter);

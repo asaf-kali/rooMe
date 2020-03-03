@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +20,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
 import com.example.roome.PhoneInfoDialogActivity;
@@ -37,17 +40,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
 import java.io.IOException;
 
+/**
+ * This class represents the profile fragment in the app. The Apartment Searcher user can edit his
+ * personal info and add contact information. The main purpose of this page is that the Roommate
+ * Searcher users will know more information about the people interested in their apartments.
+ */
 public class EditProfileApartmentSearcher extends Fragment {
     private static final int GALLERY_REQUEST_CODE = 1;
+
+    /* input validation variables */
     private Boolean isUserFirstNameValid = false;
     private Boolean isUserLastNameValid = false;
     private Boolean isUserAgeValid = false;
     private Boolean isUserPhoneValid = false;
     private Boolean changedPhoto = false;
 
+    /* profile user info */
     private EditText firstNameEditText;
     private EditText lastNameEditText;
     private EditText ageEditText;
@@ -55,14 +65,14 @@ public class EditProfileApartmentSearcher extends Fragment {
     private EditText bioEditText;
     private RadioButton maleRadioButton;
 
-    // Firebase instance variables
+    /* Firebase instance variables */
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private ApartmentSearcherUser asUser;
 
-    //profile pic
+    /* profile pic variables */
     ImageView profilePic;
     ImageView addProfilePic;
     final long ONE_MEGABYTE = 1024 * 1024;
@@ -92,13 +102,24 @@ public class EditProfileApartmentSearcher extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Inflates the layout for this fragment
+     * @param inflater fragment inflater
+     * @param container fragment container
+     * @param savedInstanceState the saved instance state
+     * @return the view for this fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.activity_edit_profile_apartment_searcher, container, false);
     }
 
+    /**
+     * this method calls all methods necessary for initializing the fragment with all necessary data.
+     * Also allows to save updated data to the firebase.
+     * @param savedInstanceState the saved instance state
+     */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         addProfilePic = getView().findViewById(R.id.ib_add_photo);
@@ -129,6 +150,8 @@ public class EditProfileApartmentSearcher extends Fragment {
                 }
             }
         });
+        addRedStarToTextView(R.id.tv_age,"Age");
+        addRedStarToTextView(R.id.tv_phoneNumber,"Phone number");
         validateUserInput();
         phoneInfoButton = getView().findViewById(R.id.iv_phone_info_btn);
         phoneInfoButton.setOnClickListener(new View.OnClickListener() {
@@ -142,16 +165,16 @@ public class EditProfileApartmentSearcher extends Fragment {
     }
 
     /**
-     * Sets the user's profile information from the firebase
+     * Sets the user's profile info in the fragment from the firebase saved data.
      */
     private void setInfo() {
-        firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
+        firstNameEditText = getView().findViewById(R.id.et_enter_first_name);
         firstNameEditText.setText(asUser.getFirstName());
 
-        lastNameEditText = getView().findViewById(R.id.et_enterLastName);
+        lastNameEditText = getView().findViewById(R.id.et_enter_last_name);
         lastNameEditText.setText(asUser.getLastName());
 
-        ageEditText = getView().findViewById(R.id.et_enterAge);
+        ageEditText = getView().findViewById(R.id.et_enter_age);
         if (asUser.getAge() >= User.MINIMUM_AGE) {
             ageEditText.setText(Integer.toString(asUser.getAge()));
             isUserAgeValid = true;
@@ -165,7 +188,7 @@ public class EditProfileApartmentSearcher extends Fragment {
             femaleRadioButton.setChecked(true);
         }
 
-        phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);
+        phoneNumberEditText = getView().findViewById(R.id.et_phone_number);
         phoneNumberEditText.setText(asUser.getPhoneNumber());
         if (asUser.getPhoneNumber() != null && asUser.getPhoneNumber().length() == User.PHONE_NUMBER_LENGTH) {
             isUserPhoneValid = true;
@@ -206,14 +229,15 @@ public class EditProfileApartmentSearcher extends Fragment {
     }
 
     /**
-     * Returns a true if all of the user's input is valid
+     * Returns true if all of the user's input is valid
      */
     private boolean isUserInputValid() {
         return isUserFirstNameValid && isUserLastNameValid && isUserAgeValid && isUserPhoneValid;
     }
 
     /**
-     * opens gallery choose image activity when user clicks on an upload photo button.
+     * this method opens the gallery to choose image. Activates when user clicks on an upload photo
+     * button.
      */
     public void uploadPhotoOnClickAS() {
         //Create an Intent with action as ACTION_PICK
@@ -227,23 +251,26 @@ public class EditProfileApartmentSearcher extends Fragment {
         startActivityForResult(intent, GALLERY_REQUEST_CODE);
     }
 
+    /**
+     * updates the activity view after choosing an image from gallery
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Result code is RESULT_OK only if the user selects an Image
         if (resultCode == Activity.RESULT_OK)
-            switch (requestCode) {
-                case GALLERY_REQUEST_CODE:
-                    //data.getData returns the content URI for the selected Image
-                    selectedImage = data.getData();
-                    try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
-                        profilePic.setImageBitmap(bitmap);
-                        asUser.setHasProfilePic(true);
-                        changedPhoto = true;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    break;
+            if (requestCode == GALLERY_REQUEST_CODE) {
+                //data.getData returns the content URI for the selected Image
+                selectedImage = data.getData();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver()
+                            , selectedImage);
+                    profilePic.setImageBitmap(bitmap);
+                    asUser.setHasProfilePic(true);
+                    changedPhoto = true;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
     }
 
@@ -251,7 +278,7 @@ public class EditProfileApartmentSearcher extends Fragment {
      * validate the entered name.
      */
     private void validateUserFirstName() {
-        firstNameEditText = getView().findViewById(R.id.et_enterFirstName);
+        firstNameEditText = getView().findViewById(R.id.et_enter_first_name);
         firstNameEditText.setText(asUser.getFirstName());
         setIsUserFirstNameValidToTrueIfValidFirstName();
         firstNameEditText.addTextChangedListener(new TextWatcher() {
@@ -281,7 +308,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     }
 
     /**
-     * set isUserFirstNameValid to true if user's first name valid
+     * set isUserFirstNameValid to true if user's first name is valid
      */
     private void setIsUserFirstNameValidToTrueIfValidFirstName() {
         int inputLength = firstNameEditText.getText().toString().length();
@@ -294,7 +321,7 @@ public class EditProfileApartmentSearcher extends Fragment {
      * validate the entered name.
      */
     private void validateUserLastName() {
-        lastNameEditText = getView().findViewById(R.id.et_enterLastName);
+        lastNameEditText = getView().findViewById(R.id.et_enter_last_name);
         lastNameEditText.setText(asUser.getLastName());
         setIisUserLastNameValidIfValidLastName();
         lastNameEditText.addTextChangedListener(new TextWatcher() {
@@ -337,7 +364,7 @@ public class EditProfileApartmentSearcher extends Fragment {
      * validating the age entered. Age has to be between 6 and 120.
      */
     private void validateAge() {
-        ageEditText = getView().findViewById(R.id.et_enterAge);
+        ageEditText = getView().findViewById(R.id.et_enter_age);
         if (asUser.getAge() >= User.MINIMUM_AGE) {
             ageEditText.setText(Integer.toString(asUser.getAge()));
         }
@@ -436,7 +463,7 @@ public class EditProfileApartmentSearcher extends Fragment {
      * validating the PhoneNumber entered.
      */
     private void validatePhoneNumber() {
-        phoneNumberEditText = getView().findViewById(R.id.et_phoneNumber);
+        phoneNumberEditText = getView().findViewById(R.id.et_phone_number);
         phoneNumberEditText.setText(asUser.getPhoneNumber());
         setIsUserPhoneValidToTrueIfPhoneNumberValid();
         phoneNumberEditText.addTextChangedListener(new TextWatcher() {
@@ -459,7 +486,7 @@ public class EditProfileApartmentSearcher extends Fragment {
         });
         phoneNumberEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { //todo:change to math phone requirements
+            public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     int inputLength = phoneNumberEditText.getText().toString().length();
                     if (inputLength == 0) {
@@ -487,4 +514,33 @@ public class EditProfileApartmentSearcher extends Fragment {
         }
     }
 
+    /**
+     * This method returns a SpannableStringBuilder with the text and red star.
+     * @param text - the text to show in the text view.
+     * @return SpannableStringBuilder.
+     */
+    @NonNull
+    private SpannableStringBuilder setStarToLabel(String text) {
+        String simple = text;
+        String colored = "*";
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        builder.append(simple);
+        int start = builder.length();
+        builder.append(colored);
+        int end = builder.length();
+        builder.setSpan(new ForegroundColorSpan(Color.RED), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return builder;
+    }
+
+    /**
+     * This method adds a red star to a text view filed.
+     * @param textView - the text view to add the red star to.
+     * @param text - the text to show in the text view.
+     */
+    @NonNull
+    private void addRedStarToTextView(int textView, String text) {
+        TextView tv = getView().findViewById(textView);
+        SpannableStringBuilder builder1 = setStarToLabel(text);
+        tv.setText(builder1);
+    }
 }

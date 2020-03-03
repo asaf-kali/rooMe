@@ -26,6 +26,10 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 
+/**
+ * **** DON'T CHECK! ****
+ * this class is for future implementation (we did not implement the roommate searcher side)
+ */
 public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
 
     private static final int GALLERY_REQUEST_CODE = 1;
@@ -206,7 +210,7 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
      * validate the entered name.
      */
     private void validateUserFirstName() {
-        firstNameEditText = findViewById(R.id.et_enterFirstName);
+        firstNameEditText = findViewById(R.id.et_enter_first_name);
         firstNameEditText.setText(roommateSearcherUser.getFirstName());
         checkIfValidFirstName();
         firstNameEditText.addTextChangedListener(new TextWatcher() {
@@ -246,7 +250,7 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
      * validate the entered name.
      */
     private void validateUserLastName() {
-        lastNameEditText = findViewById(R.id.et_enterLastName);
+        lastNameEditText = findViewById(R.id.et_enter_last_name);
         lastNameEditText.setText(roommateSearcherUser.getLastName());
         checkIfValidLastName();
         lastNameEditText.addTextChangedListener(new TextWatcher() {
@@ -382,7 +386,7 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
      * validating the PhoneNumber entered.
      */
     private void validatePhoneNumber() {
-        phoneNumberEditText = findViewById(R.id.et_phoneNumber);
+        phoneNumberEditText = findViewById(R.id.et_phone_number);
         phoneNumberEditText.setText(roommateSearcherUser.getPhoneNumber());
         checkIfValidPhoneNumber();
         phoneNumberEditText.addTextChangedListener(new TextWatcher() {
