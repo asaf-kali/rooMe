@@ -3,3 +3,4 @@
     android:id="@+id/rl_matches_roommate_searcher"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
+    <!--DON'T CHECK! this part was not implemented-->

@@ -35,12 +35,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * This class implements the filter fragment of the Apartment Searcher user.
- * It allows the user o choose his filters in order to show him apartments relevant to his
+ * This class represents the filter fragment of the Apartment Searcher user.
+ * It allows the user to choose his filters in order to show him apartments relevant to his
  * preferences, such as cost range, number of roommates, locations etc.
  */
 public class EditFiltersApartmentSearcher extends DialogFragment {
-    //location preferences variables
+
+    /* location preferences variables */
     private ImageView chooseLocations;
     private TextView chosenLocations;
     private String[] locations;
@@ -51,31 +52,29 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
     private int[] checkBoxesValues = new int[]{R.id.check_box_pets, R.id.check_box_kosher,
             R.id.check_box_ac, R.id.check_box_smoking};
 
-    //date variables
+    /* date variables */
     private ImageView displayDate;
     private DatePickerDialog.OnDateSetListener dateSetListener;
 
-    //number of roommates radio button variables
+    /* number of roommates radio button variables */
     private RadioButton twoRoommatesMax;
     private RadioButton threeRoommatesMax;
     private RadioButton fourRoommatesMax;
 
-    //cost range variables
+    /* cost range variables */
     private EditText minCostEditText;
     private EditText maxCostEditText;
     private boolean validCostRange = true;
 
-    //age range variables
+    /* age range variables */
     private EditText minAgeEditText;
     private EditText maxAgeEditText;
     private boolean validAgeRange = true;
 
-
-    // Firebase instance variables
+    /* Firebase instance variables */
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
     private ApartmentSearcherUser asUser;
-
 
     /**
      * The method initializes the firebase variables
@@ -90,7 +89,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
 
     }
 
-
     /**
      * Inflate the layout for this fragment
      * @param inflater the inflater
@@ -103,7 +101,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.activity_filter_apartment_searcher_dialog, container, false);
     }
-
 
     /**
      * The following method handles the event that the user clicks the save button.
@@ -165,7 +162,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         });
     }
 
-
     /**
      * The method handles the event of the user editing the max cost
      */
@@ -226,7 +222,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
             }
         });
     }
-
 
     /**
      * handles the OK button in the date dialog
@@ -533,7 +528,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         });
     }
 
-
     /**
      * The method calls all necessary methods in charge of initializing the fragment with all
      * relevant data stored in the firebase and handling change in them made by the user. The
@@ -570,7 +564,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         setFiltersValuesFromDataBase();
     }
 
-
     /**
      * Sets the checked locations (location user chose) to true in the checkedLocations list
      */
@@ -596,7 +589,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         return text;
     }
 
-
     /**
      * This method calls the method to filters out the the irrelevant roommate users from with
      * a specified list.
@@ -604,7 +596,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
     private void setSavedFiltersToLists() {
         filterOutRoommatesFromList(ChoosingActivity.NOT_SEEN);
     }
-
 
     /**
      * This method filters out the the irrelevant roommate users from the specified list.
@@ -653,7 +644,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         FirebaseMediate.setAptPrefList(listName, MyPreferences.getUserUid(getContext()), updatedIdsList);
     }
 
-
     /**
      * Sets the max number of roommates radio button to the value chosen by the user
      */
@@ -672,7 +662,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         }
     }
 
-
     /**
      * Sets the user's chosen rent range values from the firebase to the edit text
      */
@@ -685,7 +674,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         minCostEditText.setText(Integer.toString(min));
     }
 
-
     /**
      * Sets the user's chosen age range values from firebase to the edit text
      */
@@ -697,7 +685,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
         }
         minAgeEditText.setText(Integer.toString(min));
     }
-
 
     /**
      * This method sets the filters to the users preferences values stored in database.
@@ -727,7 +714,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
             }
         }
     }
-
 
     /**
      * Starts the filter dialog and sets its size (height, width)

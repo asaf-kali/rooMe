@@ -99,14 +99,12 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     }
 
     /**
-     *
      * @return - The apartment searcher user (from firebase).
      */
     private ApartmentSearcherUser getCurrentApartmentSearcherUser() {
         String aptUid = MyPreferences.getUserUid(getApplicationContext());
         return FirebaseMediate.getApartmentSearcherUserByUid(aptUid);
     }
-
 
     /**
      * Setting icons of the tabs
@@ -143,8 +141,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
 
         /**
          * Getting the item in the given position
-         * @param position - The position
-         * @return - The item
+         * @param position - The position to take the item from
          */
         @Override
         public Fragment getItem(int position) {
@@ -152,8 +149,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         }
 
         /**
-         * Getting the size of the adapter
-         * @return - The size
+         * returns the size of the adapter
          */
         @Override
         public int getCount() {
@@ -162,7 +158,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
 
         /**
          * Adding fragment to the adapter
-         * @param fragment - The fragment
+         * @param fragment - The fragment to add
          * @param title - Title of the fragment
          */
         public void addFragment(Fragment fragment, String title) {
@@ -170,6 +166,9 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
             fragmentTitleList.add(title);
         }
 
+        /**
+         * returns the page title for the fragment in the given position
+         */
         @Override
         public CharSequence getPageTitle(int position) {
             return fragmentList.get(position).getTag();
@@ -177,7 +176,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     }
 
     /**
-     * Setting animation
+     * Setting animation for the activity
      */
     public void setAnimation() {
         if (Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL) {

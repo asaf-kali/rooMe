@@ -108,8 +108,7 @@ public class ApartmentSearcherHome extends Fragment {
      * create swipe adapter
      */
     private void swipeOnCreate() {
-        flingContainer =
-                (SwipeFlingAdapterView) getView().findViewById(R.id.frame_card);
+        flingContainer = getView().findViewById(R.id.frame_card);
         myAppAdapter = new MyAppAdapter(relevantRoommateSearchersIds);
         flingContainer.setAdapter(myAppAdapter);
         setOnFlingListener();
@@ -406,7 +405,7 @@ public class ApartmentSearcherHome extends Fragment {
 
     /**
      * called when user didn't like an apartment , without params
-     * adds the roommate to the unliked list
+     * adds the roommate searcher user to the unliked list
      */
     public void pressedNoToApartment() {
         String unlikedRoommateId =

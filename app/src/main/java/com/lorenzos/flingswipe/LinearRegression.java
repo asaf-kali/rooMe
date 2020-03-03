@@ -1,16 +1,8 @@
 package com.lorenzos.flingswipe;
 
-/*************************************************************************
- *  Compilation:  javac LinearRegression.java
- *  Execution:    java  LinearRegression
- *
- *  Compute least squares solution to y = beta * x + alpha.
- *  Simple linear regression.
- *
- *************************************************************************/
-
 
 /**
+ *  Note - this is an open source code we borrowed for the card swipe feature.
  *  The <tt>LinearRegression</tt> class performs a simple linear regression
  *  on an set of <em>N</em> data points (<em>y<sub>i</sub></em>, <em>x<sub>i</sub></em>).
  *  That is, it fits a straight line <em>y</em> = &alpha; + &beta; <em>x</em>,

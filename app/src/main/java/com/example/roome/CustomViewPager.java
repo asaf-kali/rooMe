@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import androidx.viewpager.widget.ViewPager;
 
 /**
- * This class extends the ViewPager class , In order to disable the
+ * This class extends the ViewPager class, In order to disable the
  * option to swipe between tabs
  */
 public class CustomViewPager extends ViewPager {

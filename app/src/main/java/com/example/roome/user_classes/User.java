@@ -5,6 +5,7 @@ package com.example.roome.user_classes;
  */
 public class User {
 
+    /* constants */
     public static final int NAME_MAXIMUM_LENGTH = 18;
     public static final int MAXIMUM_AGE_LENGTH = 2;
     public static final int MAXIMUM_AGE = 70;
@@ -14,7 +15,7 @@ public class User {
     public static final int DEFAULT_MINIMUM_AGE = 0;
 
 
-    //--------------------profile info---------------------
+    /* profile info */
     private String firstName;
     private String lastName;
     private int age;
@@ -22,7 +23,7 @@ public class User {
     private String phoneNumber;
     private String info;
 
-    //--------------------filters---------------------
+    /* filters */
     private boolean kosherImportance;
     private int minAgeRequired;
     private int maxAgeRequired;
@@ -49,7 +50,7 @@ public class User {
     //------------------------------------------Getters---------------------------------------------
 
     /**
-     * geter for users firstName
+     * getter for users firstName
      *
      * @return users first name
      */
@@ -58,7 +59,7 @@ public class User {
     }
 
     /**
-     * geter for users lastName
+     * getter for users lastName
      *
      * @return users last name
      */
@@ -67,7 +68,7 @@ public class User {
     }
 
     /**
-     * geter for users age
+     * getter for users age
      *
      * @return users age
      */
@@ -76,7 +77,7 @@ public class User {
     }
 
     /**
-     * geter for users phoneNumber
+     * getter for users phoneNumber
      *
      * @return users phone number
      */
@@ -85,7 +86,7 @@ public class User {
     }
 
     /**
-     * geter for users gender
+     * getter for users gender
      *
      * @return users gender
      */
@@ -94,7 +95,7 @@ public class User {
     }
 
     /**
-     * geter for users kosherImportance
+     * getter for users kosherImportance
      *
      * @return users kosher importance
      */
@@ -103,7 +104,7 @@ public class User {
     }
 
     /**
-     * geter for users minAgeRequired.
+     * getter for users minAgeRequired.
      *
      * @return users preference for minimum roommate age required.
      */
@@ -112,7 +113,7 @@ public class User {
     }
 
     /**
-     * geter for users maxAgeRequired.
+     * getter for users maxAgeRequired.
      *
      * @return users preference for maximum roommate age required.
      */
@@ -124,7 +125,7 @@ public class User {
     }
 
     /**
-     * geter for users hasProfilePic
+     * getter for users hasProfilePic
      *
      * @return true if user has profile pic, otherwise false.
      */
@@ -133,7 +134,7 @@ public class User {
     }
 
     /**
-     * geter for users info.
+     * getter for users info.
      *
      * @return users info.
      */
@@ -144,7 +145,7 @@ public class User {
     //------------------------------------------Setters---------------------------------------------
 
     /**
-     * seter for user first name.
+     * setter for user first name.
      *
      * @param firstName user first name.
      */
@@ -153,7 +154,7 @@ public class User {
     }
 
     /**
-     * seter for user last name.
+     * setter for user last name.
      *
      * @param lastName user first name.
      */
@@ -162,7 +163,7 @@ public class User {
     }
 
     /**
-     * seter for user age.
+     * setter for user age.
      *
      * @param age - user age.
      */
@@ -171,7 +172,7 @@ public class User {
     }
 
     /**
-     * seter for user phoneNumber.
+     * setter for user phoneNumber.
      *
      * @param phoneNumber - user phone number.
      */
@@ -180,7 +181,7 @@ public class User {
     }
 
     /**
-     * seter for user gender.
+     * setter for user gender.
      *
      * @param gender - user gender.
      */
@@ -189,7 +190,7 @@ public class User {
     }
 
     /**
-     * seter for user kosherImportance.
+     * setter for user kosherImportance.
      *
      * @param kosherImportance - user kosher importance.
      */
@@ -198,7 +199,7 @@ public class User {
     }
 
     /**
-     * seter for user minAgeRequired.
+     * setter for user minAgeRequired.
      *
      * @param minAgeRequired - user preference for minimum roommate age.
      */
@@ -207,7 +208,7 @@ public class User {
     }
 
     /**
-     * seter for user maxAgeRequired.
+     * setter for user maxAgeRequired.
      *
      * @param maxAgeRequired - user preference for maximum roommate age.
      */
@@ -216,7 +217,7 @@ public class User {
     }
 
     /**
-     * seter for user hasProfilePic.
+     * setter for user hasProfilePic.
      *
      * @param hasProfilePic - true if user has profile pic, otherwise false.
      */
@@ -225,7 +226,7 @@ public class User {
     }
 
     /**
-     * seter for users info.
+     * setter for users info.
      *
      * @param info - users info.
      */

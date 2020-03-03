@@ -6,7 +6,9 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
- * This is a dialog themed activity for a new apartment searcher on boarding.
+ * This is a dialog themed activity that pops up when the user clicks on the 'i' sign near the phone
+ * number edit text in the profile page. This dialog informs the user that his phone number will only
+ * be presented after a match between the roommate searcher and the apartment searcher.
  */
 public class PhoneInfoDialogActivity extends AppCompatActivity {
 

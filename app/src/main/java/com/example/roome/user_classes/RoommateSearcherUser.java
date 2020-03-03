@@ -6,15 +6,16 @@ import java.util.ArrayList;
 
 /**
  * A class representing a RoommateSearcherUser - a user who's looking for roommates for his apartment.
+ * NOTE! this class is not fully implemented as we didn't implement the roommate searcher side.
  */
 public class RoommateSearcherUser extends User {
 
-    //--------------------profile additionalInfo------------
+    /* profile additionalInfo */
     private ArrayList<Image> roommatesImages;
     private String additionalInfo; //such as additionalInfo
     private Apartment apartment;
 
-    //--------------------filters---------------------------
+    /* filters */
     private String genderPreference;
 
     /**
@@ -37,7 +38,7 @@ public class RoommateSearcherUser extends User {
     //------------------------------------------Getters---------------------------------------------
 
     /**
-     * geter for the roommatesImages.
+     * getter for the roommatesImages.
      *
      * @return a list of the users images.
      */
@@ -46,7 +47,7 @@ public class RoommateSearcherUser extends User {
     }
 
     /**
-     * geter for users additionalInfo.
+     * getter for users additionalInfo.
      *
      * @return users additional info.
      */
@@ -55,7 +56,7 @@ public class RoommateSearcherUser extends User {
     }
 
     /**
-     * geter for genderPreference.
+     * getter for genderPreference.
      *
      * @return the gender preference for the roommate.
      */
@@ -64,7 +65,7 @@ public class RoommateSearcherUser extends User {
     }
 
     /**
-     * geter for the apartment.
+     * getter for the apartment.
      *
      * @return the users the apartment.
      */
@@ -76,7 +77,7 @@ public class RoommateSearcherUser extends User {
     //------------------------------------------Setters---------------------------------------------
 
     /**
-     * seter for the roommatesImages.
+     * setter for the roommatesImages.
      *
      * @param roommatesImages users list of the images.
      */
@@ -85,7 +86,7 @@ public class RoommateSearcherUser extends User {
     }
 
     /**
-     * seter for users additionalInfo.
+     * setter for users additionalInfo.
      *
      * @param info - users additional info.
      */
@@ -94,7 +95,7 @@ public class RoommateSearcherUser extends User {
     }
 
     /**
-     * seter for users gender preference.
+     * setter for users gender preference.
      *
      * @param genderPreference - users gender preference.
      */
@@ -103,7 +104,7 @@ public class RoommateSearcherUser extends User {
     }
 
     /**
-     * seter for users apartment.
+     * setter for users apartment.
      *
      * @param apartment users apartment.
      */

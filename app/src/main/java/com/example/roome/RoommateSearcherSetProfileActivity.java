@@ -26,6 +26,10 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 
+/**
+ * **** DON'T CHECK! ****
+ * this class is for future implementation (we did not implement the roommate searcher side)
+ */
 public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
 
     private static final int GALLERY_REQUEST_CODE = 1;

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Apartment_searcher_tabs_classes.EditProfileApartmentSearcher">
-
+<!--DON'T CHECK! this part was not implemented-->
     <ImageView
         android:id="@+id/profile_back_img"
         android:layout_width="wrap_content"
