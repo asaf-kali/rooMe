@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This class bind between roommateId to the house drawable ,
+ * This class binds between roommateId to the house drawable ,
  * We didn't implement the import / upload images to the firebase.
  */
 public final class RoommateSearcherInfoConnector {

@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.widget.AdapterView;
 
 /**
+ * Note - this is an open source code we borrowed for the card swipe feature.
  * Created by dionysis_lorentzos on 6/8/14
  * for package com.lorentzos.swipecards
  * and project Swipe cards.

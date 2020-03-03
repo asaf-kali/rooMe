@@ -1,11 +1,12 @@
 package com.example.roome.user_classes;
 
 /**
- * A class representing a Apartment.
+ * A class representing an Apartment. Contains all relevant data for an apartment described by the
+ * roommate searcher users
  */
 public class Apartment {
 
-    //--------------------apartment info---------------------
+    /* apartment related info */
     private Boolean hasMainImage;
     private String neighborhood;
     private int entryDate;
@@ -14,6 +15,14 @@ public class Apartment {
 
     public Apartment(){}
 
+    /**
+     * creates a new at object
+     * @param hasMainImage does the apt has an image?
+     * @param neighborhood the neighborhood of the apt
+     * @param entryDate the starting date for entering the apt
+     * @param numberOfRoommates number of roommates in total
+     * @param rent rent price per month
+     */
     public Apartment(Boolean hasMainImage, String neighborhood, int entryDate, int numberOfRoommates, double rent) {
         this.hasMainImage = hasMainImage;
         this.neighborhood = neighborhood;

@@ -318,7 +318,7 @@
                 android:paddingEnd="5dp"
                 android:textColor="@color/gray"
                 android:textSize="20sp"
-                android:importantForAutofill="no" />
+                android:importantForAutofill="no"
                 app:layout_constraintStart_toStartOf="@+id/cl_details"
                 app:layout_constraintTop_toBottomOf="@+id/tv_additional_info" />
         </androidx.constraintlayout.widget.ConstraintLayout>

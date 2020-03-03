@@ -3,14 +3,14 @@ package com.example.roome.user_classes;
 import java.util.ArrayList;
 
 /**
- * A class representing a ApartmentSearcherUser - a user who's looking for an apartment with roommates.
+ * A class representing a ApartmentSearcherUser - a user who is looking for an apartment with roommates.
  */
 public class ApartmentSearcherUser extends User {
 
-    //--------------------profile info---------------------
+    /* profile info */
     private String bio; //where the user can write about himself
 
-    //---------------------------------------------filters------------------------------------------
+    /* filters data */
     private ArrayList<Integer> optionalNeighborhoods;
     private int minRent;
     private int maxRent;
@@ -54,7 +54,7 @@ public class ApartmentSearcherUser extends User {
     //------------------------------------------Getters---------------------------------------------
 
     /**
-     * geter for the users bio
+     * getter for the users bio
      *
      * @return the users bio
      */
@@ -63,7 +63,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * geter for the users optionalNeighborhoods
+     * getter for the users optionalNeighborhoods
      *
      * @return the users optional neighborhoods list.
      */
@@ -72,7 +72,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * geter for the users minRent
+     * getter for the users minRent
      *
      * @return the users preference for the minimum rent.
      */
@@ -81,7 +81,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * geter for the users maxRent
+     * getter for the users maxRent
      *
      * @return the users preference for the maximum rent.
      */
@@ -93,7 +93,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * geter for the users earliestEntryDate
+     * getter for the users earliestEntryDate
      *
      * @return the users preference for the earliest entry date (to the apartment).
      */
@@ -102,7 +102,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * geter for the users maxNumDesiredRoommates
+     * getter for the users maxNumDesiredRoommates
      *
      * @return the users preference for the maximum number of desired roommates.
      */
@@ -114,7 +114,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * geter for isSmokingFree
+     * getter for isSmokingFree
      *
      * @return the users preference for the smoking free apartment.
      */
@@ -123,7 +123,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * geter for hasNoPets
+     * getter for hasNoPets
      *
      * @return the users preference for pets in the apartment.
      */
@@ -132,7 +132,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * geter for isHasAC
+     * getter for isHasAC
      *
      * @return the users preference for air conditioner.
      */
@@ -143,7 +143,7 @@ public class ApartmentSearcherUser extends User {
     //------------------------------------------Seters---------------------------------------------
 
     /**
-     * seter for the users optionalNeighborhoods
+     * setter for the users optionalNeighborhoods
      *
      * @param optionalNeighborhoods users optional neighborhoods
      */
@@ -152,7 +152,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * seter for users bio
+     * setter for users bio
      *
      * @param bio users bio
      */
@@ -161,7 +161,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * seter for the users minRent
+     * setter for the users minRent
      *
      * @param minRent - users preference for the minimum rent.
      */
@@ -170,7 +170,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * seter for the users maxRent
+     * setter for the users maxRent
      *
      * @param maxRent - users preference for the maximum rent.
      */
@@ -179,7 +179,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * seter for the users earliestEntryDate
+     * setter for the users earliestEntryDate
      *
      * @param earliestEntryDate - users preference for the earliest entry date (to the apartment).
      */
@@ -188,7 +188,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * seter for the users maxNumDesiredRoommates
+     * setter for the users maxNumDesiredRoommates
      *
      * @param maxNumDesiredRoommates - users preference for the maximum number of desired roommates.
      */
@@ -197,7 +197,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * seter for isSmokingFree
+     * setter for isSmokingFree
      *
      * @param smokingFree - users preference for the smoking free apartment.
      */
@@ -206,7 +206,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * seter for hasNoPets
+     * setter for hasNoPets
      *
      * @param hasNoPets - users preference for pets in the apartment.
      */
@@ -215,7 +215,7 @@ public class ApartmentSearcherUser extends User {
     }
 
     /**
-     * seter for isHasAC
+     * setter for isHasAC
      *
      * @param hasAC - users preference for air conditioner.
      */

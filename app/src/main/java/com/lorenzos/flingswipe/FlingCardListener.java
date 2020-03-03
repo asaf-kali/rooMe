@@ -11,6 +11,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
 /**
+ * Note - this is an open source code we borrowed for the card swipe feature.
  * Created by dionysis_lorentzos on 5/8/14
  * for package com.lorentzos.swipecards
  * and project Swipe cards.

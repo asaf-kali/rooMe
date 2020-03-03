@@ -10,6 +10,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.roome.R;
 
+/**
+ * **** DON'T CHECK! ****
+ * this class is for future implementation (we did not implement the roommate searcher side)
+ */
 public class MatchesRoommateSearcher extends Fragment {
 
     public MatchesRoommateSearcher() {

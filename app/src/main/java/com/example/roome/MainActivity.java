@@ -25,11 +25,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         FirebaseMediate.setDataSnapshot();
         RoommateSearcherInfoConnector.initD();
-        //todo delete 4 rows
-//        final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
-//        final SharedPreferences.Editor editor = reader.edit();
-//        editor.putBoolean(MyPreferences.IS_FIRST_TIME, true);
-//        editor.apply();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

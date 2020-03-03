@@ -17,8 +17,11 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * **** DON'T CHECK! ****
+ * this class is for future implementation (we did not implement the roommate searcher side)
+ */
 public class MainActivityRoommateSearcher extends AppCompatActivity {
-
 
     private TabLayout tabLayout;
     private CustomViewPager viewPager;

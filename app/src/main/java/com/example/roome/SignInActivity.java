@@ -47,7 +47,7 @@ public class SignInActivity extends AppCompatActivity implements
         firebaseAuth = FirebaseAuth.getInstance();
 
         // Assign fields
-        googleSignInButton = findViewById(R.id.sign_in_button);
+        googleSignInButton = findViewById(R.id.btn_sign_in);
         // Set the dimensions of the sign-in button.
         googleSignInButton.setSize(SignInButton.SIZE_STANDARD);
 
@@ -71,7 +71,7 @@ public class SignInActivity extends AppCompatActivity implements
      */
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.sign_in_button) {
+        if (v.getId() == R.id.btn_sign_in) {
             signIn();
         }
     }

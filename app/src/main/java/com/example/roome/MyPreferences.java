@@ -17,7 +17,7 @@ public class MyPreferences {
     private static final String IS_FIRST_UNLIKE = "FIRST_UNLIKE";
 
     /**
-     * geter for the field isFirstTime in MyPreferences.
+     * getter for the field isFirstTime in MyPreferences.
      *
      * @param context - app context
      * @return true if it's users first time using the app.
@@ -28,7 +28,7 @@ public class MyPreferences {
     }
 
     /**
-     * geter for user first name.
+     * getter for user first name.
      *
      * @param context - app context.
      * @return user first name.
@@ -39,7 +39,7 @@ public class MyPreferences {
     }
 
     /**
-     * geter for user last name.
+     * getter for user last name.
      *
      * @param context - app context
      * @return user last name.
@@ -76,7 +76,7 @@ public class MyPreferences {
     }
 
     /**
-     * geter for user firebase id.
+     * getter for user firebase id.
      *
      * @param context - app context
      * @return user firebase id.
@@ -87,7 +87,7 @@ public class MyPreferences {
     }
 
     /**
-     * seter for user firebase id.
+     * setter for user firebase id.
      *
      * @param context - app context
      * @param userUid - user firebase id.
@@ -124,7 +124,7 @@ public class MyPreferences {
     }
 
     /**
-     * geter for isRoommateSearcher
+     * getter for isRoommateSearcher
      *
      * @param context - app context
      * @return true if roommate searcher, otherwise false.
@@ -135,7 +135,7 @@ public class MyPreferences {
     }
 
     /**
-     * geter for FIRST_LIKE.
+     * getter for FIRST_LIKE.
      *
      * @param context - app context
      * @return true if first like. otherwise false.
@@ -170,7 +170,7 @@ public class MyPreferences {
     }
 
     /**
-     * geter for IS_FIRST_UNLIKE.
+     * getter for IS_FIRST_UNLIKE.
      *
      * @param context - app context
      * @return true if first unlike. otherwise false.
