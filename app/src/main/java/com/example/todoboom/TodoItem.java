@@ -1,20 +1,27 @@
 package com.example.todoboom;
 
 public class TodoItem {
-    String name;
+    String description;
+    Boolean isDone;
 
-    public TodoItem(String name) {
-        this.name = name;
+    public TodoItem(String description, Boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
-    private static int lastContactId = 0;
-
-
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Boolean isDone() {
+        return isDone;
+    }
+
+    public void setIsDone(Boolean isDone) {
+        this.isDone = isDone;
     }
 }
