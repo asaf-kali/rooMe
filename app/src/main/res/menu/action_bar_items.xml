@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/ab_action_matches"
+        android:icon="@drawable/ic_action_empty_heart"
+        android:title="@string/matches_button_action_bar"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/ab_action_edit_profile"
+        android:icon="@drawable/ic_action_empty_heart"
+        android:title="@string/edit_profile_button_ab"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/ab_action_edit_filters"
+        android:icon="@drawable/ic_action_empty_heart"
+        android:title="@string/edit_filters_button_ab"
+        app:showAsAction="never" />
+
+</menu>

@@ -3,5 +3,12 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colorLightBlue">#00BCD4</color>
+    <color name="transparent">#00252122</color>
+    <color name="milk">#CDFFFFFF</color>
+    <color name="peach">#ed866c</color>
+    <color name="white">#F2FFFFFF</color>
+    <color name="light">#40A6B1E4</color>
+    <color name="gray">#D9474343</color>
+
+
 </resources>
