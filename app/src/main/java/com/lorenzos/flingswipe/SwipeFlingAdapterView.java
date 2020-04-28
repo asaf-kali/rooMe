@@ -15,10 +15,10 @@ import android.widget.FrameLayout;
 import com.example.roome.R;
 
 /**
+ * Note - this is an open source code we borrowed for the card swipe feature.
  * Created by dionysis_lorentzos on 5/8/14
  * for package com.lorentzos.swipecards
  * and project Swipe cards.
- * Use with caution dinosaurs might appear!
  */
 
 public class SwipeFlingAdapterView extends BaseFlingAdapterView {

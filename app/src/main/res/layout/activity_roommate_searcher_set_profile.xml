@@ -3,12 +3,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_roommate_set_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RoommateSearcherSetProfileActivity">
-
+    <!--DON'T CHECK! this part was not implemented-->
     <ImageView
-        android:id="@+id/profile_back_img"
+        android:id="@+id/iv_profile_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.1"
@@ -63,7 +64,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/details_constrained_layout"
+            android:id="@+id/cl_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -85,7 +86,7 @@
                 android:textAlignment="viewStart"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
@@ -103,7 +104,7 @@
                 android:paddingTop="8dp"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
                 app:layout_constraintTop_toBottomOf="@id/et_enter_first_name" />
 
             <EditText
@@ -122,7 +123,7 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.483"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
                 app:layout_constraintTop_toBottomOf="@+id/et_enter_last_name" />
 
             <RadioGroup
@@ -135,7 +136,7 @@
                 android:orientation="horizontal"
                 android:paddingTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
                 app:layout_constraintTop_toBottomOf="@+id/et_enterAge">
 
                 <TextView
@@ -194,7 +195,7 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
                 app:layout_constraintTop_toBottomOf="@+id/radio_group_choose_gender" />
 
             <EditText
@@ -214,7 +215,7 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.604"
-                app:layout_constraintStart_toStartOf="@+id/details_constrained_layout"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
                 app:layout_constraintTop_toBottomOf="@+id/et_phone_number" />
 
             <ImageView
@@ -227,7 +228,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/et_bio" />
 
             <ImageView
-                android:id="@+id/save_button_txt"
+                android:id="@+id/tv_save_button"
                 android:layout_width="63dp"
                 android:layout_height="37dp"
                 android:src="@drawable/ic_save_button_txt"
@@ -245,7 +246,7 @@
                 android:text="add a photo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_bio"/>
+                app:layout_constraintTop_toBottomOf="@+id/et_bio" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

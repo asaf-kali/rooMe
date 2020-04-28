@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fl_card_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -16,19 +17,21 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/ll_background_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="6dp"
-            android:clipChildren="false"
             android:background="@drawable/shape2"
+            android:clipChildren="false"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_background_card_2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
@@ -41,6 +44,7 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/ll_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="18dp"
@@ -51,12 +55,13 @@
 
         <FrameLayout
 
+            android:id="@+id/fl_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
 
             <ImageView
-                android:id="@+id/cardImage"
+                android:id="@+id/iv_card"
                 android:layout_width="400dp"
                 android:layout_height="500dp"
                 android:padding="4dp"
@@ -64,16 +69,17 @@
         </FrameLayout>
 
         <LinearLayout
-            android:id="@+id/basic_info_ll"
+            android:id="@+id/ll_basic_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="-50dp"
-            android:clipChildren="false"
             android:background="@color/milk"
+            android:clipChildren="false"
             android:gravity="top|center_horizontal"
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/ll_info_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
@@ -96,7 +102,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_weight="2"
-                    android:text="3"
                     android:textSize="20sp" />
 
                 <ImageView
@@ -115,7 +120,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_weight="2"
-                    android:text="Rehavia"
                     android:textSize="20sp" />
 
                 <ImageView
@@ -134,7 +138,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_weight="2"
-                    android:text="2000"
                     android:textSize="20sp" />
 
 

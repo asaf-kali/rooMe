@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivityRoommateSearcher">
-
+    <!--DON'T CHECK! this part was not implemented-->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs_roomate"
         android:layout_width="match_parent"

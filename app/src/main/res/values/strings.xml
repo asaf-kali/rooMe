@@ -25,7 +25,6 @@
     <string name="background_desc">background image</string>
     <string name="logo_desc">rooMe logo image</string>
 
-
     <string-array name="locations">
         <item>Rehavia</item>
         <item>Beit-Hacerem</item>
@@ -34,9 +33,10 @@
         <item>Mount Scopus</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="got_it">Got it!</string>
+    <string name="or_sign_in_with_google">Or sign in with google</string>
+    <string name="create_account_and_sign_in">Create account and sign in</string>
     <string name="preferred_cost_range">Preferred cost range</string>
     <string name="preferred_locations">Preferred locations</string>
     <string name="earliest_entry_date">Earliest entry date</string>
@@ -57,4 +57,7 @@
     <string name="min_age">Min age</string>
     <string name="max_age">Max age</string>
     <string name="show_me_relevant_apartments">Show me relevant apartments</string>
+    <string name="want_to_see_more_apartments_like_this_one_n_edit_your_filters_and_profile">Want to see more apartments like this one?  Edit your filters and profile!</string>
+    <string name="regret_deleting_this_nyou_can_always_go_to_the_n_trash_icon_above_to_undo">Regret deleting this? You can always go to the  trash icon above to undo</string>
+
 </resources>

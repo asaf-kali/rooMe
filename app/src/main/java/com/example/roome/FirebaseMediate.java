@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class FirebaseMediate {
 
-    // Firebase instance variables
+    /* Firebase instance variables */
     private static FirebaseDatabase firebaseDatabase;
     private static DatabaseReference firebaseDatabaseReference;
     private static FirebaseStorage storage;
@@ -42,7 +42,7 @@ public class FirebaseMediate {
 
     /**
      * This method sets the data snapshot to the current data snapshot.
-     * @param dataSnapshot
+     * @param dataSnapshot a DataSnapshot object
      */
     public static void setDataSnapshot(@NonNull DataSnapshot dataSnapshot) {
         dataSs = dataSnapshot;
@@ -88,7 +88,6 @@ public class FirebaseMediate {
      * @param context       - the activity context.
      * @param userType      - the users type (RoommateSearcherUser/ApartmentSearcherUser).
      * @param photoType     - the photo type (profilePic/apartmentPic).
-     * @return
      */
     public static void uploadPhotoToStorage(Uri selectedImage, final Activity activity, Context context, String userType, String photoType) {
         if (selectedImage != null) {
@@ -140,7 +139,6 @@ public class FirebaseMediate {
 
     /**
      * This method returns all ApartmentSearcher users.
-     *
      * @return all ApartmentSearcher users.
      */
     public static ArrayList<ApartmentSearcherUser> getAllApartmentSearcher() {
@@ -227,7 +225,7 @@ public class FirebaseMediate {
                 dataSs.child("preferences").child("ApartmentSearcherUser").child(aptUid).child(list);
         allRoommateSearcherUsersIds = refDSS.getValue(t);
         if (allRoommateSearcherUsersIds == null) {
-            return new ArrayList<String>();
+            return new ArrayList<>();
 
         }
         return allRoommateSearcherUsersIds;
@@ -249,14 +247,14 @@ public class FirebaseMediate {
                 dataSs.child("preferences").child("RoommateSearcherUser").child(roommateUid).child(list);
         allAptSearcherUsersIds = refDSS.getValue(t);
         if (allAptSearcherUsersIds == null) {
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }
         return allAptSearcherUsersIds;
     }
 
     /**
      * This method returns all roommates user in the specified list of the user.
-     *
+     * not in use for now because we didn't implement the roommate searcher side.
      * @param list        - specified list of the user.
      * @param roommateUid - the roommate user firebase id.
      * @return all roommates user in the specified list of the user.

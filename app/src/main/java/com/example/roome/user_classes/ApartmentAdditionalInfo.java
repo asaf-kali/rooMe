@@ -13,13 +13,16 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.roome.Data;
+import com.example.roome.RoommateSearcherInfoConnector;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.R;
 
+/**
+ * A class representing a ApartmentAdditionalInfo - user apartment additional info.
+ */
 public class ApartmentAdditionalInfo extends DialogFragment {
-    ImageView exitOption,aptImg;
-    TextView additionalInfo, numOfRoomates, neighborhood, price;
+    private ImageView exitOption,aptImg;
+    private TextView additionalInfo, numOfRoommates, neighborhood, price;
 
     RoommateSearcherUser roommateSearcherUser;
     public void ApartmentAdditionalInfo(){
@@ -28,10 +31,15 @@ public class ApartmentAdditionalInfo extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
+    /**
+     * Inflate the layout for this fragment
+     * @param inflater the inflater
+     * @param container the container
+     * @param savedInstanceState the saved instance state
+     * @return view object for this fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,6 +50,12 @@ public class ApartmentAdditionalInfo extends DialogFragment {
         return inflater.inflate(R.layout.fragment_apartment_additional_info, container, false);
     }
 
+    /**
+     * The method calls all necessary methods in charge of initializing the fragment with all
+     * relevant data stored in the firebase and handling change in them made by the user. The
+     * method also allows to save updated data to the firebase.
+     * @param savedInstanceState the saved instance state
+     */
     public void onActivityCreated(Bundle savedInstanceState) {
         exitOption = getView().findViewById(R.id.iv_btn_x);
         exitOption.setOnClickListener(new View.OnClickListener() {
@@ -51,20 +65,23 @@ public class ApartmentAdditionalInfo extends DialogFragment {
             }
         });
         additionalInfo = getView().findViewById(R.id.tv_additional_info);
-        numOfRoomates = getView().findViewById(R.id.tv_roommate_num);
+        numOfRoommates = getView().findViewById(R.id.tv_roommate_num);
         price = getView().findViewById(R.id.tv_apt_price);
         neighborhood = getView().findViewById(R.id.tv_location);
         additionalInfo.setText(roommateSearcherUser.getAdditionalInfo());
-        numOfRoomates.setText(Integer.toString(roommateSearcherUser.getApartment().getNumberOfRoommates()));
+        numOfRoommates.setText(Integer.toString(roommateSearcherUser.getApartment().getNumberOfRoommates()));
         price.setText(Integer.toString((int)roommateSearcherUser.getApartment().getRent()));
         neighborhood.setText(roommateSearcherUser.getApartment().getNeighborhood());
         aptImg = getView().findViewById(R.id.iv_house_img);
-        aptImg.setImageResource(Data.getImageByUid(getArguments().getString(
+        aptImg.setImageResource(RoommateSearcherInfoConnector.getImageByUid(getArguments().getString(
                 "roommateId")));
 
         super.onActivityCreated(savedInstanceState);
     }
 
+    /**
+     * Starts the filter dialog and sets its size (height, width)
+     */
     @Override
     public void onStart()
     {

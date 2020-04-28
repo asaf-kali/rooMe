@@ -11,7 +11,8 @@ import androidx.fragment.app.Fragment;
 import com.example.roome.R;
 
 /**
- *  please don't check this class.
+ * **** DON'T CHECK! ****
+ * this class is for future implementation (we did not implement the roommate searcher side)
  */
 public class RoommateSearcherHome extends Fragment {
 
