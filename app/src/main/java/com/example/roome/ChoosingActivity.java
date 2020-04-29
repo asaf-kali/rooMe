@@ -51,6 +51,9 @@ public class ChoosingActivity extends AppCompatActivity {
     public static final String NO_TO_HOUSE = "no_to_house";
     public static final String NOT_IN_LISTS = "doesn't appear on lists";
 
+    public static final String MATCH = "match";
+    public static final String NOT_MATCH = "not_match";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +72,15 @@ public class ChoosingActivity extends AppCompatActivity {
      * @param progressBar The progress bar for finishing sign in activity.
      */
     private void addListenerToFirebaseDbReference(final ProgressBar progressBar) {
-        firebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseDatabaseReference.child("users").child("RoommateSearcherUser").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                FirebaseMediate.setDataSnapshot(dataSnapshot);
-                allApartmentSearcherIds[0] = FirebaseMediate.getAllApartmentSearcherIds();
-                allRoommateSearcherIds[0] = FirebaseMediate.getAllRoommateSearcherIds();
+//                FirebaseMediate.setDataSnapshot(dataSnapshot);
+//                allApartmentSearcherIds[0] =
+//                        FirebaseMediate.getAllApartmentSearcherIds(); //todo
+//                // need this?
+                allRoommateSearcherIds[0] =
+                        FirebaseMediate.getAllRoommateSearcherIds(dataSnapshot);
                 done.set(true);
                 progressBar.setVisibility(View.GONE);
             }
