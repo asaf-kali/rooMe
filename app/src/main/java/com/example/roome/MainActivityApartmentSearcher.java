@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ import java.util.List;
 public class MainActivityApartmentSearcher extends AppCompatActivity {
 
 
-    public static ApartmentSearcherUser aUser;
+    public static ApartmentSearcherUser aUser; //todo we need this?
 
     /* Tabs and viewPager */
     private static final int OFFSCREEN_PAGE_LIMIT = 3;
@@ -43,24 +44,31 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
             R.drawable.ic_action_empty_heart,
             R.drawable.ic_action_empty_person};
 
+
     /* Firebase instance variables */
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference firebaseDatabaseReference;
+
+    /* All lists of the apartment user */
+    public static HashMap<String,ArrayList<String>> allLists;
+//    public static ArrayList<String> not_seen;
+//    public static ArrayList<String> no_users;
+//    public static ArrayList<String> not_match;
+//    public static ArrayList<String> match;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setAnimation();
         setContentView(R.layout.activity_main_apartment_searcher);
-
         // Initialize Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
 
-        aUser = getCurrentApartmentSearcherUser();
-
+        aUser = getCurrentApartmentSearcherUser(); //todo we need this?
+        allLists = new HashMap<>();
         //initialize viewPager and tabs
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);
         viewPager.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT);
@@ -69,6 +77,48 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
         addTabLayoutListeners();
+        retrieveUserLists();
+    }
+
+    @Override
+    protected void onPause() { //todo being called when exiting app?
+        super.onPause();
+        String aptUid = MyPreferences.getUserUid(getApplicationContext());
+        for (String listName : allLists.keySet()){
+            FirebaseMediate.setAptPrefList(listName,aptUid,allLists.get(listName));
+        }
+    }
+
+    private void retrieveUserLists() {
+        String aptUid = MyPreferences.getUserUid(getApplicationContext());
+        allLists.put(ChoosingActivity.NOT_SEEN,FirebaseMediate.getAptPrefList(ChoosingActivity.NOT_SEEN,
+                aptUid));
+        allLists.put(ChoosingActivity.NO_TO_HOUSE,
+                FirebaseMediate.getAptPrefList(ChoosingActivity.NO_TO_HOUSE,
+                aptUid));
+        allLists.put(ChoosingActivity.NOT_MATCH,
+                FirebaseMediate.getAptPrefList(ChoosingActivity.NOT_MATCH,
+                aptUid));
+        allLists.put(ChoosingActivity.MATCH,
+                FirebaseMediate.getAptPrefList(ChoosingActivity.MATCH,
+                aptUid));
+    }
+    public static ArrayList<String> getSpecificList(String listName){
+        return allLists.get(listName);
+    }
+    public static void setSpecificList(String listName,ArrayList<String> list){
+        allLists.put(listName,list);
+    }
+    public static boolean removeValueFromList(String listName,String value){
+        ArrayList<String> list = getSpecificList(listName);
+        boolean exist = list.remove(value);
+        setSpecificList(listName,list);
+        return exist;
+    }
+    public static void addValueToList(String listName,String value){
+        ArrayList<String> list = getSpecificList(listName);
+        list.add(value);
+        setSpecificList(listName,list);
     }
 
     /**

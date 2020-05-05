@@ -1,5 +1,4 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.roome.ChoosingActivity;
+import com.example.roome.MainActivityApartmentSearcher;
 import com.example.roome.RoommateSearcherInfoConnector;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
@@ -56,6 +56,7 @@ public class ApartmentSearcherHome extends Fragment {
     private TextView peopleText;
     private TextView priceText;
     private ImageView editFiltersImage;
+    private int positionInContainer = 0;
 
     /* For swipe */
     public static MyAppAdapter myAppAdapter;
@@ -71,11 +72,14 @@ public class ApartmentSearcherHome extends Fragment {
 
 
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseReference = mFirebaseDatabase.getReference();
-        boolean isFirstTime = MyPreferences.isFirstTime(getContext());
+        boolean isFirstTime = MyPreferences.isFirstTime(getContext()); // todo
+        //if we want to do something if its the first time?
         if (isFirstTime) {
             MyPreferences.setIsFirstTimeToFalse(getContext());
         }
@@ -97,7 +101,7 @@ public class ApartmentSearcherHome extends Fragment {
         editFiltersDialog = new EditFiltersApartmentSearcher();
         additionalInfoDialog = new ApartmentAdditionalInfo();
         setClickListeners();
-        setFirebaseListeners();
+//        setFirebaseListeners();  //todo include this line
         retrieveRelevantRoommateSearchers();
         swipeOnCreate();
         moreHouses();
@@ -201,6 +205,7 @@ public class ApartmentSearcherHome extends Fragment {
             startActivity(intent);
             MyPreferences.setIsFirstUnlikeToFalse(getContext());
         }
+        positionInContainer++;
     }
 
     /**
@@ -218,6 +223,7 @@ public class ApartmentSearcherHome extends Fragment {
             startActivity(intent);
             MyPreferences.setIsFirstLikeToFalse(getContext());
         }
+        positionInContainer++;
     }
     /**
      * fill image array with relevant images according to roommate users
@@ -229,19 +235,24 @@ public class ApartmentSearcherHome extends Fragment {
         }
     }
 
-    /**
-     * add to the relevantRelevantRoommateIds all the roommate ids that fits
-     * to the current apartment user
-     */
+//    /**
+//     * add to the relevantRelevantRoommateIds all the roommate ids that fits
+//     * to the current apartment user
+//     */
+//    private void retrieveRelevantRoommateSearchers() {
+//        relevantRoommateSearchersIds =
+//                FirebaseMediate.getAptPrefList(ChoosingActivity.NOT_SEEN,
+//                        MyPreferences.getUserUid(getContext()));
+//        ArrayList<String> allMaybeUid = FirebaseMediate.getAptPrefList(ChoosingActivity.MAYBE_TO_HOUSE,
+//                MyPreferences.getUserUid(getContext()));
+//        // the relevant roommates are the ones that the user liked or chosen
+//        // maybe
+//        relevantRoommateSearchersIds.addAll(allMaybeUid);
+//    }
+
     private void retrieveRelevantRoommateSearchers() {
-        relevantRoommateSearchersIds =
-                FirebaseMediate.getAptPrefList(ChoosingActivity.NOT_SEEN,
-                        MyPreferences.getUserUid(getContext()));
-        ArrayList<String> allMaybeUid = FirebaseMediate.getAptPrefList(ChoosingActivity.MAYBE_TO_HOUSE,
-                MyPreferences.getUserUid(getContext()));
-        // the relevant roommates are the ones that the user liked or chosen
-        // maybe
-        relevantRoommateSearchersIds.addAll(allMaybeUid);
+        relevantRoommateSearchersIds =new ArrayList<>
+                (MainActivityApartmentSearcher.getSpecificList(ChoosingActivity.NOT_SEEN));
     }
 
     /**
@@ -314,7 +325,7 @@ public class ApartmentSearcherHome extends Fragment {
                     if (isMatch(aUserKey, roommateKey)) {
                         //if theres a match - add to the havent seen list of
                         // AptUser
-                        FirebaseMediate.addToAptPrefList(ChoosingActivity.NOT_SEEN, aUserKey, roommateKey);
+                        FirebaseMediate.addRoomateIdsToAptPrefList(ChoosingActivity.NOT_SEEN, aUserKey, roommateKey);
                     }
                 } else {
                     if (!isMatch(aUserKey, roommateKey)) {
@@ -347,7 +358,7 @@ public class ApartmentSearcherHome extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        }); //todo maybe delete this
         firebaseDatabaseReference.child("preferences").child(
                 "ApartmentSearcherUser").child(getUserUid()).child(ChoosingActivity.NOT_SEEN).addValueEventListener(new ValueEventListener() {
             @Override
@@ -366,7 +377,7 @@ public class ApartmentSearcherHome extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });//todo maybe delete this
     }
 
     /**
@@ -383,8 +394,9 @@ public class ApartmentSearcherHome extends Fragment {
      * @param roommateUid - roommate id
      */
     private void removeFromHaveNotSeen(String roommateUid) {
-        FirebaseMediate.removeFromAptPrefList(ChoosingActivity.NOT_SEEN,
-                getUserUid(), roommateUid);
+        MainActivityApartmentSearcher.removeValueFromList(ChoosingActivity.NOT_SEEN,roommateUid);
+//        FirebaseMediate.removeFromAptPrefList(ChoosingActivity.NOT_SEEN,
+//                getUserUid(), roommateUid);
     }
 
     /**
@@ -396,8 +408,8 @@ public class ApartmentSearcherHome extends Fragment {
                 relevantRoommateSearchersIds.get(0); // the current roommate
         String myUid = getUserUid();
         removeFromHaveNotSeen(likedRoommateId);
-        FirebaseMediate.addToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
-                myUid, likedRoommateId);
+//        FirebaseMediate.addRoomateIdsToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
+//                myUid, likedRoommateId);
         FirebaseMediate.addToRoommatePrefList(ChoosingActivity.NOT_SEEN,
                 likedRoommateId, myUid);
     }
@@ -411,8 +423,7 @@ public class ApartmentSearcherHome extends Fragment {
         String unlikedRoommateId =
                 relevantRoommateSearchersIds.get(0);
         removeFromHaveNotSeen(unlikedRoommateId);
-        FirebaseMediate.addToAptPrefList(ChoosingActivity.NO_TO_HOUSE,
-                getUserUid(), unlikedRoommateId);
+        MainActivityApartmentSearcher.addValueToList(ChoosingActivity.NO_TO_HOUSE,unlikedRoommateId);
     }
 
     /**
