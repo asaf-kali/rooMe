@@ -75,10 +75,6 @@ public class ChoosingActivity extends AppCompatActivity {
         firebaseDatabaseReference.child("users").child("RoommateSearcherUser").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                FirebaseMediate.setDataSnapshot(dataSnapshot);
-//                allApartmentSearcherIds[0] =
-//                        FirebaseMediate.getAllApartmentSearcherIds(); //todo
-//                // need this?
                 allRoommateSearcherIds[0] =
                         FirebaseMediate.getAllRoommateSearcherIds(dataSnapshot);
                 done.set(true);

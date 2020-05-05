@@ -233,8 +233,6 @@ public class FirebaseMediate {
      * @return all RoommateSearcherUsers ids from the relevant list in database.
      */
     public static ArrayList<String> getAptPrefList(String list, String aptUid) {
-//        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
-//        };
 
         ArrayList<String> allRoommateSearcherUsersIds = new ArrayList<>();
         DataSnapshot refDSS =
@@ -242,11 +240,6 @@ public class FirebaseMediate {
         for (DataSnapshot ref : refDSS.getChildren()) {
             allRoommateSearcherUsersIds.add(ref.getValue().toString());
         }
-//        allRoommateSearcherUsersIds = refDSS.getValue(t);
-//        if (allRoommateSearcherUsersIds == null) {
-//            return new ArrayList<>();
-//
-//        }
         return allRoommateSearcherUsersIds;
     }
 
@@ -290,8 +283,8 @@ public class FirebaseMediate {
     }
 
 
-    public static void addToAptPrefList(String list, String aptUid,
-                                        ArrayList<String> relevantUids) {
+    public static void addRoomateIdsToAptPrefList(String list, String aptUid,
+                                                  ArrayList<String> relevantUids) {
         DatabaseReference ref =
                 firebaseDatabaseReference.child("preferences").child(
                         "ApartmentSearcherUser").child(aptUid).child(list);
@@ -302,8 +295,8 @@ public class FirebaseMediate {
 
     }
 
-    public static void addToAptPrefList(String list, String aptUid,
-                                        String roommateId) {
+    public static void addRoomateIdsToAptPrefList(String list, String aptUid,
+                                                  String roommateId) {
         DatabaseReference ref =
                 firebaseDatabaseReference.child("preferences").child(
                         "ApartmentSearcherUser").child(aptUid).child(list);
@@ -324,7 +317,7 @@ public class FirebaseMediate {
                 firebaseDatabaseReference.child("preferences").child(
                         "ApartmentSearcherUser").child(aptUid).child(list);
         ref.removeValue();
-        addToAptPrefList(list, aptUid, relevantUids);
+        addRoomateIdsToAptPrefList(list, aptUid, relevantUids);
 
     }
 
@@ -368,7 +361,7 @@ public class FirebaseMediate {
                 firebaseDatabaseReference.child("preferences").child(
                         "ApartmentSearcherUser").child(roommateUid).child(list);
         ref.removeValue();
-        addToAptPrefList(list, roommateUid, relevantUids);
+        addRoomateIdsToAptPrefList(list, roommateUid, relevantUids);
     }
 
     /**
@@ -443,7 +436,7 @@ public class FirebaseMediate {
 //     * @param aptUid      - the ApartmentSearcherUser firebase id (that needs to add a RoommateSearcherUser).
 //     * @param roommateUid - the RoommateSearcherUser firebase id to add.
 //     */
-//    public static void addToAptPrefList(String list, String aptUid,
+//    public static void addRoomateIdsToAptPrefList(String list, String aptUid,
 //                                        String roommateUid) {
 //        ArrayList<String> allRelevantRoommatesUid = getAptPrefList(list, aptUid);
 //        allRelevantRoommatesUid.add(roommateUid);

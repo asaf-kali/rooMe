@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.roome.ChoosingActivity;
 import com.example.roome.MainActivityApartmentSearcher;
-import com.example.roome.MainActivityRoommateSearcher;
 import com.example.roome.RoommateSearcherInfoConnector;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
@@ -326,7 +325,7 @@ public class ApartmentSearcherHome extends Fragment {
                     if (isMatch(aUserKey, roommateKey)) {
                         //if theres a match - add to the havent seen list of
                         // AptUser
-                        FirebaseMediate.addToAptPrefList(ChoosingActivity.NOT_SEEN, aUserKey, roommateKey);
+                        FirebaseMediate.addRoomateIdsToAptPrefList(ChoosingActivity.NOT_SEEN, aUserKey, roommateKey);
                     }
                 } else {
                     if (!isMatch(aUserKey, roommateKey)) {
@@ -409,7 +408,7 @@ public class ApartmentSearcherHome extends Fragment {
                 relevantRoommateSearchersIds.get(0); // the current roommate
         String myUid = getUserUid();
         removeFromHaveNotSeen(likedRoommateId);
-//        FirebaseMediate.addToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
+//        FirebaseMediate.addRoomateIdsToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
 //                myUid, likedRoommateId);
         FirebaseMediate.addToRoommatePrefList(ChoosingActivity.NOT_SEEN,
                 likedRoommateId, myUid);
