@@ -36,7 +36,7 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_roomate_searcher);
+        setContentView(R.layout.activity_main_roommate_searcher);
 
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_roomate);
         setupViewPager(viewPager);

@@ -7,59 +7,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RoommateSearcherSetProfileActivity">
-    <!--DON'T CHECK! this part was not implemented-->
-    <ImageView
-        android:id="@+id/iv_profile_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0.1"
-        android:src="@drawable/house_back_img"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/iv_missingPhoto"
-        android:layout_width="151dp"
-        android:layout_height="147dp"
-        android:layout_gravity="center"
+    <TextView
+        android:id="@+id/tv_add_apartment_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/ic_no_profile_pic"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="Apartment details"
+        android:textSize="20sp"
+        android:paddingTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/sv_details"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/ib_add_photo"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_add_profile_pic_btn"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_missingPhoto"
-        app:layout_constraintEnd_toEndOf="@+id/iv_missingPhoto" />
-
-    <ImageView
-        android:id="@+id/iv_plus_in_btn"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@drawable/ic_plus_in_btn"
-        app:layout_constraintBottom_toBottomOf="@+id/ib_add_photo"
-        app:layout_constraintEnd_toEndOf="@+id/ib_add_photo"
-        app:layout_constraintStart_toStartOf="@+id/ib_add_photo"
-        app:layout_constraintTop_toTopOf="@+id/ib_add_photo" />
 
     <ScrollView
         android:id="@+id/sv_details"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_missingPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/tv_add_apartment_title"
         app:layout_constraintVertical_bias="0.0">
 
 
@@ -68,6 +44,218 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_apartment_neighborhood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:text="neighborhood"
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="20sp"
+
+                app:layout_constraintBottom_toTopOf="@id/spinner_neighborhood"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/spinner_neighborhood"
+                android:layout_width="320dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_et_back"
+                android:ellipsize="none"
+                android:ems="10"
+                android:fontFamily="sans-serif"
+                android:gravity="start|center_horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/iv_sep_line1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                app:layout_constraintTop_toBottomOf="@+id/tv_apartment_neighborhood" />
+
+            <ImageView
+                android:id="@+id/iv_sep_line1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="15dp"
+                app:srcCompat="@drawable/ic_seperating_line"
+                app:layout_constraintBottom_toTopOf="@+id/tv_apartment_entry_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spinner_neighborhood" />
+
+            <TextView
+                android:id="@+id/tv_apartment_entry_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/earliest_entry_date"
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@id/iv_choose_apartment_entry_date"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                app:layout_constraintTop_toBottomOf="@+id/iv_sep_line1" />
+
+            <ImageView
+                android:id="@+id/iv_choose_apartment_entry_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:shadowColor="#40000000"
+                android:shadowDy="4"
+                android:shadowRadius="4"
+                app:srcCompat="@drawable/ic_et_back"
+                app:layout_constraintBottom_toTopOf="@id/iv_sep_line2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                app:layout_constraintTop_toBottomOf="@+id/tv_apartment_entry_date" />
+
+            <TextView
+                android:id="@+id/tv_show_here_entry_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp"
+                android:hint="press to choose"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_choose_apartment_entry_date"
+                app:layout_constraintEnd_toEndOf="@+id/iv_choose_apartment_entry_date"
+                app:layout_constraintStart_toStartOf="@+id/iv_choose_apartment_entry_date"
+                app:layout_constraintTop_toTopOf="@+id/iv_choose_apartment_entry_date" />
+
+            <ImageView
+                android:id="@+id/iv_sep_line2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="15dp"
+                app:srcCompat="@drawable/ic_seperating_line"
+                app:layout_constraintBottom_toTopOf="@+id/tv_choose_num_of_roommates"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_choose_apartment_entry_date" />
+
+            <TextView
+                android:id="@+id/tv_choose_num_of_roommates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:text="number of roommates in apartment"
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/radioGroup_num_of_roommates"
+                app:layout_constraintTop_toBottomOf="@+id/iv_sep_line2" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup_num_of_roommates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/iv_sep_line3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_sep_line2">
+
+                <RadioButton
+                    android:id="@+id/radio_btn_num_of_roommates_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/peach"
+                    android:checked="true"
+                    android:text="@string/_2"
+                    android:textColor="@android:color/secondary_text_light"
+                    android:textColorLink="#4CAF50"
+                    android:textSize="20sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_btn_num_of_roommates_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:buttonTint="@color/peach"
+                    android:text="@string/_3"
+                    android:textColor="@android:color/secondary_text_light"
+                    android:textColorLink="#4CAF50"
+                    android:textSize="20sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_btn_num_of_roommates_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:buttonTint="@color/peach"
+                    android:text="@string/_4"
+                    android:textColor="@android:color/secondary_text_light"
+                    android:textColorLink="#4CAF50"
+                    android:textSize="20sp" />
+            </RadioGroup>
+
+            <ImageView
+                android:id="@+id/iv_sep_line3"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="15dp"
+                app:srcCompat="@drawable/ic_seperating_line"
+                app:layout_constraintBottom_toTopOf="@+id/tv__apartment_rent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/radioGroup_num_of_roommates" />
+
+            <TextView
+                android:id="@+id/tv__apartment_rent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:text="rent"
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/et_apartment_rent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_sep_line3" />
+
+            <EditText
+                android:id="@+id/et_apartment_rent"
+                android:layout_width="320dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_et_back"
+                android:ellipsize="none"
+                android:ems="10"
+                android:fontFamily="sans-serif"
+                android:gravity="start|center_horizontal"
+                android:hint="4000"
+                android:inputType="numberSigned"
+                android:paddingStart="12dp"
+                android:paddingTop="8dp"
+                android:textAlignment="viewStart"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/iv_sep_line4"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                app:layout_constraintTop_toBottomOf="@+id/tv__apartment_rent" />
+
+            <ImageView
+                android:id="@+id/iv_sep_line4"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="15dp"
+                app:srcCompat="@drawable/ic_seperating_line"
+                app:layout_constraintBottom_toTopOf="@+id/et_enter_first_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_apartment_rent" />
 
             <EditText
                 android:id="@+id/et_enter_first_name"
@@ -87,7 +275,7 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/cl_details"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_sep_line4" />
 
             <EditText
                 android:id="@+id/et_enter_last_name"
@@ -250,4 +438,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

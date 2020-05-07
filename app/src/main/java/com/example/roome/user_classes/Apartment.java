@@ -9,7 +9,7 @@ public class Apartment {
     /* apartment related info */
     private Boolean hasMainImage;
     private String neighborhood;
-    private int entryDate;
+    private String entryDate;
     private int numberOfRoommates;
     private double rent;
 
@@ -23,7 +23,7 @@ public class Apartment {
      * @param numberOfRoommates number of roommates in total
      * @param rent rent price per month
      */
-    public Apartment(Boolean hasMainImage, String neighborhood, int entryDate, int numberOfRoommates, double rent) {
+    public Apartment(Boolean hasMainImage, String neighborhood, String entryDate, int numberOfRoommates, double rent) {
         this.hasMainImage = hasMainImage;
         this.neighborhood = neighborhood;
         this.entryDate = entryDate;
@@ -41,7 +41,7 @@ public class Apartment {
     }
 
 
-    public int getEntryDate() {
+    public String getEntryDate() {
         return entryDate;
     }
 
@@ -64,7 +64,7 @@ public class Apartment {
         this.neighborhood = neighborhood;
     }
 
-    public void setEntryDate(int entryDate) {
+    public void setEntryDate(String entryDate) {
         this.entryDate = entryDate;
     }
 
