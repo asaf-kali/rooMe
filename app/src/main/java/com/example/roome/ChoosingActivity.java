@@ -143,7 +143,7 @@ public class ChoosingActivity extends AppCompatActivity {
         newRef.setValue(userObj);
         MyPreferences.setUserUid(getApplicationContext(), key);
         while (!done.get()) ;
-        Intent i = new Intent(ChoosingActivity.this, RoommateSearcherSetProfileActivity.class);
+        Intent i = new Intent(ChoosingActivity.this, MainActivityRoommateSearcher.class);
         startActivity(i);
         finish();
     }

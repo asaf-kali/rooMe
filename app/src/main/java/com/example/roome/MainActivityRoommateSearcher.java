@@ -8,10 +8,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.roome.Roomate_searcher_tabs_classes.EditFiltersRoommateSearcher;
-import com.example.roome.Roomate_searcher_tabs_classes.EditProfileRoommateSearcher;
-import com.example.roome.Roomate_searcher_tabs_classes.RoommateSearcherHome;
-import com.example.roome.Roomate_searcher_tabs_classes.MatchesRoommateSearcher;
+import com.example.roome.Roommate_searcher_tabs_classes.EditProfileRoommateSearcher;
+import com.example.roome.Roommate_searcher_tabs_classes.MatchesRoommateSearcher;
+import com.example.roome.Roommate_searcher_tabs_classes.RoommateSearcherHome;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -65,7 +64,22 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
                     }
                 }
         );
+        if(isFirstTimeInApp()) {
+            startActivityOnEditProfileTab();
+        }
+    }
 
+    private boolean isFirstTimeInApp() {
+        boolean isFirstTime = MyPreferences.isFirstTime(getApplicationContext());
+        if (isFirstTime) {
+            MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
+            return true;
+        }
+        return false;
+    }
+
+    private void startActivityOnEditProfileTab() {
+        tabLayout.getTabAt(2).select();
     }
 
     private void setupTabIcons() {
@@ -80,7 +94,6 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new RoommateSearcherHome(), "HOME");
         adapter.addFragment(new MatchesRoommateSearcher(), "MATCHES");
-        adapter.addFragment(new EditFiltersRoommateSearcher(), "FILTERS");
         adapter.addFragment(new EditProfileRoommateSearcher(), "PROFILE");
         viewPager.setAdapter(adapter);
     }
