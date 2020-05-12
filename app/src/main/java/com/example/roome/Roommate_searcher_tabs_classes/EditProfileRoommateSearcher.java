@@ -3,12 +3,10 @@ package com.example.roome.Roommate_searcher_tabs_classes;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -38,7 +36,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.IOException;
 import java.util.Calendar;
 
 /**
@@ -70,13 +67,7 @@ public class EditProfileRoommateSearcher extends Fragment {
     private StorageReference storageReference;
     private RoommateSearcherUser roommateSearcherUser;
 
-    //profile pic
-    ImageView profilePic;
-    ImageView addProfilePic;
-    final long ONE_MEGABYTE = 1024 * 1024;
-    private Uri selectedImage;
     private Uri apartmentImage;
-    private Boolean fromProfilePic = false;
     private boolean hasApartmentPic;
     private Apartment newApartment;
 
@@ -135,8 +126,9 @@ public class EditProfileRoommateSearcher extends Fragment {
 
     /**
      * Inflates the layout for this fragment
-     * @param inflater fragment inflater
-     * @param container fragment container
+     *
+     * @param inflater           fragment inflater
+     * @param container          fragment container
      * @param savedInstanceState the saved instance state
      * @return the view for this fragment
      */
@@ -158,11 +150,6 @@ public class EditProfileRoommateSearcher extends Fragment {
      * This method save users input data to data base.
      */
     void saveUserDataToDataBase() {
-        //save user data to DB
-        if (changedPhoto) { //save image to DB only if it's a new one
-            FirebaseMediate.uploadPhotoToStorage(selectedImage, EditProfileRoommateSearcher.this.getActivity(), getContext(), "Roommate Searcher User", "Profile Pic");
-            changedPhoto = false;
-        }
         infoEditText = getView().findViewById(R.id.et_bio);
         roommateSearcherUser.setInfo(infoEditText.getText().toString());
         userFirebaseDatabaseReference.setValue(roommateSearcherUser);
@@ -191,19 +178,6 @@ public class EditProfileRoommateSearcher extends Fragment {
         return isUserFirstNameValid && isUserLastNameValid && isUserAgeValid && isUserPhoneValid && isRentValid;
     }
 
-    public void uploadPhotoOnClickAS() {
-        fromProfilePic = true;
-        //Create an Intent with action as ACTION_PICK
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        // Sets the type as image/*. This ensures only components of type image are selected
-        intent.setType("image/*");
-        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
-        String[] mimeTypes = {"image/jpeg", "image/png"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-        // Launching the Intent
-        startActivityForResult(intent, GALLERY_REQUEST_CODE);
-    }
-
     public void uploadApartmentPhotoOnClick() {
         //Create an Intent with action as ACTION_PICK
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -223,24 +197,9 @@ public class EditProfileRoommateSearcher extends Fragment {
         if (resultCode == Activity.RESULT_OK)
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
-                    if (fromProfilePic) {
-                        //data.getData returns the content URI for the selected Image
-                        selectedImage = data.getData();
-                        try {
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
-                            profilePic.setImageBitmap(bitmap);
-                            roommateSearcherUser.setHasProfilePic(true);
-                            changedPhoto = true;
-                            fromProfilePic = false;
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    } else {
-                        apartmentImage = data.getData();
-                        hasApartmentPic = true;
-                        FirebaseMediate.uploadPhotoToStorage(apartmentImage, EditProfileRoommateSearcher.this.getActivity(), getContext(), "Roommate Searcher User", "Apartment");
-                    }
+                    apartmentImage = data.getData();
+                    hasApartmentPic = true;
+                    FirebaseMediate.uploadPhotoToStorage(apartmentImage, EditProfileRoommateSearcher.this.getActivity(), getContext(), "Roommate Searcher User", "Apartment");
             }
     }
 
@@ -257,7 +216,7 @@ public class EditProfileRoommateSearcher extends Fragment {
     /**
      * Handles the event where the user chooses an entry date
      */
-    public void handleApartmentEntryDate(){
+    public void handleApartmentEntryDate() {
         displayDate = getView().findViewById(R.id.iv_choose_apartment_entry_date);
         displayDate.setOnClickListener(new View.OnClickListener() {
             /**
@@ -305,7 +264,7 @@ public class EditProfileRoommateSearcher extends Fragment {
     /**
      * The method handles the event where the user picks the max number of roommates in an apartment
      */
-    public void handleNumberOfRoommates(){
+    public void handleNumberOfRoommates() {
         twoRoommatesMax = getView().findViewById(R.id.radio_btn_num_of_roommates_2);
         twoRoommatesMax.setOnClickListener(new View.OnClickListener() {
             /**
@@ -346,7 +305,7 @@ public class EditProfileRoommateSearcher extends Fragment {
         });
     }
 
-    private void handleApartmentRent(){
+    private void handleApartmentRent() {
         rentEditText = getView().findViewById(R.id.et_apartment_rent);
         rentEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -383,7 +342,7 @@ public class EditProfileRoommateSearcher extends Fragment {
                         rentEditText.setError("Rent is required!");
                         return;
                     }
-                    if (inputLength >6) {
+                    if (inputLength > 6) {
                         rentEditText.setError("Maximum Limit Reached!");
                         return;
                     }
