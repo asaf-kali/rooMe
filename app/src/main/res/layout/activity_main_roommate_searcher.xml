@@ -13,8 +13,9 @@
         android:layout_alignBottom="@id/viewpager_roomate"
         android:layout_marginBottom="0dp"
         app:tabGravity="fill"
+        app:tabIndicatorColor="@color/peach"
+        app:tabIndicatorGravity="bottom"
         app:tabIndicatorAnimationDuration="300"
-        app:tabIndicatorGravity="top"
         app:tabMode="fixed"
         app:tabTextColor="#00D10303" />
 

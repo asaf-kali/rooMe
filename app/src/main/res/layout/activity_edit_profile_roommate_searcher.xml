@@ -388,6 +388,7 @@
                 android:id="@+id/et_bio"
                 android:layout_width="320dp"
                 android:layout_height="215dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/ic_bio_back"
                 android:capitalize="sentences"
                 android:fontFamily="sans-serif"
@@ -400,20 +401,26 @@
                 android:paddingTop="8dp"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.604"
-                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_phone_number" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_photos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:onClick="addPhotos"
-                android:text="add a photo"
+                android:text="ADD PHOTO"
+                app:icon="@drawable/ic_add_black_24dp"
+                app:iconTint="@color/peach"
+                app:strokeColor="@android:color/darker_gray"
+                android:textColor="@color/peach"
+                app:rippleColor="@color/peach"
+                android:theme="@style/Theme.MaterialComponents"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 app:layout_constraintTop_toBottomOf="@+id/et_bio" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
