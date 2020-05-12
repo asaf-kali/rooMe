@@ -24,6 +24,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
+import com.example.roome.MainActivityApartmentSearcher;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentSearcherUser;
@@ -594,37 +595,38 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
      * a specified list.
      */
     private void setSavedFiltersToLists() {
-        filterOutRoommatesFromList(ChoosingActivity.NOT_SEEN);
+        MainActivityApartmentSearcher.filterOutRoommatesFromList(asUser);
     }
 
     /**
      * This method filters out the the irrelevant roommate users from the specified list.
-     * @param listName - The list to filter the irrelevant roommate users from.
      */
-    private void filterOutRoommatesFromList(String listName) {
-        //get relevant lists from Firebase data base
-        ArrayList<String> listRoommatesIds = getAptPrefListFromFirebase(listName);
-        ArrayList<String> filteredOutRoommatesIds = getAptPrefListFromFirebase("filtered_out");
-
-        ArrayList<String> updatedUnSeenRoommatesIds = new ArrayList<>();
-        ArrayList<String> updatedFilteredOutRoommatesIds = new ArrayList<>();
-        listRoommatesIds.addAll(filteredOutRoommatesIds);
-        for (String roommateId : listRoommatesIds) {
-            RoommateSearcherUser roommate = FirebaseMediate.getRoommateSearcherUserByUid(roommateId);
-            if (roommate.getApartment() != null) {
-                double roommatesApartmentRent = roommate.getApartment().getRent();
-                if (roommatesApartmentRent <= asUser.getMaxRent() &&
-                        roommatesApartmentRent >= asUser.getMinRent()) {
-                    updatedUnSeenRoommatesIds.add(roommateId);
-                } else {
-                    updatedFilteredOutRoommatesIds.add(roommateId);
-                }
-            }
-        }
-        //set the lists in firbase to the updated lists.
-        setUsersListInFirebase(listName, updatedUnSeenRoommatesIds);
-        setUsersListInFirebase("filtered_out", updatedFilteredOutRoommatesIds);
-    }
+//    private void filterOutRoommatesFromList() {
+//        ArrayList<String> listRoommatesIds =
+//                MainActivityApartmentSearcher.allLists.get(ChoosingActivity.NOT_SEEN);
+//        ArrayList<String> filteredOutRoommatesIds =
+//                MainActivityApartmentSearcher.allLists.get(ChoosingActivity.NOT_MATCH);
+//        ArrayList<String> updatedUnSeenRoommatesIds = new ArrayList<>();
+//        ArrayList<String> updatedFilteredOutRoommatesIds = new ArrayList<>();
+//        listRoommatesIds.addAll(filteredOutRoommatesIds);
+//        for (String roommateId : listRoommatesIds) {
+//            RoommateSearcherUser roommate = FirebaseMediate.getRoommateSearcherUserByUid(roommateId);
+//            if (roommate.getApartment() != null) { //checks if there's a match
+//                // according to filters
+//                double roommatesApartmentRent = roommate.getApartment().getRent();
+//                if (roommatesApartmentRent <= asUser.getMaxRent() &&
+//                        roommatesApartmentRent >= asUser.getMinRent()) {
+//                    updatedUnSeenRoommatesIds.add(roommateId);
+//                } else {
+//                    updatedFilteredOutRoommatesIds.add(roommateId);
+//                }
+//            }
+//        }
+//        MainActivityApartmentSearcher.allLists.put(ChoosingActivity.NOT_SEEN,
+//                updatedUnSeenRoommatesIds);
+//        MainActivityApartmentSearcher.allLists.put(ChoosingActivity.NOT_MATCH
+//                ,updatedFilteredOutRoommatesIds);
+//    }
 
     /**
      * This method returns the relevant Users list from Firebase data base.
