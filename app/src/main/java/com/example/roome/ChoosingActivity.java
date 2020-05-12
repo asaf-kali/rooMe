@@ -136,7 +136,6 @@ public class ChoosingActivity extends AppCompatActivity {
      * @param view - the button view.
      */
     public void roommateSearcherOnclick(View view) {
-        MyPreferences.setIsFirstTimeToFalse(getApplicationContext());
         User userObj = createNewUser();
         DatabaseReference newRef = firebaseDatabaseReference.child("users").child("RoommateSearcherUser").push();
         String key = newRef.getKey();
