@@ -50,7 +50,10 @@ public final class RoommateSearcherInfoConnector {
      * @return - The drawable
      */
     public static int getImageByUid(String roommateUid){
-        return uidToDrawable.get(roommateUid);
+        if (uidToDrawable.containsKey(roommateUid)){
+            return uidToDrawable.get(roommateUid);
+        }
+        return R.drawable.house_back_img;
     }
 
     /**
