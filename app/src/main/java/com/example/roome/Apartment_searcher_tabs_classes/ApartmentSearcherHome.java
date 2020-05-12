@@ -195,7 +195,6 @@ public class ApartmentSearcherHome extends Fragment {
     private void handlingLeftCardExit() {
         pressedNoToApartment();
         myAppAdapter.notifyDataSetChanged();
-//        relevantRoommateSearchersIds.remove(0);
         temp_img.remove(0);
         if (MyPreferences.isFirstUnlike(getContext())) {
             Intent intent = new Intent(getActivity(),
@@ -211,7 +210,6 @@ public class ApartmentSearcherHome extends Fragment {
      */
     private void handlingRightCardExit() {
         pressedYesToApartment();
-//        relevantRoommateSearchersIds.remove(0);
         temp_img.remove(0);
         myAppAdapter.notifyDataSetChanged();
         if (MyPreferences.isFirstLike(getContext())) {

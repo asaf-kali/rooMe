@@ -599,36 +599,6 @@ public class EditFiltersApartmentSearcher extends DialogFragment {
     }
 
     /**
-     * This method filters out the the irrelevant roommate users from the specified list.
-     */
-//    private void filterOutRoommatesFromList() {
-//        ArrayList<String> listRoommatesIds =
-//                MainActivityApartmentSearcher.allLists.get(ChoosingActivity.NOT_SEEN);
-//        ArrayList<String> filteredOutRoommatesIds =
-//                MainActivityApartmentSearcher.allLists.get(ChoosingActivity.NOT_MATCH);
-//        ArrayList<String> updatedUnSeenRoommatesIds = new ArrayList<>();
-//        ArrayList<String> updatedFilteredOutRoommatesIds = new ArrayList<>();
-//        listRoommatesIds.addAll(filteredOutRoommatesIds);
-//        for (String roommateId : listRoommatesIds) {
-//            RoommateSearcherUser roommate = FirebaseMediate.getRoommateSearcherUserByUid(roommateId);
-//            if (roommate.getApartment() != null) { //checks if there's a match
-//                // according to filters
-//                double roommatesApartmentRent = roommate.getApartment().getRent();
-//                if (roommatesApartmentRent <= asUser.getMaxRent() &&
-//                        roommatesApartmentRent >= asUser.getMinRent()) {
-//                    updatedUnSeenRoommatesIds.add(roommateId);
-//                } else {
-//                    updatedFilteredOutRoommatesIds.add(roommateId);
-//                }
-//            }
-//        }
-//        MainActivityApartmentSearcher.allLists.put(ChoosingActivity.NOT_SEEN,
-//                updatedUnSeenRoommatesIds);
-//        MainActivityApartmentSearcher.allLists.put(ChoosingActivity.NOT_MATCH
-//                ,updatedFilteredOutRoommatesIds);
-//    }
-
-    /**
      * This method returns the relevant Users list from Firebase data base.
      * @param listName - the name of the list in firebase
      * @return the relevant Users list from Firebase data base.

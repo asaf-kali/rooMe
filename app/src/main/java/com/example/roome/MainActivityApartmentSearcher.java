@@ -97,7 +97,6 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
      */
     private void updateUserLists() { //todo check if need to happend in the
         // first time
-
         ArrayList<String> updated_not_seen =
                 makeUniqueValuesList(allLists.get(ChoosingActivity.NOT_SEEN));
         allLists.put(ChoosingActivity.NOT_SEEN,updated_not_seen);
