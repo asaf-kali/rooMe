@@ -294,7 +294,7 @@
                 app:layout_constraintTop_toBottomOf="@id/et_enter_first_name" />
 
             <EditText
-                android:id="@+id/et_enterAge"
+                android:id="@+id/et_enter_age"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -323,7 +323,7 @@
                 android:paddingTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/cl_details"
-                app:layout_constraintTop_toBottomOf="@+id/et_enterAge">
+                app:layout_constraintTop_toBottomOf="@+id/et_enter_age">
 
                 <TextView
                     android:id="@+id/tv_gender_label"
@@ -385,7 +385,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/radio_group_choose_gender" />
 
             <EditText
-                android:id="@+id/et_bio"
+                android:id="@+id/et_apartment_info"
                 android:layout_width="320dp"
                 android:layout_height="215dp"
                 android:layout_marginTop="10dp"
@@ -421,7 +421,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                app:layout_constraintTop_toBottomOf="@+id/et_bio" />
+                app:layout_constraintTop_toBottomOf="@+id/et_apartment_info" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

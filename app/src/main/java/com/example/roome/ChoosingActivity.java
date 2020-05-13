@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.roome.user_classes.Apartment;
+import com.example.roome.user_classes.RoommateSearcherUser;
 import com.example.roome.user_classes.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -137,9 +139,14 @@ public class ChoosingActivity extends AppCompatActivity {
      */
     public void roommateSearcherOnclick(View view) {
         User userObj = createNewUser();
+        RoommateSearcherUser roommateSearcherUser = new RoommateSearcherUser();
+        roommateSearcherUser.setFirstName(userObj.getFirstName());
+        roommateSearcherUser.setLastName(userObj.getLastName());
+        Apartment userApartment = new Apartment(false, null, null, 2, 0);
+        roommateSearcherUser.setApartment(userApartment);
         DatabaseReference newRef = firebaseDatabaseReference.child("users").child("RoommateSearcherUser").push();
         String key = newRef.getKey();
-        newRef.setValue(userObj);
+        newRef.setValue(roommateSearcherUser);
         MyPreferences.setUserUid(getApplicationContext(), key);
         while (!done.get()) ;
         Intent i = new Intent(ChoosingActivity.this, MainActivityRoommateSearcher.class);
