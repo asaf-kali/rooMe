@@ -98,6 +98,7 @@ public class EditProfileRoommateSearcher extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        initializeFields();
         ImageView saveProfileButton = getView().findViewById(R.id.btn_save_roommate_searcher_profile);
         saveProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +113,6 @@ public class EditProfileRoommateSearcher extends Fragment {
                 }
             }
         });
-        addApartmentPhoto = getView().findViewById(R.id.btn_add_photos);
         addApartmentPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,6 +146,22 @@ public class EditProfileRoommateSearcher extends Fragment {
         storageReference = storage.getReference();
     }
 
+    private void initializeFields() {
+        homeNeighborhood = getView().findViewById(R.id.spinner_neighborhood);
+        displayDate = getView().findViewById(R.id.iv_choose_apartment_entry_date);
+        rentEditText = getView().findViewById(R.id.et_apartment_rent);
+        twoRoommatesRB = getView().findViewById(R.id.radio_btn_num_of_roommates_2);
+        threeRoommatesRB = getView().findViewById(R.id.radio_btn_num_of_roommates_3);
+        fourRoommatesRB = getView().findViewById(R.id.radio_btn_num_of_roommates_4);
+        firstNameEditText = getView().findViewById(R.id.et_enter_first_name);
+        lastNameEditText = getView().findViewById(R.id.et_enter_last_name);
+        ageEditText = getView().findViewById(R.id.et_enter_age);
+        maleRadioButton = getView().findViewById(R.id.radio_btn_male);
+        phoneNumberEditText = getView().findViewById(R.id.et_phone_number);
+        infoEditText = getView().findViewById(R.id.et_apartment_info);
+        addApartmentPhoto = getView().findViewById(R.id.btn_add_photos);
+    }
+
     void addValueEventListenerToFirebaseUserReference() {
         firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -170,24 +186,19 @@ public class EditProfileRoommateSearcher extends Fragment {
     }
 
     private void setFieldsToValuesStoredInFirebase() {
-        rentEditText = getView().findViewById(R.id.et_apartment_rent);
         rentEditText.setText(Double.toString(userApartment.getRent()));
 
         setNumRoommatesRB();
 
-        firstNameEditText = getView().findViewById(R.id.et_enter_first_name);
         firstNameEditText.setText(roommateSearcherUser.getFirstName());
 
-        lastNameEditText = getView().findViewById(R.id.et_enter_last_name);
         lastNameEditText.setText(roommateSearcherUser.getLastName());
 
-        ageEditText = getView().findViewById(R.id.et_enter_age);
         if (roommateSearcherUser.getAge() >= User.MINIMUM_AGE) {
             ageEditText.setText(Integer.toString(roommateSearcherUser.getAge()));
             isUserAgeValid = true;
         }
 
-        maleRadioButton = getView().findViewById(R.id.radio_btn_male);
         RadioButton femaleRadioButton = getView().findViewById(R.id.radio_btn_female);
         if (("MALE").equals(roommateSearcherUser.getGender())) {
             maleRadioButton.setChecked(true);
@@ -195,13 +206,11 @@ public class EditProfileRoommateSearcher extends Fragment {
             femaleRadioButton.setChecked(true);
         }
 
-        phoneNumberEditText = getView().findViewById(R.id.et_phone_number);
         phoneNumberEditText.setText(roommateSearcherUser.getPhoneNumber());
         if (roommateSearcherUser.getPhoneNumber() != null && roommateSearcherUser.getPhoneNumber().length() == User.PHONE_NUMBER_LENGTH) {
             isUserPhoneValid = true;
         }
 
-        infoEditText = getView().findViewById(R.id.et_apartment_info);
         infoEditText.setText(roommateSearcherUser.getInfo());
 
         isUserFirstNameValid = true;
@@ -212,7 +221,6 @@ public class EditProfileRoommateSearcher extends Fragment {
      * This method save users input data to data base.
      */
     void saveUserDataToDataBase() {
-        infoEditText = getView().findViewById(R.id.et_apartment_info);
         roommateSearcherUser.setInfo(infoEditText.getText().toString());
         userFirebaseDatabaseReference.setValue(roommateSearcherUser);
         userFirebaseDatabaseReference.child("apartment").setValue(userApartment);
@@ -269,7 +277,6 @@ public class EditProfileRoommateSearcher extends Fragment {
      * Handles the event where the user chooses a neighborhood
      */
     private void handleNeighborhood() {
-        homeNeighborhood = getView().findViewById(R.id.spinner_neighborhood);
         ArrayAdapter<String> neighborhoodAdapter = new ArrayAdapter<>(EditProfileRoommateSearcher.this.getActivity(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.locations));
         neighborhoodAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         homeNeighborhood.setAdapter(neighborhoodAdapter);
@@ -279,7 +286,6 @@ public class EditProfileRoommateSearcher extends Fragment {
      * Handles the event where the user chooses an entry date
      */
     public void handleApartmentEntryDate() {
-        displayDate = getView().findViewById(R.id.iv_choose_apartment_entry_date);
         displayDate.setOnClickListener(new View.OnClickListener() {
             /**
              * Gets the date chosen from the user
@@ -327,7 +333,6 @@ public class EditProfileRoommateSearcher extends Fragment {
      * The method handles the event where the user picks the max number of roommates in an apartment
      */
     public void handleNumberOfRoommates() {
-        twoRoommatesRB = getView().findViewById(R.id.radio_btn_num_of_roommates_2);
         twoRoommatesRB.setOnClickListener(new View.OnClickListener() {
             /**
              * sets the picked number to 2
@@ -340,7 +345,6 @@ public class EditProfileRoommateSearcher extends Fragment {
             }
         });
 
-        threeRoommatesRB = getView().findViewById(R.id.radio_btn_num_of_roommates_3);
         threeRoommatesRB.setOnClickListener(new View.OnClickListener() {
             /**
              * sets the picked number to 3
@@ -353,7 +357,6 @@ public class EditProfileRoommateSearcher extends Fragment {
             }
         });
 
-        fourRoommatesRB = getView().findViewById(R.id.radio_btn_num_of_roommates_4);
         fourRoommatesRB.setOnClickListener(new View.OnClickListener() {
             /**
              * sets the picked number to 4
@@ -368,7 +371,6 @@ public class EditProfileRoommateSearcher extends Fragment {
     }
 
     private void handleApartmentRent() {
-        rentEditText = getView().findViewById(R.id.et_apartment_rent);
         rentEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -384,7 +386,7 @@ public class EditProfileRoommateSearcher extends Fragment {
                 }
                 if (inputLength != 0) {
                     Double rent = Double.parseDouble(rentEditText.getText().toString());
-                    if (rent <= 10000 && rent >= 0) {
+                    if (rent <= Apartment.MAX_RENT && rent >= Apartment.MIN_RENT) {
                         userApartment.setRent(rent);
                         isRentValid = true;
                     }
@@ -409,9 +411,9 @@ public class EditProfileRoommateSearcher extends Fragment {
                         return;
                     }
                     Double rent = Double.parseDouble(rentEditText.getText().toString());
-                    if (rent > 10000) {
+                    if (rent > Apartment.MAX_RENT) {
                         rentEditText.setError("reached maximum rent price!");
-                    } else if (rent < 0) {
+                    } else if (rent < Apartment.MIN_RENT) {
                         rentEditText.setError("rent cant be negative");
                     } else {
                         userApartment.setRent(rent);
@@ -426,7 +428,6 @@ public class EditProfileRoommateSearcher extends Fragment {
      * validate the entered name.
      */
     private void validateUserFirstName() {
-        firstNameEditText = getView().findViewById(R.id.et_enter_first_name);
         firstNameEditText.setText(roommateSearcherUser.getFirstName());
         checkIfValidFirstName();
         firstNameEditText.addTextChangedListener(new TextWatcher() {
@@ -466,7 +467,6 @@ public class EditProfileRoommateSearcher extends Fragment {
      * validate the entered name.
      */
     private void validateUserLastName() {
-        lastNameEditText = getView().findViewById(R.id.et_enter_last_name);
         lastNameEditText.setText(roommateSearcherUser.getLastName());
         checkIfValidLastName();
         lastNameEditText.addTextChangedListener(new TextWatcher() {
@@ -506,7 +506,6 @@ public class EditProfileRoommateSearcher extends Fragment {
      * validating the age entered. Age has to be between 6 and 120.
      */
     private void validateAge() {
-        ageEditText = getView().findViewById(R.id.et_enter_age);
         if (roommateSearcherUser.getAge() >= User.MINIMUM_AGE) {
             ageEditText.setText(Integer.toString(roommateSearcherUser.getAge()));
         }
@@ -578,7 +577,6 @@ public class EditProfileRoommateSearcher extends Fragment {
      * validating the Gender entered.
      */
     private void validateGender() {
-        maleRadioButton = getView().findViewById(R.id.radio_btn_male);
         RadioButton femaleRadioButton = getView().findViewById(R.id.radio_btn_female);
         if (("MALE").equals(roommateSearcherUser.getGender())) {
             maleRadioButton.setChecked(true);
@@ -602,7 +600,6 @@ public class EditProfileRoommateSearcher extends Fragment {
      * validating the PhoneNumber entered.
      */
     private void validatePhoneNumber() {
-        phoneNumberEditText = getView().findViewById(R.id.et_phone_number);
         phoneNumberEditText.setText(roommateSearcherUser.getPhoneNumber());
         checkIfValidPhoneNumber();
         phoneNumberEditText.addTextChangedListener(new TextWatcher() {
