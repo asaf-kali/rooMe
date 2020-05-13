@@ -94,11 +94,11 @@ public class EditProfileRoommateSearcher extends Fragment {
 
         initializeFirebaseFields();
         initializeDateFieldVariablesToFalse();
-        initializeFields();
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        initializeFields();
         ImageView saveProfileButton = getView().findViewById(R.id.btn_save_roommate_searcher_profile);
         saveProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,20 +147,19 @@ public class EditProfileRoommateSearcher extends Fragment {
     }
 
     private void initializeFields() {
-        View activityView = getView();
-        homeNeighborhood = activityView.findViewById(R.id.spinner_neighborhood);
-        displayDate = activityView.findViewById(R.id.iv_choose_apartment_entry_date);
-        rentEditText = activityView.findViewById(R.id.et_apartment_rent);
-        twoRoommatesRB = activityView.findViewById(R.id.radio_btn_num_of_roommates_2);
-        threeRoommatesRB = activityView.findViewById(R.id.radio_btn_num_of_roommates_3);
-        fourRoommatesRB = activityView.findViewById(R.id.radio_btn_num_of_roommates_4);
-        firstNameEditText = activityView.findViewById(R.id.et_enter_first_name);
-        lastNameEditText = activityView.findViewById(R.id.et_enter_last_name);
-        ageEditText = activityView.findViewById(R.id.et_enter_age);
-        maleRadioButton = activityView.findViewById(R.id.radio_btn_male);
-        phoneNumberEditText = activityView.findViewById(R.id.et_phone_number);
-        infoEditText = activityView.findViewById(R.id.et_apartment_info);
-        addApartmentPhoto = activityView.findViewById(R.id.btn_add_photos);
+        homeNeighborhood = getView().findViewById(R.id.spinner_neighborhood);
+        displayDate = getView().findViewById(R.id.iv_choose_apartment_entry_date);
+        rentEditText = getView().findViewById(R.id.et_apartment_rent);
+        twoRoommatesRB = getView().findViewById(R.id.radio_btn_num_of_roommates_2);
+        threeRoommatesRB = getView().findViewById(R.id.radio_btn_num_of_roommates_3);
+        fourRoommatesRB = getView().findViewById(R.id.radio_btn_num_of_roommates_4);
+        firstNameEditText = getView().findViewById(R.id.et_enter_first_name);
+        lastNameEditText = getView().findViewById(R.id.et_enter_last_name);
+        ageEditText = getView().findViewById(R.id.et_enter_age);
+        maleRadioButton = getView().findViewById(R.id.radio_btn_male);
+        phoneNumberEditText = getView().findViewById(R.id.et_phone_number);
+        infoEditText = getView().findViewById(R.id.et_apartment_info);
+        addApartmentPhoto = getView().findViewById(R.id.btn_add_photos);
     }
 
     void addValueEventListenerToFirebaseUserReference() {
