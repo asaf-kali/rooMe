@@ -68,6 +68,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.annotation:annotation:1.1.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
 
     //for the range seek-bars
     implementation 'com.yahoo.mobile.client.android.util.rangeseekbar:rangeseekbar-library:0.1.0'
@@ -76,6 +78,8 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     //for swipecard
     implementation 'link.fls:swipestack:0.3.0'
+
+
 
 }
 apply plugin: 'com.google.gms.google-services'
