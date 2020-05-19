@@ -10,14 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.example.roome.Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher;
 import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MainActivityApartmentSearcher;
@@ -28,13 +24,8 @@ import com.example.roome.R;
 import com.example.roome.RoommateSearcherInfoConnector;
 import com.example.roome.user_classes.ApartmentAdditionalInfo;
 import com.example.roome.user_classes.ApartmentSearcherUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
 import com.lorenzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
@@ -54,11 +45,10 @@ public class RoommateSearcherHome extends Fragment {
     /* Views references */
     private ImageView trashCanImage;
     private ImageView noMoreRoommatesText;
-    private TextView locationText;
-    private TextView peopleText;
-    private TextView priceText;
-    private ImageView editFiltersImage; //todo delete
-    private int positionInContainer = 0;
+//    private TextView locationText;
+//    private TextView peopleText;
+//    private TextView priceText;
+//    private ImageView editFiltersImage; //todo delete
 
     /* For swipe */
     public static RoommateSearcherHome.MyAppAdapter myAppAdapter;
@@ -68,8 +58,8 @@ public class RoommateSearcherHome extends Fragment {
     /* Other class members */
     private ArrayList<String> relevantApartmentSearchersIds;
     private ArrayList<Integer> temp_img;
-    private EditFiltersApartmentSearcher editFiltersDialog; //todo delte
-    private ApartmentAdditionalInfo additionalInfoDialog;
+//    private EditFiltersApartmentSearcher editFiltersDialog; //todo delete
+    private ApartmentAdditionalInfo additionalInfoDialog; //todo: rommateBio class
     public ApartmentSearcherUser currentApartmentSearcher;
 
 
@@ -93,16 +83,16 @@ public class RoommateSearcherHome extends Fragment {
         return inflater.inflate(R.layout.activity_roommate_searcher_home, container, false);
     }
     public void onActivityCreated(Bundle savedInstanceState){
-        trashCanImage = getView().findViewById(R.id.iv_trash_can);
-        noMoreRoommatesText = getView().findViewById(R.id.iv_no_more_houses);
-        editFiltersImage = getView().findViewById(R.id.iv_edit_filters);
-        editFiltersDialog = new EditFiltersApartmentSearcher();
+        trashCanImage = getView().findViewById(R.id.iv_trash_can_RS);
+        noMoreRoommatesText = getView().findViewById(R.id.iv_no_more_roommates);
+//        editFiltersImage = getView().findViewById(R.id.iv_edit_filters); //todo delete
+//        editFiltersDialog = new EditFiltersApartmentSearcher(); //todo delete
         additionalInfoDialog = new ApartmentAdditionalInfo();
         setClickListeners();
 //        setFirebaseListeners();  //todo include this line
-        retrieveRelevantRoommateSearchers();
+        retrieveRelevantApartmentSearchers();
         swipeOnCreate();
-        moreHouses();
+        moreRoommates();
         super.onActivityCreated(savedInstanceState);
 
     }
@@ -127,12 +117,11 @@ public class RoommateSearcherHome extends Fragment {
                 view.findViewById(R.id.fl_background).setAlpha(0);
                 myAppAdapter.notifyDataSetChanged();
                 Bundle bundle = new Bundle();
-                bundle.putString("roommateId",
+                bundle.putString("apartmentId",
                         relevantApartmentSearchersIds.get(itemPosition));
                 additionalInfoDialog.setArguments(bundle);
                 additionalInfoDialog.show(getFragmentManager(),
-                        "additionalInfo"); // showing additional info about
-                // the apartment
+                        "bio"); // //roommate's bio
             }
         });
     }
@@ -193,44 +182,42 @@ public class RoommateSearcherHome extends Fragment {
      * Handling swiping card to the left
      */
     private void handlingLeftCardExit() {
-        pressedNoToApartment();
+        pressedNoToRoommate();
         myAppAdapter.notifyDataSetChanged();
         relevantApartmentSearchersIds.remove(0);
         temp_img.remove(0);
         if (MyPreferences.isFirstUnlike(getContext())) {
             Intent intent = new Intent(getActivity(),
                     PressedUnlikeDialogActivity.class); //showing
-            // information about swiping left(unlike apartment)
+            // information about swiping left(unlike roommate)
             startActivity(intent);
             MyPreferences.setIsFirstUnlikeToFalse(getContext());
         }
-        positionInContainer++;
     }
 
     /**
      * Handling swiping card to the right
      */
     private void handlingRightCardExit() {
-        pressedYesToApartment();
+        pressedYesToRoommate();
         relevantApartmentSearchersIds.remove(0);
         temp_img.remove(0);
         myAppAdapter.notifyDataSetChanged();
         if (MyPreferences.isFirstLike(getContext())) {
-            Intent intent = new Intent(getActivity(),
+            Intent intent = new Intent(getActivity(), //todo: dialog explaining that now that youv'e liked so itll appear in the match
                     PressedLikeDialogActivity.class); //showing
-            // information about swiping right(like apartment)
+            // information about swiping right(like roommate)
             startActivity(intent);
             MyPreferences.setIsFirstLikeToFalse(getContext());
         }
-        positionInContainer++;
     }
     /**
-     * fill image array with relevant images according to roommate users
+     * fill image array with relevant images according to apartment users
      */
     private void fillTempImgArray() {
         temp_img = new ArrayList<>();
         for (String uid : relevantApartmentSearchersIds) {
-            temp_img.add(RoommateSearcherInfoConnector.getImageByUid(uid));
+            temp_img.add(RoommateSearcherInfoConnector.getImageByUid(uid)); //todo: new class for apartment searcher
         }
     }
 
@@ -238,7 +225,7 @@ public class RoommateSearcherHome extends Fragment {
 //     * add to the relevantRelevantRoommateIds all the roommate ids that fits
 //     * to the current apartment user
 //     */
-//    private void retrieveRelevantRoommateSearchers() {
+//    private void retrieveRelevantApartmentSearchers() {
 //        relevantApartmentSearchersIds =
 //                FirebaseMediate.getAptPrefList(ChoosingActivity.NOT_SEEN,
 //                        MyPreferences.getUserUid(getContext()));
@@ -249,9 +236,9 @@ public class RoommateSearcherHome extends Fragment {
 //        relevantApartmentSearchersIds.addAll(allMaybeUid);
 //    }
 
-    private void retrieveRelevantRoommateSearchers() {
+    private void retrieveRelevantApartmentSearchers() {
         relevantApartmentSearchersIds =new ArrayList<>
-                (MainActivityApartmentSearcher.getSpecificList(ChoosingActivity.NOT_SEEN));
+                (MainActivityRoommateSearcher.getSpecificList(ChoosingActivity.NOT_SEEN));
     }
 
     /**
@@ -270,165 +257,68 @@ public class RoommateSearcherHome extends Fragment {
                 // we didn't implement this feature
             }
         });
-        editFiltersImage.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Opening the edit filters dialog
-             * @param view - The view
-             */
-            @Override
-            public void onClick(View view) {
-                editFiltersDialog.show(getFragmentManager(), "EditFilters");
-            }
-        });
     }
 
     /**
-     * get the apartment user id
+     * get the roommate user id
      *
-     * @return apartment user id
+     * @return roommate user id
      */
-    private String getUserUid() {
+    private String getUserUid() { //todo: check that is good for roommate ids
         return MyPreferences.getUserUid(getContext());
     }
 
-    /**
-     * check if the apartment user and roommate user have a match according to
-     * filters
-     *
-     * @param aptUid      - apartment id
-     * @param roommateUid - roommate id
-     * @return true if there's a match , otherwise false
-     */
-    private boolean isMatch(String aptUid, String roommateUid) {
-        // We didn't implement this
-        return true;
-    }
 
     /**
-     * set fireBase listeners
-     */
-    private void setFirebaseListeners() {
-        firebaseDatabaseReference.child("users").child("RoommateSearcherUser").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                onChildChanged(dataSnapshot, s);
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String roommateKey = dataSnapshot.getKey();
-                String aUserKey = getUserUid();
-                String inWhichList =
-                        FirebaseMediate.RoommateInApartmentSearcherPrefsList(aUserKey, roommateKey);
-                if (inWhichList.equals(ChoosingActivity.NOT_IN_LISTS)) {
-                    if (isMatch(aUserKey, roommateKey)) {
-                        //if theres a match - add to the havent seen list of
-                        // AptUser
-                        FirebaseMediate.addRoomateIdsToAptPrefList(ChoosingActivity.NOT_SEEN, aUserKey, roommateKey);
-                    }
-                } else {
-                    if (!isMatch(aUserKey, roommateKey)) {
-                        //if there is no match -> remove roommatekey from apt prefs list
-                        FirebaseMediate.removeFromAptPrefList(inWhichList,
-                                aUserKey, roommateKey);
-                    }
-                }
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                String roommateKey = dataSnapshot.getKey();
-                String aUserKey = getUserUid();
-                String inWhichList =
-                        FirebaseMediate.RoommateInApartmentSearcherPrefsList(aUserKey, roommateKey);
-                if (!inWhichList.equals(ChoosingActivity.NOT_IN_LISTS)) {
-                    //remove from the list
-                    FirebaseMediate.removeFromAptPrefList(inWhichList,
-                            aUserKey, roommateKey);
-                }
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        }); //todo maybe delete this
-        firebaseDatabaseReference.child("preferences").child(
-                "ApartmentSearcherUser").child(getUserUid()).child(ChoosingActivity.NOT_SEEN).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
-                };
-                relevantApartmentSearchersIds = dataSnapshot.getValue(t);
-                if (relevantApartmentSearchersIds == null) {
-                    relevantApartmentSearchersIds = new ArrayList<>();
-                }
-                myAppAdapter.setParkingList(relevantApartmentSearchersIds);
-                refreshList();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });//todo maybe delete this
-    }
-
-    /**
-     * refresh the list of houses
+     * refresh the list of roommates
      */
     private void refreshList() {
-        moreHouses();
+        moreRoommates();
     }
 
     /**
-     * remove the roommate user from the current apartment user "haveNotSeen"
+     * remove the apartment user from the current roommate user "haveNotSeen"
      * list
      *
-     * @param roommateUid - roommate id
+     * @param apartmentUid - apartment id
      */
-    private void removeFromHaveNotSeen(String roommateUid) {
-        MainActivityApartmentSearcher.removeValueFromList(ChoosingActivity.NOT_SEEN,roommateUid);
+    private void removeFromHaveNotSeen(String apartmentUid) {
+        MainActivityRoommateSearcher.removeValueFromList(ChoosingActivity.NOT_SEEN,apartmentUid);
 //        FirebaseMediate.removeFromAptPrefList(ChoosingActivity.NOT_SEEN,
 //                getUserUid(), roommateUid);
     }
 
     /**
-     * called when user liked an apartment , without params
+     * called when user liked a roommate , without params
      * adds the roommate to the liked list
      */
-    public void pressedYesToApartment() {
-        String likedRoommateId =
+    public void pressedYesToRoommate() { //todo: need to chenge code. need to add the liked user to matches on both sides
+        String likedApartmentUserId =
                 relevantApartmentSearchersIds.get(0); // the current roommate
         String myUid = getUserUid();
-        removeFromHaveNotSeen(likedRoommateId);
+        removeFromHaveNotSeen(likedApartmentUserId);
 //        FirebaseMediate.addRoomateIdsToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
 //                myUid, likedRoommateId);
         FirebaseMediate.addToRoommatePrefList(ChoosingActivity.NOT_SEEN,
-                likedRoommateId, myUid);
+                likedApartmentUserId, myUid);
     }
 
 
     /**
-     * called when user didn't like an apartment , without params
-     * adds the roommate searcher user to the unliked list
+     * called when user didn't like a roommate , without params
+     * adds the apartment searcher user to the unliked list
      */
-    public void pressedNoToApartment() {
-        String unlikedRoommateId =
+    public void pressedNoToRoommate() {
+        String unlikedApartmentUserId =
                 relevantApartmentSearchersIds.get(0);
-        removeFromHaveNotSeen(unlikedRoommateId);
-        MainActivityApartmentSearcher.addValueToList(ChoosingActivity.NO_TO_HOUSE,unlikedRoommateId);
+        removeFromHaveNotSeen(unlikedApartmentUserId);
+        MainActivityRoommateSearcher.addValueToList(ChoosingActivity.NO_TO_ROOMMATE,unlikedApartmentUserId);
     }
 
     /**
      * Called when there are more houses to display
      */
-    private void moreHouses() {
+    private void moreRoommates() {
         fillTempImgArray();
     }
 

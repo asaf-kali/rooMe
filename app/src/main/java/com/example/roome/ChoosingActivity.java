@@ -50,6 +50,8 @@ public class ChoosingActivity extends AppCompatActivity {
     public static final String MAYBE_TO_HOUSE = "maybe_to_house";
     public static final String NO_TO_HOUSE = "no_to_house";
     public static final String NOT_IN_LISTS = "doesn't appear on lists";
+    public static final String NO_TO_ROOMMATE = "no_to_roommate";
+
 
     public static final String MATCH = "match";
     public static final String NOT_MATCH = "not_match";
