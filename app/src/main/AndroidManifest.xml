@@ -16,10 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:allowBackup">
+        <activity android:name=".user_classes.RoommateBio"></activity>
         <activity
             android:name=".PressedUnlikeDialogActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert"></activity>
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
         <activity
             android:name=".PressedLikeDialogActivity"
             android:screenOrientation="portrait"

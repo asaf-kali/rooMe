@@ -23,7 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 //todo: documention :/
 public class MainActivityRoommateSearcher extends AppCompatActivity {
@@ -69,6 +71,7 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
             startActivityOnEditProfileTab();
         }
         retrieveUserLists();
+        updateUserLists();
 
     }
 
@@ -88,6 +91,43 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
         for (String listName : allLists.keySet()){
             FirebaseMediate.setRoommatePrefList(listName,rmtUid,allLists.get(listName));
         }
+    }
+
+
+    /**
+     * updating the lists of the user ( according to prefs)
+     */
+    private void updateUserLists() { //todo check if need to happend in the first time
+        ArrayList<String> updated_not_seen =
+                makeUniqueValuesList(allLists.get(ChoosingActivity.NOT_SEEN));
+        allLists.put(ChoosingActivity.NOT_SEEN,updated_not_seen);
+        deleteUnseenValuesFromAllLists();
+    }
+
+    /**
+     * deleting the values from the unseen list from the other list of the user
+     */
+    private void deleteUnseenValuesFromAllLists() { // todo check if working
+        // when roommate side will be done
+        for (String aptId : allLists.get(ChoosingActivity.NOT_SEEN))
+        {
+            removeValueFromList(ChoosingActivity.NO_TO_ROOMMATE,aptId);
+            removeValueFromList(ChoosingActivity.NOT_MATCH,aptId);
+            removeValueFromList(ChoosingActivity.MATCH,aptId);
+        }
+    }
+
+    /**
+     * deleting duplicate values from the list
+     * @param list - the list
+     * @return list with unique values
+     */
+    private ArrayList<String> makeUniqueValuesList(ArrayList<String> list) {
+        //todo check if working
+        Set<String> uniqueSet = new HashSet<>(list);
+        ArrayList<String> uniqueArray = new ArrayList<>();
+        uniqueArray.addAll(uniqueSet);
+        return uniqueArray;
     }
 
     private void startActivityOnEditProfileTab() {

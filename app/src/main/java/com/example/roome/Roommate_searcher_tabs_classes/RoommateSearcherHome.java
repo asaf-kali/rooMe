@@ -300,8 +300,8 @@ public class RoommateSearcherHome extends Fragment {
         removeFromHaveNotSeen(likedApartmentUserId);
 //        FirebaseMediate.addRoommateIdsToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
 //                myUid, likedRoommateId);
-        FirebaseMediate.addToRoommatePrefList(ChoosingActivity.NOT_SEEN,
-                likedApartmentUserId, myUid);
+//        FirebaseMediate.addToRoommatePrefList(ChoosingActivity.NOT_SEEN,
+//                likedApartmentUserId, myUid);
     }
 
 
