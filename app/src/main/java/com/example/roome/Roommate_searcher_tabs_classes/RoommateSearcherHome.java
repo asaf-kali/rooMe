@@ -17,7 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.example.roome.Apartment_searcher_tabs_classes.ApartmentSearcherHome;
 import com.example.roome.Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher;
 import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
@@ -28,7 +27,7 @@ import com.example.roome.PressedUnlikeDialogActivity;
 import com.example.roome.R;
 import com.example.roome.RoommateSearcherInfoConnector;
 import com.example.roome.user_classes.ApartmentAdditionalInfo;
-import com.example.roome.user_classes.RoommateSearcherUser;
+import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,11 +53,11 @@ public class RoommateSearcherHome extends Fragment {
 
     /* Views references */
     private ImageView trashCanImage;
-    private ImageView noMoreHousesText;
+    private ImageView noMoreRoommatesText;
     private TextView locationText;
     private TextView peopleText;
     private TextView priceText;
-    private ImageView editFiltersImage;
+    private ImageView editFiltersImage; //todo delete
     private int positionInContainer = 0;
 
     /* For swipe */
@@ -67,11 +66,11 @@ public class RoommateSearcherHome extends Fragment {
     private SwipeFlingAdapterView flingContainer;
 
     /* Other class members */
-    private ArrayList<String> relevantRoommateSearchersIds;
+    private ArrayList<String> relevantApartmentSearchersIds;
     private ArrayList<Integer> temp_img;
     private EditFiltersApartmentSearcher editFiltersDialog; //todo delte
     private ApartmentAdditionalInfo additionalInfoDialog;
-    public RoommateSearcherUser currentRoommateSearcher;
+    public ApartmentSearcherUser currentApartmentSearcher;
 
 
     @Override
@@ -95,7 +94,7 @@ public class RoommateSearcherHome extends Fragment {
     }
     public void onActivityCreated(Bundle savedInstanceState){
         trashCanImage = getView().findViewById(R.id.iv_trash_can);
-        noMoreHousesText = getView().findViewById(R.id.iv_no_more_houses);
+        noMoreRoommatesText = getView().findViewById(R.id.iv_no_more_houses);
         editFiltersImage = getView().findViewById(R.id.iv_edit_filters);
         editFiltersDialog = new EditFiltersApartmentSearcher();
         additionalInfoDialog = new ApartmentAdditionalInfo();
@@ -113,7 +112,7 @@ public class RoommateSearcherHome extends Fragment {
      */
     private void swipeOnCreate() {
         flingContainer = getView().findViewById(R.id.frame_card);
-        myAppAdapter = new MyAppAdapter(relevantRoommateSearchersIds);
+        myAppAdapter = new MyAppAdapter(relevantApartmentSearchersIds);
         flingContainer.setAdapter(myAppAdapter);
         setOnFlingListener();
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
@@ -129,7 +128,7 @@ public class RoommateSearcherHome extends Fragment {
                 myAppAdapter.notifyDataSetChanged();
                 Bundle bundle = new Bundle();
                 bundle.putString("roommateId",
-                        relevantRoommateSearchersIds.get(itemPosition));
+                        relevantApartmentSearchersIds.get(itemPosition));
                 additionalInfoDialog.setArguments(bundle);
                 additionalInfoDialog.show(getFragmentManager(),
                         "additionalInfo"); // showing additional info about
@@ -196,7 +195,7 @@ public class RoommateSearcherHome extends Fragment {
     private void handlingLeftCardExit() {
         pressedNoToApartment();
         myAppAdapter.notifyDataSetChanged();
-        relevantRoommateSearchersIds.remove(0);
+        relevantApartmentSearchersIds.remove(0);
         temp_img.remove(0);
         if (MyPreferences.isFirstUnlike(getContext())) {
             Intent intent = new Intent(getActivity(),
@@ -213,7 +212,7 @@ public class RoommateSearcherHome extends Fragment {
      */
     private void handlingRightCardExit() {
         pressedYesToApartment();
-        relevantRoommateSearchersIds.remove(0);
+        relevantApartmentSearchersIds.remove(0);
         temp_img.remove(0);
         myAppAdapter.notifyDataSetChanged();
         if (MyPreferences.isFirstLike(getContext())) {
@@ -230,7 +229,7 @@ public class RoommateSearcherHome extends Fragment {
      */
     private void fillTempImgArray() {
         temp_img = new ArrayList<>();
-        for (String uid : relevantRoommateSearchersIds) {
+        for (String uid : relevantApartmentSearchersIds) {
             temp_img.add(RoommateSearcherInfoConnector.getImageByUid(uid));
         }
     }
@@ -240,18 +239,18 @@ public class RoommateSearcherHome extends Fragment {
 //     * to the current apartment user
 //     */
 //    private void retrieveRelevantRoommateSearchers() {
-//        relevantRoommateSearchersIds =
+//        relevantApartmentSearchersIds =
 //                FirebaseMediate.getAptPrefList(ChoosingActivity.NOT_SEEN,
 //                        MyPreferences.getUserUid(getContext()));
 //        ArrayList<String> allMaybeUid = FirebaseMediate.getAptPrefList(ChoosingActivity.MAYBE_TO_HOUSE,
 //                MyPreferences.getUserUid(getContext()));
 //        // the relevant roommates are the ones that the user liked or chosen
 //        // maybe
-//        relevantRoommateSearchersIds.addAll(allMaybeUid);
+//        relevantApartmentSearchersIds.addAll(allMaybeUid);
 //    }
 
     private void retrieveRelevantRoommateSearchers() {
-        relevantRoommateSearchersIds =new ArrayList<>
+        relevantApartmentSearchersIds =new ArrayList<>
                 (MainActivityApartmentSearcher.getSpecificList(ChoosingActivity.NOT_SEEN));
     }
 
@@ -365,11 +364,11 @@ public class RoommateSearcherHome extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
                 };
-                relevantRoommateSearchersIds = dataSnapshot.getValue(t);
-                if (relevantRoommateSearchersIds == null) {
-                    relevantRoommateSearchersIds = new ArrayList<>();
+                relevantApartmentSearchersIds = dataSnapshot.getValue(t);
+                if (relevantApartmentSearchersIds == null) {
+                    relevantApartmentSearchersIds = new ArrayList<>();
                 }
-                myAppAdapter.setParkingList(relevantRoommateSearchersIds);
+                myAppAdapter.setParkingList(relevantApartmentSearchersIds);
                 refreshList();
             }
 
@@ -405,7 +404,7 @@ public class RoommateSearcherHome extends Fragment {
      */
     public void pressedYesToApartment() {
         String likedRoommateId =
-                relevantRoommateSearchersIds.get(0); // the current roommate
+                relevantApartmentSearchersIds.get(0); // the current roommate
         String myUid = getUserUid();
         removeFromHaveNotSeen(likedRoommateId);
 //        FirebaseMediate.addRoomateIdsToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
@@ -421,7 +420,7 @@ public class RoommateSearcherHome extends Fragment {
      */
     public void pressedNoToApartment() {
         String unlikedRoommateId =
-                relevantRoommateSearchersIds.get(0);
+                relevantApartmentSearchersIds.get(0);
         removeFromHaveNotSeen(unlikedRoommateId);
         MainActivityApartmentSearcher.addValueToList(ChoosingActivity.NO_TO_HOUSE,unlikedRoommateId);
     }
@@ -514,18 +513,18 @@ public class RoommateSearcherHome extends Fragment {
                 LayoutInflater inflater = getLayoutInflater();
                 rowView = inflater.inflate(R.layout.card_item, parent, false);
                 // configure view holder
-                viewHolder = new RoommateSearcherHome.ViewHolder();
+                viewHolder = new ViewHolder();
                 viewHolder.basicInfo =
                         (LinearLayout) rowView.findViewById(R.id.ll_basic_info);
                 //creating view holder for every roommate
-                currentRoommateSearcher =
-                        FirebaseMediate.getRoommateSearcherUserByUid(relevantRoommateSearchersIds.get(position));
-                peopleText = rowView.findViewById(R.id.tv_people);
-                locationText = rowView.findViewById(R.id.tv_location);
-                priceText = rowView.findViewById(R.id.tv_price);
-                peopleText.setText(Integer.toString(currentRoommateSearcher.getApartment().getNumberOfRoommates()));
-                locationText.setText(currentRoommateSearcher.getApartment().getNeighborhood());
-                priceText.setText(Integer.toString((int) (currentRoommateSearcher.getApartment().getRent())));
+                currentApartmentSearcher =
+                        FirebaseMediate.getApartmentSearcherUserByUid(relevantApartmentSearchersIds.get(position));
+//                peopleText = rowView.findViewById(R.id.tv_people);
+//                locationText = rowView.findViewById(R.id.tv_location);
+//                priceText = rowView.findViewById(R.id.tv_price);
+//                peopleText.setText(Integer.toString(currentApartmentSearcher.getApartment().getNumberOfRoommates()));
+//                locationText.setText(currentApartmentSearcher.getApartment().getNeighborhood());
+//                priceText.setText(Integer.toString((int) (currentApartmentSearcher.getApartment().getRent())));
                 viewHolder.background =
                         (FrameLayout) rowView.findViewById(R.id.fl_background);
                 viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.iv_card);
@@ -539,5 +538,4 @@ public class RoommateSearcherHome extends Fragment {
             return rowView;
         }
     }
-}
 }
