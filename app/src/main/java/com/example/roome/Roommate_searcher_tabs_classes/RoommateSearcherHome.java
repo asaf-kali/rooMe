@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MainActivityApartmentSearcher;
+import com.example.roome.MainActivityRoommateSearcher;
 import com.example.roome.MyPreferences;
 import com.example.roome.PressedLikeDialogActivity;
 import com.example.roome.PressedUnlikeDialogActivity;
@@ -297,7 +298,7 @@ public class RoommateSearcherHome extends Fragment {
                 relevantApartmentSearchersIds.get(0); // the current roommate
         String myUid = getUserUid();
         removeFromHaveNotSeen(likedApartmentUserId);
-//        FirebaseMediate.addRoomateIdsToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
+//        FirebaseMediate.addRoommateIdsToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
 //                myUid, likedRoommateId);
         FirebaseMediate.addToRoommatePrefList(ChoosingActivity.NOT_SEEN,
                 likedApartmentUserId, myUid);

@@ -1,6 +1,10 @@
 package com.example.roome;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.Slide;
+import android.view.Gravity;
+import android.view.animation.DecelerateInterpolator;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -11,17 +15,22 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.roome.Roommate_searcher_tabs_classes.EditProfileRoommateSearcher;
 import com.example.roome.Roommate_searcher_tabs_classes.MatchesRoommateSearcher;
 import com.example.roome.Roommate_searcher_tabs_classes.RoommateSearcherHome;
+import com.example.roome.user_classes.RoommateSearcherUser;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-/**
- * **** DON'T CHECK! ****
- * this class is for future implementation (we did not implement the roommate searcher side)
- */
+//todo: documention :/
 public class MainActivityRoommateSearcher extends AppCompatActivity {
 
+    public static RoommateSearcherUser rUser; //todo we need this?
+
+    private static final int OFFSCREEN_PAGE_LIMIT = 3;
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private int[] selectedtabIcons = {R.drawable.ic_action_filled_home,
@@ -32,41 +41,35 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
             R.drawable.ic_action_empty_heart,
             R.drawable.ic_action_empty_person};
 
+    /* Firebase instance variables */
+    private FirebaseDatabase firebaseDatabase;
+
+    /* All lists of the apartment user */
+    public static HashMap<String,ArrayList<String>> allLists;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setAnimation();
         setContentView(R.layout.activity_main_roommate_searcher);
+        // Initialize Firebase
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        rUser = getCurrentRoommateSearcherUser(); //todo we need this?
+        allLists = new HashMap<>();
 
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_roomate);
+        viewPager.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT);
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs_roomate);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
-        tabLayout.addOnTabSelectedListener(
-                new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
-
-                    @Override
-                    public void onTabSelected(TabLayout.Tab tab) {
-                        super.onTabSelected(tab);
-                        tab.setIcon(selectedtabIcons[tab.getPosition()]);
-                    }
-
-                    @Override
-                    public void onTabUnselected(TabLayout.Tab tab) {
-                        super.onTabUnselected(tab);
-
-                        tab.setIcon(unselectedtabIcons[tab.getPosition()]);
-                    }
-
-                    @Override
-                    public void onTabReselected(TabLayout.Tab tab) {
-                        super.onTabReselected(tab);
-                    }
-                }
-        );
+        addTabLayoutListeners();
         if(isFirstTimeInApp()) {
             startActivityOnEditProfileTab();
         }
+        retrieveUserLists();
+
     }
 
     private boolean isFirstTimeInApp() {
@@ -76,6 +79,15 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onPause() { //todo being called when exiting app?
+        super.onPause();
+        String rmtUid = MyPreferences.getUserUid(getApplicationContext());
+        for (String listName : allLists.keySet()){
+            FirebaseMediate.setRoommatePrefList(listName,rmtUid,allLists.get(listName));
+        }
     }
 
     private void startActivityOnEditProfileTab() {
@@ -124,6 +136,91 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return null;
+        }
+    }
+
+
+    /**
+     * Adding tab layout listeners
+     */
+    private void addTabLayoutListeners() {
+        tabLayout.addOnTabSelectedListener(
+                new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
+
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        super.onTabSelected(tab);
+                        tab.setIcon(selectedtabIcons[tab.getPosition()]);
+                    }
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                        super.onTabUnselected(tab);
+                        tab.setIcon(unselectedtabIcons[tab.getPosition()]);
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                        super.onTabReselected(tab);
+                    }
+                }
+        );
+    }
+
+    private void retrieveUserLists() {
+        String rmtUid = MyPreferences.getUserUid(getApplicationContext());
+        allLists.put(ChoosingActivity.NOT_SEEN,FirebaseMediate.getRoommatePrefList(ChoosingActivity.NOT_SEEN,
+                rmtUid)); //todo: check dis shit
+        allLists.put(ChoosingActivity.NO_TO_ROOMMATE,
+                FirebaseMediate.getRoommatePrefList(ChoosingActivity.NO_TO_ROOMMATE,
+                        rmtUid));
+        allLists.put(ChoosingActivity.NOT_MATCH,
+                FirebaseMediate.getRoommatePrefList(ChoosingActivity.NOT_MATCH,
+                        rmtUid)); //todo: delete
+        allLists.put(ChoosingActivity.MATCH,
+                FirebaseMediate.getRoommatePrefList(ChoosingActivity.MATCH,
+                        rmtUid));
+    }
+
+
+    public static ArrayList<String> getSpecificList(String listName){
+        return allLists.get(listName);
+    }
+    public static void setSpecificList(String listName,ArrayList<String> list){
+        allLists.put(listName,list);
+    }
+    public static boolean removeValueFromList(String listName,String value){
+        ArrayList<String> list = getSpecificList(listName);
+        boolean exist = list.remove(value);
+        setSpecificList(listName,list);
+        return exist;
+    }
+    public static void addValueToList(String listName,String value){
+        ArrayList<String> list = getSpecificList(listName);
+        list.add(value);
+        setSpecificList(listName,list);
+    }
+
+    /**
+     * @return - The apartment searcher user (from firebase).
+     */
+    private RoommateSearcherUser getCurrentRoommateSearcherUser() {
+        String rmtUid = MyPreferences.getUserUid(getApplicationContext());
+        return FirebaseMediate.getRoommateSearcherUserByUid(rmtUid);
+    }
+
+
+    /**
+     * Setting animation for the activity
+     */
+    public void setAnimation() {
+        if (Build.VERSION.SDK_INT > MainActivity.MIN_SUPPORTED_API_LEVEL) {
+            Slide slide = new Slide();
+            slide.setSlideEdge(Gravity.LEFT);
+            slide.setDuration(ChoosingActivity.ANIMATION_DELAY_TIME);
+            slide.setInterpolator(new DecelerateInterpolator());
+            getWindow().setExitTransition(slide);
+            getWindow().setEnterTransition(slide);
         }
     }
 }
