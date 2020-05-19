@@ -94,8 +94,8 @@ public class ApartmentSearcherHome extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        trashCanImage = getView().findViewById(R.id.iv_trash_can_RS);
-        noMoreHousesText = getView().findViewById(R.id.iv_no_more_roommates);
+        trashCanImage = getView().findViewById(R.id.iv_trash_can);
+        noMoreHousesText = getView().findViewById(R.id.iv_no_more_houses);
         editFiltersImage = getView().findViewById(R.id.iv_edit_filters);
         editFiltersDialog = new EditFiltersApartmentSearcher();
         additionalInfoDialog = new ApartmentAdditionalInfo();

@@ -16,15 +16,13 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
-import com.example.roome.MainActivityApartmentSearcher;
 import com.example.roome.MainActivityRoommateSearcher;
 import com.example.roome.MyPreferences;
 import com.example.roome.PressedLikeDialogActivity;
 import com.example.roome.PressedUnlikeDialogActivity;
 import com.example.roome.R;
-import com.example.roome.RoommateSearcherInfoConnector;
-import com.example.roome.user_classes.ApartmentAdditionalInfo;
 import com.example.roome.user_classes.ApartmentSearcherUser;
+import com.example.roome.user_classes.RoommateBio;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.lorenzos.flingswipe.SwipeFlingAdapterView;
@@ -60,7 +58,7 @@ public class RoommateSearcherHome extends Fragment {
     private ArrayList<String> relevantApartmentSearchersIds;
     private ArrayList<Integer> temp_img;
 //    private EditFiltersApartmentSearcher editFiltersDialog; //todo delete
-    private ApartmentAdditionalInfo additionalInfoDialog; //todo: rommateBio class
+    private RoommateBio bioDialog;
     public ApartmentSearcherUser currentApartmentSearcher;
 
 
@@ -84,16 +82,16 @@ public class RoommateSearcherHome extends Fragment {
         return inflater.inflate(R.layout.activity_roommate_searcher_home, container, false);
     }
     public void onActivityCreated(Bundle savedInstanceState){
-        trashCanImage = getView().findViewById(R.id.iv_trash_can_RS);
-        noMoreRoommatesText = getView().findViewById(R.id.iv_no_more_roommates);
+        trashCanImage = getView().findViewById(R.id.iv_trash_can);
+        noMoreRoommatesText = getView().findViewById(R.id.iv_no_more_houses);
 //        editFiltersImage = getView().findViewById(R.id.iv_edit_filters); //todo delete
 //        editFiltersDialog = new EditFiltersApartmentSearcher(); //todo delete
-        additionalInfoDialog = new ApartmentAdditionalInfo();
+        bioDialog = new RoommateBio();
         setClickListeners();
 //        setFirebaseListeners();  //todo include this line
         retrieveRelevantApartmentSearchers();
         swipeOnCreate();
-        moreRoommates();
+//        moreRoommates();
         super.onActivityCreated(savedInstanceState);
 
     }
@@ -120,8 +118,8 @@ public class RoommateSearcherHome extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("apartmentId",
                         relevantApartmentSearchersIds.get(itemPosition));
-                additionalInfoDialog.setArguments(bundle);
-                additionalInfoDialog.show(getFragmentManager(),
+                bioDialog.setArguments(bundle);
+                bioDialog.show(getFragmentManager(),
                         "bio"); // //roommate's bio
             }
         });
@@ -212,15 +210,15 @@ public class RoommateSearcherHome extends Fragment {
             MyPreferences.setIsFirstLikeToFalse(getContext());
         }
     }
-    /**
-     * fill image array with relevant images according to apartment users
-     */
-    private void fillTempImgArray() {
-        temp_img = new ArrayList<>();
-        for (String uid : relevantApartmentSearchersIds) {
-            temp_img.add(RoommateSearcherInfoConnector.getImageByUid(uid)); //todo: new class for apartment searcher
-        }
-    }
+//    /**
+//     * fill image array with relevant images according to apartment users
+//     */
+//    private void fillTempImgArray() {
+//        temp_img = new ArrayList<>();
+//        for (String uid : relevantApartmentSearchersIds) {
+//            temp_img.add(RoommateSearcherInfoConnector.getImageByUid(uid));
+//        }
+//    }
 
 //    /**
 //     * add to the relevantRelevantRoommateIds all the roommate ids that fits
@@ -270,12 +268,12 @@ public class RoommateSearcherHome extends Fragment {
     }
 
 
-    /**
-     * refresh the list of roommates
-     */
-    private void refreshList() {
-        moreRoommates();
-    }
+//    /**
+//     * refresh the list of roommates
+//     */
+//    private void refreshList() {
+//        moreRoommates();
+//    }
 
     /**
      * remove the apartment user from the current roommate user "haveNotSeen"
@@ -293,15 +291,14 @@ public class RoommateSearcherHome extends Fragment {
      * called when user liked a roommate , without params
      * adds the roommate to the liked list
      */
-    public void pressedYesToRoommate() { //todo: need to chenge code. need to add the liked user to matches on both sides
+    public void pressedYesToRoommate() { //todo: check that works
         String likedApartmentUserId =
                 relevantApartmentSearchersIds.get(0); // the current roommate
         String myUid = getUserUid();
         removeFromHaveNotSeen(likedApartmentUserId);
-//        FirebaseMediate.addRoommateIdsToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
-//                myUid, likedRoommateId);
-//        FirebaseMediate.addToRoommatePrefList(ChoosingActivity.NOT_SEEN,
-//                likedApartmentUserId, myUid);
+        MainActivityRoommateSearcher.addValueToList(ChoosingActivity.MATCH,likedApartmentUserId);
+        FirebaseMediate.addRoommateIdsToAptPrefList(ChoosingActivity.MATCH,likedApartmentUserId,myUid);
+
     }
 
 
@@ -316,12 +313,12 @@ public class RoommateSearcherHome extends Fragment {
         MainActivityRoommateSearcher.addValueToList(ChoosingActivity.NO_TO_ROOMMATE,unlikedApartmentUserId);
     }
 
-    /**
-     * Called when there are more houses to display
-     */
-    private void moreRoommates() {
-        fillTempImgArray();
-    }
+//    /**
+//     * Called when there are more houses to display
+//     */
+//    private void moreRoommates() {
+//        fillTempImgArray();
+//    }
 
     //for swipe action
 
@@ -424,7 +421,7 @@ public class RoommateSearcherHome extends Fragment {
             } else {
                 viewHolder = (RoommateSearcherHome.ViewHolder) convertView.getTag();
             }
-            Glide.with(getContext()).load(temp_img.get(position)).into(viewHolder.cardImage);
+            Glide.with(getContext()).load(R.drawable.house_back_img).into(viewHolder.cardImage);//todo: change pic to ari , look at apartmentSearcherHome.java
 
             return rowView;
         }
