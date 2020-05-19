@@ -329,7 +329,6 @@ public class EditProfileRoommateSearcher extends Fragment {
                         year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
-//                userApartment.setEntryDate(dialog.toString()); //todo need this?
             }
         });
         dateSetListener = new DatePickerDialog.OnDateSetListener() {
