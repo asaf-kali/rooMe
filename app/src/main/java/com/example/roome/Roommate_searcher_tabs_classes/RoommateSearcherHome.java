@@ -82,8 +82,8 @@ public class RoommateSearcherHome extends Fragment {
         return inflater.inflate(R.layout.activity_roommate_searcher_home, container, false);
     }
     public void onActivityCreated(Bundle savedInstanceState){
-        trashCanImage = getView().findViewById(R.id.iv_trash_can);
-        noMoreRoommatesText = getView().findViewById(R.id.iv_no_more_houses);
+        trashCanImage = getView().findViewById(R.id.iv_trash_can_RS);
+        noMoreRoommatesText = getView().findViewById(R.id.iv_no_more_roommates);
 //        editFiltersImage = getView().findViewById(R.id.iv_edit_filters); //todo delete
 //        editFiltersDialog = new EditFiltersApartmentSearcher(); //todo delete
         bioDialog = new RoommateBio();
@@ -100,7 +100,7 @@ public class RoommateSearcherHome extends Fragment {
      * create swipe adapter
      */
     private void swipeOnCreate() {
-        flingContainer = getView().findViewById(R.id.frame_card);
+        flingContainer = getView().findViewById(R.id.frame_card_RS);
         myAppAdapter = new MyAppAdapter(relevantApartmentSearchersIds);
         flingContainer.setAdapter(myAppAdapter);
         setOnFlingListener();
@@ -113,7 +113,7 @@ public class RoommateSearcherHome extends Fragment {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
                 View view = flingContainer.getSelectedView();
-                view.findViewById(R.id.fl_background).setAlpha(0);
+                view.findViewById(R.id.fl_background_RS).setAlpha(0);
                 myAppAdapter.notifyDataSetChanged();
                 Bundle bundle = new Bundle();
                 bundle.putString("apartmentId",
@@ -168,10 +168,10 @@ public class RoommateSearcherHome extends Fragment {
             @Override
             public void onScroll(float scrollProgressPercent) {
                 View view = flingContainer.getSelectedView();
-                view.findViewById(R.id.fl_background).setAlpha(0);
-                view.findViewById(R.id.item_swipe_right_indicator)
+                view.findViewById(R.id.fl_background_RS).setAlpha(0);
+                view.findViewById(R.id.item_swipe_right_indicator_RS)
                         .setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
-                view.findViewById(R.id.item_swipe_left_indicator)
+                view.findViewById(R.id.item_swipe_left_indicator_RS)
                         .setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
             }
         });
@@ -403,7 +403,7 @@ public class RoommateSearcherHome extends Fragment {
                 // configure view holder
                 viewHolder = new ViewHolder();
                 viewHolder.basicInfo =
-                        (LinearLayout) rowView.findViewById(R.id.ll_basic_info);
+                        (LinearLayout) rowView.findViewById(R.id.ll_basic_info_RS);
                 //creating view holder for every roommate
                 currentApartmentSearcher =
                         FirebaseMediate.getApartmentSearcherUserByUid(relevantApartmentSearchersIds.get(position));
@@ -414,8 +414,8 @@ public class RoommateSearcherHome extends Fragment {
 //                locationText.setText(currentApartmentSearcher.getApartment().getNeighborhood());
 //                priceText.setText(Integer.toString((int) (currentApartmentSearcher.getApartment().getRent())));
                 viewHolder.background =
-                        (FrameLayout) rowView.findViewById(R.id.fl_background);
-                viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.iv_card);
+                        (FrameLayout) rowView.findViewById(R.id.fl_background_RS);
+                viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.iv_card_RS); //todo: new one
                 rowView.setTag(viewHolder);
 
             } else {
