@@ -104,25 +104,25 @@ public class RoommateSearcherHome extends Fragment {
         myAppAdapter = new MyAppAdapter(relevantApartmentSearchersIds);
         flingContainer.setAdapter(myAppAdapter);
         setOnFlingListener();
-        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
-            /**
-             * This function is responsible for handling item click
-             * @param itemPosition - the item position in the container
-             * @param dataObject
-             */
-            @Override
-            public void onItemClicked(int itemPosition, Object dataObject) {
-                View view = flingContainer.getSelectedView();
-                view.findViewById(R.id.fl_background_RS).setAlpha(0);
-                myAppAdapter.notifyDataSetChanged();
-                Bundle bundle = new Bundle();
-                bundle.putString("apartmentId",
-                        relevantApartmentSearchersIds.get(itemPosition));
-                bioDialog.setArguments(bundle);
-                bioDialog.show(getFragmentManager(),
-                        "bio"); // //roommate's bio
-            }
-        });
+//        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
+//            /**
+//             * This function is responsible for handling item click
+//             * @param itemPosition - the item position in the container
+//             * @param dataObject
+//             */
+//            @Override
+//            public void onItemClicked(int itemPosition, Object dataObject) {
+//                View view = flingContainer.getSelectedView();
+//                view.findViewById(R.id.fl_background_RS).setAlpha(0);
+//                myAppAdapter.notifyDataSetChanged();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("apartmentId",
+//                        relevantApartmentSearchersIds.get(itemPosition));
+//                bioDialog.setArguments(bundle);
+//                bioDialog.show(getFragmentManager(),
+//                        "bio"); // //roommate's bio
+//            }
+//        });
     }
 
     /**
@@ -184,7 +184,7 @@ public class RoommateSearcherHome extends Fragment {
         pressedNoToRoommate();
         myAppAdapter.notifyDataSetChanged();
         relevantApartmentSearchersIds.remove(0);
-        temp_img.remove(0);
+//        temp_img.remove(0);
         if (MyPreferences.isFirstUnlike(getContext())) {
             Intent intent = new Intent(getActivity(),
                     PressedUnlikeDialogActivity.class); //showing
@@ -200,7 +200,7 @@ public class RoommateSearcherHome extends Fragment {
     private void handlingRightCardExit() {
         pressedYesToRoommate();
         relevantApartmentSearchersIds.remove(0);
-        temp_img.remove(0);
+//        temp_img.remove(0);
         myAppAdapter.notifyDataSetChanged();
         if (MyPreferences.isFirstLike(getContext())) {
             Intent intent = new Intent(getActivity(), //todo: dialog explaining that now that youv'e liked so itll appear in the match
@@ -399,9 +399,9 @@ public class RoommateSearcherHome extends Fragment {
             if (rowView == null) {
 
                 LayoutInflater inflater = getLayoutInflater();
-                rowView = inflater.inflate(R.layout.card_item, parent, false);
+                rowView = inflater.inflate(R.layout.card_item_rs, parent, false);
                 // configure view holder
-                viewHolder = new ViewHolder();
+                viewHolder = new RoommateSearcherHome.ViewHolder();
                 viewHolder.basicInfo =
                         (LinearLayout) rowView.findViewById(R.id.ll_basic_info_RS);
                 //creating view holder for every roommate
