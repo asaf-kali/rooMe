@@ -308,7 +308,7 @@ public class ApartmentSearcherHome extends Fragment {
                     if (isMatch(aUserKey, roommateKey)) {
                         //if theres a match - add to the havent seen list of
                         // AptUser
-                        FirebaseMediate.addRoomateIdsToAptPrefList(ChoosingActivity.NOT_SEEN, aUserKey, roommateKey);
+                        FirebaseMediate.addRoommateIdsToAptPrefList(ChoosingActivity.NOT_SEEN, aUserKey, roommateKey);
                     }
                 } else {
                     if (!isMatch(aUserKey, roommateKey)) {
@@ -391,9 +391,9 @@ public class ApartmentSearcherHome extends Fragment {
                 relevantRoommateSearchersIds.get(0); // the current roommate
         String myUid = getUserUid();
         removeFromHaveNotSeen(likedRoommateId);
-//        FirebaseMediate.addRoomateIdsToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
+//        FirebaseMediate.addRoommateIdsToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
 //                myUid, likedRoommateId);
-        FirebaseMediate.addToRoommatePrefList(ChoosingActivity.NOT_SEEN,
+        FirebaseMediate.addAptIdToRmtPrefList(ChoosingActivity.NOT_SEEN,
                 likedRoommateId, myUid);
     }
 
@@ -516,7 +516,7 @@ public class ApartmentSearcherHome extends Fragment {
                 rowView.setTag(viewHolder);
 
             } else {
-                viewHolder = (ViewHolder) convertView.getTag();
+                viewHolder = (ApartmentSearcherHome.ViewHolder) convertView.getTag();
             }
 //            Glide.with(getContext()).load(temp_img.get(position)).into(viewHolder.cardImage);
             Glide.with(getContext()).load(RoommateSearcherInfoConnector.getImageByUid(relevantRoommateSearchersIds.get(position))).into(viewHolder.cardImage);
