@@ -305,7 +305,7 @@ public class FirebaseMediate {
 
 
     public static void addAptIdsToRmtPrefList(String list, String rmtUid,
-                                                   ArrayList<String> relevantUids) {
+                                              ArrayList<String> relevantUids) {
         DatabaseReference ref =
                 firebaseDatabaseReference.child("preferences").child(
                         "RoommateSearcherUser").child(rmtUid).child(list);
@@ -317,7 +317,7 @@ public class FirebaseMediate {
     }
 
     public static void addAptIdToRmtPrefList(String list, String rmtUid,
-                                                   String aptId) {
+                                             String aptId) {
         DatabaseReference ref =
                 firebaseDatabaseReference.child("preferences").child(
                         "RoommateSearcherUser").child(rmtUid).child(list);
@@ -391,53 +391,6 @@ public class FirebaseMediate {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//    /**
-//     * This method adds a ApartmentSearcherUser to a specified list in firebase database.
-//     *
-//     * @param list         - the list name to retrieve the data from in data base (not_seen/yes_to_house/maybe_to_house).
-//     * @param roommateUid  - the RoommateSearcherUser firebase id (that needs to add a ApartmentSearcherUser).
-//     * @param relevantUids - the ApartmentSearcherUser firebase ids to add.
-//     */
-//    public static void addToRoommatePrefList(String list, String roommateUid,
-//                                             ArrayList<String> relevantUids) {
-//        DatabaseReference ref =
-//                firebaseDatabaseReference.child("preferences").child(
-//                        "RoommateSearcherUser").child(roommateUid).child(list);
-//        for (String aptId : relevantUids) {
-//            DatabaseReference newRef = ref.push();
-//            newRef.setValue(aptId);
-//        }
-//    }
-//
-//    public static void addToRoommatePrefList(String list, String roommateUid,
-//                                             String aptId) {
-//        DatabaseReference ref =
-//                firebaseDatabaseReference.child("preferences").child(
-//                        "RoommateSearcherUser").child(roommateUid).child(list);
-//        DatabaseReference newRef = ref.push();
-//        newRef.setValue(aptId);
-//    }
-
-
     /**
      * This method returns the list name in which the RoommateSearcher
      * (roommateUid) is in for the ApartmentSearcherUser lists.
@@ -477,7 +430,7 @@ public class FirebaseMediate {
      * This method returns the list name in which the ApartmentSearcher
      * (aptUid) is in for the RoommmateSearcherUser lists.
      *
-     * @param rmtUid      - the RoommateSearcherUser firebase id.
+     * @param rmtUid - the RoommateSearcherUser firebase id.
      * @param aptUid - the ApartmentSearcherUser firebase id.
      * @return the list name in wich the ApartmentSearcher (aptUid) is in for the RoommateSearcherUser lists.
      */
@@ -506,21 +459,6 @@ public class FirebaseMediate {
         }
         return ChoosingActivity.NOT_IN_LISTS;
     }
-
-
-//    /**
-//     * This method adds a RoommateSearcherUser to a specified list in firebase database.
-//     *
-//     * @param list        - the list name to retrieve the data from in data base (not_seen/yes_to_house/maybe_to_house).
-//     * @param aptUid      - the ApartmentSearcherUser firebase id (that needs to add a RoommateSearcherUser).
-//     * @param roommateUid - the RoommateSearcherUser firebase id to add.
-//     */
-//    public static void addRoommateIdsToAptPrefList(String list, String aptUid,
-//                                        String roommateUid) {
-//        ArrayList<String> allRelevantRoommatesUid = getAptPrefList(list, aptUid);
-//        allRelevantRoommatesUid.add(roommateUid);
-//        setAptPrefList(list, aptUid, allRelevantRoommatesUid);
-//    }
-
+    
 
 }
