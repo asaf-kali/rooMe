@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FirebaseMediate.setDataSnapshot();
-        RoommateSearcherInfoConnector.initD();
+        UsersImageConnector.initDrawablesImg();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

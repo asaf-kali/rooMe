@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roome.ChoosingActivity;
-import com.example.roome.RoommateSearcherInfoConnector;
+import com.example.roome.UsersImageConnector;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
@@ -81,7 +81,8 @@ public class MatchesApartmentSearcher extends Fragment {
     private void initMatchedImages(ArrayList<String> matchedUids) {
         images = new int[matchedUids.size()];
         for (int i=0;i<matchedUids.size();i++){
-            images[i]= RoommateSearcherInfoConnector.getImageByUid(matchedUids.get(i));
+            images[i]= UsersImageConnector.getImageByUid(matchedUids.get(i),
+                    UsersImageConnector.ROOMMATE_USER);
         }
     }
 }
