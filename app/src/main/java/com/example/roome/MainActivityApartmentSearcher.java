@@ -13,16 +13,20 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.roome.Apartment_searcher_tabs_classes.ApartmentSearcherHome;
+import com.example.roome.Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher;
 import com.example.roome.Apartment_searcher_tabs_classes.EditProfileApartmentSearcher;
 import com.example.roome.Apartment_searcher_tabs_classes.MatchesApartmentSearcher;
 import com.example.roome.user_classes.ApartmentSearcherUser;
+import com.example.roome.user_classes.RoommateSearcherUser;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The mainActivity for the apartment searcher , contains the tab layout
@@ -52,10 +56,6 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
 
     /* All lists of the apartment user */
     public static HashMap<String,ArrayList<String>> allLists;
-//    public static ArrayList<String> not_seen;
-//    public static ArrayList<String> no_users;
-//    public static ArrayList<String> not_match;
-//    public static ArrayList<String> match;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         firebaseDatabaseReference = firebaseDatabase.getReference();
 
         aUser = getCurrentApartmentSearcherUser(); //todo we need this?
-        allLists = new HashMap<>();
+        allLists = new HashMap<>(); // local lists of the current user
         //initialize viewPager and tabs
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);
         viewPager.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT);
@@ -78,7 +78,10 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         setupTabIcons();
         addTabLayoutListeners();
         retrieveUserLists();
+        updateUserLists();
     }
+
+
 
     @Override
     protected void onPause() { //todo being called when exiting app?
@@ -89,6 +92,48 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         }
     }
 
+    /**
+     * updating the lists of the user ( according to prefs)
+     */
+    private void updateUserLists() { //todo check if need to happend in the
+        // first time
+        ArrayList<String> updated_not_seen =
+                makeUniqueValuesList(allLists.get(ChoosingActivity.NOT_SEEN));
+        allLists.put(ChoosingActivity.NOT_SEEN,updated_not_seen);
+        deleteUnseenValuesFromAllLists();
+        filterOutRoommatesFromList(getCurrentApartmentSearcherUser());
+    }
+
+    /**
+     * deleting the values from the unseen list from the other list of the user
+     */
+    private void deleteUnseenValuesFromAllLists() { // todo check if working
+        // when roommate side will be done
+        for (String roommateId : allLists.get(ChoosingActivity.NOT_SEEN))
+        {
+            removeValueFromList(ChoosingActivity.NO_TO_HOUSE,roommateId);
+            removeValueFromList(ChoosingActivity.NOT_MATCH,roommateId);
+            removeValueFromList(ChoosingActivity.MATCH,roommateId);
+        }
+    }
+
+    /**
+     * deleting duplicate values from the list
+     * @param list - the list
+     * @return list with unique values
+     */
+    private ArrayList<String> makeUniqueValuesList(ArrayList<String> list) {
+        //todo check if working
+        Set<String> uniqueSet = new HashSet<>(list);
+        ArrayList<String> uniqueArray = new ArrayList<>();
+        uniqueArray.addAll(uniqueSet);
+        return uniqueArray;
+    }
+
+    /**
+     * retrieve the preferences list of the user from the firebase, stores in
+     * the local allLists
+     */
     private void retrieveUserLists() {
         String aptUid = MyPreferences.getUserUid(getApplicationContext());
         allLists.put(ChoosingActivity.NOT_SEEN,FirebaseMediate.getAptPrefList(ChoosingActivity.NOT_SEEN,
@@ -103,22 +148,83 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
                 FirebaseMediate.getAptPrefList(ChoosingActivity.MATCH,
                 aptUid));
     }
+
+    /**
+     * return specific list from allLists
+     * @param listName - name of the list
+     * @return the list
+     */
     public static ArrayList<String> getSpecificList(String listName){
         return allLists.get(listName);
     }
+
+    /**
+     * set specific list to the given list
+     * @param listName - name of the list
+     * @param list - the given list
+     */
     public static void setSpecificList(String listName,ArrayList<String> list){
         allLists.put(listName,list);
     }
+
+    /**
+     * remove value from specific list
+     * @param listName - name of the list
+     * @param value - value to remove
+     * @return True - the value existed in the list , False otherwise
+     */
     public static boolean removeValueFromList(String listName,String value){
         ArrayList<String> list = getSpecificList(listName);
         boolean exist = list.remove(value);
         setSpecificList(listName,list);
         return exist;
     }
+
+    /**
+     * add specific value to specific list
+     * @param listName - name of the list
+     * @param value - value to add
+     */
     public static void addValueToList(String listName,String value){
         ArrayList<String> list = getSpecificList(listName);
         list.add(value);
         setSpecificList(listName,list);
+    }
+
+
+    /**
+     * filtering the "not seen" and "not match" lists according to the user
+     * filters , updating reflects in the local allLists object
+     * @param asUser - the user object
+     */
+    public static void filterOutRoommatesFromList(ApartmentSearcherUser asUser) {
+        ArrayList<String> listRoommatesIds =
+                getSpecificList(ChoosingActivity.NOT_SEEN);
+        ArrayList<String> filteredOutRoommatesIds =
+                getSpecificList(ChoosingActivity.NOT_MATCH);
+        ArrayList<String> updatedUnSeenRoommatesIds = new ArrayList<>();
+        ArrayList<String> updatedFilteredOutRoommatesIds = new ArrayList<>();
+        listRoommatesIds.addAll(filteredOutRoommatesIds);
+        for (String roommateId : listRoommatesIds) {
+            RoommateSearcherUser roommate = FirebaseMediate.getRoommateSearcherUserByUid(roommateId);
+            if (roommate.getApartment() != null) {
+                double roommatesApartmentRent = roommate.getApartment().getRent();
+                if (roommatesApartmentRent <= asUser.getMaxRent() &&
+                        roommatesApartmentRent >= asUser.getMinRent()) { //checks if there's a match
+                    // according to filters
+                    updatedUnSeenRoommatesIds.add(roommateId);
+                } else {
+                    updatedFilteredOutRoommatesIds.add(roommateId);
+                }
+            }
+            else {
+                updatedFilteredOutRoommatesIds.add(roommateId);
+            }
+        }
+        getSpecificList(ChoosingActivity.NOT_SEEN).clear();
+        getSpecificList(ChoosingActivity.NOT_MATCH).clear();
+        getSpecificList(ChoosingActivity.NOT_SEEN).addAll(updatedUnSeenRoommatesIds);
+        getSpecificList(ChoosingActivity.NOT_MATCH).addAll(updatedFilteredOutRoommatesIds);
     }
 
     /**

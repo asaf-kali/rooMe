@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="8dp"
-                android:text="neighborhood"
+                android:text="@string/neighborhood"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
 
@@ -117,7 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:hint="press to choose"
+                android:hint="@string/press_to_choose"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_choose_apartment_entry_date"
                 app:layout_constraintEnd_toEndOf="@+id/iv_choose_apartment_entry_date"
@@ -143,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="8dp"
-                android:text="number of roommates in apartment"
+                android:text="@string/number_of_roommates_in_apartment"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/radioGroup_num_of_roommates"
@@ -294,7 +294,7 @@
                 app:layout_constraintTop_toBottomOf="@id/et_enter_first_name" />
 
             <EditText
-                android:id="@+id/et_enterAge"
+                android:id="@+id/et_enter_age"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -323,7 +323,7 @@
                 android:paddingTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/cl_details"
-                app:layout_constraintTop_toBottomOf="@+id/et_enterAge">
+                app:layout_constraintTop_toBottomOf="@+id/et_enter_age">
 
                 <TextView
                     android:id="@+id/tv_gender_label"
@@ -385,9 +385,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/radio_group_choose_gender" />
 
             <EditText
-                android:id="@+id/et_bio"
+                android:id="@+id/et_apartment_info"
                 android:layout_width="320dp"
                 android:layout_height="215dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/ic_bio_back"
                 android:capitalize="sentences"
                 android:fontFamily="sans-serif"
@@ -400,21 +401,27 @@
                 android:paddingTop="8dp"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.604"
-                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_phone_number" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_photos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:onClick="addPhotos"
-                android:text="add a photo"
+                android:text="ADD PHOTO"
+                app:icon="@drawable/ic_add_black_24dp"
+                app:iconTint="@color/peach"
+                app:strokeColor="@android:color/darker_gray"
+                android:textColor="@color/peach"
+                app:rippleColor="@color/peach"
+                android:theme="@style/Theme.MaterialComponents"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_bio" />
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:layout_constraintTop_toBottomOf="@+id/et_apartment_info" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

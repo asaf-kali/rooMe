@@ -56,7 +56,6 @@ public class ApartmentSearcherHome extends Fragment {
     private TextView peopleText;
     private TextView priceText;
     private ImageView editFiltersImage;
-    private int positionInContainer = 0;
 
     /* For swipe */
     public static MyAppAdapter myAppAdapter;
@@ -196,7 +195,6 @@ public class ApartmentSearcherHome extends Fragment {
     private void handlingLeftCardExit() {
         pressedNoToApartment();
         myAppAdapter.notifyDataSetChanged();
-        relevantRoommateSearchersIds.remove(0);
         temp_img.remove(0);
         if (MyPreferences.isFirstUnlike(getContext())) {
             Intent intent = new Intent(getActivity(),
@@ -205,7 +203,6 @@ public class ApartmentSearcherHome extends Fragment {
             startActivity(intent);
             MyPreferences.setIsFirstUnlikeToFalse(getContext());
         }
-        positionInContainer++;
     }
 
     /**
@@ -213,7 +210,6 @@ public class ApartmentSearcherHome extends Fragment {
      */
     private void handlingRightCardExit() {
         pressedYesToApartment();
-        relevantRoommateSearchersIds.remove(0);
         temp_img.remove(0);
         myAppAdapter.notifyDataSetChanged();
         if (MyPreferences.isFirstLike(getContext())) {
@@ -223,7 +219,6 @@ public class ApartmentSearcherHome extends Fragment {
             startActivity(intent);
             MyPreferences.setIsFirstLikeToFalse(getContext());
         }
-        positionInContainer++;
     }
     /**
      * fill image array with relevant images according to roommate users
@@ -235,24 +230,12 @@ public class ApartmentSearcherHome extends Fragment {
         }
     }
 
-//    /**
-//     * add to the relevantRelevantRoommateIds all the roommate ids that fits
-//     * to the current apartment user
-//     */
-//    private void retrieveRelevantRoommateSearchers() {
-//        relevantRoommateSearchersIds =
-//                FirebaseMediate.getAptPrefList(ChoosingActivity.NOT_SEEN,
-//                        MyPreferences.getUserUid(getContext()));
-//        ArrayList<String> allMaybeUid = FirebaseMediate.getAptPrefList(ChoosingActivity.MAYBE_TO_HOUSE,
-//                MyPreferences.getUserUid(getContext()));
-//        // the relevant roommates are the ones that the user liked or chosen
-//        // maybe
-//        relevantRoommateSearchersIds.addAll(allMaybeUid);
-//    }
 
     private void retrieveRelevantRoommateSearchers() {
-        relevantRoommateSearchersIds =new ArrayList<>
-                (MainActivityApartmentSearcher.getSpecificList(ChoosingActivity.NOT_SEEN));
+//        relevantRoommateSearchersIds =new ArrayList<>
+//                (MainActivityApartmentSearcher.getSpecificList(ChoosingActivity.NOT_SEEN));
+        relevantRoommateSearchersIds =
+                MainActivityApartmentSearcher.getSpecificList(ChoosingActivity.NOT_SEEN);
     }
 
     /**
@@ -518,8 +501,9 @@ public class ApartmentSearcherHome extends Fragment {
                 viewHolder.basicInfo =
                         (LinearLayout) rowView.findViewById(R.id.ll_basic_info);
                 //creating view holder for every roommate
+                String roommateId = relevantRoommateSearchersIds.get(position);
                 currentRoommateSearcher =
-                        FirebaseMediate.getRoommateSearcherUserByUid(relevantRoommateSearchersIds.get(position));
+                        FirebaseMediate.getRoommateSearcherUserByUid(roommateId);
                 peopleText = rowView.findViewById(R.id.tv_people);
                 locationText = rowView.findViewById(R.id.tv_location);
                 priceText = rowView.findViewById(R.id.tv_price);
@@ -534,7 +518,8 @@ public class ApartmentSearcherHome extends Fragment {
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            Glide.with(getContext()).load(temp_img.get(position)).into(viewHolder.cardImage);
+//            Glide.with(getContext()).load(temp_img.get(position)).into(viewHolder.cardImage);
+            Glide.with(getContext()).load(RoommateSearcherInfoConnector.getImageByUid(relevantRoommateSearchersIds.get(position))).into(viewHolder.cardImage);
 
             return rowView;
         }

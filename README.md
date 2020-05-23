@@ -16,4 +16,3 @@ Edit profile: The user is advised to fill up his profile page entirely, for the 
 is also a filtering data for the apartment searchers. For example-apartment searchers may want apartments in a certain location so this is a filter taken from the rommate searchers' profile.
 Edit filters: The user is highly advised to fill these filters for they have a great influence on the roommate searchers the user sees in his/hers home page.
 Matches: In this tab the user will see roommate searcher profiles which their request (sent as a like from the home tab) was approved. For privacy reasons, the phone number of each user is only seen when matched so they would be able to contact one another only after mutual approvement.
-****NOTE! this part was not fully implemented due to short time. Therefore, we left some classes and xml files related to this part although not fully implemented. This is because we would like to continue this ap in the future. ****
