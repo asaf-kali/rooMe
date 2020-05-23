@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.roome.ChoosingActivity;
 import com.example.roome.MainActivityApartmentSearcher;
-import com.example.roome.RoommateSearcherInfoConnector;
+import com.example.roome.UsersImageConnector;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
 import com.example.roome.PressedLikeDialogActivity;
@@ -226,7 +226,8 @@ public class ApartmentSearcherHome extends Fragment {
     private void fillTempImgArray() {
         temp_img = new ArrayList<>();
         for (String uid : relevantRoommateSearchersIds) {
-            temp_img.add(RoommateSearcherInfoConnector.getImageByUid(uid));
+            temp_img.add(UsersImageConnector.getImageByUid(uid,
+                    UsersImageConnector.ROOMMATE_USER));
         }
     }
 
@@ -519,7 +520,7 @@ public class ApartmentSearcherHome extends Fragment {
                 viewHolder = (ApartmentSearcherHome.ViewHolder) convertView.getTag();
             }
 //            Glide.with(getContext()).load(temp_img.get(position)).into(viewHolder.cardImage);
-            Glide.with(getContext()).load(RoommateSearcherInfoConnector.getImageByUid(relevantRoommateSearchersIds.get(position))).into(viewHolder.cardImage);
+            Glide.with(getContext()).load(UsersImageConnector.getImageByUid(relevantRoommateSearchersIds.get(position),UsersImageConnector.ROOMMATE_USER)).into(viewHolder.cardImage);
 
             return rowView;
         }

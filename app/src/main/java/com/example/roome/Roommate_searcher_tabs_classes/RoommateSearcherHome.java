@@ -21,6 +21,7 @@ import com.example.roome.MyPreferences;
 import com.example.roome.PressedLikeDialogActivity;
 import com.example.roome.PressedUnlikeDialogActivity;
 import com.example.roome.R;
+import com.example.roome.UsersImageConnector;
 import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.example.roome.user_classes.RoommateBio;
 import com.google.firebase.database.DatabaseReference;
@@ -57,7 +58,7 @@ public class RoommateSearcherHome extends Fragment {
     /* Other class members */
     private ArrayList<String> relevantApartmentSearchersIds;
     private ArrayList<Integer> temp_img;
-//    private EditFiltersApartmentSearcher editFiltersDialog; //todo delete
+    //    private EditFiltersApartmentSearcher editFiltersDialog; //todo delete
     private RoommateBio bioDialog;
     public ApartmentSearcherUser currentApartmentSearcher;
 
@@ -81,7 +82,8 @@ public class RoommateSearcherHome extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.activity_roommate_searcher_home, container, false);
     }
-    public void onActivityCreated(Bundle savedInstanceState){
+
+    public void onActivityCreated(Bundle savedInstanceState) {
         trashCanImage = getView().findViewById(R.id.iv_trash_can_RS);
         noMoreRoommatesText = getView().findViewById(R.id.iv_no_more_roommates);
 //        editFiltersImage = getView().findViewById(R.id.iv_edit_filters); //todo delete
@@ -216,7 +218,7 @@ public class RoommateSearcherHome extends Fragment {
 //    private void fillTempImgArray() {
 //        temp_img = new ArrayList<>();
 //        for (String uid : relevantApartmentSearchersIds) {
-//            temp_img.add(RoommateSearcherInfoConnector.getImageByUid(uid));
+//            temp_img.add(UsersImageConnector.getImageByUid(uid));
 //        }
 //    }
 
@@ -236,7 +238,7 @@ public class RoommateSearcherHome extends Fragment {
 //    }
 
     private void retrieveRelevantApartmentSearchers() {
-        relevantApartmentSearchersIds =new ArrayList<>
+        relevantApartmentSearchersIds = new ArrayList<>
                 (MainActivityRoommateSearcher.getSpecificList(ChoosingActivity.NOT_SEEN));
     }
 
@@ -282,7 +284,7 @@ public class RoommateSearcherHome extends Fragment {
      * @param apartmentUid - apartment id
      */
     private void removeFromHaveNotSeen(String apartmentUid) {
-        MainActivityRoommateSearcher.removeValueFromList(ChoosingActivity.NOT_SEEN,apartmentUid);
+        MainActivityRoommateSearcher.removeValueFromList(ChoosingActivity.NOT_SEEN, apartmentUid);
 //        FirebaseMediate.removeFromAptPrefList(ChoosingActivity.NOT_SEEN,
 //                getUserUid(), roommateUid);
     }
@@ -296,8 +298,8 @@ public class RoommateSearcherHome extends Fragment {
                 relevantApartmentSearchersIds.get(0); // the current roommate
         String myUid = getUserUid();
         removeFromHaveNotSeen(likedApartmentUserId);
-        MainActivityRoommateSearcher.addValueToList(ChoosingActivity.MATCH,likedApartmentUserId);
-        FirebaseMediate.addRoommateIdsToAptPrefList(ChoosingActivity.MATCH,likedApartmentUserId,myUid);
+        MainActivityRoommateSearcher.addValueToList(ChoosingActivity.MATCH, likedApartmentUserId);
+        FirebaseMediate.addRoommateIdsToAptPrefList(ChoosingActivity.MATCH, likedApartmentUserId, myUid);
 
     }
 
@@ -310,7 +312,7 @@ public class RoommateSearcherHome extends Fragment {
         String unlikedApartmentUserId =
                 relevantApartmentSearchersIds.get(0);
         removeFromHaveNotSeen(unlikedApartmentUserId);
-        MainActivityRoommateSearcher.addValueToList(ChoosingActivity.NO_TO_ROOMMATE,unlikedApartmentUserId);
+        MainActivityRoommateSearcher.addValueToList(ChoosingActivity.NO_TO_ROOMMATE, unlikedApartmentUserId);
     }
 
 //    /**
@@ -346,6 +348,7 @@ public class RoommateSearcherHome extends Fragment {
 
         /**
          * Setting the list
+         *
          * @param parkingList - The list to set
          */
         public void setParkingList(ArrayList<String> parkingList) {
@@ -354,6 +357,7 @@ public class RoommateSearcherHome extends Fragment {
 
         /**
          * Get the size of the list
+         *
          * @return - The size of the list
          */
         @Override
@@ -362,7 +366,8 @@ public class RoommateSearcherHome extends Fragment {
         }
 
         /**
-         *  Return the item according to position
+         * Return the item according to position
+         *
          * @param position - The position
          * @return - The item in that position
          */
@@ -374,6 +379,7 @@ public class RoommateSearcherHome extends Fragment {
 
         /**
          * Getting the image id
+         *
          * @param position - position
          * @return - The id
          */
@@ -385,9 +391,10 @@ public class RoommateSearcherHome extends Fragment {
 
         /**
          * Getting the relevant view
-         * @param position - position
+         *
+         * @param position    - position
          * @param convertView - view
-         * @param parent - parent
+         * @param parent      - parent
          * @return - The view
          */
         @Override
@@ -421,7 +428,8 @@ public class RoommateSearcherHome extends Fragment {
             } else {
                 viewHolder = (RoommateSearcherHome.ViewHolder) convertView.getTag();
             }
-            Glide.with(getContext()).load(R.drawable.house_back_img).into(viewHolder.cardImage);//todo: change pic to ari , look at apartmentSearcherHome.java
+            Glide.with(getContext()).load(UsersImageConnector.getImageByUid(relevantApartmentSearchersIds.get(position), UsersImageConnector.APARTMENT_USER)).into(viewHolder.cardImage);
+            //todo: change pic to ari , look at apartmentSearcherHome.java
 
             return rowView;
         }
