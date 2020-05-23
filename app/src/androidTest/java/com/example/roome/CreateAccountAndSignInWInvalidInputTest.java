@@ -55,6 +55,87 @@ public class CreateAccountAndSignInWInvalidInputTest {
             e.printStackTrace();
         }
 
+        // Start input testing
+        ArrayList<Pair<String, String>> testInputs = create_test_input_array();
+        for (int i = 0; i < testInputs.size(); i++)
+        {
+            String first = testInputs.get(i).first;
+            String last  = testInputs.get(i).second;
+
+            clickOnFirstNameEditText();
+            enterFirstName(first);
+            enterLastName(last);
+            clickWithoutGoogleSignInBtn();
+            // if all goes well, on each input (which is invalid) a popup dialog with a msg will
+            // appear, on which we will press the "ok" button to continue
+            clickOkOnPopup();
+        }
+    }
+
+    private void clickOkOnPopup() {
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(android.R.id.button1), withText("ok"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.widget.ScrollView")),
+                                        0),
+                                3)));
+        appCompatButton.perform(scrollTo(), click());
+    }
+
+    private void clickWithoutGoogleSignInBtn() {
+        ViewInteraction appCompatImageView = onView(
+                allOf(withId(R.id.btn_sign_without_google),
+                        childAtPosition(
+                                allOf(withId(R.id.cl_sign_in),
+                                        childAtPosition(
+                                                withId(android.R.id.content),
+                                                0)),
+                                6),
+                        isDisplayed()));
+        appCompatImageView.perform(click());
+    }
+
+    private void enterLastName(String last) {
+        ViewInteraction appCompatEditText3 = onView(
+                allOf(withId(R.id.et_last_name_without_google),
+                        childAtPosition(
+                                allOf(withId(R.id.cl_sign_in),
+                                        childAtPosition(
+                                                withId(android.R.id.content),
+                                                0)),
+                                3),
+                        isDisplayed()));
+        appCompatEditText3.perform(replaceText(last), closeSoftKeyboard());
+    }
+
+    private void enterFirstName(String first) {
+        ViewInteraction appCompatEditText2 = onView(
+                allOf(withId(R.id.et_first_name_without_google),
+                        childAtPosition(
+                                allOf(withId(R.id.cl_sign_in),
+                                        childAtPosition(
+                                                withId(android.R.id.content),
+                                                0)),
+                                2),
+                        isDisplayed()));
+        appCompatEditText2.perform(replaceText(first), closeSoftKeyboard());
+    }
+
+    private void clickOnFirstNameEditText() {
+        ViewInteraction appCompatEditText = onView(
+                allOf(withId(R.id.et_first_name_without_google),
+                        childAtPosition(
+                                allOf(withId(R.id.cl_sign_in),
+                                        childAtPosition(
+                                                withId(android.R.id.content),
+                                                0)),
+                                2),
+                        isDisplayed()));
+        appCompatEditText.perform(click());
+    }
+
+    private ArrayList<Pair<String, String>> create_test_input_array() {
         ArrayList<Pair<String, String>> testInputs = new ArrayList<Pair<String, String>>();
         testInputs.add(new Pair<>("", ""));
         testInputs.add(new Pair<>(" ", ""));
@@ -65,79 +146,7 @@ public class CreateAccountAndSignInWInvalidInputTest {
         testInputs.add(new Pair<>("abc", "456"));
         testInputs.add(new Pair<>("abc", "$7_"));
 
-
-        for (int i = 0; i < testInputs.size(); i++)
-        {
-            String first = testInputs.get(i).first;
-            String last  = testInputs.get(i).second;
-
-            ViewInteraction appCompatEditText = onView(
-                    allOf(withId(R.id.et_first_name_without_google),
-                            childAtPosition(
-                                    allOf(withId(R.id.cl_sign_in),
-                                            childAtPosition(
-                                                    withId(android.R.id.content),
-                                                    0)),
-                                    2),
-                            isDisplayed()));
-            appCompatEditText.perform(click());
-
-
-            ViewInteraction appCompatEditText2 = onView(
-                    allOf(withId(R.id.et_first_name_without_google),
-                            childAtPosition(
-                                    allOf(withId(R.id.cl_sign_in),
-                                            childAtPosition(
-                                                    withId(android.R.id.content),
-                                                    0)),
-                                    2),
-                            isDisplayed()));
-            appCompatEditText2.perform(replaceText(first), closeSoftKeyboard());
-
-            ViewInteraction appCompatEditText3 = onView(
-                    allOf(withId(R.id.et_last_name_without_google),
-                            childAtPosition(
-                                    allOf(withId(R.id.cl_sign_in),
-                                            childAtPosition(
-                                                    withId(android.R.id.content),
-                                                    0)),
-                                    3),
-                            isDisplayed()));
-            appCompatEditText3.perform(replaceText(last), closeSoftKeyboard());
-
-            ViewInteraction appCompatImageView = onView(
-                    allOf(withId(R.id.btn_sign_without_google),
-                            childAtPosition(
-                                    allOf(withId(R.id.cl_sign_in),
-                                            childAtPosition(
-                                                    withId(android.R.id.content),
-                                                    0)),
-                                    6),
-                            isDisplayed()));
-            appCompatImageView.perform(click());
-
-//        ViewInteraction frameLayout = onView(
-//                allOf(IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class), isDisplayed()));
-//        frameLayout.check(matches(isDisplayed()));
-//        ViewInteraction frameLayout = onView(
-//                allOf(childAtPosition(
-//                        IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class),
-//                        0),
-//                        withEffectiveVisibility(VISIBLE),
-//                        isDisplayed()));
-//        frameLayout.check(matches(isDisplayed()));
-
-            // if all goes well, on each input (which is invalid) a popup dialog with a msg will
-            // appear, on which we will press the "ok" button
-            ViewInteraction appCompatButton = onView(
-                    allOf(withId(android.R.id.button1), withText("ok"),
-                            childAtPosition(
-                                    childAtPosition(
-                                            withClassName(is("android.widget.ScrollView")),
-                                            0),
-                                    3)));
-            appCompatButton.perform(scrollTo(), click());
-        }
+        return testInputs;
     }
 
     private static Matcher<View> childAtPosition(

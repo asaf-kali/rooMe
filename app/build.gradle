@@ -79,7 +79,5 @@ dependencies {
     //for swipecard
     implementation 'link.fls:swipestack:0.3.0'
 
-
-
 }
 apply plugin: 'com.google.gms.google-services'
