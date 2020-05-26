@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roome.ChoosingActivity;
+import com.example.roome.MainActivityApartmentSearcher;
 import com.example.roome.UsersImageConnector;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
@@ -57,8 +58,8 @@ public class MatchesApartmentSearcher extends Fragment {
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        ArrayList<String> matchedUids = FirebaseMediate.getAptPrefList(ChoosingActivity.YES_TO_HOUSE,
-                MyPreferences.getUserUid(getContext()));
+        ArrayList<String> matchedUids  =
+                MainActivityApartmentSearcher.getSpecificList(ChoosingActivity.MATCH);
         initMatchedImages(matchedUids);
         if (matchedUids.size() != 0){
             ImageView noMatches = getView().findViewById(R.id.iv_no_matches);
@@ -67,7 +68,7 @@ public class MatchesApartmentSearcher extends Fragment {
             layoutManager = new GridLayoutManager(getContext(), 2);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(layoutManager);
-            adapter = new RecyclerAdapter(images);
+            adapter = new RecyclerAdapter(matchedUids);
             recyclerView.setAdapter(adapter);
         }
         super.onActivityCreated(savedInstanceState);
