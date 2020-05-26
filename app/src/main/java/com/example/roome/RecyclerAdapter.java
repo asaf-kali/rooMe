@@ -11,19 +11,21 @@ import com.example.roome.user_classes.RoommateSearcherUser;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 /**
  * This class is a recycler adapter used for the Matches fragment which contains a recycler for
  * viewing all matched apartments
  */
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ImageViewHolder> {
-    private int[] images;
+    private ArrayList<String> ids;
 
     /**
      * Constructor of the class. Receives an array of ints representing the images
-     * @param images
+     * @param uids
      */
-    public RecyclerAdapter(int[] images){
-        this.images = images;
+    public RecyclerAdapter(ArrayList<String> uids){
+        this.ids = uids;
     }
 
     /**
@@ -47,15 +49,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ImageV
      */
     @Override
     public void onBindViewHolder(ImageViewHolder holder, int position) {
-        int image_id = images[position];
-        holder.album.setImageResource(image_id);
-        // todo: fix the code below
-//        String uid = UsersImageConnector.getUidByImg(image_id);
-//        RoommateSearcherUser roommateSearcher = FirebaseMediate.getRoommateSearcherUserByUid(uid);
-//        String location = roommateSearcher.getApartment().getNeighborhood();
-//        int rent = (int) roommateSearcher.getApartment().getRent();
-//        String phone = roommateSearcher.getPhoneNumber();
-//        holder.albumTitle.setText("Location: " + location +"\nRent: "+rent+ "\nPhone Number: "+phone);
+        String uid = ids.get(position);
+        int id_image = UsersImageConnector.getImageByUid(uid,UsersImageConnector.ROOMMATE_USER);
+        holder.album.setImageResource(id_image);
+
+        RoommateSearcherUser roommateSearcher = FirebaseMediate.getRoommateSearcherUserByUid(uid);
+        String location = roommateSearcher.getApartment().getNeighborhood();
+        int rent = (int) roommateSearcher.getApartment().getRent();
+        String phone = roommateSearcher.getPhoneNumber();
+        holder.albumTitle.setText("Location: " + location +"\nRent: "+rent+ "\nPhone Number: "+phone);
     }
 
     /**
@@ -63,7 +65,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ImageV
      */
     @Override
     public int getItemCount() {
-        return images.length;
+        return ids.size();
     }
 
     /**
