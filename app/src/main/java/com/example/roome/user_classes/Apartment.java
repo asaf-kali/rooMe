@@ -8,6 +8,8 @@ public class Apartment {
 
     public static final int MAX_RENT = 10000;
     public static final int MIN_RENT = 0;
+    public static final int MIN_ROOMMATE_AGE = 0;
+    public static final int MAX_ROOMMATE_AGE = 99;
 
     /* apartment related info */
     private Boolean hasMainImage;
@@ -15,6 +17,9 @@ public class Apartment {
     private String entryDate;
     private int numberOfRoommates;
     private double rent;
+
+    private int minRoommatesAge;
+    private int maxRoommatesAge;
 
     public Apartment() {
     }
@@ -61,6 +66,16 @@ public class Apartment {
         return rent;
     }
 
+    public int getMinRoommatesAge() {
+        return minRoommatesAge;
+    }
+
+    public int getMaxRoommatesAge() {
+        if (maxRoommatesAge ==0 ){
+            return MAX_ROOMMATE_AGE;
+        }
+        return maxRoommatesAge;
+    }
 
     //------------------------------------------Setters---------------------------------------------
 
@@ -85,5 +100,11 @@ public class Apartment {
         this.rent = rent;
     }
 
+    public void setMinRoommatesAge(int minRoommatesAge) {
+        this.minRoommatesAge = minRoommatesAge;
+    }
 
+    public void setMaxRoommatesAge(int maxRoommatesAge) {
+        this.maxRoommatesAge = maxRoommatesAge;
+    }
 }
