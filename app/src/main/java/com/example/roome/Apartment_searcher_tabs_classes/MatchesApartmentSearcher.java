@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class MatchesApartmentSearcher extends Fragment {
 
     private RecyclerView recyclerView;
-    private int[] images;
+//    private int[] images;
     private RecyclerAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
@@ -60,7 +60,7 @@ public class MatchesApartmentSearcher extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         ArrayList<String> matchedUids  =
                 MainActivityApartmentSearcher.getSpecificList(ChoosingActivity.MATCH);
-        initMatchedImages(matchedUids);
+//        initMatchedImages(matchedUids);
         if (matchedUids.size() != 0){
             ImageView noMatches = getView().findViewById(R.id.iv_no_matches);
             noMatches.setVisibility(View.INVISIBLE);
@@ -74,16 +74,16 @@ public class MatchesApartmentSearcher extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    /**
-     * Initializes the image array of matched apartments
-     * @param matchedUids an array containing the UIDs of roommate searcher users that are matched
-     * to this user
-     */
-    private void initMatchedImages(ArrayList<String> matchedUids) {
-        images = new int[matchedUids.size()];
-        for (int i=0;i<matchedUids.size();i++){
-            images[i]= UsersImageConnector.getImageByUid(matchedUids.get(i),
-                    UsersImageConnector.ROOMMATE_USER);
-        }
-    }
+//    /**
+//     * Initializes the image array of matched apartments
+//     * @param matchedUids an array containing the UIDs of roommate searcher users that are matched
+//     * to this user
+//     */
+//    private void initMatchedImages(ArrayList<String> matchedUids) {
+//        images = new int[matchedUids.size()];
+//        for (int i=0;i<matchedUids.size();i++){
+//            images[i]= UsersImageConnector.getImageByUid(matchedUids.get(i),
+//                    UsersImageConnector.ROOMMATE_USER);
+//        }
+//    }
 }
