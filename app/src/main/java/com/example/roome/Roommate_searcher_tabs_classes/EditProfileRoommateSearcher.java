@@ -401,6 +401,9 @@ public class EditProfileRoommateSearcher extends Fragment {
         });
     }
 
+    /**
+     * This method handles the apartment rent.
+     */
     private void handleApartmentRent() {
         rentEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -455,6 +458,9 @@ public class EditProfileRoommateSearcher extends Fragment {
         });
     }
 
+    /**
+     * This method handles the apartment roommates min - max age range.
+     */
     private void handleApartmentRoommatesAges() {
         minAgeEditText.addTextChangedListener(new TextWatcher() {
             @Override
