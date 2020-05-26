@@ -54,6 +54,8 @@ public class EditProfileRoommateSearcher extends Fragment {
     private Boolean isUserPhoneValid;
     private Boolean changedPhoto = false;
     private Boolean isRentValid;
+    private Boolean isMinRoommateAgeValid;
+    private Boolean isMaxRoommateAgeValid;
 
     private EditText firstNameEditText;
     private EditText lastNameEditText;
@@ -63,6 +65,8 @@ public class EditProfileRoommateSearcher extends Fragment {
     private RadioButton maleRadioButton;
     private Button addApartmentPhoto;
     private EditText rentEditText;
+    private EditText minAgeEditText;
+    private EditText maxAgeEditText;
 
     // Firebase instance variables
     private FirebaseDatabase firebaseDatabase;
@@ -159,6 +163,8 @@ public class EditProfileRoommateSearcher extends Fragment {
         displayDate = getView().findViewById(R.id.iv_choose_apartment_entry_date);
         chosenDate = getView().findViewById(R.id.tv_show_here_entry_date);
         rentEditText = getView().findViewById(R.id.et_apartment_rent);
+        minAgeEditText = getView().findViewById(R.id.et_rs_min_age_val);
+        maxAgeEditText = getView().findViewById(R.id.et_rs_max_age_val);
         twoRoommatesRB = getView().findViewById(R.id.radio_btn_num_of_roommates_2);
         threeRoommatesRB = getView().findViewById(R.id.radio_btn_num_of_roommates_3);
         fourRoommatesRB = getView().findViewById(R.id.radio_btn_num_of_roommates_4);
@@ -192,6 +198,8 @@ public class EditProfileRoommateSearcher extends Fragment {
         isUserAgeValid = false;
         isUserPhoneValid = false;
         isRentValid = false;
+        isMinRoommateAgeValid = false;
+        isMaxRoommateAgeValid = false;
     }
 
     private void setFieldsToValuesStoredInFirebase() {
@@ -199,6 +207,8 @@ public class EditProfileRoommateSearcher extends Fragment {
         chosenDate.setText(userApartment.getEntryDate());
         setNumRoommatesRB();
         rentEditText.setText(Double.toString(userApartment.getRent()));
+        minAgeEditText.setText(Integer.toString(userApartment.getMinRoommatesAge()));
+        maxAgeEditText.setText(Integer.toString(userApartment.getMaxRoommatesAge()));
 
         firstNameEditText.setText(roommateSearcherUser.getFirstName());
 
@@ -243,6 +253,7 @@ public class EditProfileRoommateSearcher extends Fragment {
         handleApartmentEntryDate();
         handleNumberOfRoommates();
         handleApartmentRent();
+        handleApartmentRoommatesAges();
         validateUserFirstName();
         validateUserLastName();
         validateAge();
@@ -254,7 +265,7 @@ public class EditProfileRoommateSearcher extends Fragment {
      * Returns a boolean if all of the user's input is valid
      */
     private boolean isUserInputValid() {
-        return isUserFirstNameValid && isUserLastNameValid && isUserAgeValid && isUserPhoneValid && isRentValid;
+        return isUserFirstNameValid && isUserLastNameValid && isUserAgeValid && isUserPhoneValid && isRentValid && isMinRoommateAgeValid && isMaxRoommateAgeValid;
     }
 
     public void uploadApartmentPhotoOnClick() {
@@ -390,6 +401,9 @@ public class EditProfileRoommateSearcher extends Fragment {
         });
     }
 
+    /**
+     * This method handles the apartment rent.
+     */
     private void handleApartmentRent() {
         rentEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -438,6 +452,116 @@ public class EditProfileRoommateSearcher extends Fragment {
                     } else {
                         userApartment.setRent(rent);
                         isRentValid = true;
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * This method handles the apartment roommates min - max age range.
+     */
+    private void handleApartmentRoommatesAges() {
+        minAgeEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isMinRoommateAgeValid = false;
+                int inputLength = minAgeEditText.getText().toString().length();
+                if (inputLength > 2) {
+                    minAgeEditText.setError("Maximum Limit Reached!");
+                    return;
+                }
+                if (inputLength != 0) {
+                    int minAge = Integer.parseInt(minAgeEditText.getText().toString());
+                    if (minAge < Apartment.MAX_ROOMMATE_AGE && minAge >= Apartment.MIN_ROOMMATE_AGE) {
+                        userApartment.setMinRoommatesAge(minAge);
+                        isMinRoommateAgeValid = true;
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        minAgeEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    int inputLength = minAgeEditText.getText().toString().length();
+                    if (inputLength == 0) {
+                        minAgeEditText.setError("Min age is required!");
+                        return;
+                    }
+                    if (inputLength > 2) {
+                        minAgeEditText.setError("Maximum Limit Reached!");
+                        return;
+                    }
+                    int minAge = Integer.parseInt(minAgeEditText.getText().toString());
+                    if (minAge > Apartment.MAX_ROOMMATE_AGE) {
+                        minAgeEditText.setError("reached maximum Age!");
+                    } else if (minAge < Apartment.MIN_ROOMMATE_AGE) {
+                        minAgeEditText.setError("min age cant be negative");
+                    } else {
+                        userApartment.setMinRoommatesAge(minAge);
+                        isMinRoommateAgeValid = true;
+                    }
+                }
+            }
+        });
+
+        maxAgeEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isMaxRoommateAgeValid = false;
+                int inputLength = maxAgeEditText.getText().toString().length();
+                if (inputLength > 2) {
+                    maxAgeEditText.setError("Maximum Limit Reached!");
+                    return;
+                }
+                if (inputLength != 0) {
+                    int maxAge = Integer.parseInt(maxAgeEditText.getText().toString());
+                    if (maxAge < Apartment.MAX_ROOMMATE_AGE && maxAge >= Apartment.MIN_ROOMMATE_AGE) {
+                        userApartment.setMaxRoommatesAge(maxAge);
+                        isMaxRoommateAgeValid = true;
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        maxAgeEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    int inputLength = maxAgeEditText.getText().toString().length();
+                    if (inputLength == 0) {
+                        maxAgeEditText.setError("Max age is required!");
+                        return;
+                    }
+                    if (inputLength > 2) {
+                        maxAgeEditText.setError("Maximum Limit Reached!");
+                        return;
+                    }
+                    int maxAge = Integer.parseInt(maxAgeEditText.getText().toString());
+                    if (maxAge > Apartment.MAX_ROOMMATE_AGE) {
+                        maxAgeEditText.setError("reached maximum Age!");
+                    } else if (maxAge < Apartment.MIN_ROOMMATE_AGE) {
+                        maxAgeEditText.setError("max age cant be negative");
+                    } else {
+                        userApartment.setMaxRoommatesAge(maxAge);
+                        isMaxRoommateAgeValid = true;
                     }
                 }
             }
