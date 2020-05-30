@@ -51,7 +51,6 @@ public class ApartmentSearcherHome extends Fragment {
 
     /* Views references */
     private ImageView trashCanImage;
-    private ImageView noMoreHousesText;
     private TextView locationText;
     private TextView peopleText;
     private TextView priceText;
@@ -95,7 +94,6 @@ public class ApartmentSearcherHome extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         trashCanImage = getView().findViewById(R.id.iv_trash_can);
-        noMoreHousesText = getView().findViewById(R.id.iv_no_more_houses);
         editFiltersImage = getView().findViewById(R.id.iv_edit_filters);
         editFiltersDialog = new EditFiltersApartmentSearcher();
         additionalInfoDialog = new ApartmentAdditionalInfo();
@@ -496,7 +494,7 @@ public class ApartmentSearcherHome extends Fragment {
             if (rowView == null) {
 
                 LayoutInflater inflater = getLayoutInflater();
-                rowView = inflater.inflate(R.layout.card_item, parent, false);
+                rowView = inflater.inflate(R.layout.card_item_apartment, parent, false);
                 // configure view holder
                 viewHolder = new ViewHolder();
                 viewHolder.basicInfo =

@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -44,7 +45,6 @@ public class RoommateSearcherHome extends Fragment {
 
     /* Views references */
     private ImageView trashCanImage;
-    private ImageView noMoreRoommatesText;
 //    private TextView locationText;
 //    private TextView peopleText;
 //    private TextView priceText;
@@ -85,7 +85,6 @@ public class RoommateSearcherHome extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         trashCanImage = getView().findViewById(R.id.iv_trash_can_RS);
-        noMoreRoommatesText = getView().findViewById(R.id.iv_no_more_roommates);
 //        editFiltersImage = getView().findViewById(R.id.iv_edit_filters); //todo delete
 //        editFiltersDialog = new EditFiltersApartmentSearcher(); //todo delete
         bioDialog = new RoommateBio();
