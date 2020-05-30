@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.roome.ChoosingActivity;
 import com.example.roome.MainActivityApartmentSearcher;
-import com.example.roome.RoommateSearcherInfoConnector;
+import com.example.roome.UsersImageConnector;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
 import com.example.roome.PressedLikeDialogActivity;
@@ -226,7 +226,8 @@ public class ApartmentSearcherHome extends Fragment {
     private void fillTempImgArray() {
         temp_img = new ArrayList<>();
         for (String uid : relevantRoommateSearchersIds) {
-            temp_img.add(RoommateSearcherInfoConnector.getImageByUid(uid));
+            temp_img.add(UsersImageConnector.getImageByUid(uid,
+                    UsersImageConnector.ROOMMATE_USER));
         }
     }
 
@@ -308,7 +309,7 @@ public class ApartmentSearcherHome extends Fragment {
                     if (isMatch(aUserKey, roommateKey)) {
                         //if theres a match - add to the havent seen list of
                         // AptUser
-                        FirebaseMediate.addRoomateIdsToAptPrefList(ChoosingActivity.NOT_SEEN, aUserKey, roommateKey);
+                        FirebaseMediate.addRoommateIdsToAptPrefList(ChoosingActivity.NOT_SEEN, aUserKey, roommateKey);
                     }
                 } else {
                     if (!isMatch(aUserKey, roommateKey)) {
@@ -391,9 +392,9 @@ public class ApartmentSearcherHome extends Fragment {
                 relevantRoommateSearchersIds.get(0); // the current roommate
         String myUid = getUserUid();
         removeFromHaveNotSeen(likedRoommateId);
-//        FirebaseMediate.addRoomateIdsToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
+//        FirebaseMediate.addRoommateIdsToAptPrefList(ChoosingActivity.YES_TO_HOUSE,
 //                myUid, likedRoommateId);
-        FirebaseMediate.addToRoommatePrefList(ChoosingActivity.NOT_SEEN,
+        FirebaseMediate.addAptIdToRmtPrefList(ChoosingActivity.NOT_SEEN,
                 likedRoommateId, myUid);
     }
 
@@ -516,10 +517,10 @@ public class ApartmentSearcherHome extends Fragment {
                 rowView.setTag(viewHolder);
 
             } else {
-                viewHolder = (ViewHolder) convertView.getTag();
+                viewHolder = (ApartmentSearcherHome.ViewHolder) convertView.getTag();
             }
 //            Glide.with(getContext()).load(temp_img.get(position)).into(viewHolder.cardImage);
-            Glide.with(getContext()).load(RoommateSearcherInfoConnector.getImageByUid(relevantRoommateSearchersIds.get(position))).into(viewHolder.cardImage);
+            Glide.with(getContext()).load(UsersImageConnector.getImageByUid(relevantRoommateSearchersIds.get(position),UsersImageConnector.ROOMMATE_USER)).into(viewHolder.cardImage);
 
             return rowView;
         }

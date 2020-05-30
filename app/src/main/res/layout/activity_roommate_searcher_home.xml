@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_roommate_searcher_home"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
-    <!--DON'T CHECK! this part was not implemented-->
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_home_apt_background"
+    tools:context=".Roommate_searcher_tabs_classes.RoommateSearcherHome">
+
+    <!-- activity view -->
+
+    <ImageView
+    android:id="@+id/iv_trash_can_RS"
+    android:layout_height="35dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_width="35dp"
+    android:scaleType="centerCrop"
+    android:src="@drawable/ic_delete_black" />
+
+    <FrameLayout
+        android:id="@+id/fl_card_RS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_trash_can_RS"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="150dp"
+        android:background="@drawable/ic_house_back_img">
+
+        <ImageView
+            android:id="@+id/iv_no_more_roommates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_no_more_houses_to_show_edit" />
+<!--        change to no roommates pic or some shit-->
+
+        <com.lorenzos.flingswipe.SwipeFlingAdapterView
+            android:id="@+id/frame_card_RS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_house_back_img"
+            app:rotation_degrees="15.5">
+
+        </com.lorenzos.flingswipe.SwipeFlingAdapterView>
+
+    </FrameLayout>
+</RelativeLayout>

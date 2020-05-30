@@ -52,6 +52,8 @@ public class ChoosingActivity extends AppCompatActivity {
     public static final String MAYBE_TO_HOUSE = "maybe_to_house";
     public static final String NO_TO_HOUSE = "no_to_house";
     public static final String NOT_IN_LISTS = "doesn't appear on lists";
+    public static final String NO_TO_ROOMMATE = "no_to_roommate";
+
 
     public static final String MATCH = "match";
     public static final String NOT_MATCH = "not_match";
@@ -71,14 +73,16 @@ public class ChoosingActivity extends AppCompatActivity {
 
     /**
      * This method adds adds a Single Event Listener to the data base reference.
+     *
      * @param progressBar The progress bar for finishing sign in activity.
      */
     private void addListenerToFirebaseDbReference(final ProgressBar progressBar) {
-        firebaseDatabaseReference.child("users").child("RoommateSearcherUser").addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseDatabaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 allRoommateSearcherIds[0] =
-                        FirebaseMediate.getAllRoommateSearcherIds(dataSnapshot);
+                        FirebaseMediate.getAllRoommateSearcherIds(dataSnapshot.child("RoommateSearcherUser"));
+                allApartmentSearcherIds[0] = FirebaseMediate.getAllApartmentSearcherIds(dataSnapshot.child("ApartmentSearcherUser"));
                 done.set(true);
                 progressBar.setVisibility(View.GONE);
             }
@@ -135,6 +139,7 @@ public class ChoosingActivity extends AppCompatActivity {
      * RoommateSearcher hasn't been implemented - this is why it is commented.
      * This method is the on click method for roommateSearcher button. Adds user to data base and starts the
      * RoommateSearcherSetProfileActivity activity.
+     *
      * @param view - the button view.
      */
     public void roommateSearcherOnclick(View view) {
@@ -149,6 +154,10 @@ public class ChoosingActivity extends AppCompatActivity {
         newRef.setValue(roommateSearcherUser);
         MyPreferences.setUserUid(getApplicationContext(), key);
         while (!done.get()) ;
+        for (String aptId : allApartmentSearcherIds[0]) {
+            DatabaseReference newRef2 = firebaseDatabaseReference.child("preferences").child("ApartmentSearcherUser").child(aptId).child(ChoosingActivity.NOT_SEEN).push();
+            newRef2.setValue(key); //todo: check if its the id of the roommate user
+        }
         Intent i = new Intent(ChoosingActivity.this, MainActivityRoommateSearcher.class);
         startActivity(i);
         finish();
@@ -157,6 +166,7 @@ public class ChoosingActivity extends AppCompatActivity {
     /**
      * This method is the on click method for apartmentSearcher button. Adds user to data base and starts the
      * MainActivityApartmentSearcher activity.
+     *
      * @param view - the button view.
      */
     public void apartmentSearcherOnclick(View view) {
@@ -178,6 +188,7 @@ public class ChoosingActivity extends AppCompatActivity {
 
     /**
      * This method returns a new user object initialized with the users name.
+     *
      * @return a new user object initialized with the users name.
      */
     private User createNewUser() {
@@ -195,6 +206,7 @@ public class ChoosingActivity extends AppCompatActivity {
 
     /**
      * This method returns the user last name saved in MyPreferences.
+     *
      * @return the user last name saved in MyPreferences.
      */
     private String getUserLastNameFromMyPreferences() {
@@ -203,6 +215,7 @@ public class ChoosingActivity extends AppCompatActivity {
 
     /**
      * This method returns the user name saved in MyPreferences.
+     *
      * @return the user name saved in MyPreferences.
      */
     private String getUserNameFromMyPreferences() {
@@ -211,6 +224,7 @@ public class ChoosingActivity extends AppCompatActivity {
 
     /**
      * This method returns the user first name saved in MyPreferences.
+     *
      * @return the user first name saved in MyPreferences.
      */
     private String getUserFirstNameFromMyPreferences() {
@@ -219,6 +233,7 @@ public class ChoosingActivity extends AppCompatActivity {
 
     /**
      * This method starts the MainActivityApartmentSearcher activity With adjusted animation
+     *
      * @param intent - The passed intent
      */
     private void startActivityWithAnimation(Intent intent) {
