@@ -13,7 +13,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.roome.Apartment_searcher_tabs_classes.ApartmentSearcherHome;
-import com.example.roome.Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher;
 import com.example.roome.Apartment_searcher_tabs_classes.EditProfileApartmentSearcher;
 import com.example.roome.Apartment_searcher_tabs_classes.MatchesApartmentSearcher;
 import com.example.roome.user_classes.ApartmentSearcherUser;
@@ -22,6 +21,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -35,7 +35,6 @@ import java.util.Set;
 public class MainActivityApartmentSearcher extends AppCompatActivity {
 
 
-    public static ApartmentSearcherUser aUser; //todo we need this?
 
     /* Tabs and viewPager */
     private static final int OFFSCREEN_PAGE_LIMIT = 3;
@@ -67,7 +66,6 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
 
-        aUser = getCurrentApartmentSearcherUser(); //todo we need this?
         allLists = new HashMap<>(); // local lists of the current user
         //initialize viewPager and tabs
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_apartment);
