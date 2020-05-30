@@ -160,10 +160,29 @@ public class SignInActivity extends AppCompatActivity implements
         EditText lastNameEditText = findViewById(R.id.et_last_name_without_google);
         String first = firstNameEditText.getText().toString();
         String last = lastNameEditText.getText().toString();
-        MyPreferences.setManualFirstName(getApplicationContext(),first);
-        MyPreferences.setManualLastName(getApplicationContext(),last);
-        startActivity(new Intent(SignInActivity.this, ChoosingActivity.class));
-        finish();
+
+        if (credentialsValid(first) && credentialsValid(last))
+        {
+            MyPreferences.setManualFirstName(getApplicationContext(),first);
+            MyPreferences.setManualLastName(getApplicationContext(),last);
+            startActivity(new Intent(SignInActivity.this, ChoosingActivity.class));
+            finish();
+        }
+        else
+        {
+            openErrorMsgDialog();
+        }
+    }
+
+    private void openErrorMsgDialog() {
+        MessageDialog errorMsgDialog = new MessageDialog();
+        errorMsgDialog.show(getSupportFragmentManager(), "what is this string?");
+    }
+
+    private boolean credentialsValid(String name) {
+        return ((!name.equals(""))
+//                && (name != null)
+                && (name.matches("^[a-zA-Z]*$")));
     }
 
 }
