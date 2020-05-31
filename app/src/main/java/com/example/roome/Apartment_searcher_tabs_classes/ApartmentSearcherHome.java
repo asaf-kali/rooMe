@@ -18,8 +18,8 @@ import com.example.roome.MainActivityApartmentSearcher;
 import com.example.roome.UsersImageConnector;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
-import com.example.roome.PressedLikeDialogActivity;
-import com.example.roome.PressedUnlikeDialogActivity;
+import com.example.roome.PressedLikeDialogActivityAS;
+import com.example.roome.PressedUnlikeDialogActivityAS;
 import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentAdditionalInfo;
 import com.example.roome.user_classes.RoommateSearcherUser;
@@ -196,7 +196,7 @@ public class ApartmentSearcherHome extends Fragment {
         temp_img.remove(0);
         if (MyPreferences.isFirstUnlike(getContext())) {
             Intent intent = new Intent(getActivity(),
-                    PressedUnlikeDialogActivity.class); //showing
+                    PressedUnlikeDialogActivityAS.class); //showing
             // information about swiping left(unlike apartment)
             startActivity(intent);
             MyPreferences.setIsFirstUnlikeToFalse(getContext());
@@ -212,7 +212,7 @@ public class ApartmentSearcherHome extends Fragment {
         myAppAdapter.notifyDataSetChanged();
         if (MyPreferences.isFirstLike(getContext())) {
             Intent intent = new Intent(getActivity(),
-                    PressedLikeDialogActivity.class); //showing
+                    PressedLikeDialogActivityAS.class); //showing
             // information about swiping right(like apartment)
             startActivity(intent);
             MyPreferences.setIsFirstLikeToFalse(getContext());

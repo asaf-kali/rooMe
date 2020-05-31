@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".PressedLikeDialogActivityAS">
 
+
     <TextView
         android:id="@+id/tv_like_instruction"
         android:layout_width="wrap_content"
@@ -15,7 +16,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:gravity="center"
-        android:text="@string/want_to_see_more_apartments_like_this_one_n_edit_your_filters_and_profile"
+        android:text="@string/it_s_a_match_ngo_to_matches_tab_to_see_more"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +38,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_like_instruction" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
