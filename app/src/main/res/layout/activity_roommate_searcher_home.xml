@@ -29,13 +29,28 @@
         android:background="@drawable/ic_house_back_img">
 
         <ImageView
-            android:id="@+id/iv_no_more_roommates"
+            android:id="@+id/iv_neghiborhood_back"
+            android:layout_width="260dp"
+            android:alpha="0.3"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:src="@drawable/neghiborhood" />
+
+        <TextView
+            android:id="@+id/tv_no_more_roommates"
             android:layout_width="wrap_content"
+            android:text="@string/no_more_potential_roommates_ntry_edit_your_apartment_details_nor_come_back_later"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:shadowColor="#40000000"
+            android:shadowDy="4"
+            android:shadowRadius="4"
             android:layout_gravity="center"
-            android:src="@drawable/ic_no_more_houses_to_show_edit" />
-<!--        change to no roommates pic or some shit-->
+            android:textColor="@color/peach"
+            android:textSize="20sp"
+            android:gravity="center"/>
+
+
 
         <com.lorenzos.flingswipe.SwipeFlingAdapterView
             android:id="@+id/frame_card_RS"

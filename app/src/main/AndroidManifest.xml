@@ -16,13 +16,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:allowBackup">
-        <activity android:name=".user_classes.RoommateBio"></activity>
+        <activity android:name=".PressedLikeDialogActivityRS"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert"/>
+
+        <activity android:name=".user_classes.RoommateBio" />
         <activity
-            android:name=".PressedUnlikeDialogActivity"
+            android:name=".PressedUnlikeDialogActivityAS"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />
         <activity
-            android:name=".PressedLikeDialogActivity"
+            android:name=".PressedLikeDialogActivityAS"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />
         <activity

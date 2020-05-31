@@ -39,12 +39,26 @@
         android:background="@drawable/ic_house_back_img">
 
         <ImageView
-            android:id="@+id/iv_no_more_houses"
+            android:id="@+id/iv_neghiborhood_back"
+            android:layout_width="260dp"
+            android:alpha="0.3"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:src="@drawable/neghiborhood" />
+
+        <TextView
+            android:id="@+id/tv_no_more_houses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:src="@drawable/ic_no_more_houses_to_show_edit" />
+            android:gravity="center"
+            android:shadowColor="#40000000"
+            android:shadowDy="4"
+            android:shadowRadius="4"
+            android:text="No more houses to show...\ntry edit your filters\nor come back later"
+            android:textColor="@color/peach"
+            android:textSize="20sp" />
 
         <com.lorenzos.flingswipe.SwipeFlingAdapterView
             android:id="@+id/frame_card"
@@ -54,6 +68,8 @@
             app:rotation_degrees="15.5">
 
         </com.lorenzos.flingswipe.SwipeFlingAdapterView>
+
+
 
     </FrameLayout>
 

@@ -18,8 +18,8 @@ import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MainActivityRoommateSearcher;
 import com.example.roome.MyPreferences;
-import com.example.roome.PressedLikeDialogActivity;
-import com.example.roome.PressedUnlikeDialogActivity;
+import com.example.roome.PressedLikeDialogActivityRS;
+import com.example.roome.PressedUnlikeDialogActivityAS;
 import com.example.roome.R;
 import com.example.roome.UsersImageConnector;
 import com.example.roome.user_classes.ApartmentSearcherUser;
@@ -44,7 +44,6 @@ public class RoommateSearcherHome extends Fragment {
 
     /* Views references */
     private ImageView trashCanImage;
-    private ImageView noMoreRoommatesText;
 //    private TextView locationText;
 //    private TextView peopleText;
 //    private TextView priceText;
@@ -85,7 +84,6 @@ public class RoommateSearcherHome extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         trashCanImage = getView().findViewById(R.id.iv_trash_can_RS);
-        noMoreRoommatesText = getView().findViewById(R.id.iv_no_more_roommates);
 //        editFiltersImage = getView().findViewById(R.id.iv_edit_filters); //todo delete
 //        editFiltersDialog = new EditFiltersApartmentSearcher(); //todo delete
         bioDialog = new RoommateBio();
@@ -189,7 +187,7 @@ public class RoommateSearcherHome extends Fragment {
 //        temp_img.remove(0);
         if (MyPreferences.isFirstUnlike(getContext())) {
             Intent intent = new Intent(getActivity(),
-                    PressedUnlikeDialogActivity.class); //showing
+                    PressedUnlikeDialogActivityAS.class); //showing
             // information about swiping left(unlike roommate)
             startActivity(intent);
             MyPreferences.setIsFirstUnlikeToFalse(getContext());
@@ -205,8 +203,8 @@ public class RoommateSearcherHome extends Fragment {
 //        temp_img.remove(0);
         myAppAdapter.notifyDataSetChanged();
         if (MyPreferences.isFirstLike(getContext())) {
-            Intent intent = new Intent(getActivity(), //todo: dialog explaining that now that youv'e liked so itll appear in the match
-                    PressedLikeDialogActivity.class); //showing
+            Intent intent = new Intent(getActivity(),
+                    PressedLikeDialogActivityRS.class); //showing
             // information about swiping right(like roommate)
             startActivity(intent);
             MyPreferences.setIsFirstLikeToFalse(getContext());
