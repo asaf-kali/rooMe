@@ -24,12 +24,11 @@ public final class UsersImageConnector {
                 R.drawable.house3, R.drawable.house4,
                 R.drawable.house5,
                 R.drawable.house6, R.drawable.house7));
-        usersImages = new ArrayList<>(Arrays.asList(R.drawable.house1,
-                R.drawable.house2,
-                R.drawable.house3, R.drawable.house4,
-                R.drawable.house5,
-                R.drawable.house6, R.drawable.house7)); //todo: change to
-        // profile pics of people
+        usersImages = new ArrayList<>(Arrays.asList(R.drawable.person1,
+                R.drawable.person2,
+                R.drawable.person3, R.drawable.person4,
+                R.drawable.person5,
+                R.drawable.person6, R.drawable.person7));
 
     }
 
@@ -55,6 +54,7 @@ public final class UsersImageConnector {
 
     /**
      * get the user id , return some int the represents the user
+     *
      * @param userUid - id of user
      * @return int representing the user
      */
