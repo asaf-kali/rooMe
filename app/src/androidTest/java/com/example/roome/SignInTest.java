@@ -38,23 +38,42 @@ import static org.hamcrest.Matchers.is;
 
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
-public class CreateAccountAndSignInWInvalidInputTest {
+public class SignInTest {
+    /**
+     * This class includes 2 tests.
+     * Test #1 checks that when a user tries to sign in (without google) with invalid info, a pop-up
+     * dialog appears with a information about input validity.
+     * Test #2 checks that when a user enter valid information, the proccess completes successfully
+     * and that the user is transferred to ChoosingActivity.
+     *
+     * Actions:
+     *
+     *          - (Rule) start MainActivity
+     *
+     *          Test #1:
+     *              - enter invalid first and last name pairs as given in testInputs
+     *              (after each pair entered)
+     *              - click the sign in button
+     *              - click ok on the pop-up dialog
+     *              =   end   =
+     *
+                Test #2:
+     *              - enter valid first and last name pairs as given in testInputs
+     *              - click the sign in button
+     *              - check that ChoosingActivity page is displayed
+     *              =   end   =
+     *
+     */
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<MainActivity> testRule = new ActivityTestRule<>(MainActivity.class);
 
+    /////////////////////////////////////////// Tests //////////////////////////////////////////////
+
+    // Test #1
     @Test
-    public void createAccountAndSignInWInvalidInputTest() {
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(7000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+    public void SignInWInvalidInputTest() {
+        sleep(7000);
         // Start input testing
         ArrayList<Pair<String, String>> testInputs = create_test_input_array();
         for (int i = 0; i < testInputs.size(); i++)
@@ -70,6 +89,51 @@ public class CreateAccountAndSignInWInvalidInputTest {
             // appear, on which we will press the "ok" button to continue
             clickOkOnPopup();
         }
+    }
+
+    // Test #2
+    @Test
+    public void SignInWValidInputTest() {
+        sleep(7000);
+        clickOnFirstNameEditText();
+        enterFirstName("Spongebob");
+        enterLastName("Squarepants");
+        clickWithoutGoogleSignInBtn();
+        // if all goes well, ChoosingActivity page is displayed
+        checkChoosingActivityIsDisplayed();
+    }
+
+    /////////////////////////////////////// Functions //////////////////////////////////////////////
+
+    private void sleep(int sleepTime) {
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        try {
+            Thread.sleep(sleepTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void checkChoosingActivityIsDisplayed() {
+        onView(allOf(withId(R.id.iv_choosing_button_apt),
+                        childAtPosition(
+                                allOf(withId(R.id.cl_choosing_activity),
+                                        childAtPosition(
+                                                withId(android.R.id.content),
+                                                0)),
+                                3),
+                        isDisplayed()));
+
+        onView(allOf(withId(R.id.iv_choosing_button_apt),
+                childAtPosition(
+                        allOf(withId(R.id.cl_choosing_activity),
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0)),
+                        6),
+                isDisplayed()));
     }
 
     private void clickOkOnPopup() {
@@ -136,7 +200,7 @@ public class CreateAccountAndSignInWInvalidInputTest {
     }
 
     private ArrayList<Pair<String, String>> create_test_input_array() {
-        ArrayList<Pair<String, String>> testInputs = new ArrayList<Pair<String, String>>();
+        ArrayList<Pair<String, String>> testInputs = new ArrayList<>();
         testInputs.add(new Pair<>("", ""));
         testInputs.add(new Pair<>(" ", ""));
         testInputs.add(new Pair<>("", " "));
