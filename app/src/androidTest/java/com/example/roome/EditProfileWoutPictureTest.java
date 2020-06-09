@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
@@ -12,6 +13,8 @@ import androidx.test.runner.AndroidJUnit4;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,21 +32,21 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
+/**
+ * This test checks that a user (searching for a room) updates his/her profile successfully
+ * (without picture upload).
+ * Actions:
+ *          - (Rule) start MainActivity
+ *          - enter signInFirstName as a first name, signInLastName as last name
+ *          - pick searching a room to join
+ *          - go to edit profile page, update the profile with info as given below
+ *          - press save button
+ *          - go to matches page, then come back to edit profile page
+ *          - check that all the previously entered info is displayed accordingly
+ *              =   end   =
+ */
 @LargeTest
 public class EditProfileWoutPictureTest {
-    /**
-     * This test checks that a user (searching for a room) updates his/her profile successfully
-     * (without picture upload).
-     * Actions:
-     *          - (Rule) start MainActivity
-     *          - enter signInFirstName as a first name, signInLastName as last name
-     *          - pick searching a room to join
-     *          - go to edit profile page, update the profile with info as given below
-     *          - press save button
-     *          - go to matches page, then come back to edit profile page
-     *          - check that all the previously entered info is displayed accordingly
-     *              =   end   =
-     */
 
     // Sign in with:
     private String signInFirstName  = "fn";
@@ -61,19 +64,24 @@ public class EditProfileWoutPictureTest {
     @Rule
     public ActivityTestRule<MainActivity> testRule = new ActivityTestRule<>(MainActivity.class);
 
+    @Before
+    public void setUp() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.getIdlingResource());
+
+    }
+
+    @After
+    public void unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getIdlingResource());
+    }
+
     /////////////////////////////////////////// Tests //////////////////////////////////////////////
 
     @Test
     public void editProfileWoutPicture() {
-        sleep(3500);        // sleep on startup and between changing activities
-
         enterFirstLastName();
         pressSignInWoutGoogle();
-        sleep(3500);        // sleep on startup and between changing activities
-
         pressAptSearcher();
-        sleep(3500);        // sleep on startup and between changing activities
-
         goToEditProfile();
         editProfileWoutPictureUpload();
         pressSaveProfile();
@@ -82,17 +90,6 @@ public class EditProfileWoutPictureTest {
     }
 
     /////////////////////////////////////// Functions //////////////////////////////////////////////
-
-    private void sleep(int sleepTime) {
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(sleepTime);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void enterFirstLastName() {
         ViewInteraction appCompatEditText1 = onView(
@@ -376,8 +373,8 @@ public class EditProfileWoutPictureTest {
                 // Assert et_phone_number is displayed with updatePhoneNumber
                 .check(matches(isDisplayed()));
 
-        //////////////////////////////////////// update bio ////////////////////////////////////////
-        onView(allOf(withId(R.id.et_bio),
+        //////////////////////////////////////// check bio ////////////////////////////////////////
+        onView(allOf(withId(R.id.et_bio), withText(updateBio),
                         childAtPosition(
                                 allOf(withId(R.id.cl_details),
                                         childAtPosition(
@@ -389,6 +386,9 @@ public class EditProfileWoutPictureTest {
 
     }
 
+    /**
+     * Match check functionality added automatically by Espresso.
+     */
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 

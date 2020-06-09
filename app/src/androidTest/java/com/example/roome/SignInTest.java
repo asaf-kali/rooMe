@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
@@ -15,6 +16,8 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,43 +40,52 @@ import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
 
+/**
+ * This class includes 2 tests.
+ * Test #1 checks that when a user tries to sign in (without google) with invalid info, a pop-up
+ * dialog appears with a information about input validity.
+ * Test #2 checks that when a user enter valid information, the proccess completes successfully
+ * and that the user is transferred to ChoosingActivity.
+ *
+ * Actions:
+ *
+ *          - (Rule) start MainActivity
+ *
+ *          Test #1:
+ *              - enter invalid first and last name pairs as given in testInputs
+ *              (after each pair entered)
+ *              - click the sign in button
+ *              - click ok on the pop-up dialog
+ *              =   end   =
+ *
+ *          Test #2:
+ *              - enter valid first and last name pairs as given in testInputs
+ *              - click the sign in button
+ *              - check that ChoosingActivity page is displayed
+ *              =   end   =
+ *
+ */
 @LargeTest
 public class SignInTest {
-    /**
-     * This class includes 2 tests.
-     * Test #1 checks that when a user tries to sign in (without google) with invalid info, a pop-up
-     * dialog appears with a information about input validity.
-     * Test #2 checks that when a user enter valid information, the proccess completes successfully
-     * and that the user is transferred to ChoosingActivity.
-     *
-     * Actions:
-     *
-     *          - (Rule) start MainActivity
-     *
-     *          Test #1:
-     *              - enter invalid first and last name pairs as given in testInputs
-     *              (after each pair entered)
-     *              - click the sign in button
-     *              - click ok on the pop-up dialog
-     *              =   end   =
-     *
-                Test #2:
-     *              - enter valid first and last name pairs as given in testInputs
-     *              - click the sign in button
-     *              - check that ChoosingActivity page is displayed
-     *              =   end   =
-     *
-     */
 
     @Rule
     public ActivityTestRule<MainActivity> testRule = new ActivityTestRule<>(MainActivity.class);
+
+    @Before
+    public void setUp() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.getIdlingResource());
+    }
+
+    @After
+    public void unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getIdlingResource());
+    }
 
     /////////////////////////////////////////// Tests //////////////////////////////////////////////
 
     // Test #1
     @Test
     public void SignInWInvalidInputTest() {
-        sleep(7000);
         // Start input testing
         ArrayList<Pair<String, String>> testInputs = create_test_input_array();
         for (int i = 0; i < testInputs.size(); i++)
@@ -94,7 +106,6 @@ public class SignInTest {
     // Test #2
     @Test
     public void SignInWValidInputTest() {
-        sleep(7000);
         clickOnFirstNameEditText();
         enterFirstName("Spongebob");
         enterLastName("Squarepants");
@@ -105,16 +116,6 @@ public class SignInTest {
 
     /////////////////////////////////////// Functions //////////////////////////////////////////////
 
-    private void sleep(int sleepTime) {
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(sleepTime);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void checkChoosingActivityIsDisplayed() {
         onView(allOf(withId(R.id.iv_choosing_button_apt),

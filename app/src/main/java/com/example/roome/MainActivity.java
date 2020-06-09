@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EspressoIdlingResource.increment();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FirebaseMediate.setDataSnapshot();
@@ -31,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
                 if (MyPreferences.getUserUid(getApplicationContext()) == null) {
                     // Not signed in, launch the Sign In activity
                     startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                    EspressoIdlingResource.decrement();
                     finish();
                 } else {
                     startActivityWithAnimation();
+                    EspressoIdlingResource.decrement();
                     finish();
                 }
             }
