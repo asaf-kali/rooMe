@@ -181,7 +181,6 @@ public class SignInActivity extends AppCompatActivity implements
 
     private boolean credentialsValid(String name) {
         return ((!name.equals(""))
-//                && (name != null)
                 && (name.matches("^[a-zA-Z]*$")));
     }
 
