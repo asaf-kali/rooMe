@@ -1,7 +1,9 @@
 package com.example.roome.Roommate_searcher_tabs_classes;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -25,7 +27,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.roome.EditProfileAlertDialog;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MainActivityRoommateSearcher;
 import com.example.roome.MyPreferences;
@@ -114,8 +115,17 @@ public class EditProfileRoommateSearcher extends Fragment {
                     Intent i = new Intent(EditProfileRoommateSearcher.this.getActivity(), MainActivityRoommateSearcher.class);
                     startActivity(i);
                 } else {
-                    Intent intent = new Intent(EditProfileRoommateSearcher.this.getActivity(), EditProfileAlertDialog.class);
-                    startActivity(intent);
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                    dialog.setTitle("Oops!");
+                    dialog.setMessage("we can see that you have some unfilled or invalid fields. please take a look again before saving");
+
+                    dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog deleteDialog = dialog.create();
+                    deleteDialog.show();
                 }
             }
         });

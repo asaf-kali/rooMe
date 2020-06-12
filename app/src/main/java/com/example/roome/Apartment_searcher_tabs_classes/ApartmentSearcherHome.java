@@ -1,5 +1,6 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +19,6 @@ import com.example.roome.MainActivityApartmentSearcher;
 import com.example.roome.UsersImageConnector;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
-import com.example.roome.PressedLikeDialogActivityAS;
-import com.example.roome.PressedUnlikeDialogActivityAS;
 import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentAdditionalInfo;
 import com.example.roome.user_classes.RoommateSearcherUser;
@@ -195,10 +194,18 @@ public class ApartmentSearcherHome extends Fragment {
         myAppAdapter.notifyDataSetChanged();
         temp_img.remove(0);
         if (MyPreferences.isFirstUnlike(getContext())) {
-            Intent intent = new Intent(getActivity(),
-                    PressedUnlikeDialogActivityAS.class); //showing
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+            dialog.setTitle("Regret deleting this?");
+            dialog.setMessage("You can always go to the trash icon above to undo");
+
+            dialog.setPositiveButton("Got it!", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog deleteDialog = dialog.create();
+            deleteDialog.show();//showing
             // information about swiping left(unlike apartment)
-            startActivity(intent);
             MyPreferences.setIsFirstUnlikeToFalse(getContext());
         }
     }
@@ -211,10 +218,18 @@ public class ApartmentSearcherHome extends Fragment {
         temp_img.remove(0);
         myAppAdapter.notifyDataSetChanged();
         if (MyPreferences.isFirstLike(getContext())) {
-            Intent intent = new Intent(getActivity(),
-                    PressedLikeDialogActivityAS.class); //showing
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+            dialog.setTitle("Want to see more apartments like this one?");
+            dialog.setMessage("edit your filters and profile!");
+
+            dialog.setPositiveButton("Got it!", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog deleteDialog = dialog.create();
+            deleteDialog.show(); //showing
             // information about swiping right(like apartment)
-            startActivity(intent);
             MyPreferences.setIsFirstLikeToFalse(getContext());
         }
     }

@@ -1,6 +1,8 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -26,10 +28,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MyPreferences;
-import com.example.roome.PhoneInfoDialogActivity;
 import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentSearcherUser;
-import com.example.roome.EditProfileAlertDialog;
 import com.example.roome.user_classes.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -145,8 +145,17 @@ public class EditProfileApartmentSearcher extends Fragment {
                     firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
                     Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(EditProfileApartmentSearcher.this.getActivity(), EditProfileAlertDialog.class);
-                    startActivity(intent);
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                    dialog.setTitle("Oops!");
+                    dialog.setMessage("we can see that you have some unfilled or invalid fields. please take a look again before saving");
+
+                    dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog deleteDialog = dialog.create();
+                    deleteDialog.show();
                 }
             }
         });
@@ -157,8 +166,16 @@ public class EditProfileApartmentSearcher extends Fragment {
         phoneInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), PhoneInfoDialogActivity.class);
-                    startActivity(intent);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                dialog.setMessage("Your number will be shown only after a match");
+
+                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                AlertDialog deleteDialog = dialog.create();
+                deleteDialog.show();
                 }
         });
         super.onActivityCreated(savedInstanceState);
