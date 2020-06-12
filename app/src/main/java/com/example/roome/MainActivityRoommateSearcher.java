@@ -101,6 +101,7 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
         ArrayList<String> updated_not_seen =
                 makeUniqueValuesList(allLists.get(ChoosingActivity.NOT_SEEN));
         allLists.put(ChoosingActivity.NOT_SEEN,updated_not_seen);
+        deleteDeletedAptUsersFromAllLists();
         deleteUnseenValuesFromAllLists();
     }
 
@@ -114,6 +115,20 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
             removeValueFromList(ChoosingActivity.NO_TO_ROOMMATE,aptId);
             removeValueFromList(ChoosingActivity.NOT_MATCH,aptId);
             removeValueFromList(ChoosingActivity.MATCH,aptId);
+        }
+    }
+
+    /**
+     * deleting the values from the unseen list from the other list of the user
+     */
+    private void deleteDeletedAptUsersFromAllLists() { // todo check if working
+        // when roommate side will be done
+        for (String aptId : allLists.get(ChoosingActivity.DELETE_USERS))
+        {
+            removeValueFromList(ChoosingActivity.NO_TO_ROOMMATE,aptId);
+            removeValueFromList(ChoosingActivity.NOT_MATCH,aptId);
+            removeValueFromList(ChoosingActivity.MATCH,aptId);
+            removeValueFromList(ChoosingActivity.NOT_SEEN,aptId);
         }
     }
 
@@ -219,6 +234,9 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
                         rmtUid)); //todo: delete
         allLists.put(ChoosingActivity.MATCH,
                 FirebaseMediate.getRoommatePrefList(ChoosingActivity.MATCH,
+                        rmtUid));
+        allLists.put(ChoosingActivity.DELETE_USERS,
+                FirebaseMediate.getRoommatePrefList(ChoosingActivity.DELETE_USERS,
                         rmtUid));
     }
 
