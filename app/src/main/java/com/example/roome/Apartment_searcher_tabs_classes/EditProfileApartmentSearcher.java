@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -24,7 +25,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
+import com.example.roome.MainActivity;
+import com.example.roome.MainActivityRoommateSearcher;
 import com.example.roome.MyPreferences;
 import com.example.roome.PhoneInfoDialogActivity;
 import com.example.roome.R;
@@ -87,18 +92,20 @@ public class EditProfileApartmentSearcher extends Fragment {
         firebaseDatabaseReference = firebaseDatabase.getReference();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                asUser = FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext()));
-                setInfo();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-        asUser = new ApartmentSearcherUser();
+//        firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                asUser = FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext()));
+//                setInfo();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//            }
+//        });
+//        asUser = new ApartmentSearcherUser();
+        asUser =
+                FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext()));
         super.onCreate(savedInstanceState);
     }
 
@@ -150,6 +157,25 @@ public class EditProfileApartmentSearcher extends Fragment {
                 }
             }
         });
+        Button deleteUserAccount =
+                getView().findViewById(R.id.btn_delete_as_user);
+        deleteUserAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo pop up dialog - are you sure to delete (y/n)?
+                String aptUid = MyPreferences.getUserUid(getContext());
+                FirebaseMediate.deleteAptUserFromApp(aptUid);
+                for (String roommateId :
+                        FirebaseMediate.getAllRoommateSearcherKeys())
+                {
+                    FirebaseMediate.addAptIdToRmtPrefList(ChoosingActivity.DELETE_USERS,roommateId,aptUid);
+                }
+                MyPreferences.resetData(getContext());
+                Intent i =  new Intent(getActivity(), MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(i);
+            }
+        });
         addRedStarToTextView(R.id.tv_age,"Age");
         addRedStarToTextView(R.id.tv_phoneNumber,"Phone number");
         validateUserInput();
@@ -161,6 +187,7 @@ public class EditProfileApartmentSearcher extends Fragment {
                     startActivity(intent);
                 }
         });
+        setInfo();
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -543,4 +570,5 @@ public class EditProfileApartmentSearcher extends Fragment {
         SpannableStringBuilder builder1 = setStarToLabel(text);
         tv.setText(builder1);
     }
+
 }

@@ -49,6 +49,7 @@ public class ChoosingActivity extends AppCompatActivity {
     /* Firebase data base lists names */
     public static final String NOT_SEEN = "not_seen";
     public static final String YES_TO_HOUSE = "yes_to_house";
+    public static final String DELETE_USERS = "delete_user";
     public static final String MAYBE_TO_HOUSE = "maybe_to_house";
     public static final String NO_TO_HOUSE = "no_to_house";
     public static final String NOT_IN_LISTS = "doesn't appear on lists";

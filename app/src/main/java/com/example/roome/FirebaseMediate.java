@@ -176,6 +176,7 @@ public class FirebaseMediate {
         return allRoommateSearcherUsers;
     }
 
+
     /**
      * @return all ApartmentSearcher users ids (from database).
      */
@@ -458,6 +459,68 @@ public class FirebaseMediate {
             return ChoosingActivity.NOT_SEEN;
         }
         return ChoosingActivity.NOT_IN_LISTS;
+    }
+
+    /**
+     * deletes the user from Aptusers list in firebase
+     * @param uid - id
+     */
+    public static void deleteAptUserFromApp(String uid){
+        DatabaseReference ref =
+                firebaseDatabaseReference.child("users").child(
+                        "ApartmentSearcherUser").child(uid);
+        ref.removeValue();
+        ref = firebaseDatabaseReference.child("preferences").child(
+                        "ApartmentSearcherUser").child(uid);
+        ref.removeValue();
+    }
+
+    /**
+     * deletes the user from Roommateusers list in firebase
+     * @param uid - id
+     */
+    public static void deleteRoommateUserFromApp(String uid){
+        DatabaseReference ref =
+                firebaseDatabaseReference.child("users").child(
+                        "RoommateSearcherUser").child(uid);
+        ref.removeValue();
+        ref = firebaseDatabaseReference.child("preferences").child(
+                "RoommateSearcherUser").child(uid);
+        ref.removeValue();
+    }
+
+
+    /**
+     * This method returns all RoommateSearcherIds users from database.
+     *
+     * @return all RoommateSearcher users ids.
+     */
+    public static ArrayList<String> getAllRoommateSearcherKeys() {
+        DataSnapshot dataSnapshotRootUsers = dataSs.child("users");
+        ArrayList<String> allRoommateSearcherUsersIds = new ArrayList<>();
+        DataSnapshot refDSS = dataSnapshotRootUsers.child("RoommateSearcherUser");
+
+        for (DataSnapshot roomS : refDSS.getChildren()) {
+            allRoommateSearcherUsersIds.add(roomS.getKey());
+        }
+        return allRoommateSearcherUsersIds;
+    }
+
+    /**
+     * This method returns all RoommateSearcherIds users from database.
+     *
+     * @return all RoommateSearcher users ids.
+     */
+    public static ArrayList<String> getAllApartmentSearcherKeys() {
+        DataSnapshot dataSnapshotRootUsers = dataSs.child("users");
+        ArrayList<String> allApartmentSearcherUsersIds = new ArrayList<>();
+        DataSnapshot refDSS = dataSnapshotRootUsers.child(
+                "ApartmentSearcherUser");
+
+        for (DataSnapshot aptS : refDSS.getChildren()) {
+            allApartmentSearcherUsersIds.add(aptS.getKey());
+        }
+        return allApartmentSearcherUsersIds;
     }
     
 

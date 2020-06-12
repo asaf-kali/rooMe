@@ -87,6 +87,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     protected void onPause() { //todo being called when exiting app?
         super.onPause();
         String aptUid = MyPreferences.getUserUid(getApplicationContext());
+        if ( aptUid==null){return;}
         for (String listName : allLists.keySet()){
             FirebaseMediate.setAptPrefList(listName,aptUid,allLists.get(listName));
         }
