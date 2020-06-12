@@ -16,30 +16,12 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:allowBackup,android:supportsRtl">
-        <activity android:name=".PressedLikeDialogActivityRS"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert"/>
 
         <activity android:name=".user_classes.RoommateBio" />
-        <activity
-            android:name=".PressedUnlikeDialogActivityAS"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
-        <activity
-            android:name=".PressedLikeDialogActivityAS"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
+
         <activity
             android:name=".Apartment_searcher_tabs_classes.MatchesApartmentSearcher"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".PhoneInfoDialogActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
-        <activity
-            android:name=".EditProfileAlertDialog"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
         <activity
             android:name=".MainActivityRoommateSearcher"
             android:screenOrientation="portrait" />
