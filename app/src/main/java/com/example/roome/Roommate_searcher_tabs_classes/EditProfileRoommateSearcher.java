@@ -100,9 +100,6 @@ public class EditProfileRoommateSearcher extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        roommateSearcherUser = new RoommateSearcherUser();
-        userApartment = new Apartment(false, null, null, 2, 0);
-
         initializeFirebaseFields();
         initializeDateFieldVariablesToFalse();
     }
@@ -110,6 +107,7 @@ public class EditProfileRoommateSearcher extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         initializeFields();
+
         ImageView saveProfileButton = getView().findViewById(R.id.btn_save_roommate_searcher_profile);
         saveProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +138,14 @@ public class EditProfileRoommateSearcher extends Fragment {
             }
         });
         super.onActivityCreated(savedInstanceState);
+        roommateSearcherUser = FirebaseMediate.getRoommateSearcherUserByUid(MyPreferences.getUserUid(getContext()));
+        if (roommateSearcherUser != null){
+            userApartment = roommateSearcherUser.getApartment();
+        }
+        else {
+            userApartment = new Apartment(false, null, null, 2, 0);
+        }
+        setFieldsToValuesStoredInFirebase();
     }
 
     /**
@@ -225,7 +231,6 @@ public class EditProfileRoommateSearcher extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 roommateSearcherUser = FirebaseMediate.getRoommateSearcherUserByUid(MyPreferences.getUserUid(getContext()));
                 userApartment = roommateSearcherUser.getApartment();
-
                 setFieldsToValuesStoredInFirebase();
             }
 
