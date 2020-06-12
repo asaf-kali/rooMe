@@ -130,6 +130,7 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
             removeValueFromList(ChoosingActivity.MATCH,aptId);
             removeValueFromList(ChoosingActivity.NOT_SEEN,aptId);
         }
+        setSpecificList(ChoosingActivity.DELETE_USERS,new ArrayList<String>());
     }
 
     /**
