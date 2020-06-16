@@ -30,6 +30,7 @@ instructions for running the app:
 * open the project via android studio.
 * You can run the app on any phone or emulator that has android os.
 * for further detailed instruction, view the following link: https://developer.android.com/training/basics/firstapp/running-app
+* for best results, we recommend running the app on your own android phone, or if not possible use pixel 3 emulator
 
 
 
