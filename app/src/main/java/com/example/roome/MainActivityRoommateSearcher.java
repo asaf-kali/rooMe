@@ -25,7 +25,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-//todo: documention :/
+/**
+ * The mainActivity for the roommate searcher , contains the tab layout
+ * and viewPager handlers
+ */
 public class MainActivityRoommateSearcher extends AppCompatActivity {
 
 
