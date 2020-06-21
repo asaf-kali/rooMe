@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -68,6 +69,9 @@ public class EditProfileRoommateSearcher extends Fragment {
     private EditText rentEditText;
     private EditText minAgeEditText;
     private EditText maxAgeEditText;
+    //things i care about (checkbox) variables
+    private int[] checkBoxesValues = new int[]{R.id.check_box_pets_rm, R.id.check_box_kosher_rm,
+            R.id.check_box_ac_rm, R.id.check_box_smoking_rm};
 
     // Firebase instance variables
     private FirebaseDatabase firebaseDatabase;
@@ -96,9 +100,6 @@ public class EditProfileRoommateSearcher extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        roommateSearcherUser = new RoommateSearcherUser();
-        userApartment = new Apartment(false, null, null, 2, 0);
-
         initializeFirebaseFields();
         initializeDateFieldVariablesToFalse();
     }
@@ -106,6 +107,7 @@ public class EditProfileRoommateSearcher extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         initializeFields();
+
         ImageView saveProfileButton = getView().findViewById(R.id.btn_save_roommate_searcher_profile);
         saveProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +138,14 @@ public class EditProfileRoommateSearcher extends Fragment {
             }
         });
         super.onActivityCreated(savedInstanceState);
+        roommateSearcherUser = FirebaseMediate.getRoommateSearcherUserByUid(MyPreferences.getUserUid(getContext()));
+        if (roommateSearcherUser != null){
+            userApartment = roommateSearcherUser.getApartment();
+        }
+        else {
+            userApartment = new Apartment(false, null, null, 2, 0);
+        }
+        setFieldsToValuesStoredInFirebase();
     }
 
     /**
@@ -178,6 +188,7 @@ public class EditProfileRoommateSearcher extends Fragment {
         twoRoommatesRB = getView().findViewById(R.id.radio_btn_num_of_roommates_2);
         threeRoommatesRB = getView().findViewById(R.id.radio_btn_num_of_roommates_3);
         fourRoommatesRB = getView().findViewById(R.id.radio_btn_num_of_roommates_4);
+        addOnClickToCheckBoxes();
         firstNameEditText = getView().findViewById(R.id.et_enter_first_name);
         lastNameEditText = getView().findViewById(R.id.et_enter_last_name);
         ageEditText = getView().findViewById(R.id.et_enter_age);
@@ -187,8 +198,35 @@ public class EditProfileRoommateSearcher extends Fragment {
         addApartmentPhoto = getView().findViewById(R.id.btn_add_photos);
     }
 
+    /**
+     * This method adds onClick listeners to the check boxes
+     */
+    private void addOnClickToCheckBoxes() {
+        for (int checkbox : checkBoxesValues) {
+            addOnClickListenerToCheckBox(checkbox);
+        }
+    }
+
+    /**
+     * This method adds a onClick listener
+     * @param checkBoxValue - the int value of the check box to add the listener to.
+     */
+    private void addOnClickListenerToCheckBox(final int checkBoxValue) {
+        final CheckBox checkBox = getView().findViewById(checkBoxValue);
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkBox.isChecked()) {
+                    setApartmentCheckboxValues(true, checkBoxValue);
+                } else {
+                    setApartmentCheckboxValues(false, checkBoxValue);
+                }
+            }
+        });
+    }
+
     void addValueEventListenerToFirebaseUserReference() {
-        firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
+        userFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 roommateSearcherUser = FirebaseMediate.getRoommateSearcherUserByUid(MyPreferences.getUserUid(getContext()));
@@ -219,6 +257,7 @@ public class EditProfileRoommateSearcher extends Fragment {
         rentEditText.setText(Double.toString(userApartment.getRent()));
         minAgeEditText.setText(Integer.toString(userApartment.getMinRoommatesAge()));
         maxAgeEditText.setText(Integer.toString(userApartment.getMaxRoommatesAge()));
+        setCheckBoxesToUserPreferences();
 
         firstNameEditText.setText(roommateSearcherUser.getFirstName());
 
@@ -579,6 +618,38 @@ public class EditProfileRoommateSearcher extends Fragment {
     }
 
     /**
+     * This method sets the check boxes to user preferences
+     */
+    private void setCheckBoxesToUserPreferences() {
+        for (int checkBoxValue : checkBoxesValues) {
+            if (isCheckedForUser(checkBoxValue)) {
+                CheckBox checkBox = getView().findViewById(checkBoxValue);
+                checkBox.setChecked(true);
+            }
+        }
+    }
+
+    /**
+     * This method returns true if the filter is important for the user, otherwise false.
+     * @param checkBoxValue - the int value of the check box.
+     * @return true if the filter is important for the user (he checked the box before), otherwise false.
+     */
+    private boolean isCheckedForUser(int checkBoxValue) {
+        switch (checkBoxValue) {
+            case R.id.check_box_pets_rm:
+                return userApartment.isHasNoPets();
+            case R.id.check_box_kosher_rm:
+                return roommateSearcherUser.getKosherImportance();
+            case R.id.check_box_smoking_rm:
+                return userApartment.isSmokingFree();
+            case R.id.check_box_ac_rm:
+                return userApartment.isHasAC();
+            default:
+                return false;
+        }
+    }
+
+    /**
      * validate the entered name.
      */
     private void validateUserFirstName() {
@@ -818,5 +889,28 @@ public class EditProfileRoommateSearcher extends Fragment {
                 break;
         }
     }
+
+    /**
+     * This method sets a user field to true if check box is checked otherwise false
+     * @param flag          - true if check box is checked otherwise false
+     * @param checkBoxValue - the check box to change the value.
+     */
+    private void setApartmentCheckboxValues(boolean flag, int checkBoxValue) {
+        switch (checkBoxValue) {
+            case R.id.check_box_pets_rm:
+                userApartment.setHasNoPets(flag);
+                break;
+            case R.id.check_box_kosher_rm:
+                roommateSearcherUser.setKosherImportance(flag);
+                break;
+            case R.id.check_box_smoking_rm:
+                userApartment.setSmokingFree(flag);
+                break;
+            case R.id.check_box_ac_rm:
+                userApartment.setHasAC(flag);
+                break;
+        }
+    }
+
 
 }
