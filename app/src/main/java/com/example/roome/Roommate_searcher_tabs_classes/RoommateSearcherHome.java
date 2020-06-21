@@ -22,7 +22,7 @@ import com.example.roome.MyPreferences;
 import com.example.roome.R;
 import com.example.roome.UsersImageConnector;
 import com.example.roome.user_classes.ApartmentSearcherUser;
-import com.example.roome.user_classes.RoommateBio;
+import com.example.roome.user_classes.RoommateAdditionalInfo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.lorenzos.flingswipe.SwipeFlingAdapterView;
@@ -57,7 +57,7 @@ public class RoommateSearcherHome extends Fragment {
     private ArrayList<String> relevantApartmentSearchersIds;
     private ArrayList<Integer> temp_img;
     //    private EditFiltersApartmentSearcher editFiltersDialog; //todo delete
-    private RoommateBio bioDialog;
+    private RoommateAdditionalInfo bioDialog;
     public ApartmentSearcherUser currentApartmentSearcher;
 
 
@@ -85,7 +85,7 @@ public class RoommateSearcherHome extends Fragment {
         trashCanImage = getView().findViewById(R.id.iv_trash_can_RS);
 //        editFiltersImage = getView().findViewById(R.id.iv_edit_filters); //todo delete
 //        editFiltersDialog = new EditFiltersApartmentSearcher(); //todo delete
-        bioDialog = new RoommateBio();
+        bioDialog = new RoommateAdditionalInfo();
         setClickListeners();
 //        setFirebaseListeners();  //todo include this line
         retrieveRelevantApartmentSearchers();
@@ -103,25 +103,25 @@ public class RoommateSearcherHome extends Fragment {
         myAppAdapter = new MyAppAdapter(relevantApartmentSearchersIds);
         flingContainer.setAdapter(myAppAdapter);
         setOnFlingListener();
-//        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
-//            /**
-//             * This function is responsible for handling item click
-//             * @param itemPosition - the item position in the container
-//             * @param dataObject
-//             */
-//            @Override
-//            public void onItemClicked(int itemPosition, Object dataObject) {
-//                View view = flingContainer.getSelectedView();
-//                view.findViewById(R.id.fl_background_RS).setAlpha(0);
-//                myAppAdapter.notifyDataSetChanged();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("apartmentId",
-//                        relevantApartmentSearchersIds.get(itemPosition));
-//                bioDialog.setArguments(bundle);
-//                bioDialog.show(getFragmentManager(),
-//                        "bio"); // //roommate's bio
-//            }
-//        });
+        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
+            /**
+             * This function is responsible for handling item click
+             * @param itemPosition - the item position in the container
+             * @param dataObject
+             */
+            @Override
+            public void onItemClicked(int itemPosition, Object dataObject) {
+                View view = flingContainer.getSelectedView();
+                view.findViewById(R.id.fl_background_RS).setAlpha(0);
+                myAppAdapter.notifyDataSetChanged();
+                Bundle bundle = new Bundle();
+                bundle.putString("apartmentId",
+                        relevantApartmentSearchersIds.get(itemPosition));
+                bioDialog.setArguments(bundle);
+                bioDialog.show(getFragmentManager(),
+                        "bio"); // //roommate's bio
+            }
+        });
     }
 
     /**
