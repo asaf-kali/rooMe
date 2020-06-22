@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -43,10 +44,9 @@ public class RoommateSearcherHome extends Fragment {
 
     /* Views references */
     private ImageView trashCanImage;
-//    private TextView locationText;
-//    private TextView peopleText;
-//    private TextView priceText;
-//    private ImageView editFiltersImage; //todo delete
+    private TextView nameTxt;
+    private TextView ageTxt;
+
 
     /* For swipe */
     public static RoommateSearcherHome.MyAppAdapter myAppAdapter;
@@ -425,15 +425,14 @@ public class RoommateSearcherHome extends Fragment {
                 //creating view holder for every roommate
                 currentApartmentSearcher =
                         FirebaseMediate.getApartmentSearcherUserByUid(relevantApartmentSearchersIds.get(position));
-//                peopleText = rowView.findViewById(R.id.tv_people);
-//                locationText = rowView.findViewById(R.id.tv_location);
-//                priceText = rowView.findViewById(R.id.tv_price);
-//                peopleText.setText(Integer.toString(currentApartmentSearcher.getApartment().getNumberOfRoommates()));
-//                locationText.setText(currentApartmentSearcher.getApartment().getNeighborhood());
-//                priceText.setText(Integer.toString((int) (currentApartmentSearcher.getApartment().getRent())));
                 viewHolder.background =
                         (FrameLayout) rowView.findViewById(R.id.fl_background_RS);
-                viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.iv_card_RS); //todo: new one
+                nameTxt = rowView.findViewById(R.id.tv_name);
+                ageTxt = rowView.findViewById(R.id.tv_age);
+                String fullName = currentApartmentSearcher.getFirstName()+ " " + currentApartmentSearcher.getLastName();
+                nameTxt.setText(fullName);
+                ageTxt.setText(Integer.toString(currentApartmentSearcher.getAge()));
+                viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.iv_card_RS);
                 rowView.setTag(viewHolder);
 
             } else {
