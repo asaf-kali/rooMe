@@ -52,7 +52,7 @@ public class RoommateAdditionalInfo extends DialogFragment {
         String fullName = apartmentSearcherUser.getFirstName()+ " " + apartmentSearcherUser.getLastName();
         name.setText(fullName);
         age = getView().findViewById(R.id.tv_age_extra);
-        age.setText(apartmentSearcherUser.getAge());
+        age.setText(Integer.toString(apartmentSearcherUser.getAge()));
         personImg = getView().findViewById(R.id.iv_person_img);
         personImg.setImageResource(UsersImageConnector.getImageByUid(getArguments().getString(
                 "apartmentId"),UsersImageConnector.APARTMENT_USER));
