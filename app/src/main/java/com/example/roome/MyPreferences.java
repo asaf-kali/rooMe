@@ -16,6 +16,17 @@ public class MyPreferences {
     private static final String IS_FIRST_LIKE = "FIRST_LIKE";
     private static final String IS_FIRST_UNLIKE = "FIRST_UNLIKE";
 
+
+    public static void resetData(Context context)
+    {
+        final SharedPreferences reader = getSharedPreferences(context);
+        final SharedPreferences.Editor preferencesEditor = reader.edit();
+        preferencesEditor.putBoolean(IS_FIRST_TIME, true);
+        preferencesEditor.putBoolean(IS_FIRST_LIKE, true);
+        preferencesEditor.putBoolean(IS_FIRST_UNLIKE, true);
+        preferencesEditor.putString(USER_UID, null);
+        preferencesEditor.apply();
+    }
     /**
      * getter for the field isFirstTime in MyPreferences.
      *
