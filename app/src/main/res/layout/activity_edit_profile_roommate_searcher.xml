@@ -647,6 +647,23 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 app:layout_constraintTop_toBottomOf="@+id/et_apartment_info" />
 
+            <View
+                style="@style/Divider.Horizontal"
+                android:id="@+id/divider_before_delete_rs"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_photos" />
+
+            <Button
+                android:id="@+id/btn_delete_rs_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delete Account"
+                app:layout_constraintTop_toBottomOf="@+id/divider_before_delete_rs"
+                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
