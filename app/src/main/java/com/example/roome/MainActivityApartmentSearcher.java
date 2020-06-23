@@ -96,19 +96,34 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     /**
      * updating the lists of the user ( according to prefs)
      */
-    private void updateUserLists() { //todo check if need to happend in the
+    private void updateUserLists() {
         // first time
         ArrayList<String> updated_not_seen =
                 makeUniqueValuesList(allLists.get(ChoosingActivity.NOT_SEEN));
         allLists.put(ChoosingActivity.NOT_SEEN,updated_not_seen);
+        deleteDeletedRmtUsersFromAllLists();
         deleteUnseenValuesFromAllLists();
         filterOutRoommatesFromList(getCurrentApartmentSearcherUser());
     }
 
     /**
+     * deleting the values from the deleted list from the other list of the user
+     */
+    private void deleteDeletedRmtUsersFromAllLists() {
+        for (String rmtId : allLists.get(ChoosingActivity.DELETE_USERS))
+        {
+            removeValueFromList(ChoosingActivity.NO_TO_HOUSE,rmtId);
+            removeValueFromList(ChoosingActivity.NOT_MATCH,rmtId);
+            removeValueFromList(ChoosingActivity.MATCH,rmtId);
+            removeValueFromList(ChoosingActivity.NOT_SEEN,rmtId);
+        }
+        setSpecificList(ChoosingActivity.DELETE_USERS,new ArrayList<String>());
+    }
+
+    /**
      * deleting the values from the unseen list from the other list of the user
      */
-    private void deleteUnseenValuesFromAllLists() { // todo check if working
+    private void deleteUnseenValuesFromAllLists() {
         // when roommate side will be done
         for (String roommateId : allLists.get(ChoosingActivity.NOT_SEEN))
         {
@@ -148,6 +163,9 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         allLists.put(ChoosingActivity.MATCH,
                 FirebaseMediate.getAptPrefList(ChoosingActivity.MATCH,
                 aptUid));
+        allLists.put(ChoosingActivity.DELETE_USERS,
+                FirebaseMediate.getAptPrefList(ChoosingActivity.DELETE_USERS,
+                        aptUid));
     }
 
     /**

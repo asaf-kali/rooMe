@@ -104,8 +104,7 @@ public class EditProfileApartmentSearcher extends Fragment {
 //            }
 //        });
 //        asUser = new ApartmentSearcherUser();
-        asUser =
-                FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext()));
+
         super.onCreate(savedInstanceState);
     }
 
@@ -137,6 +136,9 @@ public class EditProfileApartmentSearcher extends Fragment {
                 uploadPhotoOnClickAS();
             }
         });
+
+        asUser =
+                FirebaseMediate.getApartmentSearcherUserByUid(MyPreferences.getUserUid(getContext()));
 
         ImageView saveProfileButton = getView().findViewById(R.id.btn_save_profile_as);
         saveProfileButton.setOnClickListener(new View.OnClickListener() {

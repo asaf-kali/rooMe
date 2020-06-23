@@ -87,6 +87,7 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         String rmtUid = MyPreferences.getUserUid(getApplicationContext());
+        if (rmtUid == null){return;}
         for (String listName : allLists.keySet()){
             FirebaseMediate.setRoommatePrefList(listName,rmtUid,allLists.get(listName));
         }
