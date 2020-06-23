@@ -475,19 +475,6 @@ public class FirebaseMediate {
         ref.removeValue();
     }
 
-    /**
-     * deletes the user from Roommateusers list in firebase
-     * @param uid - id
-     */
-    public static void deleteRoommateUserFromApp(String uid){
-        DatabaseReference ref =
-                firebaseDatabaseReference.child("users").child(
-                        "RoommateSearcherUser").child(uid);
-        ref.removeValue();
-        ref = firebaseDatabaseReference.child("preferences").child(
-                "RoommateSearcherUser").child(uid);
-        ref.removeValue();
-    }
 
 
     /**
@@ -505,23 +492,5 @@ public class FirebaseMediate {
         }
         return allRoommateSearcherUsersIds;
     }
-
-    /**
-     * This method returns all RoommateSearcherIds users from database.
-     *
-     * @return all RoommateSearcher users ids.
-     */
-    public static ArrayList<String> getAllApartmentSearcherKeys() {
-        DataSnapshot dataSnapshotRootUsers = dataSs.child("users");
-        ArrayList<String> allApartmentSearcherUsersIds = new ArrayList<>();
-        DataSnapshot refDSS = dataSnapshotRootUsers.child(
-                "ApartmentSearcherUser");
-
-        for (DataSnapshot aptS : refDSS.getChildren()) {
-            allApartmentSearcherUsersIds.add(aptS.getKey());
-        }
-        return allApartmentSearcherUsersIds;
-    }
-    
 
 }

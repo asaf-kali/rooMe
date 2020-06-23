@@ -85,7 +85,7 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() { //todo being called when exiting app?
+    protected void onPause() {
         super.onPause();
         String rmtUid = MyPreferences.getUserUid(getApplicationContext());
         for (String listName : allLists.keySet()){
@@ -97,7 +97,7 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
     /**
      * updating the lists of the user ( according to prefs)
      */
-    private void updateUserLists() { //todo check if need to happend in the first time
+    private void updateUserLists() {
         ArrayList<String> updated_not_seen =
                 makeUniqueValuesList(allLists.get(ChoosingActivity.NOT_SEEN));
         allLists.put(ChoosingActivity.NOT_SEEN,updated_not_seen);
@@ -108,7 +108,7 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
     /**
      * deleting the values from the unseen list from the other list of the user
      */
-    private void deleteUnseenValuesFromAllLists() { // todo check if working
+    private void deleteUnseenValuesFromAllLists() {
         // when roommate side will be done
         for (String aptId : allLists.get(ChoosingActivity.NOT_SEEN))
         {
@@ -121,7 +121,7 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
     /**
      * deleting the values from the unseen list from the other list of the user
      */
-    private void deleteDeletedAptUsersFromAllLists() { // todo check if working
+    private void deleteDeletedAptUsersFromAllLists() {
         // when roommate side will be done
         for (String aptId : allLists.get(ChoosingActivity.DELETE_USERS))
         {
