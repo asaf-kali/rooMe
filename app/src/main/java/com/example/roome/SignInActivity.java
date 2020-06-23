@@ -1,7 +1,9 @@
 package com.example.roome;
 
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -175,8 +177,19 @@ public class SignInActivity extends AppCompatActivity implements
     }
 
     private void openErrorMsgDialog() {
-        MessageDialog errorMsgDialog = new MessageDialog();
-        errorMsgDialog.show(getSupportFragmentManager(), "what is this string?");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Error:")
+                .setMessage("Invalid input for first or last name.\n" +
+                        "Please enter English characters only.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private boolean credentialsValid(String name) {
