@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -22,7 +23,7 @@ import com.example.roome.MyPreferences;
 import com.example.roome.R;
 import com.example.roome.UsersImageConnector;
 import com.example.roome.user_classes.ApartmentSearcherUser;
-import com.example.roome.user_classes.RoommateBio;
+import com.example.roome.user_classes.RoommateAdditionalInfo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.lorenzos.flingswipe.SwipeFlingAdapterView;
@@ -43,10 +44,9 @@ public class RoommateSearcherHome extends Fragment {
 
     /* Views references */
     private ImageView trashCanImage;
-//    private TextView locationText;
-//    private TextView peopleText;
-//    private TextView priceText;
-//    private ImageView editFiltersImage; //todo delete
+    private TextView nameTxt;
+    private TextView ageTxt;
+
 
     /* For swipe */
     public static RoommateSearcherHome.MyAppAdapter myAppAdapter;
@@ -57,7 +57,7 @@ public class RoommateSearcherHome extends Fragment {
     private ArrayList<String> relevantApartmentSearchersIds;
     private ArrayList<Integer> temp_img;
     //    private EditFiltersApartmentSearcher editFiltersDialog; //todo delete
-    private RoommateBio bioDialog;
+    private RoommateAdditionalInfo bioDialog;
     public ApartmentSearcherUser currentApartmentSearcher;
 
 
@@ -85,7 +85,7 @@ public class RoommateSearcherHome extends Fragment {
         trashCanImage = getView().findViewById(R.id.iv_trash_can_RS);
 //        editFiltersImage = getView().findViewById(R.id.iv_edit_filters); //todo delete
 //        editFiltersDialog = new EditFiltersApartmentSearcher(); //todo delete
-        bioDialog = new RoommateBio();
+        bioDialog = new RoommateAdditionalInfo();
         setClickListeners();
 //        setFirebaseListeners();  //todo include this line
         retrieveRelevantApartmentSearchers();
@@ -103,25 +103,25 @@ public class RoommateSearcherHome extends Fragment {
         myAppAdapter = new MyAppAdapter(relevantApartmentSearchersIds);
         flingContainer.setAdapter(myAppAdapter);
         setOnFlingListener();
-//        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
-//            /**
-//             * This function is responsible for handling item click
-//             * @param itemPosition - the item position in the container
-//             * @param dataObject
-//             */
-//            @Override
-//            public void onItemClicked(int itemPosition, Object dataObject) {
-//                View view = flingContainer.getSelectedView();
-//                view.findViewById(R.id.fl_background_RS).setAlpha(0);
-//                myAppAdapter.notifyDataSetChanged();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("apartmentId",
-//                        relevantApartmentSearchersIds.get(itemPosition));
-//                bioDialog.setArguments(bundle);
-//                bioDialog.show(getFragmentManager(),
-//                        "bio"); // //roommate's bio
-//            }
-//        });
+        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
+            /**
+             * This function is responsible for handling item click
+             * @param itemPosition - the item position in the container
+             * @param dataObject
+             */
+            @Override
+            public void onItemClicked(int itemPosition, Object dataObject) {
+                View view = flingContainer.getSelectedView();
+                view.findViewById(R.id.fl_background_RS).setAlpha(0);
+                myAppAdapter.notifyDataSetChanged();
+                Bundle bundle = new Bundle();
+                bundle.putString("apartmentId",
+                        relevantApartmentSearchersIds.get(itemPosition));
+                bioDialog.setArguments(bundle);
+                bioDialog.show(getFragmentManager(),
+                        "bio"); // //roommate's bio
+            }
+        });
     }
 
     /**
@@ -425,15 +425,14 @@ public class RoommateSearcherHome extends Fragment {
                 //creating view holder for every roommate
                 currentApartmentSearcher =
                         FirebaseMediate.getApartmentSearcherUserByUid(relevantApartmentSearchersIds.get(position));
-//                peopleText = rowView.findViewById(R.id.tv_people);
-//                locationText = rowView.findViewById(R.id.tv_location);
-//                priceText = rowView.findViewById(R.id.tv_price);
-//                peopleText.setText(Integer.toString(currentApartmentSearcher.getApartment().getNumberOfRoommates()));
-//                locationText.setText(currentApartmentSearcher.getApartment().getNeighborhood());
-//                priceText.setText(Integer.toString((int) (currentApartmentSearcher.getApartment().getRent())));
                 viewHolder.background =
                         (FrameLayout) rowView.findViewById(R.id.fl_background_RS);
-                viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.iv_card_RS); //todo: new one
+                nameTxt = rowView.findViewById(R.id.tv_name);
+                ageTxt = rowView.findViewById(R.id.tv_age);
+                String fullName = currentApartmentSearcher.getFirstName()+ " " + currentApartmentSearcher.getLastName();
+                nameTxt.setText(fullName);
+                ageTxt.setText(Integer.toString(currentApartmentSearcher.getAge()));
+                viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.iv_card_RS);
                 rowView.setTag(viewHolder);
 
             } else {
