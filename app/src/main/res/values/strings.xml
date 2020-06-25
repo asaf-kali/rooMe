@@ -65,5 +65,6 @@
     <string name="number_of_roommates_in_apartment">number of roommates in apartment</string>
     <string name="no_more_potential_roommates_ntry_edit_your_apartment_details_nor_come_back_later">No more potential roommates..\ntry edit your apartment details\nor come back later</string>
     <string name="it_s_a_match_ngo_to_matches_tab_to_see_more">It\'s a match!\ngo to matches tab to see more</string>
+    <string name="delete_account"><u>Delete Account</u></string>
 
 </resources>
