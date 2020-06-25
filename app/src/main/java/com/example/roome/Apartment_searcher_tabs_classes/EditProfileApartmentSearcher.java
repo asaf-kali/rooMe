@@ -34,6 +34,7 @@ import com.example.roome.MainActivity;
 import com.example.roome.MainActivityRoommateSearcher;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
+import com.example.roome.SendEmailActivity;
 import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.example.roome.user_classes.User;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -207,7 +208,22 @@ public class EditProfileApartmentSearcher extends Fragment {
                 }
         });
         setInfo();
+        setContactUsButton();
         super.onActivityCreated(savedInstanceState);
+    }
+
+    /**
+     * Sets a "Contact Us" button which opens an email-sending activity
+     */
+    private void setContactUsButton() {
+        Button contactUsButton = getView().findViewById(R.id.contact_us_button);
+        contactUsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SendEmailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
