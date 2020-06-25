@@ -27,7 +27,6 @@
         android:id="@+id/sv_details"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_save_roommate_searcher_profile"
         app:layout_constraintHorizontal_bias="0.0"
@@ -365,7 +364,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/things_i_care_about"
+                android:text="Demands for potential roommates:"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -383,7 +382,6 @@
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_is_kosher_important_rm" />
-
 
 
             <ImageView
@@ -631,38 +629,44 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_photos"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="ADD PHOTO"
+                android:textColor="@color/peach"
+                android:theme="@style/Theme.MaterialComponents"
                 app:icon="@drawable/ic_add_black_24dp"
                 app:iconTint="@color/peach"
-                app:strokeColor="@android:color/darker_gray"
-                android:textColor="@color/peach"
-                app:rippleColor="@color/peach"
-                android:theme="@style/Theme.MaterialComponents"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                app:layout_constraintTop_toBottomOf="@+id/et_apartment_info" />
+                app:layout_constraintTop_toBottomOf="@+id/et_apartment_info"
+                app:rippleColor="@color/peach"
+                app:strokeColor="@android:color/darker_gray" />
 
             <View
-                style="@style/Divider.Horizontal"
                 android:id="@+id/divider_before_delete_rs"
+                style="@style/Divider.Horizontal"
                 android:layout_height="1dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="6dp"
-                app:layout_constraintStart_toStartOf="@+id/cl_details"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_add_photos" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_delete_rs_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Delete Account"
-                app:layout_constraintTop_toBottomOf="@+id/divider_before_delete_rs"
+                android:text="@string/delete_account"
+                android:theme="@style/Theme.MaterialComponents"
+                android:textColor="@color/gray"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/cl_details"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/divider_before_delete_rs" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
