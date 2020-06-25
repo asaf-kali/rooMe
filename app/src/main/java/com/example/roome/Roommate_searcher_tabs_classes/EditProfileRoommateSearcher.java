@@ -357,7 +357,9 @@ public class EditProfileRoommateSearcher extends Fragment {
                 case GALLERY_REQUEST_CODE:
                     apartmentImage = data.getData();
                     hasApartmentPic = true;
+                    ImageView questionImage = getView().findViewById(R.id.image_preview);;
                     FirebaseMediate.uploadPhotoToStorage(apartmentImage, EditProfileRoommateSearcher.this.getActivity(), getContext(), "Roommate Searcher User", "Apartment");
+                    questionImage.setImageURI(apartmentImage);
             }
     }
 

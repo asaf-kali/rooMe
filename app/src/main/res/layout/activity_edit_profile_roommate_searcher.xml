@@ -633,17 +633,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+
                 android:text="ADD PHOTO"
                 android:textColor="@color/peach"
                 android:theme="@style/Theme.MaterialComponents"
                 app:icon="@drawable/ic_add_black_24dp"
                 app:iconTint="@color/peach"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/divider_before_delete_rs"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_apartment_info"
                 app:rippleColor="@color/peach"
                 app:strokeColor="@android:color/darker_gray" />
+            <ImageView
+                android:id="@+id/image_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_photos"
+                app:layout_constraintBottom_toTopOf="@+id/divider_before_delete_rs"
+
+                />
 
             <View
                 android:id="@+id/divider_before_delete_rs"
@@ -654,7 +664,7 @@
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_add_photos" />
+                app:layout_constraintTop_toBottomOf="@+id/image_preview" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_delete_rs_user"
