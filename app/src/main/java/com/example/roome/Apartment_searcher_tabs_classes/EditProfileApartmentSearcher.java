@@ -154,9 +154,13 @@ public class EditProfileApartmentSearcher extends Fragment {
                     firebaseDatabaseReference.child("users").child("ApartmentSearcherUser").child(MyPreferences.getUserUid(getContext())).setValue(asUser);
                     Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
                 } else {
+                    StringBuilder wrongParams = returnWrongParams();
+
                     AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
                     dialog.setTitle("Oops!");
-                    dialog.setMessage("we can see that you have some unfilled or invalid fields. please take a look again before saving");
+                    dialog.setMessage("we can see that you the following fields are invalid:\n\n"
+                            +wrongParams
+                            +"Please take a look again before saving");
 
                     dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
@@ -208,6 +212,28 @@ public class EditProfileApartmentSearcher extends Fragment {
         });
         setInfo();
         super.onActivityCreated(savedInstanceState);
+    }
+
+    private StringBuilder returnWrongParams() {
+        StringBuilder wrongParams = new StringBuilder("");
+        if (!isUserFirstNameValid)
+        {
+            wrongParams.append("* First name is Invalid *\n");
+        }
+        if (!isUserLastNameValid)
+        {
+            wrongParams.append("* Last name is Invalid *\n");
+        }
+        if (!isUserAgeValid)
+        {
+            wrongParams.append("* Age is Invalid *\n");
+        }
+        if (!isUserPhoneValid)
+        {
+            wrongParams.append("* Phone is Invalid *\n");
+        }
+        wrongParams.append("\n");
+        return wrongParams;
     }
 
     /**
