@@ -95,6 +95,7 @@ public class FirebaseMediate {
             final ProgressDialog progressDialog = new ProgressDialog(activity);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
+            progressDialog.setCancelable(false);
             StorageReference ref = storageReference.child("Images").child(userType).
                     child(MyPreferences.getUserUid(context)).child(photoType);
             ref.putFile(selectedImage)
