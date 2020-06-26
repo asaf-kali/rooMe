@@ -5,7 +5,7 @@
     android:id="@+id/cl_roommate_set_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Roommate_searcher_tabs_classes.EditProfileRoommateSearcher">
+    tools:context=".fragments.rommate_search.EditProfileRoommateSearcher">
 
     <TextView
         android:id="@+id/tv_add_apartment_title"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_home_apt_background"
-    tools:context=".Roommate_searcher_tabs_classes.RoommateSearcherHome">
+    tools:context=".fragments.rommate_search.RoommateSearcherHome">
 
     <!-- activity view -->
 

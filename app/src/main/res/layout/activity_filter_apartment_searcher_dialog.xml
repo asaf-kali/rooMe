@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/common_google_signin_btn_text_dark_pressed"
     android:orientation="vertical"
-    tools:context=".Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher">
+    tools:context=".fragments.apartment_search.EditFiltersApartmentSearcher">
 
     <ImageView
         android:id="@+id/iv_profile_back_img3"

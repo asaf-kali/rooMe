@@ -5,7 +5,7 @@
     android:id="@+id/cl_edit_profile_apt_searcher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Apartment_searcher_tabs_classes.EditProfileApartmentSearcher">
+    tools:context=".fragments.apartment_search.EditProfileApartmentSearcher">
 
     <ScrollView
         android:id="@+id/sv_details"

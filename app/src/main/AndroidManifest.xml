@@ -16,25 +16,25 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:allowBackup,android:supportsRtl">
-        <activity android:name=".SendEmailActivity"></activity>
-        <activity android:name=".user_classes.RoommateAdditionalInfo" />
+        <activity android:name=".activities.SendEmailActivity"></activity>
+        <activity android:name=".models.RoommateAdditionalInfo" />
         <activity
-            android:name=".Apartment_searcher_tabs_classes.MatchesApartmentSearcher"
+            android:name=".fragments.apartment_search.MatchesApartmentSearcher"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivityRoommateSearcher"
+            android:name=".activities.MainActivityRoommateSearcher"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivityApartmentSearcher"
+            android:name=".activities.MainActivityApartmentSearcher"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".activities.SignInActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ChoosingActivity"
+            android:name=".activities.ChoosingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action
