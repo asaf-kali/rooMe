@@ -13,7 +13,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.roome.Apartment_searcher_tabs_classes.ApartmentSearcherHome;
-import com.example.roome.Apartment_searcher_tabs_classes.EditFiltersApartmentSearcher;
 import com.example.roome.Apartment_searcher_tabs_classes.EditProfileApartmentSearcher;
 import com.example.roome.Apartment_searcher_tabs_classes.MatchesApartmentSearcher;
 import com.example.roome.user_classes.ApartmentSearcherUser;
@@ -66,7 +65,6 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabaseReference = firebaseDatabase.getReference();
-
         aUser = getCurrentApartmentSearcherUser(); //todo we need this?
         allLists = new HashMap<>(); // local lists of the current user
         //initialize viewPager and tabs
