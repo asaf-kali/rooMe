@@ -26,6 +26,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/contact_us_button"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="4dp"
+                android:text="Contact us"
+                android:backgroundTint="@color/peach"
+                android:fontFamily="sans-serif"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_missingPhoto"
                 android:layout_width="151dp"
@@ -191,13 +204,14 @@
                 android:layout_width="320dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:height="45dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center|start|right|top"
                 android:orientation="horizontal"
                 android:paddingTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/tv_gender_label"
                 app:layout_constraintTop_toBottomOf="@+id/et_enter_age">
 
@@ -224,6 +238,18 @@
                     android:fontFamily="sans-serif"
                     android:paddingEnd="12dp"
                     android:text="@string/gentleman"
+                    android:textColor="@android:color/secondary_text_light"
+                    android:textColorLink="#4CAF50"
+                    android:textSize="20sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_btn_other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/peach"
+                    android:fontFamily="sans-serif"
+                    android:paddingEnd="12dp"
+                    android:text="Other"
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorLink="#4CAF50"
                     android:textSize="20sp" />
