@@ -43,7 +43,6 @@ public class EditFiltersRoommateSearcher extends Fragment {
 
     private RangeSeekBar ageRoommatesBar;
 
-    //todo:create onclick for the save button
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,8 +76,8 @@ public class EditFiltersRoommateSearcher extends Fragment {
         });
         //---------------------------------------------------------------------------
         //----------------------------location selection----------------------------
-        mChooseLocations = (Button) getView().findViewById(R.id.btn_choose_locations);
-        mChosenLocations = (TextView) getView().findViewById(R.id.tv_chosen_locations);
+        mChooseLocations = getView().findViewById(R.id.btn_choose_locations);
+        mChosenLocations = getView().findViewById(R.id.tv_chosen_locations);
 
         locations = getResources().getStringArray(R.array.locations);
         checkedLocations = new boolean[locations.length];

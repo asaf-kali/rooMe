@@ -75,7 +75,7 @@ public class ApartmentSearcherHome extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseReference = mFirebaseDatabase.getReference();
-        boolean isFirstTime = MyPreferences.isFirstTime(getContext()); // todo
+        boolean isFirstTime = MyPreferences.isFirstTime(getContext());
         //if we want to do something if its the first time?
         if (isFirstTime) {
             MyPreferences.setIsFirstTimeToFalse(getContext());
@@ -355,7 +355,7 @@ public class ApartmentSearcherHome extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        }); //todo maybe delete this
+        });
         firebaseDatabaseReference.child("preferences").child(
                 "ApartmentSearcherUser").child(getUserUid()).child(ChoosingActivity.NOT_SEEN).addValueEventListener(new ValueEventListener() {
             @Override
@@ -374,7 +374,7 @@ public class ApartmentSearcherHome extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });//todo maybe delete this
+        });
     }
 
     /**
